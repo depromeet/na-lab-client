@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prepare": "husky install",
+    "preinstall": "husky install",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"
   },
@@ -17,6 +20,8 @@
   },
   "packageManager": "yarn@3.5.0",
   "devDependencies": {
+    "@commitlint/cli": "^17.6.1",
+    "@commitlint/config-conventional": "^17.6.1",
     "@testing-library/react": "^14.0.0",
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
@@ -34,7 +39,9 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-testing-library": "^5.10.3",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.3",
     "jsdom": "^21.1.1",
+    "lint-staged": "^13.2.1",
     "prettier": "^2.8.7",
     "typescript": "5.0.4",
     "vite": "^4.2.1",
