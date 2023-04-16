@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
-    include: ['**/*.{test}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    include: ['**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     coverage: {
       enabled: true,
       provider: 'istanbul',
