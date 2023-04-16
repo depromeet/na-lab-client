@@ -99,6 +99,10 @@ jobs:
         if: github.event_name != 'push'
         run: yarn lint
 
+      - name: Check Stylelint
+        if: github.event_name != 'push'
+        run: yarn lint:style
+
       - name: Check Unit Test
         if: github.event_name != 'push'
         run: yarn test
