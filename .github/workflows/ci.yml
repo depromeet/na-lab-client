@@ -101,7 +101,7 @@ jobs:
 
       - name: Check Unit Test
         if: github.event_name != 'push'
-        run: yarn test:unit
+        run: yarn test
 
   job_codecov_test_coverage:
     name: Set codecov unit test coverage
