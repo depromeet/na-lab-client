@@ -14,8 +14,8 @@ style:
 
 'test: unit':
   - src/**/*.test.{js,jsx,ts,tsx}
-  - src/test/*
-  - src/test/**/*
+  - src/__test__/*
+  - src/__test__/**/*
 
 docs:
   - '*.md'
