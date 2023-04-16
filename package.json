@@ -11,7 +11,10 @@
     "lint": "next lint",
     "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "playwright:codegen": "playwright codegen",
+    "playwright:report": "playwright show-report"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -25,6 +28,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^17.6.1",
+    "@playwright/test": "^1.32.3",
     "@testing-library/react": "^14.0.0",
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
