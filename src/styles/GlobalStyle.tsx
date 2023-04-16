@@ -5,10 +5,11 @@ const globalStyles = css`
   ${emotionNormalize}
 
   * {
-    font-family: inherit;
     box-sizing: border-box !important;
     margin: 0;
     padding: 0;
+
+    font-family: inherit;
     word-break: keep-all;
     word-wrap: break-word;
   }
