@@ -1,0 +1,22 @@
+workflow:
+  - .github/workflows/*
+
+ci:
+  - .github/workflows/ci.yml
+
+style:
+  - src/styles/*
+  - src/styles/**/*
+
+'test: e2e':
+  - e2e/*
+  - e2e/**/*
+
+'test: unit':
+  - src/**/*.test.{js,jsx,ts,tsx}
+  - src/__test__/*
+  - src/__test__/**/*
+
+docs:
+  - '*.md'
+  - '**/*.md'
