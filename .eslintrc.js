@@ -29,10 +29,11 @@ module.exports = {
       'error',
       {
         groups: [
-          // react > next > @ > ~ > a~z
+          // react > next > @ > a~z
           ['^react$', '^next', '^@', '^[a-z]'],
-          // `../` > './'
+          // ~
           ['^~'],
+          // `../` > './'
           ['^\\.\\.(?!/?$)', '^\\.\\./?$', '^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
           // Side effect imports
           ['^\\u0000'],
@@ -71,6 +72,7 @@ module.exports = {
       },
     ],
 
+    'react/button-has-type': 'error',
     'react/jsx-no-useless-fragment': ['error', { allowExpressions: true }],
     'react/jsx-filename-extension': [
       'warn',
