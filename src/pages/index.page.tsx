@@ -5,7 +5,6 @@ export default function Home() {
 }
 
 const h1 = css`
-  /* NOTE: 순서 바꾸면 경고 뜨는 모습을 볼 수 있어요 > 저장하면 자동으로 정렬됩니다 */
   padding: 20px;
   color: red;
 `;
