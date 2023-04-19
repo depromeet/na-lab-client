@@ -26,3 +26,4 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           buildScriptName: sb:build
+          onlyChanged: true
