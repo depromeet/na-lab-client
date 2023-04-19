@@ -6,7 +6,7 @@
   "eslint.nodePath": ".yarn/sdks",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "stylelint.validate": ["css", "scss", "typescript", "typescriptreact"],
+  "stylelint.validate": ["css", "scss", "typescriptreact"],
   "stylelint.configFile": ".stylelintrc.json",
   "stylelint.packageManager": "yarn",
   "editor.codeActionsOnSave": {
