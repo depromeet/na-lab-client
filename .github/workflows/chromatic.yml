@@ -15,6 +15,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set node linker to nodeModules
+        run: yarn config set nodeLinker "node_modules"
+
       - name: Install dependencies
         run: yarn install --immutable
 
