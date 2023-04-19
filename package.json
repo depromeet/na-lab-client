@@ -17,7 +17,9 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "playwright:codegen": "playwright codegen",
-    "playwright:report": "playwright show-report"
+    "playwright:report": "playwright show-report",
+    "sb": "storybook dev -p 6006",
+    "sb:build": "storybook build"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -31,9 +33,17 @@
   },
   "packageManager": "yarn@3.5.0",
   "devDependencies": {
+    "@babel/core": "^7.21.4",
     "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^17.6.1",
     "@playwright/test": "^1.32.3",
+    "@storybook/addon-essentials": "^7.0.6",
+    "@storybook/addon-interactions": "^7.0.6",
+    "@storybook/addon-links": "^7.0.6",
+    "@storybook/blocks": "^7.0.6",
+    "@storybook/nextjs": "^7.0.6",
+    "@storybook/react": "^7.0.6",
+    "@storybook/testing-library": "^0.0.14-next.2",
     "@stylelint/postcss-css-in-js": "^0.38.0",
     "@tanstack/react-query-devtools": "^4.29.3",
     "@testing-library/react": "^14.0.0",
@@ -45,6 +55,7 @@
     "@typescript-eslint/parser": "^5.58.0",
     "@vitejs/plugin-react": "^3.1.0",
     "@vitest/coverage-istanbul": "^0.30.1",
+    "css-loader": "^6.7.3",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
     "eslint-config-prettier": "^8.8.0",
@@ -60,12 +71,16 @@
     "postcss": "^8.4.21",
     "postcss-syntax": "^0.36.2",
     "prettier": "^2.8.7",
+    "storybook": "^7.0.6",
+    "styled-jsx": "^5.1.2",
     "stylelint": "^15.5.0",
     "stylelint-config-clean-order": "^5.0.1",
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-standard": "^33.0.0",
     "typescript": "5.0.4",
+    "util": "^0.12.5",
     "vite": "^4.2.1",
-    "vitest": "^0.30.1"
+    "vitest": "^0.30.1",
+    "webpack": "^5.79.0"
   }
 }
