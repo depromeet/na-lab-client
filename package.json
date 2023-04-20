@@ -68,6 +68,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-storybook": "^0.6.11",
     "eslint-plugin-testing-library": "^5.10.3",
+    "eslint-plugin-unicorn": "^46.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.3",
     "jsdom": "^21.1.1",
