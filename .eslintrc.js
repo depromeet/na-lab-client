@@ -1,6 +1,6 @@
 module.exports = {
   ignorePatterns: ['.next/', 'node_modules/', '.pnp.cjs', '.pnp.loader.mjs', 'public', '.yarn', '@types'],
-  plugins: ['@typescript-eslint', 'simple-import-sort', 'unused-imports', 'testing-library'],
+  plugins: ['@typescript-eslint', 'simple-import-sort', 'unused-imports', 'testing-library', 'unicorn'],
   extends: [
     'next/core-web-vitals',
     'plugin:@typescript-eslint/recommended',
@@ -25,6 +25,15 @@ module.exports = {
 
     'prettier/prettier': 'error',
 
+    'unicorn/filename-case': [
+      'error',
+      {
+        cases: {
+          camelCase: true,
+          pascalCase: true,
+        },
+      },
+    ],
     'simple-import-sort/imports': [
       'error',
       {
