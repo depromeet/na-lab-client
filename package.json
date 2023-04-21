@@ -38,6 +38,7 @@
     "@tanstack/react-query-devtools": "^4.29.3",
     "@testing-library/react": "^14.0.0",
     "@types/axios": "^0.14.0",
+    "@types/gtag.js": "^0.0.12",
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
