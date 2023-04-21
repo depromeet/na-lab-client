@@ -6,6 +6,7 @@ import { ThemeProvider } from '@emotion/react';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { domMax, LazyMotion } from 'framer-motion';
+import mixpanel from 'mixpanel-browser';
 import { hotjar } from 'react-hotjar';
 
 import GlobalStyles from '~/styles/GlobalStyle';
@@ -15,6 +16,7 @@ import { isProd } from '~/utils/common';
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
 const HJID = process.env.NEXT_PUBLIC_HOTJAR_ID;
 const HJSV = process.env.NEXT_PUBLIC_HOTJAR_SV;
+const MIXPANEL_ID = process.env.NEXT_PUBLIC_MIXPANEL_ID;
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -30,6 +32,12 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
     if (isProd(process.env.NODE_ENV)) {
       hotjar.initialize(Number(HJID), Number(HJSV));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isProd(process.env.NODE_ENV)) {
+      mixpanel.init(MIXPANEL_ID ?? '', { debug: true });
     }
   }, []);
 

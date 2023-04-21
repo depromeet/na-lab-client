@@ -38,6 +38,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/react", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:14.0.0"],\
             ["@types/axios", "npm:0.14.0"],\
             ["@types/gtag.js", "npm:0.0.12"],\
+            ["@types/mixpanel-browser", "npm:2.38.1"],\
             ["@types/node", "npm:18.15.11"],\
             ["@types/react", "npm:18.0.35"],\
             ["@types/react-dom", "npm:18.0.11"],\
@@ -61,6 +62,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["husky", "npm:8.0.3"],\
             ["jsdom", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:21.1.1"],\
             ["lint-staged", "npm:13.2.1"],\
+            ["mixpanel-browser", "npm:2.46.0"],\
             ["next", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:13.3.0"],\
             ["postcss", "npm:8.4.21"],\
             ["postcss-syntax", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.36.2"],\
@@ -94,6 +96,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/react", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:14.0.0"],\
             ["@types/axios", "npm:0.14.0"],\
             ["@types/gtag.js", "npm:0.0.12"],\
+            ["@types/mixpanel-browser", "npm:2.38.1"],\
             ["@types/node", "npm:18.15.11"],\
             ["@types/react", "npm:18.0.35"],\
             ["@types/react-dom", "npm:18.0.11"],\
@@ -117,6 +120,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["husky", "npm:8.0.3"],\
             ["jsdom", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:21.1.1"],\
             ["lint-staged", "npm:13.2.1"],\
+            ["mixpanel-browser", "npm:2.46.0"],\
             ["next", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:13.3.0"],\
             ["postcss", "npm:8.4.21"],\
             ["postcss-syntax", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.36.2"],\
@@ -1798,6 +1802,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-minimist-npm-1.2.2-a445de65da-b8da83c66e.zip/node_modules/@types/minimist/",\
           "packageDependencies": [\
             ["@types/minimist", "npm:1.2.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/mixpanel-browser", [\
+        ["npm:2.38.1", {\
+          "packageLocation": "./.yarn/cache/@types-mixpanel-browser-npm-2.38.1-fa504735b5-ff32a3ca24.zip/node_modules/@types/mixpanel-browser/",\
+          "packageDependencies": [\
+            ["@types/mixpanel-browser", "npm:2.38.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6652,6 +6665,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["minizlib", "npm:2.1.2"],\
             ["minipass", "npm:3.3.6"],\
             ["yallist", "npm:4.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["mixpanel-browser", [\
+        ["npm:2.46.0", {\
+          "packageLocation": "./.yarn/cache/mixpanel-browser-npm-2.46.0-ba26397b08-0d10c67344.zip/node_modules/mixpanel-browser/",\
+          "packageDependencies": [\
+            ["mixpanel-browser", "npm:2.46.0"]\
           ],\
           "linkType": "HARD"\
         }]\
