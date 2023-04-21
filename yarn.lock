@@ -48,6 +48,7 @@ __metadata:
     prettier: ^2.8.7
     react: 18.2.0
     react-dom: 18.2.0
+    react-hotjar: ^6.1.0
     stylelint: ^15.5.0
     stylelint-config-clean-order: ^5.0.1
     stylelint-config-prettier: ^9.0.5
@@ -6203,6 +6204,13 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+  languageName: node
+  linkType: hard
+
+"react-hotjar@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "react-hotjar@npm:6.1.0"
+  checksum: 555600eb277a08ba01268b42d9552a44014fad4fcc5db37229657d386673f0399e9b7e1fb25bf287afeec09ee8f2546def374f448ca68ae23745f4ace03d5e3a
   languageName: node
   linkType: hard
 
