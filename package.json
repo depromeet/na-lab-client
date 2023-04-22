@@ -51,6 +51,7 @@
     "@stylelint/postcss-css-in-js": "^0.38.0",
     "@tanstack/react-query-devtools": "^4.29.3",
     "@testing-library/react": "^14.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
     "@types/axios": "^0.14.0",
     "@types/gtag.js": "^0.0.12",
     "@types/mixpanel-browser": "^2.38.1",
