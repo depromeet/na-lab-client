@@ -1,11 +1,23 @@
-import { type ReactElement } from 'react';
+import { useEffect } from 'react';
 import Script from 'next/script';
+import mixpanel from 'mixpanel-browser';
+import { hotjar } from 'react-hotjar';
 
 import { isProd } from '~/utils/common';
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
+const MIXPANEL_ID = process.env.NEXT_PUBLIC_MIXPANEL_ID;
+const HJID = process.env.NEXT_PUBLIC_HOTJAR_ID;
+const HJSV = process.env.NEXT_PUBLIC_HOTJAR_SV;
 
-const GoogleAnalyticsProvider = ({ children }: { children: ReactElement }) => {
+const MonitoringInitializer = () => {
+  useEffect(() => {
+    if (isProd(process.env.NODE_ENV)) {
+      mixpanel.init(MIXPANEL_ID ?? '', { debug: true });
+      hotjar.initialize(Number(HJID), Number(HJSV));
+    }
+  }, []);
+
   return (
     <>
       {isProd(process.env.NODE_ENV) && (
@@ -27,9 +39,8 @@ const GoogleAnalyticsProvider = ({ children }: { children: ReactElement }) => {
           />
         </>
       )}
-      {children}
     </>
   );
 };
 
-export default GoogleAnalyticsProvider;
+export default MonitoringInitializer;
