@@ -37,6 +37,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tanstack/react-query-devtools", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:4.29.3"],\
             ["@testing-library/react", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:14.0.0"],\
             ["@types/axios", "npm:0.14.0"],\
+            ["@types/gtag.js", "npm:0.0.12"],\
+            ["@types/mixpanel-browser", "npm:2.38.1"],\
             ["@types/node", "npm:18.15.11"],\
             ["@types/react", "npm:18.0.35"],\
             ["@types/react-dom", "npm:18.0.11"],\
@@ -60,12 +62,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["husky", "npm:8.0.3"],\
             ["jsdom", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:21.1.1"],\
             ["lint-staged", "npm:13.2.1"],\
+            ["mixpanel-browser", "npm:2.46.0"],\
             ["next", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:13.3.0"],\
             ["postcss", "npm:8.4.21"],\
             ["postcss-syntax", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.36.2"],\
             ["prettier", "npm:2.8.7"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:18.2.0"],\
+            ["react-hotjar", "npm:6.1.0"],\
             ["stylelint", "npm:15.5.0"],\
             ["stylelint-config-clean-order", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:5.0.1"],\
             ["stylelint-config-prettier", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:9.0.5"],\
@@ -91,6 +95,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tanstack/react-query-devtools", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:4.29.3"],\
             ["@testing-library/react", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:14.0.0"],\
             ["@types/axios", "npm:0.14.0"],\
+            ["@types/gtag.js", "npm:0.0.12"],\
+            ["@types/mixpanel-browser", "npm:2.38.1"],\
             ["@types/node", "npm:18.15.11"],\
             ["@types/react", "npm:18.0.35"],\
             ["@types/react-dom", "npm:18.0.11"],\
@@ -114,12 +120,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["husky", "npm:8.0.3"],\
             ["jsdom", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:21.1.1"],\
             ["lint-staged", "npm:13.2.1"],\
+            ["mixpanel-browser", "npm:2.46.0"],\
             ["next", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:13.3.0"],\
             ["postcss", "npm:8.4.21"],\
             ["postcss-syntax", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.36.2"],\
             ["prettier", "npm:2.8.7"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:18.2.0"],\
+            ["react-hotjar", "npm:6.1.0"],\
             ["stylelint", "npm:15.5.0"],\
             ["stylelint-config-clean-order", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:5.0.1"],\
             ["stylelint-config-prettier", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:9.0.5"],\
@@ -1762,6 +1770,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/gtag.js", [\
+        ["npm:0.0.12", {\
+          "packageLocation": "./.yarn/cache/@types-gtag.js-npm-0.0.12-6390d727c7-34efc27fbf.zip/node_modules/@types/gtag.js/",\
+          "packageDependencies": [\
+            ["@types/gtag.js", "npm:0.0.12"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/json-schema", [\
         ["npm:7.0.11", {\
           "packageLocation": "./.yarn/cache/@types-json-schema-npm-7.0.11-79462ae5ca-527bddfe62.zip/node_modules/@types/json-schema/",\
@@ -1785,6 +1802,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-minimist-npm-1.2.2-a445de65da-b8da83c66e.zip/node_modules/@types/minimist/",\
           "packageDependencies": [\
             ["@types/minimist", "npm:1.2.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/mixpanel-browser", [\
+        ["npm:2.38.1", {\
+          "packageLocation": "./.yarn/cache/@types-mixpanel-browser-npm-2.38.1-fa504735b5-ff32a3ca24.zip/node_modules/@types/mixpanel-browser/",\
+          "packageDependencies": [\
+            ["@types/mixpanel-browser", "npm:2.38.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6643,6 +6669,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["mixpanel-browser", [\
+        ["npm:2.46.0", {\
+          "packageLocation": "./.yarn/cache/mixpanel-browser-npm-2.46.0-ba26397b08-0d10c67344.zip/node_modules/mixpanel-browser/",\
+          "packageDependencies": [\
+            ["mixpanel-browser", "npm:2.46.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["mkdirp", [\
         ["npm:1.0.4", {\
           "packageLocation": "./.yarn/cache/mkdirp-npm-1.0.4-37f6ef56b9-a96865108c.zip/node_modules/mkdirp/",\
@@ -7605,6 +7640,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@types/react",\
             "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-hotjar", [\
+        ["npm:6.1.0", {\
+          "packageLocation": "./.yarn/cache/react-hotjar-npm-6.1.0-6e4f496fde-555600eb27.zip/node_modules/react-hotjar/",\
+          "packageDependencies": [\
+            ["react-hotjar", "npm:6.1.0"]\
           ],\
           "linkType": "HARD"\
         }]\

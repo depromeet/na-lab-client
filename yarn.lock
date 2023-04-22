@@ -18,6 +18,8 @@ __metadata:
     "@tanstack/react-query-devtools": ^4.29.3
     "@testing-library/react": ^14.0.0
     "@types/axios": ^0.14.0
+    "@types/gtag.js": ^0.0.12
+    "@types/mixpanel-browser": ^2.38.1
     "@types/node": 18.15.11
     "@types/react": 18.0.35
     "@types/react-dom": 18.0.11
@@ -41,12 +43,14 @@ __metadata:
     husky: ^8.0.3
     jsdom: ^21.1.1
     lint-staged: ^13.2.1
+    mixpanel-browser: ^2.46.0
     next: 13.3.0
     postcss: ^8.4.21
     postcss-syntax: ^0.36.2
     prettier: ^2.8.7
     react: 18.2.0
     react-dom: 18.2.0
+    react-hotjar: ^6.1.0
     stylelint: ^15.5.0
     stylelint-config-clean-order: ^5.0.1
     stylelint-config-prettier: ^9.0.5
@@ -1338,6 +1342,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/gtag.js@npm:^0.0.12":
+  version: 0.0.12
+  resolution: "@types/gtag.js@npm:0.0.12"
+  checksum: 34efc27fbfd0013255b8bfd4af38ded9d5a6ba761130c76f17fd3a9585d83acc88d8005aab667cfec4bdec0e7c7217f689739799a8f61aed0edb929be58b162e
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.9":
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
@@ -1356,6 +1367,13 @@ __metadata:
   version: 1.2.2
   resolution: "@types/minimist@npm:1.2.2"
   checksum: b8da83c66eb4aac0440e64674b19564d9d86c80ae273144db9681e5eeff66f238ade9515f5006ffbfa955ceff8b89ad2bd8ec577d7caee74ba101431fb07045d
+  languageName: node
+  linkType: hard
+
+"@types/mixpanel-browser@npm:^2.38.1":
+  version: 2.38.1
+  resolution: "@types/mixpanel-browser@npm:2.38.1"
+  checksum: ff32a3ca24d62a7e71d68f943b15e825899627c94b107df99196ed12321f9f3eaa4c717fed900627e1d377e3e5b44cffa503317ac0f6f9b89eb906dddc1aebbb
   languageName: node
   linkType: hard
 
@@ -5406,6 +5424,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mixpanel-browser@npm:^2.46.0":
+  version: 2.46.0
+  resolution: "mixpanel-browser@npm:2.46.0"
+  checksum: 0d10c673443e795b6a3ff40064fb4aa6f7471c553262a8fe70bcb0f0d15125ee60a0515e8e011db8b108ea349c5702e25ba899a592a6c9277d718d4a095e9ce1
+  languageName: node
+  linkType: hard
+
 "mkdirp@npm:^1.0.3, mkdirp@npm:^1.0.4":
   version: 1.0.4
   resolution: "mkdirp@npm:1.0.4"
@@ -6195,6 +6220,13 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+  languageName: node
+  linkType: hard
+
+"react-hotjar@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "react-hotjar@npm:6.1.0"
+  checksum: 555600eb277a08ba01268b42d9552a44014fad4fcc5db37229657d386673f0399e9b7e1fb25bf287afeec09ee8f2546def374f448ca68ae23745f4ace03d5e3a
   languageName: node
   linkType: hard
 

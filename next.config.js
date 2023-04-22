@@ -12,6 +12,7 @@ const nextConfig = {
   compiler: {
     emotion: true,
   },
+  transpilePackages: ['react-hotjar'],
 };
 
 module.exports = nextConfig;
