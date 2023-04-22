@@ -15,6 +15,7 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
+  transpilePackages: ['react-hotjar'],
 };
 
 module.exports = nextConfig;

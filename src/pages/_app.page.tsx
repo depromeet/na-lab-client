@@ -6,6 +6,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { domMax, LazyMotion } from 'framer-motion';
 
+import MonitoringInitializer from '~/components/MonitoringInitializer';
 import GlobalStyles from '~/styles/GlobalStyle';
 import theme from '~/styles/theme';
 
@@ -33,16 +34,19 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <ThemeProvider theme={theme}>
-          <LazyMotion features={domMax}>
-            <GlobalStyles />
-            {getLayout(<Component {...pageProps} />)}
-          </LazyMotion>
-        </ThemeProvider>
-        <ReactQueryDevtools />
-      </Hydrate>
-    </QueryClientProvider>
+    <>
+      <MonitoringInitializer />
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <ThemeProvider theme={theme}>
+            <LazyMotion features={domMax}>
+              <GlobalStyles />
+              {getLayout(<Component {...pageProps} />)}
+            </LazyMotion>
+          </ThemeProvider>
+          <ReactQueryDevtools />
+        </Hydrate>
+      </QueryClientProvider>
+    </>
   );
 }
