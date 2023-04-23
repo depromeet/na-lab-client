@@ -1,6 +1,11 @@
+const { version } = require('./package.json');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  env: {
+    WEB_VERSION: version,
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
