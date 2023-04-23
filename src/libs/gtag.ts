@@ -10,7 +10,7 @@ interface GTagEvent {
   action: string;
   category?: string;
   label?: string;
-  value?: number;
+  value?: string;
 }
 
 export const event = ({ action, category, label, value }: GTagEvent) => {
