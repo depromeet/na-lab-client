@@ -16,6 +16,8 @@ const instance = axios.create({
   timeout: 15000,
 });
 
+// TODO: 로그인 방법에 따라 헤더 변경 함수 필요할 수 있음
+
 // Response interceptor
 const interceptorResponseFulfilled = (res: AxiosResponse) => {
   if (200 <= res.status && res.status < 300) {
