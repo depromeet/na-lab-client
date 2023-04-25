@@ -1,9 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { version } = require('./package.json');
 const { withSentryConfig } = require('@sentry/nextjs');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  env: {
+    WEB_VERSION: version,
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },

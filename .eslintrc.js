@@ -16,6 +16,14 @@ module.exports = {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
   },
+  overrides: [
+    {
+      files: ['*.config.js'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+      },
+    },
+  ],
   rules: {
     'import/order': 'off',
     'consistent-return': 'off',

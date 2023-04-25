@@ -1,17 +1,17 @@
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
 
 export const pageview = (url: URL) => {
-  window.gtag('config', GA_TRACKING_ID as string, {
+  window.gtag('config', GA_TRACKING_ID, {
     page_path: url,
   });
 };
 
-type GTagEvent = {
+interface GTagEvent {
   action: string;
-  category: string;
-  label: string;
-  value: number;
-};
+  category?: string;
+  label?: string;
+  value?: string;
+}
 
 export const event = ({ action, category, label, value }: GTagEvent) => {
   window.gtag('event', action, {
