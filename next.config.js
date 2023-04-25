@@ -9,7 +9,6 @@ const nextConfig = {
   },
   experimental: {
     appDir: false,
-    esmExternals: true,
   },
   pageExtensions: ['page.tsx'],
   swcMinify: true,
