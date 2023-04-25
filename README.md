@@ -1,1 +1,3 @@
 # 13th 3team client
+
+[![codecov](https://codecov.io/gh/depromeet/13th-3team-client/branch/main/graph/badge.svg?token=3PSF7HIYSW)](https://codecov.io/gh/depromeet/13th-3team-client) [![CI](https://github.com/depromeet/13th-3team-client/actions/workflows/ci.yml/badge.svg)](https://github.com/depromeet/13th-3team-client/actions/workflows/ci.yml) [![CodeQL](https://github.com/depromeet/13th-3team-client/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/depromeet/13th-3team-client/actions/workflows/github-code-scanning/codeql) [![Chromatic](https://github.com/depromeet/13th-3team-client/actions/workflows/chromatic.yml/badge.svg)](https://github.com/depromeet/13th-3team-client/actions/workflows/chromatic.yml)
