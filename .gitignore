@@ -24,6 +24,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# env
+.env
+
 # local env files
 .env*.local
 .env
@@ -38,6 +41,10 @@ next-env.d.ts
 /playwright-report/
 /playwright/.cache/
 
+# storybook
+storybook-static
+build-storybook.log
+
 # used Zero-Install
 .yarn/*
 !.yarn/cache
@@ -46,3 +53,4 @@ next-env.d.ts
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+

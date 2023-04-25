@@ -9,6 +9,7 @@ const nextConfig = {
   },
   experimental: {
     appDir: false,
+    forceSwcTransforms: true,
   },
   pageExtensions: ['page.tsx'],
   swcMinify: true,
@@ -18,6 +19,7 @@ const nextConfig = {
   sentry: {
     hideSourceMaps: true,
   },
+  transpilePackages: ['react-hotjar'],
 };
 
 const sentryWebpackPluginOptions = {
