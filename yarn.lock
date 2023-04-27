@@ -60,6 +60,7 @@ __metadata:
     lint-staged: ^13.2.1
     mixpanel-browser: ^2.46.0
     next: 13.3.0
+    next-router-mock: ^0.9.3
     postcss: ^8.4.21
     postcss-syntax: ^0.36.2
     prettier: ^2.8.7
@@ -11646,6 +11647,16 @@ __metadata:
   version: 2.6.2
   resolution: "neo-async@npm:2.6.2"
   checksum: deac9f8d00eda7b2e5cd1b2549e26e10a0faa70adaa6fdadca701cc55f49ee9018e427f424bac0c790b7c7e2d3068db97f3093f1093975f2acb8f8818b936ed9
+  languageName: node
+  linkType: hard
+
+"next-router-mock@npm:^0.9.3":
+  version: 0.9.3
+  resolution: "next-router-mock@npm:0.9.3"
+  peerDependencies:
+    next: ">=10.0.0"
+    react: ">=17.0.0"
+  checksum: 5e8a6ffd5517e896711af2bc009414ad3f68cb89ccc3d483bd03e818876d9bc95a2fc80d14db67e90f1ea26a39853ddd5b4902cb40398b51bef749b98b9ec38f
   languageName: node
   linkType: hard
 
