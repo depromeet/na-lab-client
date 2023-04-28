@@ -21,7 +21,19 @@
     "playwright:codegen": "playwright codegen",
     "playwright:report": "playwright show-report",
     "sb": "storybook dev -p 6006",
-    "sb:build": "storybook build"
+    "sb:build": "storybook build",
+    "type:coverage": "typescript-coverage-report"
+  },
+  "typeCoverage": {
+    "cache": true,
+    "ignoreFiles": [
+      "**/*.config.ts",
+      "**/*.config.js",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
+    ]
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -90,6 +102,7 @@
     "stylelint-config-standard": "^33.0.0",
     "type-coverage": "^2.25.0",
     "typescript": "5.0.4",
+    "typescript-coverage-report": "^0.7.0",
     "util": "^0.12.5",
     "vite": "^4.2.1",
     "vitest": "^0.30.1",
