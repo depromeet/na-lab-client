@@ -51,6 +51,7 @@
   "packageManager": "yarn@3.5.0",
   "devDependencies": {
     "@babel/core": "^7.21.4",
+    "@codechecks/client": "^0.1.12",
     "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^17.6.1",
     "@playwright/test": "^1.32.3",
