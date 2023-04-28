@@ -71,6 +71,7 @@ __metadata:
     stylelint-config-prettier: ^9.0.5
     stylelint-config-standard: ^33.0.0
     type-coverage: ^2.25.0
+    typecov: ^0.2.3
     typescript: 5.0.4
     typescript-coverage-report: ^0.7.0
     util: ^0.12.5
@@ -10966,7 +10967,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.15, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
+"lodash@npm:^4.17.11, lodash@npm:^4.17.15, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -15105,7 +15106,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-coverage-core@npm:^2.23.0, type-coverage-core@npm:^2.25.0":
+"type-coverage-core@npm:^2.2.0, type-coverage-core@npm:^2.23.0, type-coverage-core@npm:^2.25.0":
   version: 2.25.0
   resolution: "type-coverage-core@npm:2.25.0"
   dependencies:
@@ -15202,6 +15203,18 @@ __metadata:
     media-typer: 0.3.0
     mime-types: ~2.1.24
   checksum: 2c8e47675d55f8b4e404bcf529abdf5036c537a04c2b20177bcf78c9e3c1da69da3942b1346e6edb09e823228c0ee656ef0e033765ec39a70d496ef601a0c657
+  languageName: node
+  linkType: hard
+
+"typecov@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "typecov@npm:0.2.3"
+  dependencies:
+    lodash: ^4.17.11
+    type-coverage-core: ^2.2.0
+  peerDependencies:
+    "@codechecks/client": ^0.1.0
+  checksum: 9b7ad39d87bae6267e589f9bcc83162bd7189bdf5f5eaaf4f714366452298a885c35328a9310cf0d8b16eccd07ac8f2c64d2c06a456eaa3f7007172e62f999a9
   languageName: node
   linkType: hard
 

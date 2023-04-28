@@ -90,6 +90,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["stylelint-config-prettier", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:9.0.5"],\
             ["stylelint-config-standard", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:33.0.0"],\
             ["type-coverage", "npm:2.25.0"],\
+            ["typecov", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.2.3"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=85af82"],\
             ["typescript-coverage-report", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.7.0"],\
             ["util", "npm:0.12.5"],\
@@ -167,6 +168,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["stylelint-config-prettier", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:9.0.5"],\
             ["stylelint-config-standard", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:33.0.0"],\
             ["type-coverage", "npm:2.25.0"],\
+            ["typecov", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.2.3"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=85af82"],\
             ["typescript-coverage-report", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.7.0"],\
             ["util", "npm:0.12.5"],\
@@ -19442,6 +19444,30 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["type-is", "npm:1.6.18"],\
             ["media-typer", "npm:0.3.0"],\
             ["mime-types", "npm:2.1.35"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["typecov", [\
+        ["npm:0.2.3", {\
+          "packageLocation": "./.yarn/cache/typecov-npm-0.2.3-25650de371-9b7ad39d87.zip/node_modules/typecov/",\
+          "packageDependencies": [\
+            ["typecov", "npm:0.2.3"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.2.3", {\
+          "packageLocation": "./.yarn/__virtual__/typecov-virtual-6f68efbd43/0/cache/typecov-npm-0.2.3-25650de371-9b7ad39d87.zip/node_modules/typecov/",\
+          "packageDependencies": [\
+            ["typecov", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.2.3"],\
+            ["@codechecks/client", null],\
+            ["@types/codechecks__client", null],\
+            ["lodash", "npm:4.17.21"],\
+            ["type-coverage-core", "virtual:4cb540825ad92edbe1495a7abe38293cc71d6aa441dcceec5275fea8112212eda37a017cba433d460cc8339b39d034d0b86e9835d273f010aa7a4a0a8698a661#npm:2.25.0"]\
+          ],\
+          "packagePeers": [\
+            "@codechecks/client",\
+            "@types/codechecks__client"\
           ],\
           "linkType": "HARD"\
         }]\

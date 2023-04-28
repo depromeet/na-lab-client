@@ -101,6 +101,7 @@
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-standard": "^33.0.0",
     "type-coverage": "^2.25.0",
+    "typecov": "^0.2.3",
     "typescript": "5.0.4",
     "typescript-coverage-report": "^0.7.0",
     "util": "^0.12.5",
