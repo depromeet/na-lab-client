@@ -70,6 +70,7 @@ __metadata:
     stylelint-config-clean-order: ^5.0.1
     stylelint-config-prettier: ^9.0.5
     stylelint-config-standard: ^33.0.0
+    type-coverage: ^2.25.0
     typescript: 5.0.4
     util: ^0.12.5
     vite: ^4.2.1
@@ -8341,7 +8342,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.2.11, fast-glob@npm:^3.2.12, fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.9":
+"fast-glob@npm:3, fast-glob@npm:^3.2.11, fast-glob@npm:^3.2.12, fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.9":
   version: 3.2.12
   resolution: "fast-glob@npm:3.2.12"
   dependencies:
@@ -11275,6 +11276,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimatch@npm:3 || 4 || 5 || 6 || 7":
+  version: 7.4.6
+  resolution: "minimatch@npm:7.4.6"
+  dependencies:
+    brace-expansion: ^2.0.1
+  checksum: 1a6c8d22618df9d2a88aabeef1de5622eb7b558e9f8010be791cb6b0fa6e102d39b11c28d75b855a1e377b12edc7db8ff12a99c20353441caa6a05e78deb5da9
+  languageName: node
+  linkType: hard
+
 "minimatch@npm:^3.0.2, minimatch@npm:^3.0.4, minimatch@npm:^3.0.5, minimatch@npm:^3.1.1, minimatch@npm:^3.1.2":
   version: 3.1.2
   resolution: "minimatch@npm:3.1.2"
@@ -11304,7 +11314,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:^1.2.0, minimist@npm:^1.2.5, minimist@npm:^1.2.6":
+"minimist@npm:1, minimist@npm:^1.2.0, minimist@npm:^1.2.5, minimist@npm:^1.2.6":
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
   checksum: 75a6d645fb122dad29c06a7597bddea977258957ed88d7a6df59b5cd3fe4a527e253e9bbf2e783e4b73657f9098b96a5fe96ab8a113655d4109108577ecf85b0
@@ -11692,7 +11702,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"normalize-path@npm:^3.0.0, normalize-path@npm:~3.0.0":
+"normalize-path@npm:3, normalize-path@npm:^3.0.0, normalize-path@npm:~3.0.0":
   version: 3.0.0
   resolution: "normalize-path@npm:3.0.0"
   checksum: 88eeb4da891e10b1318c4b2476b6e2ecbeb5ff97d946815ffea7794c31a89017c70d7f34b3c2ebf23ef4e9fc9fb99f7dffe36da22011b5b5c6ffa34f4873ec20
@@ -14845,6 +14855,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:1 || 2, tslib@npm:^2, tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "tslib@npm:2.5.0"
+  checksum: ae3ed5f9ce29932d049908ebfdf21b3a003a85653a9a140d614da6b767a93ef94f460e52c3d787f0e4f383546981713f165037dc2274df212ea9f8a4541004e1
+  languageName: node
+  linkType: hard
+
 "tslib@npm:^1.13.0, tslib@npm:^1.8.1, tslib@npm:^1.9.3":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
@@ -14852,14 +14869,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2, tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.5.0":
-  version: 2.5.0
-  resolution: "tslib@npm:2.5.0"
-  checksum: ae3ed5f9ce29932d049908ebfdf21b3a003a85653a9a140d614da6b767a93ef94f460e52c3d787f0e4f383546981713f165037dc2274df212ea9f8a4541004e1
-  languageName: node
-  linkType: hard
-
-"tsutils@npm:^3.21.0":
+"tsutils@npm:3, tsutils@npm:^3.21.0":
   version: 3.21.0
   resolution: "tsutils@npm:3.21.0"
   dependencies:
@@ -14892,6 +14902,33 @@ __metadata:
   dependencies:
     prelude-ls: ~1.1.2
   checksum: dd3b1495642731bc0e1fc40abe5e977e0263005551ac83342ecb6f4f89551d106b368ec32ad3fb2da19b3bd7b2d1f64330da2ea9176d8ddbfe389fb286eb5124
+  languageName: node
+  linkType: hard
+
+"type-coverage-core@npm:^2.25.0":
+  version: 2.25.0
+  resolution: "type-coverage-core@npm:2.25.0"
+  dependencies:
+    fast-glob: 3
+    minimatch: 3 || 4 || 5 || 6 || 7
+    normalize-path: 3
+    tslib: 1 || 2
+    tsutils: 3
+  peerDependencies:
+    typescript: 2 || 3 || 4 || 5
+  checksum: 021511226afaf0921970ae69d13d66c8bc9ec8e48deedc1327eeee00a9890e278702cb1b259d4d60a579ed7007511055c47255bd2c4664fe9ea01a4750737c82
+  languageName: node
+  linkType: hard
+
+"type-coverage@npm:^2.25.0":
+  version: 2.25.0
+  resolution: "type-coverage@npm:2.25.0"
+  dependencies:
+    minimist: 1
+    type-coverage-core: ^2.25.0
+  bin:
+    type-coverage: bin/type-coverage
+  checksum: f9b88254e2b0b4ac96b8e709bf3482535d78974bd83b10495cab6d2e255ed9ad1adb09078f4f9a15bd105ee8966003abcc6fc48c65dd620d2121d5c4369fdb2d
   languageName: node
   linkType: hard
 
