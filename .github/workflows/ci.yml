@@ -109,7 +109,6 @@ jobs:
 
       - name: Run codechecks
         if: github.event_name != 'push'
-        env: ${{ secrets.CC_SECRET }}
         run: yarn codechecks
 
   job_codecov_test_coverage:
