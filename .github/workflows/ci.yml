@@ -110,6 +110,8 @@ jobs:
       - name: Run codechecks
         if: github.event_name != 'push'
         run: yarn codechecks
+        with:
+          CC_SECRET: ${{ secrets.CC_SECRET }}
 
   job_codecov_test_coverage:
     name: Set codecov unit test coverage
