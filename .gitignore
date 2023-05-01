@@ -41,6 +41,10 @@ next-env.d.ts
 /playwright-report/
 /playwright/.cache/
 
+# typescript coverage
+.type-coverage
+coverage-ts
+
 # storybook
 storybook-static
 build-storybook.log
