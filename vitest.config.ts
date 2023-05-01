@@ -12,6 +12,7 @@ export default defineConfig({
       provider: 'istanbul',
       reporter: ['text', 'json', 'html'],
     },
+    setupFiles: './vitest.setup.ts',
   },
   resolve: {
     alias: {
