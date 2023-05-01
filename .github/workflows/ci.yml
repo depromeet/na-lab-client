@@ -107,6 +107,10 @@ jobs:
         if: github.event_name != 'push'
         run: yarn test
 
+      - name: Run codechecks
+        if: github.event_name != 'push'
+        run: yarn codechecks
+
   job_codecov_test_coverage:
     name: Set codecov unit test coverage
     runs-on: ubuntu-latest
