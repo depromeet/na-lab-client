@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "author": {
-    "name": "depromeet-13th-3team"
+    "name": "na-lab"
   },
   "scripts": {
     "prepare": "husky install",
