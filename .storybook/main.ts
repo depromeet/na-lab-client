@@ -18,6 +18,10 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
+  babel: async (options) => {
+    options.presets!.push('@emotion/babel-preset-css-prop');
+    return options;
+  },
 };
 
 export default config;
