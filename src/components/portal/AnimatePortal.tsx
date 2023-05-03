@@ -8,7 +8,7 @@ interface Props extends ComponentProps<typeof Portal> {
   mode?: ComponentProps<typeof AnimatePresence>['mode'];
 }
 
-const AnimatedPortal = ({ children, isShowing, mode = 'wait' }: Props) => {
+const AnimatePortal = ({ children, isShowing, mode = 'wait' }: Props) => {
   return (
     <Portal>
       <AnimatePresence mode={mode}>{isShowing && children}</AnimatePresence>
@@ -16,4 +16,4 @@ const AnimatedPortal = ({ children, isShowing, mode = 'wait' }: Props) => {
   );
 };
 
-export default AnimatedPortal;
+export default AnimatePortal;
