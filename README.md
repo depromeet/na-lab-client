@@ -1,3 +1,3 @@
-# 13th 3team client
+# Na lab client
 
 [![codecov](https://codecov.io/gh/depromeet/na-lab-client/branch/main/graph/badge.svg?token=3PSF7HIYSW)](https://codecov.io/gh/depromeet/na-lab-client) [![CI](https://github.com/depromeet/na-lab-client/actions/workflows/ci.yml/badge.svg)](https://github.com/depromeet/na-lab-client/actions/workflows/ci.yml) [![CodeQL](https://github.com/depromeet/na-lab-client/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/depromeet/na-lab-client/actions/workflows/github-code-scanning/codeql) [![Chromatic](https://github.com/depromeet/na-lab-client/actions/workflows/chromatic.yml/badge.svg)](https://github.com/depromeet/na-lab-client/actions/workflows/chromatic.yml)
