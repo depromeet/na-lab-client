@@ -1,7 +1,7 @@
 import { type ReactElement, type ReactNode, useState } from 'react';
 import { type NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import { css, type Theme, ThemeProvider } from '@emotion/react';
+import { ThemeProvider } from '@emotion/react';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { domMax, LazyMotion } from 'framer-motion';
@@ -41,7 +41,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           <ThemeProvider theme={defaultTheme}>
             <LazyMotion features={domMax}>
               <GlobalStyles />
-              <div css={defaultLayoutCss}>{getLayout(<Component {...pageProps} />)}</div>
+              {getLayout(<Component {...pageProps} />)}
             </LazyMotion>
           </ThemeProvider>
           <ReactQueryDevtools />
@@ -50,10 +50,3 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     </>
   );
 }
-
-const defaultLayoutCss = (theme: Theme) => css`
-  width: 100%;
-  max-width: ${theme.size.maxWidth};
-  min-height: 100vh;
-  margin: 0 auto;
-`;
