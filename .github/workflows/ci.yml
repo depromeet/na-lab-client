@@ -76,6 +76,30 @@ jobs:
     outputs:
       dependency_cache_key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
 
+  job_codechecks:
+    runs-on: ubuntu-latest
+    name: Run codechecks
+    needs: [job_install_dependencies]
+
+    steps:
+      - name: Check out current commit (${{ github.sha }})
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.DEFAULT_NODE_VERSION }}
+
+      - name: Check dependency cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.CACHED_DEPENDENCY_PATHS }}
+          key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
+
+      - name: Run codechecks
+        run: yarn codechecks
+        env:
+          CC_SECRET: ${{ secrets.CC_SECRET }}
+
   job_continuous_integration:
     runs-on: ubuntu-latest
     name: Check test & lint
