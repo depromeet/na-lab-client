@@ -77,6 +77,7 @@ jobs:
       dependency_cache_key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
 
   job_codechecks:
+    if: github.event_name != 'push'
     runs-on: ubuntu-latest
     name: Run codechecks
     needs: [job_install_dependencies]
