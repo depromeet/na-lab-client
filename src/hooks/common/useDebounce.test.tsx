@@ -48,8 +48,9 @@ describe('hooks/common/useDebounce', () => {
       const Count = screen.getByTestId('count');
 
       fireEvent.click(Button);
-      await vi.advanceTimersByTime(500);
+      expect(Count.innerHTML).toBe('0');
 
+      await vi.advanceTimersByTime(500);
       expect(Count.innerHTML).toBe('1');
     });
 
@@ -61,8 +62,9 @@ describe('hooks/common/useDebounce', () => {
       for (let i = 0; i < 10; i++) {
         fireEvent.click(Button);
       }
-      await vi.advanceTimersByTime(500);
+      expect(Count.innerHTML).toBe('0');
 
+      await vi.advanceTimersByTime(500);
       expect(Count.innerHTML).toBe('1');
     });
 
@@ -72,11 +74,15 @@ describe('hooks/common/useDebounce', () => {
       const Count = screen.getByTestId('count');
 
       fireEvent.click(Button);
+      expect(Count.innerHTML).toBe('0');
+
       await vi.advanceTimersByTime(300);
+      expect(Count.innerHTML).toBe('0');
 
       fireEvent.click(Button);
-      await vi.advanceTimersByTime(500);
+      expect(Count.innerHTML).toBe('0');
 
+      await vi.advanceTimersByTime(500);
       expect(Count.innerHTML).toBe('1');
     });
 
@@ -86,11 +92,15 @@ describe('hooks/common/useDebounce', () => {
       const Count = screen.getByTestId('count');
 
       fireEvent.click(Button);
+      expect(Count.innerHTML).toBe('0');
+
       await vi.advanceTimersByTime(500);
+      expect(Count.innerHTML).toBe('1');
 
       fireEvent.click(Button);
-      await vi.advanceTimersByTime(500);
+      expect(Count.innerHTML).toBe('1');
 
+      await vi.advanceTimersByTime(500);
       expect(Count.innerHTML).toBe('2');
     });
   });
