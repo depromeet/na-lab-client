@@ -8,6 +8,9 @@ import AnimatePortal from './AnimatePortal';
 import { scrimCss } from './scrim.style';
 
 interface Props extends ComponentProps<typeof AnimatePortal> {
+  /**
+   * scrim을 클릭했을 때 실행되는 함수이며, 기본적으로 target을 확인한 후 실행됩니다
+   */
   onClickScrim?: VoidFunction;
 }
 
