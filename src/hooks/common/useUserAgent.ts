@@ -1,12 +1,4 @@
-interface IUseUserAgent {
-  isAndroid: () => boolean;
-  isIos: () => boolean;
-  isMobile: () => boolean;
-  isSSR: () => boolean;
-  isDesktop: () => boolean;
-}
-
-export const getMobileDetect = (userAgent: string): IUseUserAgent => {
+export const getMobileDetect = (userAgent: string) => {
   const isAndroid = (): boolean => Boolean(userAgent.match(/Android/i));
   const isIos = (): boolean => Boolean(userAgent.match(/iPhone|iPad|iPod/i));
   const isMobile = (): boolean => Boolean(isAndroid() || isIos());
@@ -22,7 +14,7 @@ export const getMobileDetect = (userAgent: string): IUseUserAgent => {
   };
 };
 
-export function useUserAgent(): IUseUserAgent {
+export function useUserAgent() {
   const userAgent = typeof navigator === 'undefined' ? 'SSR' : navigator.userAgent;
   return getMobileDetect(userAgent);
 }
