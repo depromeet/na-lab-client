@@ -2,12 +2,12 @@ import { useCallback, useEffect, useRef } from 'react';
 
 type LongPressEvent = MouseEvent | TouchEvent;
 
-type LongPressOptions = {
+interface LongPressOptions {
   onLongPress: (event: LongPressEvent) => void;
   onPressStart?: (event: LongPressEvent) => void;
   onPressEnd?: (event: LongPressEvent) => void;
   threshold?: number;
-};
+}
 
 const useLongPress = (
   ref: React.RefObject<HTMLElement>,
