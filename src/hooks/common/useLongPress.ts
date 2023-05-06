@@ -9,6 +9,16 @@ interface LongPressOptions {
   threshold?: number;
 }
 
+/**
+ * 마우스나 터치 이벤트가 threshold 동안 유지될 때 콜백 함수를 실행하는 hook
+ *
+ * @param ref
+ * @param options useLongPress 옵션 객체
+ * @param options.onLongPress threshold 동안 press가 유지될 때 실행할 함수
+ * @param options.onPressStart press가 시작될 때 실행할 함수
+ * @param options.onPressEnd press가 종료될 때 실행할 함수
+ * @param options.threshold 함수 실행 기준 ms, 기본값은 500ms
+ */
 const useLongPress = (
   ref: React.RefObject<HTMLElement>,
   { onLongPress, onPressStart, onPressEnd, threshold = 500 }: LongPressOptions,
