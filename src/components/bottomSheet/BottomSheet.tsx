@@ -4,8 +4,8 @@ import { m, type Variants } from 'framer-motion';
 
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 
-import AnimatePortal from './AnimatePortal';
-import { scrimCss } from './scrim.style';
+import AnimatePortal from '../portal/AnimatePortal';
+import { scrimCss } from '../scrim/default.style';
 
 interface Props extends ComponentProps<typeof AnimatePortal> {
   /**

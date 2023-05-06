@@ -20,7 +20,7 @@ export function Default() {
       <button type="button" onClick={toggleShowing}>
         toggle
       </button>
-      <BottomSheet onClickScrim={toggleShowing} isShowing={isShowing}>
+      <BottomSheet onClickOutside={toggleShowing} isShowing={isShowing}>
         bottom sheet content
       </BottomSheet>
     </LazyMotion>
