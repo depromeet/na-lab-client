@@ -11,19 +11,19 @@ interface Props extends ComponentProps<typeof AnimatePortal> {
   /**
    * scrim을 클릭했을 때 실행되는 함수이며, 기본적으로 target을 확인한 후 실행됩니다
    */
-  onClickScrim?: VoidFunction;
+  onClickOutside?: VoidFunction;
 }
 
-const BottomSheet = ({ onClickScrim, isShowing, children, mode }: Props) => {
-  const onClickScrimDefault: MouseEventHandler<HTMLDivElement> = (e) => {
+const BottomSheet = ({ onClickOutside, isShowing, children, mode }: Props) => {
+  const onClickOutsideDefault: MouseEventHandler<HTMLDivElement> = (e) => {
     if (e.target !== e.currentTarget) return;
-    if (onClickScrim) onClickScrim();
+    if (onClickOutside) onClickOutside();
   };
 
   return (
     <AnimatePortal isShowing={isShowing} mode={mode}>
       <m.div
-        onClick={onClickScrimDefault}
+        onClick={onClickOutsideDefault}
         css={scrimCss}
         variants={defaultFadeInVariants}
         initial="initial"

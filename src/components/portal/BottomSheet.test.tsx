@@ -36,7 +36,7 @@ describe('components/portal/BottomSheet', () => {
         <button type="button" onClick={toggleShowing}>
           toggle
         </button>
-        <BottomSheet isShowing={isShowing} onClickScrim={onClickScrimMock}>
+        <BottomSheet isShowing={isShowing} onClickOutside={onClickScrimMock}>
           {CHILDREN_TEXT}
         </BottomSheet>
       </>
