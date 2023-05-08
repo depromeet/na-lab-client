@@ -22,8 +22,6 @@ const SEO = ({ title, description, ogImage }: Props) => {
   const URL = BASE_URL + router.asPath;
   const IMAGE = ogImage || DEFAULT_OG_IMAGE;
 
-  console.log(DESCRIPTION);
-
   return (
     <Head>
       <title>{TITLE}</title>
