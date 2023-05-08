@@ -5,13 +5,16 @@ import { Reorder, useDragControls } from 'framer-motion';
 
 import ReorderIcon from './ReorderIcon';
 
-interface Props {
-  item: {
-    title: string;
-    content: string;
-    id: number;
-  };
+export interface DndItemType {
+  title: string;
+  content: string;
+  id: number;
 }
+
+interface Props {
+  item: DndItemType;
+}
+
 const DndItem = ({ item }: Props) => {
   const dragControls = useDragControls();
 
