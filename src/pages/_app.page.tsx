@@ -6,7 +6,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { domMax, LazyMotion } from 'framer-motion';
 
-import MonitoringInitializer from '~/components/MonitoringInitializer';
+import MonitoringInitializer from '~/components/monitoring/MonitoringInitializer';
 import GlobalStyles from '~/styles/GlobalStyle';
 import defaultTheme from '~/styles/theme';
 
