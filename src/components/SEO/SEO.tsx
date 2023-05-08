@@ -8,11 +8,26 @@ const BASE_URL = 'https://www.nalab.me';
 const DEFAULT_OG_IMAGE = '/images/og-image.png';
 
 interface Props {
+  /**
+   * @description title에 적용될 문자열 입니다. 넣은 문자열 뒤에 ' | 나랩'이 붙습니다.
+   * @default '나랩'
+   */
   title?: string;
+  /**
+   * @description description에 적용될 문자열 입니다.
+   * @default '나를 위한 연구소, 나랩'
+   */
   description?: string;
+  /**
+   * @description og:image에 적용될 문자열 입니다.
+   * @default '/images/og-image.png'
+   */
   ogImage?: string;
 }
 
+/**
+ * @description next/head를 사용하는 SEO 컴포넌트입니다. title, og, twitter 등 SEO에 필요한 태그를 렌더링 합니다.
+ */
 const SEO = ({ title, description, ogImage }: Props) => {
   const router = useInternalRouter();
 
