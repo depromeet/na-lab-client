@@ -11,7 +11,13 @@ function CardWithDnd({ item }: Props) {
   const dragControls = useDragControls();
 
   return (
-    <Reorder.Item className="dnd-item-component" value={item} as="div" dragListener={false} dragControls={dragControls}>
+    <Reorder.Item
+      as="div"
+      data-testid="dnd-item-component"
+      value={item}
+      dragListener={false}
+      dragControls={dragControls}
+    >
       <Card item={item} rightElement={<ReorderIcon dragControls={dragControls} />} />
     </Reorder.Item>
   );

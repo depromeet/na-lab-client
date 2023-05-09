@@ -43,34 +43,31 @@ function CardList() {
   };
 
   return (
-    <Reorder.Group
-      data-testid="dnd-component"
-      as="section"
-      values={items}
-      onReorder={setItems}
-      css={css`
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      `}
-    >
-      {INIT_QUESTION_LIST.map((item) => {
-        return <Card item={item} key={item.id} />;
-      })}
-      {items.map((item) => {
-        return <CardWithDnd item={item} key={item.id} />;
-      })}
-      <button type="button" onClick={handleNewItemAdd} css={buttonStyle}>
+    <section css={containerCss}>
+      <Reorder.Group data-testid="dnd-component" as="ul" values={items} onReorder={setItems} css={containerCss}>
+        {INIT_QUESTION_LIST.map((item) => {
+          return <Card item={item} key={item.id} />;
+        })}
+        {items.map((item) => {
+          return <CardWithDnd item={item} key={item.id} />;
+        })}
+      </Reorder.Group>
+      <button type="button" onClick={handleNewItemAdd} css={buttonCss}>
         <PlusIcon />
         <span>나만의 질문 추가하기</span>
       </button>
-    </Reorder.Group>
+    </section>
   );
 }
 
 export default CardList;
 
-const buttonStyle = css`
+const containerCss = css`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+const buttonCss = css`
   all: unset;
 
   cursor: pointer;
@@ -81,6 +78,7 @@ const buttonStyle = css`
   align-items: center;
   justify-content: center;
 
+  width: 100%;
   padding: 25px 106px;
 
   color: #37c3ff;

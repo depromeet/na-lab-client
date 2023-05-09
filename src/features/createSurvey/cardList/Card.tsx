@@ -24,45 +24,40 @@ const Card = ({ item, rightElement }: Props) => {
   const { title, type } = item;
 
   return (
-    <div
-      css={css`
-        display: flex;
-        align-items: center;
-
-        padding: 26px 28px;
-
-        background-color: #eceef2;
-        border-radius: 12px;
-      `}
-    >
-      <div
-        css={css`
-          user-select: none;
-          flex-grow: 1;
-        `}
-      >
-        <div
-          css={css`
-            font-size: 18px;
-            line-height: 25px;
-            color: #6b7180;
-          `}
-        >
-          {title}
-        </div>
-        <div
-          css={css`
-            font-size: 14px;
-            line-height: 20px;
-            color: #ccd0d7;
-          `}
-        >
-          {TYPE_DESC[type]}
-        </div>
+    <li css={listItemCss}>
+      <div css={textContainerCss}>
+        <p css={titleCss}>{title}</p>
+        <p css={descCss}>{TYPE_DESC[type]}</p>
       </div>
       {rightElement}
-    </div>
+    </li>
   );
 };
 
 export default Card;
+
+const listItemCss = css`
+  display: flex;
+  align-items: center;
+
+  padding: 26px 28px;
+
+  background-color: #eceef2;
+  border-radius: 12px;
+`;
+const textContainerCss = css`
+  user-select: none;
+  flex-grow: 1;
+`;
+
+const titleCss = css`
+  font-size: 18px;
+  line-height: 25px;
+  color: #6b7180;
+`;
+
+const descCss = css`
+  font-size: 14px;
+  line-height: 20px;
+  color: #ccd0d7;
+`;
