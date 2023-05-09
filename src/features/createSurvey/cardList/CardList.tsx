@@ -24,26 +24,8 @@ const INIT_QUESTION_LIST: CardItemType[] = [
   },
 ];
 
-const listItems: CardItemType[] = [
-  {
-    id: 4,
-    title: '나의 직무적 장단점은 무엇인가요?',
-    type: 'CHOICE',
-  },
-  {
-    id: 5,
-    title: '나의 직무적 강점은 무엇인가요?',
-    type: 'CHOICE',
-  },
-  {
-    id: 6,
-    title: '나의 직무적 강점은 무엇인가요?',
-    type: 'CHOICE',
-  },
-];
-
 function CardList() {
-  const [items, setItems] = useState<CardItemType[]>(listItems);
+  const [items, setItems] = useState<CardItemType[]>([]);
 
   // TODO : 서버 API 명세서 참고해서 type 변경
   const handleNewItemAdd = () => {
