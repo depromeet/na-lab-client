@@ -6,26 +6,41 @@ import Card, { type CardItemType } from '~/features/createSurvey/card/Card';
 import CardWithDnd from '~/features/createSurvey/card/CardWithDnd';
 import PlusIcon from '~/features/createSurvey/card/PlusIcon';
 
-const INIT_QUESTION_LIST = [
+const INIT_QUESTION_LIST: CardItemType[] = [
   {
     id: 1,
     title: '기본 정보',
-    desc: '나와의 관계, 상대방의 포지션, 나의 성향',
+    type: 'BASIC',
   },
   {
     id: 2,
     title: '나의 직무적 강점은 무엇인가요?',
-    desc: '주관식 기본 질문',
+    type: 'BASIC',
   },
   {
     id: 3,
     title: '나의 직무적 약점은 무엇인가요?',
-    desc: '주관식 기본 질문',
+    type: 'BASIC',
   },
 ];
 
-function CardList({ initItems }: { initItems: CardItemType[] }) {
-  const [items, setItems] = useState<CardItemType[]>(initItems);
+function CardList() {
+  const [items, setItems] = useState<CardItemType[]>([]);
+
+  // TODO : 서버 API 명세서 참고해서 type 변경
+  const handleNewItemAdd = () => {
+    setItems((prev) => {
+      const newId = prev.length;
+      return [
+        ...prev,
+        {
+          id: newId,
+          title: `나의 질문 ${newId}`,
+          type: 'CHOICE',
+        },
+      ];
+    });
+  };
 
   return (
     <Reorder.Group
@@ -44,29 +59,31 @@ function CardList({ initItems }: { initItems: CardItemType[] }) {
       {items.map((item) => {
         return <CardWithDnd item={item} key={item.id} />;
       })}
-      <div
-        css={css`
-          cursor: pointer;
-
-          display: flex;
-          flex-direction: column;
-          gap: 11px;
-          align-items: center;
-          justify-content: center;
-
-          padding: 25px 106px;
-
-          color: #37c3ff;
-
-          background-color: #f7f8f9;
-          border-radius: 12px;
-        `}
-      >
+      <button type="button" onClick={handleNewItemAdd} css={buttonStyle}>
         <PlusIcon />
         <span>나만의 질문 추가하기</span>
-      </div>
+      </button>
     </Reorder.Group>
   );
 }
 
 export default CardList;
+
+const buttonStyle = css`
+  all: unset;
+
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  align-items: center;
+  justify-content: center;
+
+  padding: 25px 106px;
+
+  color: #37c3ff;
+
+  background-color: #f7f8f9;
+  border-radius: 12px;
+`;

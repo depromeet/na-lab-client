@@ -1,9 +1,17 @@
 import { type ReactNode } from 'react';
 import { css } from '@emotion/react';
 
+type CardType = 'CHOICE' | 'SHORT_FORM' | 'BASIC';
+
+const TYPE_DESC: Record<CardType, string> = {
+  CHOICE: '객관식 추가 질문',
+  SHORT_FORM: '주관식 추가 질문',
+  BASIC: '기본 질문',
+};
+
 export interface CardItemType {
   title: string;
-  desc: string;
+  type: CardType;
   id: number;
 }
 
@@ -13,7 +21,7 @@ interface Props {
 }
 
 const Card = ({ item, rightElement }: Props) => {
-  const { title, desc } = item;
+  const { title, type } = item;
 
   return (
     <div
@@ -49,7 +57,7 @@ const Card = ({ item, rightElement }: Props) => {
             color: #ccd0d7;
           `}
         >
-          {desc}
+          {TYPE_DESC[type]}
         </div>
       </div>
       {rightElement}
