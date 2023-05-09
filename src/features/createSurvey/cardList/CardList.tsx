@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { css } from '@emotion/react';
 import { Reorder } from 'framer-motion';
 
-import Card, { type CardItemType } from '~/features/createSurvey/card/Card';
-import CardWithDnd from '~/features/createSurvey/card/CardWithDnd';
-import PlusIcon from '~/features/createSurvey/card/PlusIcon';
+import Card, { type CardItemType } from '~/features/createSurvey/cardList/Card';
+import CardWithDnd from '~/features/createSurvey/cardList/CardWithDnd';
+import PlusIcon from '~/features/createSurvey/cardList/PlusIcon';
 
 const INIT_QUESTION_LIST: CardItemType[] = [
   {
@@ -24,8 +24,26 @@ const INIT_QUESTION_LIST: CardItemType[] = [
   },
 ];
 
+const listItems: CardItemType[] = [
+  {
+    id: 4,
+    title: '나의 직무적 장단점은 무엇인가요?',
+    type: 'CHOICE',
+  },
+  {
+    id: 5,
+    title: '나의 직무적 강점은 무엇인가요?',
+    type: 'CHOICE',
+  },
+  {
+    id: 6,
+    title: '나의 직무적 강점은 무엇인가요?',
+    type: 'CHOICE',
+  },
+];
+
 function CardList() {
-  const [items, setItems] = useState<CardItemType[]>([]);
+  const [items, setItems] = useState<CardItemType[]>(listItems);
 
   // TODO : 서버 API 명세서 참고해서 type 변경
   const handleNewItemAdd = () => {
@@ -44,6 +62,7 @@ function CardList() {
 
   return (
     <Reorder.Group
+      data-testid="dnd-component"
       as="section"
       values={items}
       onReorder={setItems}
