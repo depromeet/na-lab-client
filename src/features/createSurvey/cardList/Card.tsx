@@ -7,7 +7,7 @@ const TYPE_DESC: Record<CardType, string> = {
   CHOICE: '객관식 추가 질문',
   SHORT_FORM: '주관식 추가 질문',
   BASIC: '기본 질문',
-};
+} as const;
 
 export interface CardItemType {
   title: string;
