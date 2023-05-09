@@ -29,7 +29,7 @@ const interceptorResponseFulfilled = (res: AxiosResponse) => {
 
 // Response interceptor
 const interceptorResponseRejected = (error: AxiosError<ApiErrorScheme>) => {
-  if (error.response?.data?.message) {
+  if (error.response?.data?.['response-message']) {
     return Promise.reject(new ApiException(error.response.data, error.response.status));
   }
 
