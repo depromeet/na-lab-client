@@ -1,6 +1,6 @@
 import type { PropsWithChildren, SVGProps } from 'react';
 
-export interface Props extends SVGProps<SVGSVGElement> {
+interface Props extends SVGProps<SVGSVGElement> {
   /**
    * @description width, height 값입니다. 사전 지정된 width, height이 존재한다면 무시됩니다.
    * @default `24`
