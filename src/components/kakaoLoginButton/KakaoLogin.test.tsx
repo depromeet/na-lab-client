@@ -16,6 +16,8 @@ describe('components/kakaoLoginButton/KakaoLoginButton', () => {
     useSession.mockReturnValue({ data: null });
   });
 
+  afterEach(cleanup);
+
   test('정의되어 있어야 한다', () => {
     expect(KakaoLoginButton).toBeDefined();
   });
@@ -60,4 +62,3 @@ describe('components/kakaoLoginButton/KakaoLoginButton', () => {
   });
 });
 
-afterEach(cleanup);
