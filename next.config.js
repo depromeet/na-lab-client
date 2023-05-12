@@ -14,7 +14,6 @@ const nextConfig = {
     appDir: false,
     forceSwcTransforms: true,
   },
-  pageExtensions: ['page.tsx'],
   swcMinify: true,
   compiler: {
     emotion: true,
