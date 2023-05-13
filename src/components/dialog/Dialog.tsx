@@ -12,10 +12,25 @@ import { m } from 'framer-motion';
 import AnimatePortal from '../portal/AnimatePortal';
 
 interface Props {
+  /**
+   * 제목을 `string` 혹은 `ReactElement`로 전달해주세요.
+   */
   title?: string | ReactElement;
+  /**
+   * 설명을 `string` 혹은 `ReactElement`로 전달해주세요.
+   */
   description?: string | ReactElement;
+  /**
+   * 좌측 취소 버튼을 `ReactElement`로 전달해주세요.
+   */
   cancelButton?: ReactElement;
+  /**
+   * 우측 확인 버튼을 `ReactElement`로 전달해주세요.
+   */
   confirmButton?: ReactElement;
+  /**
+   * 외부영역 클릭시 호출될 함수
+   */
   onClickOutside?: VoidFunction;
 }
 
