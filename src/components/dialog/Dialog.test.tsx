@@ -80,7 +80,7 @@ describe('components/Dialog', () => {
     });
   });
 
-  describe('scrim을 클릭하여 onClickOutside을 호출할 수 있는가', () => {
+  describe('blur를 클릭하여 onClickOutside을 호출할 수 있는가', () => {
     test('children을 클릭하면 onClickOutside이 호출되지 않는다', () => {
       render(<App defaultIsShowing={true} />);
 
@@ -88,11 +88,11 @@ describe('components/Dialog', () => {
       expect(onClickOutsideMock).not.toHaveBeenCalled();
     });
 
-    test('scrim을 클릭하면 onClickOutside이 호출된다', () => {
+    test('blur를 클릭하면 onClickOutside이 호출된다', () => {
       render(<App defaultIsShowing={true} />);
-      const scrim = screen.getByTestId('cancelButton').parentElement?.parentElement?.previousElementSibling;
+      const blur = screen.getByTestId('cancelButton').parentElement?.parentElement?.previousElementSibling;
 
-      fireEvent.click(scrim!);
+      fireEvent.click(blur!);
       expect(onClickOutsideMock).toHaveBeenCalled();
     });
   });
