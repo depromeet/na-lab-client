@@ -5,5 +5,7 @@ namespace NodeJS {
     NEXT_PUBLIC_MIXPANEL_ID: string;
     NEXT_PUBLIC_HOTJAR_ID: string;
     NEXT_PUBLIC_HOTJAR_SV: string;
+    KAKAO_CLIENT_ID: string;
+    KAKAO_CLIENT_SECRET: string;
   }
 }
