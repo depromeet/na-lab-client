@@ -1,5 +1,7 @@
-import { type PropsWithChildren, useEffect, useState } from 'react';
+import { type PropsWithChildren, useState } from 'react';
 import { createPortal } from 'react-dom';
+
+import useDidMount from '~/hooks/lifeCycle/useDidMount';
 
 /**
  * @description react.createPortal을 이용해 document.body에 children을 렌더링합니다
@@ -7,11 +9,11 @@ import { createPortal } from 'react-dom';
 const Portal = ({ children }: PropsWithChildren) => {
   const [container, setContainer] = useState<Element | null>(null);
 
-  useEffect(() => {
+  useDidMount(() => {
     if (document) {
       setContainer(document.body);
     }
-  }, []);
+  });
 
   if (!container) return null;
 
