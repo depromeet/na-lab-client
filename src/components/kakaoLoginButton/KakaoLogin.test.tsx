@@ -1,6 +1,6 @@
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, type Mock, test, vi } from 'vitest';
 
 import KakaoLoginButton from './KakaoLoginButton';
 
@@ -13,7 +13,7 @@ describe('components/kakaoLoginButton/KakaoLoginButton', () => {
 
   beforeEach(() => {
     // useSession 함수의 반환 값을 설정
-    useSession.mockReturnValue({ data: null });
+    (useSession as Mock<unknown[]>).mockReturnValue({ data: null });
   });
 
   afterEach(cleanup);
@@ -28,7 +28,7 @@ describe('components/kakaoLoginButton/KakaoLoginButton', () => {
   });
 
   test('유저가 로그인한 경우에는 유저를 환영하는 문구와 "로그아웃 하기" 버튼을 렌더링한다', () => {
-    useSession.mockReturnValue({
+    (useSession as Mock<unknown[]>).mockReturnValue({
       data: {
         user: {
           name: '오연',
@@ -41,7 +41,7 @@ describe('components/kakaoLoginButton/KakaoLoginButton', () => {
   });
 
   test('"로그아웃 하기" 버튼을 클릭하면 signOut 함수를 호출한다', () => {
-    useSession.mockReturnValue({
+    (useSession as Mock<unknown[]>).mockReturnValue({
       data: {
         user: {
           name: '오연',
