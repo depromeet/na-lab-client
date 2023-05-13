@@ -61,4 +61,3 @@ describe('components/kakaoLoginButton/KakaoLoginButton', () => {
     expect(signIn).toHaveBeenCalledWith('kakao');
   });
 });
-
