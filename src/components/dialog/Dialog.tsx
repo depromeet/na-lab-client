@@ -76,8 +76,9 @@ const DialogContent = ({ title, description, cancelButton, confirmButton }: Omit
   return (
     <m.div style={{ width } as CSSProperties} css={containerCss} animate={{ opacity: [0, 1] }} exit={{ opacity: 0 }}>
       <div css={textWrapperCss}>
-        {title && <span css={titleCss}>{title}</span>}
-        {description && <span css={descriptionCss}>{description}</span>}
+        {title && (typeof title === 'string' ? <span css={titleCss}>{title}</span> : title)}
+        {description &&
+          (typeof description === 'string' ? <span css={descriptionCss}>{description}</span> : description)}
       </div>
       <div css={buttonWrapperCss}>
         {cancelButton}
@@ -120,6 +121,7 @@ const titleCss = css`
   line-height: 20px;
   color: #17171b;
   text-align: center;
+  white-space: pre-wrap;
 `;
 
 //TODO: 폰트 토큰 없음. 디자인 문의
@@ -131,6 +133,7 @@ const descriptionCss = css`
   line-height: 16px;
   color: #6b7180;
   text-align: center;
+  white-space: pre-wrap;
 `;
 
 const buttonWrapperCss = css`
