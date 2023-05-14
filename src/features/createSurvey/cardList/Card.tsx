@@ -3,12 +3,14 @@ import { css } from '@emotion/react';
 
 type CardType = 'CHOICE' | 'SHORT_FORM' | 'BASIC';
 
+// TODO : description으로 변경하기
 const TYPE_DESC: Record<CardType, string> = {
   CHOICE: '객관식 추가 질문',
   SHORT_FORM: '주관식 추가 질문',
   BASIC: '기본 질문',
 } as const;
 
+// TODO : type 폴더로 빼기
 export interface CardItemType {
   title: string;
   type: CardType;
@@ -45,6 +47,7 @@ const listItemCss = css`
   background-color: #eceef2;
   border-radius: 12px;
 `;
+
 const textContainerCss = css`
   user-select: none;
   flex-grow: 1;
