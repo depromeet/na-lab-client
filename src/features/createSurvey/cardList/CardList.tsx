@@ -19,9 +19,13 @@ const INIT_QUESTION_LIST: CardItemType[] = [
 ];
 
 function CardList() {
-  return INIT_QUESTION_LIST.map((item) => {
-    return <Card item={item} key={item.id} />;
-  });
+  return (
+    <>
+      {INIT_QUESTION_LIST.map((item) => {
+        return <Card item={item} key={item.id} />;
+      })}
+    </>
+  );
 }
 
 export default CardList;

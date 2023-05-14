@@ -14,7 +14,7 @@ const CARD_ITEM_DATA: CardItemType = {
   type: CARD_TYPE,
 };
 
-describe('/features/createSurvey/cardList/CardListWithDnd', () => {
+describe('/features/createSurvey/cardList/Card', () => {
   test('정의되어 있어야 한다', () => {
     expect(CardList).toBeDefined();
   });
@@ -24,7 +24,7 @@ describe('/features/createSurvey/cardList/CardListWithDnd', () => {
     vi.resetAllMocks();
   });
 
-  test('Card가 화면에 잘 나타나는지.', () => {
+  test('Card가 화면에 잘 나타나는가.', () => {
     const { queryByText } = render(<Card item={CARD_ITEM_DATA} />);
 
     expect(queryByText(CARD_TITLE)).toBeInTheDocument();
