@@ -1,9 +1,30 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { useState } from 'react';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
+import { type CardItemType } from '~/features/createSurvey/cardList/Card';
 import CardList from '~/features/createSurvey/cardList/CardList';
+import CardListWithDnd from '~/features/createSurvey/cardList/CardListWithDnd';
 
-describe('/features/createSurvey/cardList', () => {
+const INIT_LIST: CardItemType[] = [
+  {
+    id: 0,
+    title: '나의 질문 0',
+    type: 'CHOICE',
+  },
+  {
+    id: 1,
+    title: '나의 질문 1',
+    type: 'CHOICE',
+  },
+  {
+    id: 2,
+    title: '나의 질문 2',
+    type: 'CHOICE',
+  },
+];
+
+describe('/features/createSurvey/cardList/CardListWithDnd', () => {
   test('정의되어 있어야 한다', () => {
     expect(CardList).toBeDefined();
   });
@@ -13,18 +34,20 @@ describe('/features/createSurvey/cardList', () => {
     vi.resetAllMocks();
   });
 
-  test('cardList의 drag and drop 기능이 올바르게 동작하는지 확인한다', () => {
-    const { getByRole } = render(<CardList />);
+  const App = () => {
+    const [items, setItems] = useState<CardItemType[]>(INIT_LIST);
 
-    const button = getByRole('button', { name: '나만의 질문 추가하기' });
-    fireEvent.click(button);
-    fireEvent.click(button);
+    return <CardListWithDnd items={items} setItems={setItems} />;
+  };
 
-    const cardItems = screen.getAllByTestId('dnd-item-component');
+  test('CardListWithDnd에서 드래그 앤 드롭이 가능하다.', () => {
+    const { getAllByTestId } = render(<App />);
+    const cardItems = getAllByTestId('dnd-item-component');
+
     const lastIndex = cardItems.length;
 
     const firstCardItem = cardItems[0];
-    const lastCardItem = cardItems[lastIndex - 1]?.firstChild;
+    const lastCardItem = cardItems[lastIndex - 1];
 
     if (!lastCardItem) {
       throw new Error('lastCardItem is null');
@@ -34,16 +57,5 @@ describe('/features/createSurvey/cardList', () => {
     fireEvent.dragEnter(firstCardItem);
     fireEvent.dragOver(firstCardItem);
     fireEvent.drop(firstCardItem);
-  });
-
-  test('cardList의 추가 버튼을 1번 클릭하면 dnd card가 하나 추가된다.', () => {
-    const { getByRole } = render(<CardList />);
-
-    const button = getByRole('button', { name: '나만의 질문 추가하기' });
-    fireEvent.click(button);
-
-    const cardItems = screen.getAllByTestId('dnd-item-component');
-
-    expect(cardItems).toHaveLength(1);
   });
 });
