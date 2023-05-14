@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 type CardType = 'CHOICE' | 'SHORT_FORM' | 'BASIC';
 
 // TODO : description으로 변경하기
-const TYPE_DESC: Record<CardType, string> = {
+export const TYPE_DESC: Record<CardType, string> = {
   CHOICE: '객관식 추가 질문',
   SHORT_FORM: '주관식 추가 질문',
   BASIC: '기본 질문',
