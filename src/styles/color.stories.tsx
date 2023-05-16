@@ -88,7 +88,7 @@ export function Default() {
   );
 }
 
-const HeadingCss = css`
+const headingCss = css`
   margin: 30px 0 10px;
   font-size: 30px;
   font-weight: 700;
