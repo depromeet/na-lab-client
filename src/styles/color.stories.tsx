@@ -13,7 +13,7 @@ export default meta;
 export function Default() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <div css={HeadingCss}>Button</div>
+      <div css={headingCss}>Button</div>
       <div css={FlexBoxCss}>
         <div css={[(theme) => ({ backgroundColor: theme.colors.primary_200 }), BoxCss]} />
         <div css={[(theme) => ({ backgroundColor: theme.colors.primary_100 }), BoxCss]} />
@@ -26,7 +26,7 @@ export function Default() {
         <span>$primary.50 (background)</span>
         <span>$primary.300 (button-hover)</span>
       </div>
-      <div css={HeadingCss}>Text & Icon</div>
+      <div css={headingCss}>Text & Icon</div>
       <div css={FlexBoxCss}>
         <div css={[(theme) => ({ backgroundColor: theme.colors.secondary_200 }), BoxCss]} />
         <div css={[(theme) => ({ backgroundColor: theme.colors.secondary_100 }), BoxCss]} />
@@ -37,7 +37,7 @@ export function Default() {
         <span>$secondary.100 (button-disabled)</span>
         <span>$secondary.300 (button-hover)</span>
       </div>
-      <div css={HeadingCss}>Background</div>
+      <div css={headingCss}>Background</div>
       <div css={FlexBoxCss}>
         <div css={[(theme) => ({ backgroundColor: theme.colors.black }), BoxCss]} />
         <div css={[(theme) => ({ backgroundColor: theme.colors.gray_500 }), BoxCss]} />
@@ -62,14 +62,14 @@ export function Default() {
         <span>$gray.100 (background-hover)</span>
         <span>$gray.200 (background-tertiary)</span>
       </div>
-      <div css={HeadingCss}>System Color</div>
+      <div css={headingCss}>System Color</div>
       <div css={FlexBoxCss}>
         <div css={[(theme) => ({ backgroundColor: theme.colors.red }), BoxCss]} />
       </div>
       <div css={FlexBoxCss}>
         <span>$system-red</span>
       </div>
-      <div css={HeadingCss}>Sub Color</div>
+      <div css={headingCss}>Sub Color</div>
       <div css={FlexBoxCss}>
         <div css={[(theme) => ({ backgroundColor: theme.colors.pink }), BoxCss]} />
         <div css={[(theme) => ({ backgroundColor: theme.colors.purple }), BoxCss]} />
