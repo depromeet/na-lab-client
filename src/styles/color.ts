@@ -26,6 +26,6 @@ const colors = {
   yellowgreen: '#EBF7DA',
   bluegreen: '#DEF3EC',
   skyblue: '#E3F1FF',
-};
+}; as const
 
 export default colors;
