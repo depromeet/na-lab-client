@@ -48,6 +48,7 @@ const buttonCss = (theme: Theme, color: Color) => css`
   align-items: center;
   justify-content: center;
 
+  box-sizing: border-box;
   padding: 15.5px 68px;
 
   border-radius: 8px;
