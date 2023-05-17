@@ -1,4 +1,4 @@
-import { type ButtonHTMLAttributes } from 'react';
+import { type ButtonHTMLAttributes, forwardRef, type Ref } from 'react';
 import { css, type Theme, useTheme } from '@emotion/react';
 
 import { HEAD_2_BOLD } from '~/styles/typo';
@@ -18,16 +18,19 @@ interface Props extends ButtonAttr {
  * @description 디자인 시스템의 `Rect Small` 버튼에 대응하는 기본 버튼 입니다.
  * padding `15.5px 68px`과 함께 폰트 사이즈 `HEAD_2_BOLD`가 적용되어 있습니다.
  */
-const Button = ({ children, type = 'button', color = 'navy', ...rest }: Props) => {
+const Button = forwardRef(function Button(
+  { children, type = 'button', color = 'navy', ...rest }: Props,
+  forwardedRef: Ref<HTMLButtonElement>,
+) {
   const theme = useTheme();
 
   return (
     // eslint-disable-next-line react/button-has-type
-    <button css={buttonCss(theme, color)} type={type} {...rest}>
+    <button css={buttonCss(theme, color)} ref={forwardedRef} type={type} {...rest}>
       {children}
     </button>
   );
-};
+});
 
 export default Button;
 
