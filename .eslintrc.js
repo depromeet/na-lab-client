@@ -98,6 +98,17 @@ module.exports = {
         varsIgnorePattern: '_',
       },
     ],
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: 'interface',
+        format: ['PascalCase'],
+      },
+      {
+        selector: 'typeAlias',
+        format: ['PascalCase'],
+      },
+    ],
 
     'react/button-has-type': 'error',
     'react/jsx-no-useless-fragment': ['error', { allowExpressions: true }],
