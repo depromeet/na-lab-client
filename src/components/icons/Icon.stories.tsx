@@ -1,7 +1,13 @@
 import { type Meta } from '@storybook/react';
 
 import ArrowIcon from './ArrowIcon';
+import ChevronArrowRightIcon from './ChevronArrowRightIcon';
+import EditIcon from './EditIcon';
 import LineThreeDotsIcon from './LineThreeDotsIcon';
+import RedDotIcon from './RedDotIcon';
+import SendIcon from './SendIcon';
+import ThreeDotsIcon from './ThreeDotsIcon';
+import WarningIcon from './WarningIcon';
 import XIcon from './XIcon';
 
 const meta: Meta = {
@@ -27,4 +33,28 @@ export function X() {
 
 export function LineThreeDots() {
   return <LineThreeDotsIcon />;
+}
+
+export function Send() {
+  return <SendIcon />;
+}
+
+export function ThreeDots() {
+  return <ThreeDotsIcon />;
+}
+
+export function Warning() {
+  return <WarningIcon />;
+}
+
+export function Edit() {
+  return <EditIcon />;
+}
+
+export function ChevronArrowRight() {
+  return <ChevronArrowRightIcon />;
+}
+
+export function RedDot() {
+  return <RedDotIcon />;
 }
