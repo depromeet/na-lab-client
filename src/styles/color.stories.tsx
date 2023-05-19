@@ -1,7 +1,5 @@
-import { css, ThemeProvider } from '@emotion/react';
+import { css } from '@emotion/react';
 import { type Meta } from '@storybook/react';
-
-import defaultTheme from '~/styles/theme';
 
 const meta: Meta<typeof Default> = {
   title: 'Colors',
@@ -12,7 +10,7 @@ export default meta;
 
 export function Default() {
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <>
       <div css={headingCss}>Button</div>
       <div css={FlexBoxCss}>
         <div css={[(theme) => ({ backgroundColor: theme.colors.primary_200 }), BoxCss]} />
@@ -84,7 +82,7 @@ export function Default() {
         <span>$secondary-bluegreen</span>
         <span>$secondary-skyblue</span>
       </div>
-    </ThemeProvider>
+    </>
   );
 }
 
