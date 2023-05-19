@@ -1,6 +1,8 @@
 const { version } = require('./package.json');
 const { withSentryConfig } = require('@sentry/nextjs');
 
+const isProd = process.env.NODE_ENV === 'production';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -18,6 +20,12 @@ const nextConfig = {
   swcMinify: true,
   compiler: {
     emotion: true,
+    reactRemoveProperties: isProd && {
+      properties: ['^data-testid'],
+    },
+    removeConsole: isProd && {
+      exclude: ['error', 'warn'],
+    },
   },
   sentry: {
     hideSourceMaps: true,

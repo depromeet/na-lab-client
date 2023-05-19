@@ -18,6 +18,16 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
+  babel: async (options) => {
+    options.presets!.push('@emotion/babel-preset-css-prop');
+    return options;
+  },
+  staticDirs: [
+    {
+      from: '../src/assets/fonts',
+      to: 'src/assets/fonts'
+    }
+  ]
 };
 
 export default config;

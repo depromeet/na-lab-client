@@ -1,6 +1,9 @@
+import colors from '~/styles/color';
+
 const theme = {
-  colors: {
-    white: '#ffffff',
+  colors,
+  size: {
+    maxWidth: '480px',
   },
 } as const;
 

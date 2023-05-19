@@ -54,6 +54,7 @@
     "@codechecks/client": "^0.1.12",
     "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^17.6.1",
+    "@emotion/babel-preset-css-prop": "^11.10.0",
     "@playwright/test": "^1.32.3",
     "@storybook/addon-essentials": "^7.0.6",
     "@storybook/addon-interactions": "^7.0.6",
