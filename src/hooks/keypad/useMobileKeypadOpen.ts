@@ -1,12 +1,12 @@
 import { type FocusEventHandler } from 'react';
 
+import { isMobile } from '~/utils/agent';
+
 import useBoolean from '../common/useBoolean';
-import { useUserAgent } from '../common/useUserAgent';
 
 type InputAndTextarea = HTMLInputElement | HTMLTextAreaElement;
 
 const useMobileKeypadOpen = () => {
-  const { isMobile } = useUserAgent();
   const [isOpen, _, setIsOpenTrue, setIsOpenFalse] = useBoolean(false);
 
   const onFocus: FocusEventHandler<InputAndTextarea> = () => {
