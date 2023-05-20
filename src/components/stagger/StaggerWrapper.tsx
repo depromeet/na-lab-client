@@ -2,7 +2,7 @@ import { Children, type PropsWithChildren } from 'react';
 import { css, type Interpolation, type Theme } from '@emotion/react';
 import { m, type Variants } from 'framer-motion';
 
-import { defaultFadeInUpVariants, stagger } from '~/constants/motions';
+import { defaultEasing, stagger } from '~/constants/motions';
 import { HEAD_1 } from '~/styles/typo';
 
 interface Props extends PropsWithChildren {
@@ -24,7 +24,7 @@ interface Props extends PropsWithChildren {
   staggerVariants?: Variants;
   /**
    * @description paragraph에 적용될 variants 입니다.
-   * @default defaultFadeInUpVariants
+   * @default fadeInUpVariants
    */
   paragraphVariants?: Variants;
 }
@@ -32,11 +32,11 @@ interface Props extends PropsWithChildren {
 /**
  * @description children 노드 각각을 stagger가 적용된 div로 감싸 줍니다.
  */
-const StaggerParagraph = ({
+const StaggerWrapper = ({
   children,
   wrapperOverrideCss,
   staggerVariants = stagger(0.5),
-  paragraphVariants = defaultFadeInUpVariants,
+  paragraphVariants = fadeInUpVariants,
 }: Props) => {
   return (
     <m.article
@@ -55,7 +55,7 @@ const StaggerParagraph = ({
   );
 };
 
-export default StaggerParagraph;
+export default StaggerWrapper;
 
 const wrapperCss = css`
   display: flex;
@@ -65,3 +65,21 @@ const wrapperCss = css`
 
   width: 100%;
 `;
+
+const fadeInUpVariants: Variants = {
+  initial: {
+    opacity: 0,
+    y: 10,
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
+  exit: {
+    opacity: 0,
+    y: 10,
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
+};

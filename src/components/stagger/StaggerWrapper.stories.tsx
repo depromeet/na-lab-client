@@ -5,28 +5,28 @@ import { AnimatePresence } from 'framer-motion';
 
 import { defaultFadeInVariants, staggerHalf } from '~/constants/motions';
 
-import StaggerParagraph from './StaggerParagraph';
+import StaggerWrapper from './StaggerWrapper';
 
-const meta: Meta<typeof StaggerParagraph> = {
+const meta: Meta<typeof StaggerWrapper> = {
   title: 'StaggerParagraph',
-  component: StaggerParagraph,
+  component: StaggerWrapper,
 };
 
 export default meta;
 
 export function Default() {
   return (
-    <StaggerParagraph>
+    <StaggerWrapper>
       <p>첫 번째 문장</p>
       <p>두 번째 문장</p>
       <p>세 번째 문장</p>
-    </StaggerParagraph>
+    </StaggerWrapper>
   );
 }
 
 export function Override() {
   return (
-    <StaggerParagraph
+    <StaggerWrapper
       wrapperOverrideCss={css`
         flex-direction: row;
       `}
@@ -42,7 +42,7 @@ export function Override() {
       </p>
       <p>두 번째 문장</p>
       <p>세 번째 문장</p>
-    </StaggerParagraph>
+    </StaggerWrapper>
   );
 }
 
@@ -63,19 +63,19 @@ export function WithAnimatePresence() {
     <>
       <AnimatePresence mode="wait">
         {step === 0 && (
-          <StaggerParagraph key={0}>
+          <StaggerWrapper key={0}>
             <p>첫 번째 문장</p>
             <p>두 번째 문장</p>
             <p>세 번째 문장</p>
-          </StaggerParagraph>
+          </StaggerWrapper>
         )}
 
         {step === 1 && (
-          <StaggerParagraph key={1}>
+          <StaggerWrapper key={1}>
             <p>네 번째 문장</p>
             <p>다섯 번째 문장</p>
             <p>여섯 번째 문장</p>
-          </StaggerParagraph>
+          </StaggerWrapper>
         )}
       </AnimatePresence>
 
