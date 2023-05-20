@@ -6,6 +6,7 @@ const useDidUpdate = (callback: EffectCallback, dependencyList: DependencyList) 
   useEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true;
+
       return;
     }
 
