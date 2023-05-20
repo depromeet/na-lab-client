@@ -1,54 +1,82 @@
-import Image from 'next/image';
 import { css } from '@emotion/react';
 
 import LogoBig from '~/assets/LogoBig';
-import LogoSmall from '~/assets/LogoSmall';
-
-import RainbowIcecream from '../../public/images/RainvowIcecream.png';
-
-// todo color font 모두 전역에서 가져오기
+import KakaoLoginButton from '~/components/kakaoLoginButton/KakaoLoginButton';
+import colors from '~/styles/color';
 
 export default function Login() {
   return (
-    <div>
-      <LogoSmall />
-      <section>
-        <div css={TitleWrapper}>
-          <main className="title">나의 커리어 DNA 연구</main>
-          <LogoBig />
-        </div>
-        <Image src={RainbowIcecream} width={99} height={112} alt="Picture of the author" />
+    <div css={LoginPageWrapper}>
+      <section className="page-top">
+        <main className="title">나의 커리어 DNA 연구</main>
+        <LogoBig />
       </section>
-      <section>
+      <section className="page-bottom">
         <button type="button" css={StartButton}>
           질문 폼 생성으로 시작하기
         </button>
-        <div>
-          이미 계정이 있다면? <span>카카오 로그인 하기</span>
-        </div>
+        <KakaoLoginButton />
       </section>
     </div>
   );
 }
 
-const TitleWrapper = css`
-  .title {
+const LoginPageWrapper = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+
+  .page-top {
     display: flex;
     flex-direction: column;
+    flex-grow: 5;
     align-items: center;
     justify-content: center;
 
-    font-size: 24px;
-    font-weight: semibold;
-    line-height: 33px;
-    line-height: 138%;
-    color: #17171b;
-    letter-spacing: -0.3px;
+    .title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      margin: 10px;
+
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 33px;
+      line-height: 138%;
+      color: ${colors.black};
+      letter-spacing: -0.3px;
+    }
+  }
+
+  .page-bottom {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+
+    .login-link-desc {
+      margin: 10px;
+
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      color: ${colors.primary_50};
+    }
+
+    .login-link {
+      text-decoration: underline;
+    }
   }
 `;
 
 const StartButton = css`
-  cursor: pointe;
+  cursor: pointer;
 
   overflow: visible;
 
@@ -58,9 +86,9 @@ const StartButton = css`
 
   font-size: 18px;
   font-weight: 500;
-  color: #fff;
+  color: ${colors.white};
 
-  background-color: #638fff;
+  background-color: ${colors.primary};
   border: none;
   border-radius: 8px;
   box-shadow: none;
