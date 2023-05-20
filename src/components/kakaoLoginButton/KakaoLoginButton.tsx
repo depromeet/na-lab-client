@@ -7,8 +7,8 @@ import colors from '~/styles/color';
 const KakaoLoginButton = () => {
   // const { data: session } = useSession();
 
-  // TODO : 추후 서버로 session.user.name 과 session.user.email 정보를 보내줄 수 있음
-  // TODO: 로그아웃 기능은 현재 없음
+  // TODO: 추후 서버로 session.user.name 과 session.user.email 정보를 보내줄 수 있음
+  // TODO: 로그아웃 기능은 현재 없음, 추후 필요시 주석 해제
   // if (session) {
   //   return (
   //     <button type="button" onClick={() => signOut()}>
@@ -18,12 +18,9 @@ const KakaoLoginButton = () => {
   // }
 
   return (
-    // <button type="button" onClick={() => signIn('kakao')}>
-    //   카카오로 로그인 하기
-    // </button>
     <div css={KakaoLoginWrapper}>
       이미 계정이 있다면?
-      <button type="button" className="login-link" onClick={() => signIn('kakao')}>
+      <button type="button" css={KakaoLoginButtonCss} onClick={() => signIn('kakao')}>
         카카오 로그인 하기
       </button>
     </div>
@@ -37,22 +34,22 @@ const KakaoLoginWrapper = css`
   font-weight: 400;
   line-height: 24px;
   color: ${colors.primary_50};
+`;
 
-  .login-link {
-    cursor: pointer;
+const KakaoLoginButtonCss = css`
+  cursor: pointer;
 
-    overflow: visible;
+  overflow: visible;
 
-    padding: 0;
+  padding: 0;
 
-    color: ${colors.primary_50};
-    text-decoration: underline;
+  color: ${colors.primary_50};
+  text-decoration: underline;
 
-    background: inherit;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-  }
+  background: inherit;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 `;
 
 export default KakaoLoginButton;
