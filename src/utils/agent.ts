@@ -4,11 +4,13 @@ const getNavigatorUserAgent = () => {
 
 export const isAndroid = () => {
   const userAgent = getNavigatorUserAgent();
+
   return Boolean(userAgent.match(/Android/i));
 };
 
 export const isIos = () => {
   const userAgent = getNavigatorUserAgent();
+
   return Boolean(userAgent.match(/iPhone|iPad|iPod/i));
 };
 
