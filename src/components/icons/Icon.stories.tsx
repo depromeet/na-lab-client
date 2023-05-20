@@ -1,6 +1,7 @@
 import { type Meta } from '@storybook/react';
 
 import ArrowIcon from './ArrowIcon';
+import BottomSheetHandleIcon from './BottomSheetHandleIcon';
 import LineThreeDotsIcon from './LineThreeDotsIcon';
 import XIcon from './XIcon';
 
@@ -27,4 +28,8 @@ export function X() {
 
 export function LineThreeDots() {
   return <LineThreeDotsIcon />;
+}
+
+export function BottomSheetHandle() {
+  return <BottomSheetHandleIcon />;
 }
