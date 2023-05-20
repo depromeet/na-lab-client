@@ -1,7 +1,5 @@
-import { css, ThemeProvider } from '@emotion/react';
+import { css } from '@emotion/react';
 import { type Meta } from '@storybook/react';
-
-import defaultTheme from '~/styles/theme';
 
 const meta: Meta<typeof Default> = {
   title: 'Colors',
