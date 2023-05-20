@@ -4,11 +4,13 @@ const getNavigatorUserAgent = () => {
 
 export const isAndroid = () => {
   const userAgent = getNavigatorUserAgent();
+
   return Boolean(userAgent.match(/Android/i));
 };
 
 export const isIos = () => {
   const userAgent = getNavigatorUserAgent();
+
   return Boolean(userAgent.match(/iPhone|iPad|iPod/i));
 };
 
@@ -18,6 +20,7 @@ export const isMobile = () => {
 
 export const isSSR = () => {
   const userAgent = getNavigatorUserAgent();
+
   return Boolean(userAgent.match(/SSR/i));
 };
 
