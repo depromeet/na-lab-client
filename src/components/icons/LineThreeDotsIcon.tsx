@@ -2,7 +2,7 @@ import { type ComponentProps } from 'react';
 
 import Svg from '../svg/Svg';
 
-const XIcon = ({ size = 20, ...rest }: ComponentProps<typeof Svg>) => {
+const LineThreeDotsIcon = ({ size = 20, ...rest }: ComponentProps<typeof Svg>) => {
   return (
     <Svg size={size} {...rest}>
       <path
@@ -15,4 +15,4 @@ const XIcon = ({ size = 20, ...rest }: ComponentProps<typeof Svg>) => {
   );
 };
 
-export default XIcon;
+export default LineThreeDotsIcon;

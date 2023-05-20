@@ -20,6 +20,7 @@ export const isMobile = () => {
 
 export const isSSR = () => {
   const userAgent = getNavigatorUserAgent();
+
   return Boolean(userAgent.match(/SSR/i));
 };
 

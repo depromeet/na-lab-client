@@ -17,6 +17,7 @@ const useDebounce = (cb: () => void, ms: number): (() => void) => {
     const newTimer = setTimeout(cb, ms);
     timer.current = newTimer;
   };
+
   return dispatchDebounce;
 };
 
