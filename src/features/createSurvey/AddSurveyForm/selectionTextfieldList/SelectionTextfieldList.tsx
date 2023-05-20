@@ -31,19 +31,34 @@ const SelectTextFieldList = ({ basicCount }: Props) => {
     setInputs(newInputs);
   };
 
+  const onItemDelete = (index: number) => {
+    if (inputs.length - 1 <= basicCount) {
+      alert(`최소 ${basicCount}개 이상의 옵션을 입력해주세요.`);
+
+      return;
+    }
+    const newInputs = [...inputs];
+    newInputs.splice(index, 1);
+
+    setInputs(newInputs);
+  };
+
   return (
     <div css={containerCss}>
-      {inputs.map((input, index) => (
-        <SelectionTextfield
-          key={index}
-          value={input}
-          onChange={(e) => onInputChange(index)(e)}
-          onFocus={() => setFocusInput(index)}
-          onBlur={() => setFocusInput(null)}
-          isFocused={focusInput === index}
-          isLast={index === inputs.length - 1}
-        />
-      ))}
+      {inputs.map((input, index) => {
+        return (
+          <SelectionTextfield
+            key={index}
+            value={input}
+            onChange={(e) => onInputChange(index)(e)}
+            onFocus={() => setFocusInput(index)}
+            onBlur={() => setFocusInput(null)}
+            onDelete={() => onItemDelete(index)}
+            isFocused={focusInput === index}
+            isLast={index === inputs.length - 1}
+          />
+        );
+      })}
     </div>
   );
 };

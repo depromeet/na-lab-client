@@ -10,12 +10,13 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus: () => void;
   onBlur: () => void;
+  onDelete: () => void;
 
   isLast?: boolean;
   isEssential?: boolean;
 }
 
-const SelectionTextfield = ({ value, isFocused, onChange, onFocus, onBlur, isLast }: Props) => {
+const SelectionTextfield = ({ value, isFocused, onDelete, onChange, onFocus, onBlur, isLast }: Props) => {
   if (isLast) {
     return (
       <div css={containerCss}>
@@ -37,9 +38,9 @@ const SelectionTextfield = ({ value, isFocused, onChange, onFocus, onBlur, isLas
       />
 
       {!isFocused && (
-        <div css={iconCss}>
+        <button type="button" css={iconCss} onClick={onDelete}>
           <XIcon color="#C7D6FF" />
-        </div>
+        </button>
       )}
     </div>
   );
@@ -52,6 +53,10 @@ const containerCss = css`
 `;
 
 const iconCss = css`
+  all: unset;
+
+  cursor: pointer;
+
   position: absolute;
   top: 16px;
   right: 16px;
