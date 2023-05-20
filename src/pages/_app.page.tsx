@@ -1,6 +1,7 @@
 import { type ReactElement, type ReactNode, useState } from 'react';
 import { type NextPage } from 'next';
 import type { AppProps } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
 import { css, type Theme, ThemeProvider } from '@emotion/react';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -35,7 +36,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   );
 
   return (
-    <>
+    <SessionProvider session={pageProps.session}>
       <MonitoringInitializer />
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
@@ -50,7 +51,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           <ReactQueryDevtools />
         </Hydrate>
       </QueryClientProvider>
-    </>
+    </SessionProvider>
   );
 }
 
