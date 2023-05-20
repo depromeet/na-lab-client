@@ -1,5 +1,5 @@
 import { css, type Theme } from '@emotion/react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 import { HEAD_3_SEMIBOLD } from '~/styles/typo';
 
@@ -12,16 +12,16 @@ interface Props {
   onItemClick: (type: string) => void;
 }
 
-function TextToggle({ selectItem, list, onItemClick }: Props) {
+const TextToggle = ({ selectItem, list, onItemClick }: Props) => {
   return (
     <div>
-      <motion.div animate css={containerCss}>
+      <m.div animate css={containerCss}>
         {list.map(({ label, type }) => {
           const isSelected = type === selectItem;
 
           return (
             <button type="button" onClick={() => onItemClick(type)} css={itemCss} key={label}>
-              {isSelected ? <motion.div animate css={itemBoxCss} layoutId="underline" /> : null}
+              {isSelected ? <m.div animate css={itemBoxCss} layoutId="underline" /> : null}
               <span
                 css={[HEAD_3_SEMIBOLD, (theme) => ({ color: isSelected ? theme.colors.white : theme.colors.gray_400 })]}
               >
@@ -30,10 +30,10 @@ function TextToggle({ selectItem, list, onItemClick }: Props) {
             </button>
           );
         })}
-      </motion.div>
+      </m.div>
     </div>
   );
-}
+};
 
 const itemCss = (theme: Theme) => css`
   position: relative;
@@ -69,7 +69,6 @@ const containerCss = (theme: Theme) => css`
   gap: 4px;
 
   width: fit-content;
-  height: 42px;
   padding: 5px;
 
   background-color: ${theme.colors.gray_50};
