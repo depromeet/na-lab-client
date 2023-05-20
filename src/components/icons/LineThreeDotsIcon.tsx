@@ -2,7 +2,7 @@ import { type ComponentProps } from 'react';
 
 import Svg from '../svg/Svg';
 
-const XIcon = ({ color = '#3D4350', ...rest }: ComponentProps<typeof Svg>) => {
+const LineThreeDotsIcon = ({ color = '#3D4350', ...rest }: ComponentProps<typeof Svg>) => {
   return (
     <Svg color={color} isUsingFill {...rest}>
       <path
@@ -14,4 +14,4 @@ const XIcon = ({ color = '#3D4350', ...rest }: ComponentProps<typeof Svg>) => {
   );
 };
 
-export default XIcon;
+export default LineThreeDotsIcon;
