@@ -1,6 +1,7 @@
 import { type Meta } from '@storybook/react';
 
 import ArrowIcon from './ArrowIcon';
+import CheckIcon from './CheckIcon';
 import ChevronArrowRightIcon from './ChevronArrowRightIcon';
 import EditIcon from './EditIcon';
 import LineThreeDotsIcon from './LineThreeDotsIcon';
@@ -57,4 +58,8 @@ export function ChevronArrowRight() {
 
 export function RedDot() {
   return <RedDotIcon />;
+}
+
+export function Check() {
+  return <CheckIcon />;
 }
