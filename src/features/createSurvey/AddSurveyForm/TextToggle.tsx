@@ -22,11 +22,7 @@ const TextToggle = ({ selectItem, list, onItemClick }: Props) => {
           return (
             <button type="button" onClick={() => onItemClick(type)} css={itemCss} key={label}>
               {isSelected ? <m.div animate css={itemBoxCss} layoutId="underline" /> : null}
-              <span
-                css={[HEAD_3_SEMIBOLD, (theme) => ({ color: isSelected ? theme.colors.white : theme.colors.gray_400 })]}
-              >
-                {label}
-              </span>
+              <span css={(theme) => textCss(theme, isSelected)}>{label}</span>
             </button>
           );
         })}
@@ -34,6 +30,12 @@ const TextToggle = ({ selectItem, list, onItemClick }: Props) => {
     </div>
   );
 };
+
+const textCss = (theme: Theme, isSelected: boolean) => css`
+  ${HEAD_3_SEMIBOLD};
+
+  color: ${isSelected ? theme.colors.white : theme.colors.gray_400};
+`;
 
 const itemCss = (theme: Theme) => css`
   position: relative;
