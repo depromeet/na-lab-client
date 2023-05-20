@@ -5,7 +5,6 @@ import CheckIcon from './CheckIcon';
 import ChevronArrowRightIcon from './ChevronArrowRightIcon';
 import EditIcon from './EditIcon';
 import LineThreeDotsIcon from './LineThreeDotsIcon';
-import RedDotIcon from './RedDotIcon';
 import SendIcon from './SendIcon';
 import ThreeDotsIcon from './ThreeDotsIcon';
 import WarningIcon from './WarningIcon';
@@ -54,10 +53,6 @@ export function Edit() {
 
 export function ChevronArrowRight() {
   return <ChevronArrowRightIcon />;
-}
-
-export function RedDot() {
-  return <RedDotIcon />;
 }
 
 export function Check() {
