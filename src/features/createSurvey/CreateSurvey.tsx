@@ -13,6 +13,7 @@ const CreateSurvey = () => {
   const handleNewItemAdd = () => {
     setCardItems((prev) => {
       const newId = prev.length;
+
       return [
         ...prev,
         {

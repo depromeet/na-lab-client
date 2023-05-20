@@ -8,6 +8,7 @@ import BottomSheet from './BottomSheet';
 
 vi.mock('framer-motion', async () => {
   const actual = await vi.importActual('framer-motion');
+
   return {
     ...(actual as object),
     AnimatePresence: ({ children }: PropsWithChildren) => (
