@@ -3,8 +3,12 @@ import { css } from '@emotion/react';
 
 import SelectionTextfield from '~/features/createSurvey/AddSurveyForm/selectionTextfieldList/SelectionTextfield';
 
-const SelectTextFieldList = () => {
-  const [inputs, setInputs] = useState(['', '', '']);
+interface Props {
+  basicCount: number;
+}
+
+const SelectTextFieldList = ({ basicCount }: Props) => {
+  const [inputs, setInputs] = useState(new Array(basicCount + 1).fill(''));
   const [focusInput, setFocusInput] = useState<number | null>(null);
 
   const onInputChange = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,12 +36,12 @@ const SelectTextFieldList = () => {
       {inputs.map((input, index) => (
         <SelectionTextfield
           key={index}
-          isBasic={index < inputs.length - 1}
           value={input}
           onChange={(e) => onInputChange(index)(e)}
           onFocus={() => setFocusInput(index)}
           onBlur={() => setFocusInput(null)}
           isFocused={focusInput === index}
+          isLast={index === inputs.length - 1}
         />
       ))}
     </div>

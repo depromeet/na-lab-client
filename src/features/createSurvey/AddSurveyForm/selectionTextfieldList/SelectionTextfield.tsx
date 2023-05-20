@@ -11,35 +11,36 @@ interface Props {
   onFocus: () => void;
   onBlur: () => void;
 
-  isBasic?: boolean;
+  isLast?: boolean;
+  isEssential?: boolean;
 }
 
-const SelectionTextfield = ({ value, isFocused, onChange, onFocus, onBlur, isBasic = false }: Props) => {
-  if (isBasic) {
+const SelectionTextfield = ({ value, isFocused, onChange, onFocus, onBlur, isLast }: Props) => {
+  if (isLast) {
     return (
       <div css={containerCss}>
-        <input
-          type="text"
-          placeholder="옵션을 입력하세요"
-          css={itemCss}
-          value={value}
-          onChange={onChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
-        />
-
-        {!isFocused && (
-          <div css={iconCss}>
-            <XIcon color="#C7D6FF" />
-          </div>
-        )}
+        <input type="text" placeholder="다른 옵션 추가..." css={inputCss} value={value} onChange={onChange} />
       </div>
     );
   }
 
   return (
     <div css={containerCss}>
-      <input type="text" placeholder="다른 옵션 추가..." css={inputCss} value={value} onChange={onChange} />
+      <input
+        type="text"
+        placeholder="옵션을 입력하세요"
+        css={itemCss}
+        value={value}
+        onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+      />
+
+      {!isFocused && (
+        <div css={iconCss}>
+          <XIcon color="#C7D6FF" />
+        </div>
+      )}
     </div>
   );
 };
@@ -75,10 +76,12 @@ const inputCoreCss = (theme: Theme) => css`
 const itemCss = (theme: Theme) => css`
   ${inputCoreCss(theme)}
 
+  padding-right: 48px;
   background-color: ${theme.colors.primary_50};
   border: 1px dashed ${theme.colors.primary_50};
 
   &:focus {
+    padding-right: 0;
     border: 1.5px solid #638fff59;
     outline: 1px solid #638fff59;
   }

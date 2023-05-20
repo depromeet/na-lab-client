@@ -16,7 +16,7 @@ export function Default() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <LazyMotion features={domMax}>
-        <SelectTextFieldList />
+        <SelectTextFieldList basicCount={2} />
       </LazyMotion>
     </ThemeProvider>
   );
