@@ -6,13 +6,14 @@ import { css } from '@emotion/react';
  * @example
  * ```tsx
  * // index.page.tsx
+ * import { type ReactElement } from 'react';
  * import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
  *
  * export default function Index() {
  *  return <div>foo</div>;
  * }
  *
- * Index.getLayout = (page) => <LayoutPaddingTo23>{page}</LayoutPaddingTo23>;
+ * Index.getLayout = (page: ReactElement) => <LayoutPaddingTo23>{page}</LayoutPaddingTo23>;
  * ```
  */
 const LayoutPaddingTo23 = ({ children }: PropsWithChildren) => {
