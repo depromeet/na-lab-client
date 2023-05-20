@@ -13,6 +13,7 @@ export default meta;
 export function Default() {
   return (
     <ThemeProvider theme={defaultTheme}>
+      <h1>PC 화면에 최적화되어있습니다!</h1>
       <div css={headingCss}>Button</div>
       <div css={FlexBoxCss}>
         <div css={[(theme) => ({ backgroundColor: theme.colors.primary_200 }), BoxCss]} />
@@ -64,10 +65,12 @@ export function Default() {
       </div>
       <div css={headingCss}>System Color</div>
       <div css={FlexBoxCss}>
-        <div css={[(theme) => ({ backgroundColor: theme.colors.red }), BoxCss]} />
+        <div css={[(theme) => ({ backgroundColor: theme.colors.red_200 }), BoxCss]} />
+        <div css={[(theme) => ({ backgroundColor: theme.colors.red_300 }), BoxCss]} />
       </div>
       <div css={FlexBoxCss}>
-        <span>$system-red</span>
+        <span>$system-red.200</span>
+        <span>$system-red.300 (button-hover)</span>
       </div>
       <div css={headingCss}>Sub Color</div>
       <div css={FlexBoxCss}>
@@ -97,6 +100,7 @@ const headingCss = css`
 
 const FlexBoxCss = css`
   display: flex;
+  flex-wrap: nowrap;
   gap: 10px;
   margin-top: 10px;
 
