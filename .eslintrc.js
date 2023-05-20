@@ -39,6 +39,8 @@ module.exports = {
       },
     ],
 
+    'padding-line-between-statements': ['error', { blankLine: 'always', prev: '*', next: 'return' }],
+
     'prettier/prettier': 'error',
 
     'unicorn/filename-case': [
@@ -94,6 +96,17 @@ module.exports = {
         ignoreRestSiblings: true,
         argsIgnorePattern: '_',
         varsIgnorePattern: '_',
+      },
+    ],
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: 'interface',
+        format: ['PascalCase'],
+      },
+      {
+        selector: 'typeAlias',
+        format: ['PascalCase'],
       },
     ],
 
