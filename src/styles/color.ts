@@ -21,6 +21,9 @@ const colors = {
   white: '#ffffff',
 
   red: '#F85B81',
+  red_200: '#F85B81',
+  red_300: '#DE4469',
+
   pink: '#F4E0F9',
   purple: '#ECE7F7',
   yellowgreen: '#EBF7DA',
