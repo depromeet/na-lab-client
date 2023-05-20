@@ -16,7 +16,7 @@ const nextConfig = {
     appDir: false,
     forceSwcTransforms: true,
   },
-  pageExtensions: ['page.tsx'],
+  pageExtensions: ['page.tsx', 'page.ts'],
   swcMinify: true,
   compiler: {
     emotion: true,
@@ -40,5 +40,6 @@ const sentryWebpackPluginOptions = {
 
 module.exports = () => {
   const plugins = [[withSentryConfig, sentryWebpackPluginOptions]];
+
   return plugins.reduce((acc, cur) => cur[0](acc, cur[1] ?? undefined), nextConfig);
 };
