@@ -60,4 +60,5 @@ const defaultLayoutCss = (theme: Theme) => css`
   max-width: ${theme.size.maxWidth};
   min-height: 100vh;
   margin: 0 auto;
+  padding: 0 16px;
 `;
