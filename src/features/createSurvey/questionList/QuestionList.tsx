@@ -2,12 +2,12 @@ import Question from '~/features/createSurvey/questionList/Question';
 import { type QuestionItem } from '~/features/createSurvey/types';
 
 interface Props {
-  list: QuestionItem[];
+  items: QuestionItem[];
 }
-const QuestionList = ({ list }: Props) => {
+const QuestionList = ({ items }: Props) => {
   return (
     <section>
-      {list.map((item) => (
+      {items.map((item) => (
         <Question item={item} key={item.title} />
       ))}
     </section>
