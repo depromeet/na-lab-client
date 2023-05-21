@@ -146,7 +146,11 @@ const useCTAButtonVisible = () => {
   const [isCTAButtonVisible, _, setTrue] = useBoolean(false);
 
   useEffect(() => {
-    setTimeout(setTrue, 매_문구_지속시간 * 문구_수);
+    const timeout = setTimeout(setTrue, 매_문구_지속시간 * 문구_수);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [setTrue]);
 
   return { isCTAButtonVisible };
