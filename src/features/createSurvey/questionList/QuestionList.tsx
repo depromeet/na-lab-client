@@ -1,13 +1,17 @@
-import { BASIC_QUESTION_LIST } from '~/features/createSurvey/constants';
 import Question from '~/features/createSurvey/questionList/Question';
+import { type QuestionItem } from '~/features/createSurvey/types';
 
-const QuestionList = () => {
+interface Props {
+  list: QuestionItem[];
+}
+const QuestionList = ({ list }: Props) => {
   return (
     <section>
-      {BASIC_QUESTION_LIST.map((item) => (
+      {list.map((item) => (
         <Question item={item} key={item.title} />
       ))}
     </section>
   );
 };
+
 export default QuestionList;
