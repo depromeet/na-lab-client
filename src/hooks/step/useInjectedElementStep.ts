@@ -8,7 +8,7 @@ interface Props extends UseStepParamsWithoutMax {
   elements: ReactElement[];
 }
 
-const useElementStep = ({ initial = 0, elements }: Props) => {
+const useInjectedElementStep = ({ initial = 0, elements }: Props) => {
   const { currentStep, prev, next } = useStep({ initial, max: elements.length - 1 });
 
   return {
@@ -18,4 +18,4 @@ const useElementStep = ({ initial = 0, elements }: Props) => {
   };
 };
 
-export default useElementStep;
+export default useInjectedElementStep;
