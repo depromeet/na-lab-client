@@ -4,11 +4,15 @@ import { css } from '@emotion/react';
 import SelectionTextfield from '~/features/createSurvey/AddSurveyForm/selectionTextfieldList/SelectionTextfield';
 
 interface Props {
+  inputs: string[];
   basicCount: number;
+
+  setInputs: (inputs: string[]) => void;
+
+  isMultiChoice?: boolean;
 }
 
-const SelectTextFieldList = ({ basicCount }: Props) => {
-  const [inputs, setInputs] = useState(new Array(basicCount + 1).fill(''));
+const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: Props) => {
   const [focusInput, setFocusInput] = useState<number | null>(null);
 
   const onInputChange = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +60,7 @@ const SelectTextFieldList = ({ basicCount }: Props) => {
             onDelete={() => onItemDelete(index)}
             isFocused={focusInput === index}
             isLast={index === inputs.length - 1}
+            isEssential={isMultiChoice && index < basicCount}
           />
         );
       })}

@@ -1,9 +1,7 @@
-import { ThemeProvider } from '@emotion/react';
+import { useState } from 'react';
 import { type Meta } from '@storybook/react';
-import { domMax, LazyMotion } from 'framer-motion';
 
 import SelectTextFieldList from '~/features/createSurvey/AddSurveyForm/selectionTextfieldList/SelectionTextfieldList';
-import defaultTheme from '~/styles/theme';
 
 const meta: Meta<typeof SelectTextFieldList> = {
   title: 'SelectTextFieldList',
@@ -12,12 +10,16 @@ const meta: Meta<typeof SelectTextFieldList> = {
 
 export default meta;
 
+const basicCount = 3;
+
 export function Default() {
-  return (
-    <ThemeProvider theme={defaultTheme}>
-      <LazyMotion features={domMax}>
-        <SelectTextFieldList basicCount={2} />
-      </LazyMotion>
-    </ThemeProvider>
-  );
+  const [inputs, setInputs] = useState(new Array(basicCount + 1).fill(''));
+
+  return <SelectTextFieldList basicCount={2} inputs={inputs} setInputs={setInputs} />;
 }
+
+export const MultiChoice = () => {
+  const [inputs, setInputs] = useState(new Array(basicCount + 1).fill(''));
+
+  return <SelectTextFieldList basicCount={basicCount} inputs={inputs} setInputs={setInputs} isMultiChoice />;
+};

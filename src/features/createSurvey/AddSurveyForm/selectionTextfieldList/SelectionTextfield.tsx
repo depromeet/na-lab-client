@@ -16,7 +16,7 @@ interface Props {
   isEssential?: boolean;
 }
 
-const SelectionTextfield = ({ value, isFocused, onDelete, onChange, onFocus, onBlur, isLast }: Props) => {
+const SelectionTextfield = ({ value, isFocused, onDelete, onChange, onFocus, onBlur, isLast, isEssential }: Props) => {
   if (isLast) {
     return (
       <div css={containerCss}>
@@ -30,7 +30,7 @@ const SelectionTextfield = ({ value, isFocused, onDelete, onChange, onFocus, onB
       <input
         type="text"
         placeholder="옵션을 입력하세요"
-        css={itemCss}
+        css={(theme) => itemCss(theme, isEssential)}
         value={value}
         onChange={onChange}
         onFocus={onFocus}
@@ -78,12 +78,20 @@ const inputCoreCss = (theme: Theme) => css`
   border-radius: 8px;
 `;
 
-const itemCss = (theme: Theme) => css`
+const itemCss = (theme: Theme, isEssential?: boolean) => css`
   ${inputCoreCss(theme)}
 
   padding-right: 48px;
-  background-color: ${theme.colors.primary_50};
-  border: 1px dashed ${theme.colors.primary_50};
+
+  ${isEssential
+    ? css`
+        background-color: ${theme.colors.primary_100};
+        border: 1.5px solid ${theme.colors.primary_100};
+      `
+    : css`
+        background-color: ${theme.colors.primary_50};
+        border: 1.5px solid ${theme.colors.primary_50};
+      `}
 
   &:focus {
     padding-right: 0;
