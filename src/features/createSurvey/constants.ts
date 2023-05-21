@@ -1,6 +1,4 @@
-import { type ChoiceQuestionRequest, type ShortQuestionRequest } from '~/features/createSurvey/types';
-
-type QuestionItem = ChoiceQuestionRequest | ShortQuestionRequest;
+import { type QuestionItem } from '~/features/createSurvey/types';
 
 export const BASIC_QUESTION_LIST: QuestionItem[] = [
   {
