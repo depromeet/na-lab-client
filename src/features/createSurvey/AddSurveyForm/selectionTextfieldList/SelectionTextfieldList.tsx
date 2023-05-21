@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type Dispatch, type SetStateAction, useState } from 'react';
 import { css } from '@emotion/react';
 
 import SelectionTextfield from '~/features/createSurvey/AddSurveyForm/selectionTextfieldList/SelectionTextfield';
@@ -7,7 +7,7 @@ interface Props {
   inputs: string[];
   basicCount: number;
 
-  setInputs: (inputs: string[]) => void;
+  setInputs: Dispatch<SetStateAction<string[]>>;
 
   isMultiChoice?: boolean;
 }
@@ -20,19 +20,19 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
     newInputs[index] = e.target.value;
 
     if (index === inputs.length - 1) {
-      setInputs([...newInputs, '']);
+      setInputs(() => [...newInputs, '']);
       setFocusInput(inputs.length - 1);
 
       return;
     }
 
     if (index === inputs.length - 2 && e.target.value === '') {
-      setInputs(newInputs.slice(0, -1));
+      setInputs((prev) => prev.slice(0, -1));
 
       return;
     }
 
-    setInputs(newInputs);
+    setInputs(() => newInputs);
   };
 
   const onItemDelete = (index: number) => {

@@ -1,3 +1,4 @@
+import { type ChangeEventHandler } from 'react';
 import { css, type Theme } from '@emotion/react';
 
 import XIcon from '~/components/icons/XIcon';
@@ -7,7 +8,7 @@ interface Props {
   value: string;
   isFocused: boolean;
 
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   onFocus: () => void;
   onBlur: () => void;
   onDelete: () => void;
