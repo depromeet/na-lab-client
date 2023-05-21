@@ -10,7 +10,7 @@ interface Props {
 const AddMyQuestion = ({ onAction }: Props) => {
   return (
     <button type="button" css={containerCss} onClick={onAction}>
-      <div css={actionPlusCss}>
+      <div className="icon-container" css={actionPlusCss}>
         <PlusIcon />
       </div>
       <span css={textCss}>나만의 질문 추가하기</span>
@@ -48,6 +48,17 @@ const containerCss = (theme: Theme) => css`
   background: ${theme.colors.primary_50};
   border: 1px dashed ${theme.colors.primary_100};
   border-radius: 8px;
+
+  &:hover {
+    background: ${theme.colors.primary_100};
+    transition: background 0.2s ease-in-out;
+
+    .icon-container {
+      background: ${theme.colors.primary_50};
+      transition: background 0.2s ease-out;
+      transition-delay: 0.1s;
+    }
+  }
 `;
 
 const textCss = (theme: Theme) => css`
