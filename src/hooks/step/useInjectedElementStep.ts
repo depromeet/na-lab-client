@@ -1,4 +1,4 @@
-import { type ReactElement } from 'react';
+import { cloneElement, type ReactElement } from 'react';
 
 import useStep from './useStep';
 
@@ -12,7 +12,7 @@ const useElementStep = ({ initial = 0, elements }: Props) => {
   const { currentStep, prev, next } = useStep({ initial, max: elements.length - 1 });
 
   return {
-    currentElement: elements[currentStep],
+    currentElement: cloneElement(elements[currentStep], { next, prev }),
     prev,
     next,
   };
