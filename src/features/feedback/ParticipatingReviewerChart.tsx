@@ -12,30 +12,20 @@ export interface Props {
   amount: number;
 }
 
-const getFillColorByPosition = (position: Position) => {
-  switch (position) {
-    case 'product-manager':
-      return '#1D2942';
-    case 'developer':
-      return '#638FFF';
-    case 'designer':
-      return '#D8E3FF';
-    case 'other':
-      return '#F0F4FE';
-  }
+type ColorByPosition = Record<Position, string>;
+
+const FILL_COLOR_BY_POSITION: ColorByPosition = {
+  'product-manager': '#1D2942',
+  designer: '#D8E3FF',
+  developer: '#638FFF',
+  other: '#F0F4FE',
 };
 
-const getTextColorByPosition = (position: Position) => {
-  switch (position) {
-    case 'product-manager':
-      return 'white';
-    case 'developer':
-      return 'white';
-    case 'designer':
-      return '#677089';
-    case 'other':
-      return '#677089';
-  }
+const TEXT_COLOR_BY_POSITION: ColorByPosition = {
+  'product-manager': 'white',
+  designer: '#677089',
+  developer: 'white',
+  other: '#677089',
 };
 
 const PieChart = ({ data }: { data: Props[] }) => {
@@ -86,7 +76,7 @@ const PieChart = ({ data }: { data: Props[] }) => {
 
     return (
       <g key={idx}>
-        <path d={pathData} fill={getFillColorByPosition(position)} />
+        <path d={pathData} fill={FILL_COLOR_BY_POSITION[position]} />
         {sliceRatio >= 0.1 && (
           <text x={captionX} y={captionY} textAnchor="middle" fill={getTextColorByPosition(position)} css={captionCss}>
             {`${Math.round(sliceRatio * 100)}%`}
@@ -122,7 +112,7 @@ const captionCss = css`
 const PositionColorBadgeIcon = ({ position }: { position: Position }) => {
   return (
     <Svg width={14} height={14}>
-      <circle cx="7" cy="7" r="7" fill={getFillColorByPosition(position)} />
+      <circle cx="7" cy="7" r="7" fill={TEXT_COLOR_BY_POSITION[position]} />
     </Svg>
   );
 };
