@@ -1,13 +1,15 @@
-import { css } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 
 import colors from '~/styles/color';
 
 import EditIcon from '../icons/EditIcon';
 
 const QuestionPencil = ({ color = 'bluegreen' }) => {
+  const theme = useTheme();
+
   return (
     <div css={QuestionPencilWrapper(color)}>
-      <EditIcon />
+      <EditIcon color={theme.colors.white} />
     </div>
   );
 };

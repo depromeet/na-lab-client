@@ -4,14 +4,11 @@ import { m, type Variants } from 'framer-motion';
 
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 
+import { BASIC_QUESTION_LIST } from '../../features/createSurvey/constants';
 import BottomSheetHandleIcon from '../icons/BottomSheetHandleIcon';
 import AnimatePortal from '../portal/AnimatePortal';
 import { scrimCss } from '../scrim/default.style';
 import Question from './Question';
-
-// todo 서버에서 데이터 어떻게 보내주는지 보고 수정하기
-// todo toggle 클릭하면 나오게 만들기
-// todo QuestionWrapper 컴포넌트로 빼서 map으로 돌려주기
 
 interface Props extends ComponentProps<typeof AnimatePortal> {
   /**
@@ -39,12 +36,10 @@ const BottomSheet = ({ onClickOutside, isShowing, mode }: Props) => {
         <m.div css={contentCss} variants={bottomSheetVariants}>
           <BottomSheetHandleIcon />
           <section css={QuestionListWrapperCss}>
-            <Question />
-            <Question />
-            <Question />
-            <Question />
-            <Question />
-            <Question />
+            {BASIC_QUESTION_LIST.map((question, idx) => {
+              // TODO 추후 서버에서 받아온 데이터로 key값 변경, 기본 질문 이외의 질문도 대응
+              return <Question key={idx} question={question.title} />;
+            })}
           </section>
         </m.div>
       </m.div>
