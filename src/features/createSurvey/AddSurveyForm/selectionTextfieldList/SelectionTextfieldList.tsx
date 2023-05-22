@@ -1,7 +1,7 @@
 import { type Dispatch, type SetStateAction, useState } from 'react';
 import { css } from '@emotion/react';
 
-import SelectionTextfield from '~/features/createSurvey/AddSurveyForm/selectionTextfieldList/SelectionTextfield';
+import SelectionTextfield from '~/features/createSurvey/addSurveyForm/selectionTextfieldList/SelectionTextfield';
 
 interface Props {
   inputs: string[];

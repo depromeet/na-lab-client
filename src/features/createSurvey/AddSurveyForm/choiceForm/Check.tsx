@@ -11,7 +11,7 @@ interface Props {
 
 const Check = ({ isChecked, toggleCheck, label }: Props) => {
   return (
-    <div css={checkBoxWrapperCss}>
+    <div css={containerCss}>
       <button id="multi-check" type="button" css={(theme) => checkBoxCss(theme, isChecked)} onClick={toggleCheck}>
         {isChecked && <SmallCheckIcon />}
       </button>
@@ -24,10 +24,11 @@ const Check = ({ isChecked, toggleCheck, label }: Props) => {
 
 export default Check;
 
-const checkBoxWrapperCss = css`
+const containerCss = css`
   display: flex;
   gap: 5px;
   align-items: center;
+  width: fit-content;
 `;
 
 const checkBoxCss = (theme: Theme, isSelected: boolean) => css`

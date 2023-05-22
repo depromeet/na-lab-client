@@ -1,6 +1,6 @@
 import { type Meta } from '@storybook/react';
 
-import AddMyQuestion from '~/features/createSurvey/AddSurveyForm/AddMyQuestion';
+import AddMyQuestion from './AddMyQuestion';
 
 const meta: Meta<typeof AddMyQuestion> = {
   title: 'AddMyQuestion',
