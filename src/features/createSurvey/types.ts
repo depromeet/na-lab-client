@@ -22,4 +22,5 @@ export interface ShortQuestionRequest {
   order: number;
 }
 
-export type QuestionItem = ChoiceQuestionRequest | ShortQuestionRequest;
+export type QuestionItem = Omit<ChoiceQuestionRequest, 'order'> | Omit<ShortQuestionRequest, 'order'>;
+export type QuestionRequest = ChoiceQuestionRequest | ShortQuestionRequest;

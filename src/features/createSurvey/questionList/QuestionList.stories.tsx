@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { type Meta } from '@storybook/react';
 
 import { BASIC_QUESTION_LIST } from '~/features/createSurvey/constants';
 import QuestionList from '~/features/createSurvey/questionList/QuestionList';
+import QuestionWithDndList from '~/features/createSurvey/questionList/QuestionListWithDnd';
+import { type QuestionItem } from '~/features/createSurvey/types';
 
 const meta: Meta<typeof QuestionList> = {
   title: 'QuestionList',
@@ -11,5 +14,11 @@ const meta: Meta<typeof QuestionList> = {
 export default meta;
 
 export function Default() {
-  return <QuestionList list={BASIC_QUESTION_LIST} />;
+  return <QuestionList items={BASIC_QUESTION_LIST} />;
+}
+
+export function DndList() {
+  const [customs, setCustoms] = useState<QuestionItem[]>(BASIC_QUESTION_LIST);
+
+  return <QuestionWithDndList items={customs} setItems={setCustoms} />;
 }

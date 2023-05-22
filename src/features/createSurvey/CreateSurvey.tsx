@@ -1,32 +1,21 @@
+import { useState } from 'react';
 import { css } from '@emotion/react';
 
 import { BASIC_QUESTION_LIST } from '~/features/createSurvey/constants';
 import QuestionList from '~/features/createSurvey/questionList/QuestionList';
+import QuestionWithDndList from '~/features/createSurvey/questionList/QuestionListWithDnd';
+import { type QuestionItem } from '~/features/createSurvey/types';
 
 const CreateSurvey = () => {
-  // const [cardItems, setCardItems] = useState<CardItemType[]>([]);
-
-  // // TODO : 서버 API 명세서 참고해서 type 변경
-  // const handleNewItemAdd = () => {
-  //   setCardItems((prev) => {
-  //     const newId = prev.length;
-
-  //     return [
-  //       ...prev,
-  //       {
-  //         id: newId,
-  //         title: `나의 질문 ${newId}`,
-  //         type: 'CHOICE',
-  //       },
-  //     ];
-  //   });
-  // };
+  const [customItems, setCustomsItems] = useState<QuestionItem[]>(BASIC_QUESTION_LIST);
 
   // CardList Component는 추후에 제거 예정 -> QuestionList로 대체
   return (
     <section css={containerCss}>
       <h1>기본 질문</h1>
-      <QuestionList list={BASIC_QUESTION_LIST} />
+      <QuestionList items={BASIC_QUESTION_LIST} />
+      <h1>추가 질문</h1>
+      <QuestionWithDndList items={customItems} setItems={setCustomsItems} />
     </section>
   );
 };
