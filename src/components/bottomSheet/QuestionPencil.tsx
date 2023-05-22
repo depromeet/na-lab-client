@@ -2,16 +2,35 @@ import { css } from '@emotion/react';
 
 import colors from '~/styles/color';
 
-const QuestionPencil = () => {
-  return <div css={QuestionPencilWrapper}></div>;
+import EditIcon from '../icons/EditIcon';
+
+const QuestionPencil = ({ color = 'bluegreen' }) => {
+  return (
+    <div css={QuestionPencilWrapper(color)}>
+      <EditIcon />
+    </div>
+  );
 };
-// TODO: icon 추가를 main에 머지하고 나서 연필 아이콘 삽입 작업하기
-// TODO: 핑크색 배경도 만들어야함 props에 따라 다르게 렌더링 필요
+
 export default QuestionPencil;
 
-const QuestionPencilWrapper = css`
+const styles: Record<string, Record<string, string>> = {
+  bluegreen: {
+    backgroundColor: colors.bluegreen,
+  },
+  pink: {
+    backgroundColor: colors.pink,
+  },
+};
+
+const QuestionPencilWrapper = (color: string) => css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 50px;
   height: 50px;
-  background-color: ${colors.bluegreen};
+
   border-radius: 10px;
+  ${styles[color]}
 `;

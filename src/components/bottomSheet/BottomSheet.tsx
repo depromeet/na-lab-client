@@ -3,18 +3,15 @@ import { css } from '@emotion/react';
 import { m, type Variants } from 'framer-motion';
 
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
-import { HEAD_2_REGULAR } from '~/styles/typo';
 
 import BottomSheetHandleIcon from '../icons/BottomSheetHandleIcon';
 import AnimatePortal from '../portal/AnimatePortal';
 import { scrimCss } from '../scrim/default.style';
-import QuestionPencil from './QuestionPencil';
+import Question from './Question';
 
 // todo 서버에서 데이터 어떻게 보내주는지 보고 수정하기
 // todo toggle 클릭하면 나오게 만들기
 // todo QuestionWrapper 컴포넌트로 빼서 map으로 돌려주기
-// todo 체크했을 때? 체크 안했을 때? 상태에 따라 배경색 변하게, 스크롤 위치 변하게
-// todo 핸들 아이콘이 사라짐 -> 컨텐츠가 길어진 경우 스크롤이 생기면서 핸들 아이콘이 사라짐
 
 interface Props extends ComponentProps<typeof AnimatePortal> {
   /**
@@ -41,63 +38,13 @@ const BottomSheet = ({ onClickOutside, isShowing, mode }: Props) => {
       >
         <m.div css={contentCss} variants={bottomSheetVariants}>
           <BottomSheetHandleIcon />
-          <section css={QuestionListWrapper}>
-            <article css={QuestionWrapper}>
-              <span css={QuestionWrapperLeft}>
-                <QuestionPencil />
-                <div css={QuestionDesc}>예진님의 성향</div>
-              </span>
-              <aside>v</aside>
-
-              {/* 
-              // todo 체크 아이콘 삽입
-              */}
-            </article>
-            {/* toootooo */}
-            <article css={QuestionWrapper}>
-              <span css={QuestionWrapperLeft}>
-                <QuestionPencil />
-                <div css={QuestionDesc}>나의 직무 강점은 무엇인가요?</div>
-              </span>
-              <aside>v</aside>
-
-              {/* 
-              // todo 체크 아이콘 삽입
-              */}
-            </article>
-            <article css={QuestionWrapper}>
-              <span css={QuestionWrapperLeft}>
-                <QuestionPencil />
-                <div css={QuestionDesc}>나의 직무 약점은 무엇인가요?</div>
-              </span>
-              <aside>v</aside>
-
-              {/* 
-              // todo 체크 아이콘 삽입
-              */}
-            </article>
-            <article css={QuestionWrapper}>
-              <span css={QuestionWrapperLeft}>
-                <QuestionPencil />
-                <div css={QuestionDesc}>나의 직무 약점은 무엇인가요?</div>
-              </span>
-              <aside>v</aside>
-
-              {/* 
-              // todo 체크 아이콘 삽입
-              */}
-            </article>
-            <article css={QuestionWrapper}>
-              <span css={QuestionWrapperLeft}>
-                <QuestionPencil />
-                <div css={QuestionDesc}>나의 직무 약점은 무엇인가요?</div>
-              </span>
-              <aside>v</aside>
-
-              {/* 
-              // todo 체크 아이콘 삽입
-              */}
-            </article>
+          <section css={QuestionListWrapperCss}>
+            <Question />
+            <Question />
+            <Question />
+            <Question />
+            <Question />
+            <Question />
           </section>
         </m.div>
       </m.div>
@@ -150,7 +97,7 @@ const bottomSheetVariants: Variants = {
   },
 };
 
-const QuestionListWrapper = css`
+const QuestionListWrapperCss = css`
   overflow: scroll;
   display: flex;
   flex-direction: column;
@@ -158,35 +105,5 @@ const QuestionListWrapper = css`
 
   width: 100%;
   max-height: 100%;
-
-  /* align-items: center;
-  justify-content: center; */
-
-  /* margin: 10px; */
-
   padding-top: 10px;
-`;
-
-const QuestionWrapper = css`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-
-  height: 74px;
-  padding: 15px;
-
-  /* todo: 상태에 따라 배경색 변하게 */
-`;
-
-const QuestionDesc = css`
-  ${HEAD_2_REGULAR}
-
-  margin-left: 20px;
-`;
-
-const QuestionWrapperLeft = css`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 `;
