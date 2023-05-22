@@ -13,25 +13,17 @@ interface Props extends PropsWithChildren {
 }
 
 const Message = ({ from, order, children }: Props) => {
-  if (from === 'other') {
-    return (
-      <m.p
-        variants={defaultFadeInUpVariants}
-        initial="initial"
-        animate="animate"
-        css={[defaultCss, fromOtherCss, BOREDER_RADIUS_POSITION[`${from} ${order}`], MARGIN_BOTTOM_BY_OREDER[order]]}
-      >
-        {children}
-      </m.p>
-    );
-  }
-
   return (
     <m.p
       variants={defaultFadeInUpVariants}
       initial="initial"
       animate="animate"
-      css={[defaultCss, fromMeCss, BOREDER_RADIUS_POSITION[`${from} ${order}`], MARGIN_BOTTOM_BY_OREDER[order]]}
+      css={[
+        defaultCss,
+        from === 'other' ? fromOtherCss : fromMeCss,
+        BOREDER_RADIUS_POSITION[`${from} ${order}`],
+        MARGIN_BOTTOM_BY_OREDER[order],
+      ]}
     >
       {children}
     </m.p>
