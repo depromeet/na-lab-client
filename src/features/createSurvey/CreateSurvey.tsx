@@ -1,38 +1,21 @@
 import { useState } from 'react';
 import { css } from '@emotion/react';
 
-import { type CardItemType } from '~/features/createSurvey/cardList/Card';
-import CardList from '~/features/createSurvey/cardList/CardList';
-import CardListWithDnd from '~/features/createSurvey/cardList/CardListWithDnd';
-import PlusIcon from '~/features/createSurvey/cardList/PlusIcon';
+import { BASIC_QUESTION_LIST } from '~/features/createSurvey/constants';
+import QuestionList from '~/features/createSurvey/questionList/QuestionList';
+import QuestionWithDndList from '~/features/createSurvey/questionList/QuestionListWithDnd';
+import { type QuestionItem } from '~/features/createSurvey/types';
 
 const CreateSurvey = () => {
-  const [cardItems, setCardItems] = useState<CardItemType[]>([]);
+  const [customItems, setCustomsItems] = useState<QuestionItem[]>(BASIC_QUESTION_LIST);
 
-  // TODO : 서버 API 명세서 참고해서 type 변경
-  const handleNewItemAdd = () => {
-    setCardItems((prev) => {
-      const newId = prev.length;
-
-      return [
-        ...prev,
-        {
-          id: newId,
-          title: `나의 질문 ${newId}`,
-          type: 'CHOICE',
-        },
-      ];
-    });
-  };
-
+  // CardList Component는 추후에 제거 예정 -> QuestionList로 대체
   return (
     <section css={containerCss}>
-      <CardList />
-      <CardListWithDnd items={cardItems} setItems={setCardItems} />
-      <button type="button" onClick={handleNewItemAdd} css={buttonCss}>
-        <PlusIcon />
-        <span>나만의 질문 추가하기</span>
-      </button>
+      <h1>기본 질문</h1>
+      <QuestionList items={BASIC_QUESTION_LIST} />
+      <h1>추가 질문</h1>
+      <QuestionWithDndList items={customItems} setItems={setCustomsItems} />
     </section>
   );
 };
@@ -45,22 +28,22 @@ const containerCss = css`
   gap: 8px;
 `;
 
-const buttonCss = css`
-  all: unset;
+// const buttonCss = css`
+//   all: unset;
 
-  cursor: pointer;
+//   cursor: pointer;
 
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-  align-items: center;
-  justify-content: center;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 11px;
+//   align-items: center;
+//   justify-content: center;
 
-  width: 100%;
-  padding: 25px 106px;
+//   width: 100%;
+//   padding: 25px 106px;
 
-  color: #37c3ff;
+//   color: #37c3ff;
 
-  background-color: #f7f8f9;
-  border-radius: 12px;
-`;
+//   background-color: #f7f8f9;
+//   border-radius: 12px;
+// `;

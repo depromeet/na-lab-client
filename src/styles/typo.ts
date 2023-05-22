@@ -48,3 +48,10 @@ export const BODY_2_REGULAR = css`
   line-height: 140%;
   letter-spacing: -0.3px;
 `;
+
+export const DETAIL = css`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 170%;
+`;
