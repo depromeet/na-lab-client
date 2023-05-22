@@ -34,6 +34,9 @@ const defaultCss = css`
   width: fit-content;
   max-width: 278px;
   padding: 9px 14px;
+
+  word-break: break-all;
+
   border-radius: 20px;
 `;
 
