@@ -2,21 +2,14 @@ import React, { useLayoutEffect, useState } from 'react';
 import { css, type Theme } from '@emotion/react';
 
 import Svg from '~/components/svg/Svg';
+import { POSITION } from '~/constants/position';
 import { HEAD_2_REGULAR } from '~/styles/typo';
 
 export type Position = 'product-manager' | 'designer' | 'developer' | 'other';
 
-enum PositionEnum {
-  'product-manager' = '기획자',
-  'developer' = '개발자',
-  'designer' = '디자이너',
-  'other' = '지인',
-}
-
 export interface Props {
   position: Position;
   amount: number;
-  ratio?: number;
 }
 
 const getFillColorByPosition = (position: Position) => {
@@ -57,8 +50,6 @@ const PieChart = ({ data }: { data: Props[] }) => {
     return amount / totalAmount;
   };
 
-  // const totalRatio = data.reduce((acc, cur) => acc + (cur.ratio ?? amountToRatio(cur.amount)), 0);
-
   const getPathCoordinates = (angle: number) => {
     const x = centerX + radius * Math.cos(angle);
     const y = centerY + radius * Math.sin(angle);
@@ -67,9 +58,9 @@ const PieChart = ({ data }: { data: Props[] }) => {
   };
 
   const renderSlice = (sliceData: Props, idx: number) => {
-    const { ratio, amount, position } = sliceData;
+    const { amount, position } = sliceData;
 
-    const sliceRatio = ratio ?? amountToRatio(amount);
+    const sliceRatio = amountToRatio(amount);
 
     const startAngle = currentAngle;
     const endAngle = currentAngle + sliceRatio * Math.PI * 1;
@@ -149,7 +140,7 @@ const ChartDescription = ({ data }: { data: Props[] }) => {
       {data.map((sliceData, idx) => {
         return (
           <div key={idx} css={descriptionTextWrapperCss}>
-            <span css={descriptionTextCss}>{PositionEnum[sliceData.position]}</span>
+            <span css={descriptionTextCss}>{POSITION[sliceData.position]}</span>
             <div css={descriptionDownsideWrapperCss}>
               <div css={(theme: Theme) => dashedLineCss(theme, lineWidth, idx)} />
               <div css={descriptionColorBadgeAmountWrapperCss}>
