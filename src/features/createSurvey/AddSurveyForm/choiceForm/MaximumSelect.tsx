@@ -23,6 +23,8 @@ export default MaximumSelect;
 const containerCss = (theme: Theme) => css`
   ${BODY_2_BOLD}
 
+  width: 207px;
+
   display: flex;
   gap: 23px;
   align-items: center;

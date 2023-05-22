@@ -74,4 +74,5 @@ const containerCss = css`
   display: flex;
   flex-direction: column;
   gap: 7px;
+  width: 100%;
 `;
