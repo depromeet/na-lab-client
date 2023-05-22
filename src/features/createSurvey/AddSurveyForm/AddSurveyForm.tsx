@@ -1,8 +1,8 @@
 import { type ChangeEvent, useState } from 'react';
 import { css, type Theme } from '@emotion/react';
 
-import ChoiceForm from '~/features/createSurvey/AddSurveyForm/ChoiceForm';
-import TextToggle from '~/features/createSurvey/AddSurveyForm/TextToggle';
+import ChoiceForm from '~/features/createSurvey/addSurveyForm/choiceForm/ChoiceForm';
+import TextToggle from '~/features/createSurvey/addSurveyForm/TextToggle';
 import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
 
 const TOGGLE_LIST = [

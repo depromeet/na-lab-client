@@ -1,27 +1,28 @@
 import { css, type Theme } from '@emotion/react';
 
 import { SmallCheckIcon } from '~/components/icons/CheckIcon';
-import useBoolean from '~/hooks/common/useBoolean';
 import { BODY_2_BOLD } from '~/styles/typo';
 
-const ChoiceForm = () => {
-  const [isChecked, toggleCheck] = useBoolean(false);
+interface Props {
+  isChecked: boolean;
+  toggleCheck: () => void;
+  label: string;
+}
 
+const Check = ({ isChecked, toggleCheck, label }: Props) => {
   return (
-    <div>
-      <div css={checkBoxWrapperCss}>
-        <button id="multi-check" type="button" css={(theme) => checkBoxCss(theme, isChecked)} onClick={toggleCheck}>
-          {isChecked && <SmallCheckIcon />}
-        </button>
-        <label htmlFor="multi-check" css={checkboxLabelCss}>
-          복수선택 가능
-        </label>
-      </div>
+    <div css={checkBoxWrapperCss}>
+      <button id="multi-check" type="button" css={(theme) => checkBoxCss(theme, isChecked)} onClick={toggleCheck}>
+        {isChecked && <SmallCheckIcon />}
+      </button>
+      <label htmlFor="multi-check" css={checkboxLabelCss}>
+        {label}
+      </label>
     </div>
   );
 };
 
-export default ChoiceForm;
+export default Check;
 
 const checkBoxWrapperCss = css`
   display: flex;
