@@ -3,6 +3,7 @@ import { css, type Theme } from '@emotion/react';
 
 import EditIcon from '~/components/icons/EditIcon';
 import { type QuestionFormType, type QuestionItem, type QuestionType } from '~/features/createSurvey/types';
+import colors from '~/styles/color';
 import { DETAIL, HEAD_3_SEMIBOLD } from '~/styles/typo';
 
 interface Props {
@@ -16,7 +17,7 @@ const Question = ({ item, rightElement }: Props) => {
   return (
     <li css={listItemCss}>
       <div css={[iconContainerCss, typeCss]}>
-        <EditIcon color="#fff" />
+        <EditIcon color={colors.white} />
       </div>
       <div css={textContainerCss}>
         <p css={titleCss}>{item.title}</p>
@@ -58,34 +59,29 @@ const iconContainerCss = css`
   border-radius: 10px;
 `;
 
-const basicInformationCss = (theme: Theme) => css`
-  background-color: ${theme.colors.bluegreen};
-`;
-const shortCss = (theme: Theme) => css`
-  background-color: ${theme.colors.yellowgreen};
-`;
-
-const choiceCss = (theme: Theme) => css`
-  background-color: ${theme.colors.pink};
-`;
-
 const getType = (type: QuestionType, formType: QuestionFormType) => {
   if (formType === 'tendency') {
     return {
       tag: '기본정보',
-      css: basicInformationCss,
+      css: css`
+        background-color: ${colors.bluegreen};
+      `,
     };
   }
   if (type === 'short') {
     return {
       tag: '주관식',
-      css: shortCss,
+      css: css`
+        background-color: ${colors.yellowgreen};
+      `,
     };
   }
 
   return {
     tag: '객관식',
-    css: choiceCss,
+    css: css`
+      background-color: ${colors.pink};
+    `,
   };
 };
 
@@ -98,8 +94,6 @@ const tagCss = (theme: Theme) => css`
   padding: 2px 4px;
 
   color: ${theme.colors.gray_400};
-
-  /* $primary.50 (background) */
 
   background: ${theme.colors.primary_50};
   border-radius: 4px;

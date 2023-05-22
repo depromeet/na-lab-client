@@ -1,14 +1,16 @@
 export type QuestionType = 'choice' | 'short';
 export type QuestionFormType = 'strength' | 'weakness' | 'tendency' | 'custom';
 
+interface Choice {
+  content: string;
+  order: number;
+}
+
 export interface ChoiceQuestionRequest {
   type: 'choice';
   form_type: QuestionFormType;
   title: string;
-  choices: {
-    content: string;
-    order: number;
-  }[];
+  choices: Choice[];
   max_selectable_count: number;
   order: number;
 }
