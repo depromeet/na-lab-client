@@ -1,6 +1,8 @@
 import { type PropsWithChildren } from 'react';
 import { css, type Interpolation, type Theme } from '@emotion/react';
+import { m } from 'framer-motion';
 
+import { defaultFadeInUpVariants } from '~/constants/motions';
 import { BODY_1 } from '~/styles/typo';
 
 import { type MessageFrom, type MessageOrder } from './type';
@@ -13,22 +15,32 @@ interface Props extends PropsWithChildren {
 const Message = ({ from, order, children }: Props) => {
   if (from === 'other') {
     return (
-      <p css={[defaultCss, fromOtherCss, BOREDER_RADIUS_POSITION[`${from} ${order}`], MARGIN_BOTTOM_BY_OREDER[order]]}>
+      <m.p
+        variants={defaultFadeInUpVariants}
+        initial="initial"
+        animate="animate"
+        css={[defaultCss, fromOtherCss, BOREDER_RADIUS_POSITION[`${from} ${order}`], MARGIN_BOTTOM_BY_OREDER[order]]}
+      >
         {children}
-      </p>
+      </m.p>
     );
   }
 
   return (
-    <p css={[defaultCss, fromMeCss, BOREDER_RADIUS_POSITION[`${from} ${order}`], MARGIN_BOTTOM_BY_OREDER[order]]}>
+    <m.p
+      variants={defaultFadeInUpVariants}
+      initial="initial"
+      animate="animate"
+      css={[defaultCss, fromMeCss, BOREDER_RADIUS_POSITION[`${from} ${order}`], MARGIN_BOTTOM_BY_OREDER[order]]}
+    >
       {children}
-    </p>
+    </m.p>
   );
 };
 
 export default Message;
 
-const defaultCss = css`
+const defaultCss = (theme: Theme) => css`
   ${BODY_1}
 
   width: fit-content;
@@ -38,6 +50,8 @@ const defaultCss = css`
   word-break: break-all;
 
   border-radius: 20px;
+
+  transition: border-radius 0.2s ${theme.transition.defaultEasing};
 `;
 
 const fromOtherCss = (theme: Theme) => css`

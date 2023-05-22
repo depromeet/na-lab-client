@@ -1,7 +1,12 @@
+import { useState } from 'react';
 import { css } from '@emotion/react';
 import { type Meta } from '@storybook/react';
 
+import useInput from '~/hooks/common/useInput';
+
 import Message from './Message';
+import MessageContainer from './MessageContainer';
+import { type MessageType } from './type';
 
 const meta: Meta = {
   title: 'Chat',
@@ -50,5 +55,42 @@ export const ChatMessage = () => {
         numquam ratione minus ut libero minima eum, culpa perferendis eligendi dolores praesentium animi.
       </Message>
     </div>
+  );
+};
+
+export const Chat = () => {
+  const [value, onChange, clear] = useInput();
+
+  const onClick = () => {
+    setMessage((messages) => [...messages, { from: 'me', content: value }]);
+    clear();
+  };
+
+  const onClickOther = () => {
+    setMessage((messages) => [...messages, { from: 'other', content: value }]);
+    clear();
+  };
+
+  const [messages, setMessage] = useState<MessageType[]>([]);
+
+  return (
+    <>
+      <MessageContainer messages={messages} />
+
+      <div
+        css={css`
+          position: absolute;
+          bottom: 12px;
+        `}
+      >
+        <input type="text" value={value} onChange={onChange} />
+        <button type="button" onClick={onClick}>
+          전송
+        </button>
+        <button type="button" onClick={onClickOther}>
+          다른 사람으로 전송
+        </button>
+      </div>
+    </>
   );
 };
