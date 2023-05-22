@@ -1,12 +1,13 @@
-import { type ButtonHTMLAttributes, forwardRef, type Ref } from 'react';
+import { forwardRef, type Ref } from 'react';
 import { css, type Theme, useTheme } from '@emotion/react';
 
 import { HEAD_2_BOLD } from '~/styles/typo';
 
-type Color = 'navy' | 'blue' | 'gray';
-type ButtonAttr = ButtonHTMLAttributes<HTMLButtonElement>;
+import { type ButtonAttributes } from './type';
 
-interface Props extends ButtonAttr {
+type Color = 'navy' | 'blue' | 'gray';
+
+interface Props extends ButtonAttributes {
   /**
    * @description 'navy' | 'blue' | 'gray' 중 색상을 지정할 수 있습니다.
    * @default 'navy'
