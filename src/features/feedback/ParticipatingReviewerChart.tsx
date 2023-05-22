@@ -78,7 +78,7 @@ const PieChart = ({ data }: { data: Props[] }) => {
       <g key={idx}>
         <path d={pathData} fill={FILL_COLOR_BY_POSITION[position]} />
         {sliceRatio >= 0.1 && (
-          <text x={captionX} y={captionY} textAnchor="middle" fill={getTextColorByPosition(position)} css={captionCss}>
+          <text x={captionX} y={captionY} textAnchor="middle" fill={TEXT_COLOR_BY_POSITION[position]} css={captionCss}>
             {`${Math.round(sliceRatio * 100)}%`}
           </text>
         )}
