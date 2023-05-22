@@ -1,6 +1,7 @@
 import { type ChangeEvent, useState } from 'react';
 import { css, type Theme } from '@emotion/react';
 
+import ChoiceForm from '~/features/createSurvey/AddSurveyForm/ChoiceForm';
 import TextToggle from '~/features/createSurvey/AddSurveyForm/TextToggle';
 import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
 
@@ -15,7 +16,7 @@ const TOGGLE_LIST = [
   },
 ];
 
-function AddSurveyForm() {
+const AddSurveyForm = () => {
   const [selectToggleTab, setSelectToggleTab] = useState(TOGGLE_LIST[0].type);
   const [questionInput, setQuestionInput] = useState('');
 
@@ -36,9 +37,10 @@ function AddSurveyForm() {
         onChange={onQuestionInputChange}
         placeholder="이곳에 질문을 입력하세요"
       />
+      <ChoiceForm />
     </div>
   );
-}
+};
 
 export default AddSurveyForm;
 
