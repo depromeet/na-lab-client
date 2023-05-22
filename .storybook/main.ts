@@ -8,6 +8,7 @@ const config: StorybookConfig = {
     path.dirname(require.resolve(path.join('@storybook/addon-links', 'package.json'))),
     path.dirname(require.resolve(path.join('@storybook/addon-essentials', 'package.json'))),
     path.dirname(require.resolve(path.join('@storybook/addon-interactions', 'package.json'))),
+    path.dirname(require.resolve(path.join('@storybook/addon-storysource', 'package.json'))),
   ],
   framework: {
     name: '@storybook/nextjs',
@@ -22,6 +23,12 @@ const config: StorybookConfig = {
     options.presets!.push('@emotion/babel-preset-css-prop');
     return options;
   },
+  staticDirs: [
+    {
+      from: '../src/assets/fonts',
+      to: 'src/assets/fonts',
+    },
+  ],
 };
 
 export default config;

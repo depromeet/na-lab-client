@@ -1,6 +1,8 @@
 const { version } = require('./package.json');
 const { withSentryConfig } = require('@sentry/nextjs');
 
+const isProd = process.env.NODE_ENV === 'production';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -14,10 +16,16 @@ const nextConfig = {
     appDir: false,
     forceSwcTransforms: true,
   },
-  pageExtensions: ['page.tsx'],
+  pageExtensions: ['page.tsx', 'page.ts'],
   swcMinify: true,
   compiler: {
     emotion: true,
+    reactRemoveProperties: isProd && {
+      properties: ['^data-testid'],
+    },
+    removeConsole: isProd && {
+      exclude: ['error', 'warn'],
+    },
   },
   sentry: {
     hideSourceMaps: true,
@@ -32,5 +40,6 @@ const sentryWebpackPluginOptions = {
 
 module.exports = () => {
   const plugins = [[withSentryConfig, sentryWebpackPluginOptions]];
+
   return plugins.reduce((acc, cur) => cur[0](acc, cur[1] ?? undefined), nextConfig);
 };
