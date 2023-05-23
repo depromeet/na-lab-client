@@ -9,7 +9,6 @@ import { type QuestionItem } from '~/features/createSurvey/types';
 const CreateSurvey = () => {
   const [customItems, setCustomsItems] = useState<QuestionItem[]>(BASIC_QUESTION_LIST);
 
-  // CardList Component는 추후에 제거 예정 -> QuestionList로 대체
   return (
     <section css={containerCss}>
       <h1>기본 질문</h1>

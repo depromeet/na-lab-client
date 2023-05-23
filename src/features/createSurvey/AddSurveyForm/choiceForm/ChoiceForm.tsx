@@ -29,7 +29,7 @@ const ChoiceForm = () => {
           <MaximumSelect value={maxSelect} setValue={setMaxSelect} />
         </m.div>
       )}
-      <SelectTextFieldList inputs={inputs} basicCount={maxSelect} setInputs={setInputs} />
+      <SelectTextFieldList inputs={inputs} basicCount={maxSelect} setInputs={setInputs} isMultiChoice={isChecked} />
     </div>
   );
 };
