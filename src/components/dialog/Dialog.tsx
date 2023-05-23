@@ -9,8 +9,6 @@ import {
 import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
-import { pretendard } from '~/assets/fonts/pretendard';
-
 import AnimatePortal from '../portal/AnimatePortal';
 import { CancelButton, ConfirmButton } from './DialogButton';
 import { Description, Title } from './DialogText';
@@ -49,10 +47,9 @@ interface Props {
  * @param confirmButton 우측 확인 버튼을 `ReactElement`로 전달해주세요.
  */
 const Dialog = ({ isShowing, mode, onClickOutside, ...props }: Props & ComponentProps<typeof AnimatePortal>) => {
-  // NOTE: portal을 사용한 컴포넌트는 스토리북에서 폰트 적용이 안됨
   return (
     <AnimatePortal isShowing={isShowing} mode={mode}>
-      <div className={pretendard.className}>
+      <div>
         <DialogBlur onClickOutside={onClickOutside} />
         <DialogContent {...props} />
       </div>
