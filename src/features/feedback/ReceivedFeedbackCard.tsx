@@ -11,76 +11,70 @@ import UnreadBadgeIcon from './UnreadBadgeIcon';
 
 const ReceivedFeedbackCard = ({ isRead = false, feedbackUser = '개발자 A', isCollaborate = true }) => {
   return (
-    <section css={ReceivedFeedbackCardWrapper}>
-      <header css={FeedbackHeader}>{isRead ? null : <UnreadBadgeIcon />}</header>
-      <figure css={FeedbackBody}>
+    <section css={containerCss}>
+      {isRead ? null : <UnreadBadgeIcon floatingTop="8px" floatingRight="8px" />}
+
+      <figure css={BodyCss}>
         {/* 
         // TODO: 이미지는 추후 3D로 변경 예정
         */}
-        <Image css={FeedbackImage} src={feedbackImage} alt="피드백 이미지" />
-        <div css={[HEAD_2_BOLD, FeedbackDesc]}>
+        <Image css={ImageCss} src={feedbackImage} alt="피드백 이미지" />
+        <div css={[HEAD_2_BOLD, DescCss]}>
           {feedbackUser}의<br />
           피드백
         </div>
       </figure>
-      <footer css={FeedbackFooter}>{isCollaborate ? <CollaborationBadge variant="gray" /> : null}</footer>
+      <footer css={FooterCss}>{isCollaborate ? <CollaborationBadge variant="gray" /> : null}</footer>
     </section>
   );
 };
 
 export default ReceivedFeedbackCard;
 
-const ReceivedFeedbackCardWrapper = css`
-  top: 0;
-  left: 0;
+const containerCss = css`
+  position: relative;
 
   display: flex;
   flex-direction: column;
 
-  width: 161px;
+  min-width: 161px;
+  max-width: 161px;
   height: 215px;
-  padding: 10px 10px 30px;
 
   background-color: ${colors.white};
   border-radius: 8px;
 `;
 
-const FeedbackHeader = css`
-  display: flex;
-  flex-direction: row-reverse;
-  width: 100%;
-  height: 10px;
-`;
-
-const FeedbackBody = css`
+const BodyCss = css`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
 
-const FeedbackImage = css`
+const ImageCss = css`
   width: 60px;
   height: 50px;
-  margin: 10px 0;
+  margin: 26px auto auto;
   border-radius: 5px;
 `;
 
-const FeedbackDesc = css`
+const DescCss = css`
   display: flex;
 
-  margin: 10px auto;
+  margin: 21px auto 0;
 
   font-size: 18px;
   font-weight: 600;
   text-align: center;
 `;
 
-const FeedbackFooter = css`
+const FooterCss = css`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
   height: 35px;
+  margin-top: 11px;
 `;
