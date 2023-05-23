@@ -1,8 +1,14 @@
 import { css, Global } from '@emotion/react';
 import emotionNormalize from 'emotion-normalize';
 
+import theme from './theme';
+
 const globalStyles = css`
   ${emotionNormalize}
+
+  :root {
+    color: ${theme.colors.black};
+  }
 
   * {
     box-sizing: border-box !important;
