@@ -41,10 +41,10 @@ interface Props {
  * @param isShowing 열림/닫힘 상태
  * @param mode AnimatePresence mode
  * @param onClickOutside 외부영역 클릭시 호출될 함수
- * @param title 제목을 `string` 혹은 `ReactElement`로 전달해주세요.
- * @param description 설명을 `string` 혹은 `ReactElement`로 전달해주세요.
- * @param cancelButton 좌측 취소 버튼을 `ReactElement`로 전달해주세요.
- * @param confirmButton 우측 확인 버튼을 `ReactElement`로 전달해주세요.
+ * @param title 제목을 `string` 혹은 `ReactElement`로 전달해주세요. Dialog.Title을 사용하세요.
+ * @param description 설명을 `string` 혹은 `ReactElement`로 전달해주세요. Dialog.Description을 사용하세요.
+ * @param cancelButton 좌측 취소 버튼을 `ReactElement`로 전달해주세요. Dialog.CancelButton을 사용하세요.
+ * @param confirmButton 우측 확인 버튼을 `ReactElement`로 전달해주세요. Dialog.ConfirmButton을 사용하세요.
  */
 const Dialog = ({ isShowing, mode, onClickOutside, ...props }: Props & ComponentProps<typeof AnimatePortal>) => {
   return (
