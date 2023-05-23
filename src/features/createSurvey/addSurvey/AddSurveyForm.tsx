@@ -1,6 +1,8 @@
 import { type ChangeEvent, useState } from 'react';
 import { css, type Theme } from '@emotion/react';
 
+import Button from '~/components/button/Button';
+import { XCircleButton } from '~/components/button/CircleButton';
 import ChoiceForm from '~/features/createSurvey/addSurvey/choiceForm/ChoiceForm';
 import TextToggle from '~/features/createSurvey/addSurvey/TextToggle';
 import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
@@ -16,7 +18,11 @@ const TOGGLE_LIST = [
   },
 ];
 
-const AddSurveyForm = ({}) => {
+interface Props {
+  onClose: () => void;
+}
+
+const AddSurveyForm = ({ onClose }: Props) => {
   const [selectToggleTab, setSelectToggleTab] = useState(TOGGLE_LIST[0].type);
   const [questionInput, setQuestionInput] = useState('');
 
@@ -26,7 +32,7 @@ const AddSurveyForm = ({}) => {
   };
 
   return (
-    <div css={containerCss}>
+    <article css={containerCss}>
       <section css={topSection}>
         <h1 css={HEAD_2_BOLD}>나만의 질문 추가</h1>
         <TextToggle list={TOGGLE_LIST} selectItem={selectToggleTab} onItemClick={(type) => setSelectToggleTab(type)} />
@@ -38,18 +44,38 @@ const AddSurveyForm = ({}) => {
         placeholder="이곳에 질문을 입력하세요"
       />
       <ChoiceForm />
-    </div>
+
+      <section css={bottomCss}>
+        <XCircleButton onClick={onClose} />
+        <Button>완료</Button>
+      </section>
+    </article>
   );
 };
 
 export default AddSurveyForm;
 
+const bottomCss = css`
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  left: 16px;
+
+  display: flex;
+  justify-content: space-between;
+`;
+
 const containerCss = css`
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: center;
 
+  width: 100%;
   height: calc(100vh - 12px);
+  padding: 0 16px;
+  padding-bottom: 104px;
 
   text-align: center;
 `;

@@ -13,7 +13,7 @@ import useBoolean from '~/hooks/common/useBoolean';
 
 const CreateSurvey = () => {
   const [customItems, setCustomsItems] = useState<QuestionItem[]>(BASIC_QUESTION_LIST);
-  const [isShowing, toggleShowing] = useBoolean(false);
+  const [isShowing, toggleShowing] = useBoolean(true);
 
   return (
     <section css={containerCss}>
@@ -24,7 +24,7 @@ const CreateSurvey = () => {
       <AddMyQuestion onAction={toggleShowing} />
       <BottomSheet isShowing={isShowing}>
         <BottomSheetHandleIcon onClick={toggleShowing} />
-        <AddSurveyForm />
+        <AddSurveyForm onClose={toggleShowing} />
       </BottomSheet>
     </section>
   );

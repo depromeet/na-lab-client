@@ -22,7 +22,7 @@ const ChoiceForm = () => {
   }, [maxSelect]);
 
   return (
-    <div css={containerCss}>
+    <section css={containerCss}>
       <Check isChecked={isChecked} toggleCheck={toggleCheck} label="복수선택 가능" />
       {isChecked && (
         <m.div variants={defaultFadeInDownVariants} initial="initial" animate="animate" exit="exit">
@@ -30,7 +30,7 @@ const ChoiceForm = () => {
         </m.div>
       )}
       <SelectTextFieldList inputs={inputs} basicCount={maxSelect} setInputs={setInputs} isMultiChoice={isChecked} />
-    </div>
+    </section>
   );
 };
 
