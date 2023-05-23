@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type Dispatch, type SetStateAction } from 'react';
 import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
@@ -9,11 +9,18 @@ import SelectTextFieldList from '~/features/createSurvey/addSurvey/selectionText
 import useBoolean from '~/hooks/common/useBoolean';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 
-const ChoiceForm = () => {
+interface Props {
+  maxSelect: number;
+  setMaxSelect: Dispatch<SetStateAction<number>>;
+  inputs: string[];
+  setInputs: Dispatch<SetStateAction<string[]>>;
+}
+
+const ChoiceForm = ({ maxSelect, setMaxSelect, inputs, setInputs }: Props) => {
   const [isChecked, toggleCheck] = useBoolean(false);
 
-  const [maxSelect, setMaxSelect] = useState(1);
-  const [inputs, setInputs] = useState(['', '']);
+  // const [maxSelect, setMaxSelect] = useState(1);
+  // const [inputs, setInputs] = useState(['', '']);
 
   useDidUpdate(() => {
     if (maxSelect >= inputs.length) {

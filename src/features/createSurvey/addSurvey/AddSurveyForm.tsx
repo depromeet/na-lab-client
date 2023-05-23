@@ -5,6 +5,7 @@ import Button from '~/components/button/Button';
 import { XCircleButton } from '~/components/button/CircleButton';
 import ChoiceForm from '~/features/createSurvey/addSurvey/choiceForm/ChoiceForm';
 import TextToggle from '~/features/createSurvey/addSurvey/TextToggle';
+import { type ChoiceQuestionItem, type ShortQuestionItem } from '~/features/createSurvey/types';
 import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
 
 const TOGGLE_LIST = [
@@ -26,9 +27,37 @@ const AddSurveyForm = ({ onClose }: Props) => {
   const [selectToggleTab, setSelectToggleTab] = useState(TOGGLE_LIST[0].type);
   const [questionInput, setQuestionInput] = useState('');
 
+  const [maxSelect, setMaxSelect] = useState(1);
+  const [inputs, setInputs] = useState(['', '']);
+
   const onQuestionInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length > 45) return alert('45자 이내로 입력해주세요.');
     setQuestionInput(e.target.value);
+  };
+
+  const onAction = () => {
+    if (selectToggleTab === 'CHOICE') {
+      const choices = inputs.slice(0, -1).map((input, idx) => ({
+        content: input,
+        order: idx + 1,
+      }));
+
+      const data: ChoiceQuestionItem = {
+        type: 'choice',
+        form_type: 'custom',
+        title: questionInput,
+        choices: choices,
+        max_selectable_count: maxSelect,
+      };
+      console.log('data: ', data);
+    } else {
+      const data: ShortQuestionItem = {
+        type: 'short',
+        form_type: 'custom',
+        title: questionInput,
+      };
+      console.log('data: ', data);
+    }
   };
 
   return (
@@ -43,11 +72,11 @@ const AddSurveyForm = ({ onClose }: Props) => {
         onChange={onQuestionInputChange}
         placeholder="이곳에 질문을 입력하세요"
       />
-      <ChoiceForm />
+      <ChoiceForm maxSelect={maxSelect} setMaxSelect={setMaxSelect} inputs={inputs} setInputs={setInputs} />
 
       <section css={bottomCss}>
         <XCircleButton onClick={onClose} />
-        <Button>완료</Button>
+        <Button onClick={onAction}>완료</Button>
       </section>
     </article>
   );

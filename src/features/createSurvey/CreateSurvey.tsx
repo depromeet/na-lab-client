@@ -37,23 +37,3 @@ const containerCss = css`
   flex-direction: column;
   gap: 8px;
 `;
-
-// const buttonCss = css`
-//   all: unset;
-
-//   cursor: pointer;
-
-//   display: flex;
-//   flex-direction: column;
-//   gap: 11px;
-//   align-items: center;
-//   justify-content: center;
-
-//   width: 100%;
-//   padding: 25px 106px;
-
-//   color: #37c3ff;
-
-//   background-color: #f7f8f9;
-//   border-radius: 12px;
-// `;
