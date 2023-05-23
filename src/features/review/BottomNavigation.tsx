@@ -8,14 +8,15 @@ import { fixedBottomCss } from './style';
 
 interface Props {
   onBackClick: MouseEventHandler<HTMLButtonElement>;
+  isBackDisabled?: boolean;
   onNextClick: MouseEventHandler<HTMLButtonElement>;
   isNextDisabled?: boolean;
 }
 
-const BottomNavigation = ({ onBackClick, onNextClick, isNextDisabled }: Props) => {
+const BottomNavigation = ({ onBackClick, isBackDisabled, onNextClick, isNextDisabled }: Props) => {
   return (
     <div css={wrapperCss}>
-      <ArrowCircleButton onClick={onBackClick} />
+      <ArrowCircleButton onClick={onBackClick} disabled={isBackDisabled} />
       <Button onClick={onNextClick} disabled={isNextDisabled}>
         다음
       </Button>
