@@ -7,9 +7,9 @@ import { ArrowCircleButton } from '~/components/button/CircleButton';
 import { fixedBottomCss } from './style';
 
 interface Props {
-  onBackClick: MouseEventHandler<HTMLButtonElement>;
+  onBackClick?: MouseEventHandler<HTMLButtonElement>;
   isBackDisabled?: boolean;
-  onNextClick: MouseEventHandler<HTMLButtonElement>;
+  onNextClick?: MouseEventHandler<HTMLButtonElement>;
   isNextDisabled?: boolean;
 }
 
