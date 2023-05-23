@@ -3,8 +3,8 @@ import { css, type Theme, useTheme } from '@emotion/react';
 
 import { HEAD_2_REGULAR } from '~/styles/typo';
 
-import CheckIcon from '../icons/CheckIcon';
-import QuestionPencil from './QuestionPencil';
+import CheckIcon from '../../components/icons/CheckIcon';
+import QuestionIcon from './QuestionIcon';
 
 interface Props {
   question: string;
@@ -24,7 +24,7 @@ const Question = ({ question }: Props) => {
   return (
     <switch css={QuestionWrapperCss(isSelected, theme)} onClick={onClickQuestion}>
       <span css={QuestionWrapperLeftCss}>
-        <QuestionPencil />
+        <QuestionIcon />
         <div css={QuestionDescCss}>{question}</div>
       </span>
       {isSelected ? <CheckIcon /> : null}

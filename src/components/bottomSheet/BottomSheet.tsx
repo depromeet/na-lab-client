@@ -4,11 +4,8 @@ import { m, type Variants } from 'framer-motion';
 
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 
-import { BASIC_QUESTION_LIST } from '../../features/createSurvey/constants';
-import BottomSheetHandleIcon from '../icons/BottomSheetHandleIcon';
 import AnimatePortal from '../portal/AnimatePortal';
 import { scrimCss } from '../scrim/default.style';
-import Question from './Question';
 
 interface Props extends ComponentProps<typeof AnimatePortal> {
   /**
@@ -17,7 +14,7 @@ interface Props extends ComponentProps<typeof AnimatePortal> {
   onClickOutside?: VoidFunction;
 }
 
-const BottomSheet = ({ onClickOutside, isShowing, mode }: Props) => {
+const BottomSheet = ({ onClickOutside, isShowing, children, mode }: Props) => {
   const onClickOutsideDefault: MouseEventHandler<HTMLDivElement> = (e) => {
     if (e.target !== e.currentTarget) return;
     if (onClickOutside) onClickOutside();
@@ -34,13 +31,7 @@ const BottomSheet = ({ onClickOutside, isShowing, mode }: Props) => {
         exit="exit"
       >
         <m.div css={contentCss} variants={bottomSheetVariants}>
-          <BottomSheetHandleIcon />
-          <section css={QuestionListWrapperCss}>
-            {BASIC_QUESTION_LIST.map((question, idx) => {
-              // TODO 추후 서버에서 받아온 데이터로 key값 변경, 기본 질문 이외의 질문도 대응
-              return <Question key={idx} question={question.title} />;
-            })}
-          </section>
+          {children}
         </m.div>
       </m.div>
     </AnimatePortal>
@@ -66,10 +57,6 @@ const contentCss = css`
   max-height: 68%;
   padding-top: 6px;
 
-  /* padding-right: 20px;
-  padding-left: 20px; */
-
-  /* TODO: 디자인에 따라 변경 필요 */
   background-color: #fff;
   border-radius: 16px 16px 0 0;
 `;
@@ -91,14 +78,3 @@ const bottomSheetVariants: Variants = {
     willChange: 'transform',
   },
 };
-
-const QuestionListWrapperCss = css`
-  overflow: scroll;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-
-  width: 100%;
-  max-height: 100%;
-  padding-top: 10px;
-`;

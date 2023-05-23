@@ -1,20 +1,19 @@
 import { css, useTheme } from '@emotion/react';
 
+import EditIcon from '~/components/icons/EditIcon';
 import colors from '~/styles/color';
 
-import EditIcon from '../icons/EditIcon';
-
-const QuestionPencil = ({ color = 'bluegreen' }) => {
+const QuestionIcon = ({ color = 'bluegreen' }) => {
   const theme = useTheme();
 
   return (
-    <div css={QuestionPencilWrapper(color)}>
+    <div css={ContainerCss(color)}>
       <EditIcon color={theme.colors.white} />
     </div>
   );
 };
 
-export default QuestionPencil;
+export default QuestionIcon;
 
 const styles: Record<string, Record<string, string>> = {
   bluegreen: {
@@ -25,7 +24,7 @@ const styles: Record<string, Record<string, string>> = {
   },
 };
 
-const QuestionPencilWrapper = (color: string) => css`
+const ContainerCss = (color: string) => css`
   display: flex;
   align-items: center;
   justify-content: center;
