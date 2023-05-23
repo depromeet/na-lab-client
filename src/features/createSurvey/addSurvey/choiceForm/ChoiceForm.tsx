@@ -3,9 +3,9 @@ import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInDownVariants } from '~/constants/motions';
-import Check from '~/features/createSurvey/addSurveyForm/choiceForm/Check';
-import MaximumSelect from '~/features/createSurvey/addSurveyForm/choiceForm/MaximumSelect';
-import SelectTextFieldList from '~/features/createSurvey/addSurveyForm/selectionTextfieldList/SelectionTextfieldList';
+import Check from '~/features/createSurvey/addSurvey/choiceForm/Check';
+import MaximumSelect from '~/features/createSurvey/addSurvey/choiceForm/MaximumSelect';
+import SelectTextFieldList from '~/features/createSurvey/addSurvey/selectionTextfieldList/SelectionTextfieldList';
 import useBoolean from '~/hooks/common/useBoolean';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 
