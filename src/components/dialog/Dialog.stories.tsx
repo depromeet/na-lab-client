@@ -1,9 +1,10 @@
-import { css } from '@emotion/react';
+import { css, type Theme } from '@emotion/react';
 import { type Meta } from '@storybook/react';
 import { domAnimation, LazyMotion } from 'framer-motion';
 
 import useBoolean from '~/hooks/common/useBoolean';
 
+import BlueWarningIcon from '../icons/BlueWarningIcon';
 import Dialog from './Dialog';
 
 const meta: Meta<typeof Dialog> = {
@@ -24,50 +25,28 @@ export function Default() {
       <Dialog
         isShowing={isShowing}
         onClickOutside={onClose}
-        title={'이대로 질문 폼을 생성할까요?'}
-        description={'한 번 만든 질문 폼은 수정할 수 없어요.'}
-        cancelButton={
-          <button type="button" css={[buttonCss, cancelButtonCss]} onClick={onClose}>
-            다시 볼게요
-          </button>
+        title={<Dialog.Title>{`이대로 질문 폼을\n생성할까요?`}</Dialog.Title>}
+        description={
+          <div css={descriptionWrapperCss}>
+            <BlueWarningIcon />
+            <Dialog.Description
+              descriptionCss={(theme: Theme) => descriptionCss(theme)}
+            >{`한 번 만든 질문 폼은 수정할 수 없어요.`}</Dialog.Description>
+          </div>
         }
-        confirmButton={
-          <button type="button" css={[buttonCss, confirmButtonCss]} onClick={onClose}>
-            네
-          </button>
-        }
+        cancelButton={<Dialog.CancelButton onClick={onClose}>다시 볼게요</Dialog.CancelButton>}
+        confirmButton={<Dialog.ConfirmButton onClick={onClose}>네</Dialog.ConfirmButton>}
       />
     </LazyMotion>
   );
 }
 
-const buttonCss = css`
-  all: unset;
-
-  cursor: pointer;
-
+const descriptionWrapperCss = css`
   display: flex;
+  gap: 3px;
   align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  height: 55px;
-
-  font-size: 18px;
-  font-weight: 600;
-  font-style: normal;
-  line-height: 21px;
-  text-align: center;
-
-  border-radius: 12px;
 `;
 
-const cancelButtonCss = css`
-  color: #17171b;
-  background: #f7f8f9;
-`;
-
-const confirmButtonCss = css`
-  color: #fff;
-  background: #1d2942;
+const descriptionCss = ({ colors }: Theme) => css`
+  color: ${colors.primary_200};
 `;

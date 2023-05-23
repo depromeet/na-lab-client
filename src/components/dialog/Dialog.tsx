@@ -9,7 +9,11 @@ import {
 import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
+import { pretendard } from '~/assets/fonts/pretendard';
+
 import AnimatePortal from '../portal/AnimatePortal';
+import { CancelButton, ConfirmButton } from './DialogButton';
+import { Description, Title } from './DialogText';
 
 interface Props {
   /**
@@ -45,17 +49,16 @@ interface Props {
  * @param confirmButton 우측 확인 버튼을 `ReactElement`로 전달해주세요.
  */
 const Dialog = ({ isShowing, mode, onClickOutside, ...props }: Props & ComponentProps<typeof AnimatePortal>) => {
+  // NOTE: portal을 사용한 컴포넌트는 스토리북에서 폰트 적용이 안됨
   return (
     <AnimatePortal isShowing={isShowing} mode={mode}>
-      <div>
+      <div className={pretendard.className}>
         <DialogBlur onClickOutside={onClickOutside} />
         <DialogContent {...props} />
       </div>
     </AnimatePortal>
   );
 };
-
-export default Dialog;
 
 const DialogBlur = ({ onClickOutside }: Pick<Props, 'onClickOutside'>) => {
   const onClickOutsideDefault = (e: MouseEvent) => {
@@ -75,6 +78,7 @@ const blurCss = css`
   width: 100vw;
   height: 100%;
 
+  background-color: #d8e3ff99;
   backdrop-filter: blur(12.5px);
 `;
 
@@ -101,9 +105,8 @@ const DialogContent = ({ title, description, cancelButton, confirmButton }: Omit
   return (
     <m.div style={{ width } as CSSProperties} css={containerCss} animate={{ opacity: [0, 1] }} exit={{ opacity: 0 }}>
       <div css={textWrapperCss}>
-        {title && (typeof title === 'string' ? <span css={titleCss}>{title}</span> : title)}
-        {description &&
-          (typeof description === 'string' ? <span css={descriptionCss}>{description}</span> : description)}
+        {title && (typeof title === 'string' ? <Title>{title}</Title> : title)}
+        {description && (typeof description === 'string' ? <Description>{description}</Description> : description)}
       </div>
       <div css={buttonWrapperCss}>
         {cancelButton}
@@ -122,46 +125,32 @@ const containerCss = css`
 
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 16px;
 
-  padding: 36px 16px 16px;
+  padding: 16px;
 
   background-color: white;
   border-radius: 16px;
-  box-shadow: 0 0 22px -18px #125b7a;
+  box-shadow: 0 0 40px #638fff4d;
 `;
 
 const textWrapperCss = css`
   display: flex;
   flex-direction: column;
-  gap: 16px;
-`;
+  gap: 8px;
+  align-items: flex-start;
 
-//TODO: 폰트 토큰 없음. 디자인 문의
-const titleCss = css`
-  /* font-family: Pretendard; */
-  font-size: 20px;
-  font-weight: 700;
-  font-style: normal;
-  line-height: 20px;
-  color: #17171b;
-  text-align: center;
-  white-space: pre-wrap;
-`;
-
-//TODO: 폰트 토큰 없음. 디자인 문의
-const descriptionCss = css`
-  /* font-family: Pretendard; */
-  font-size: 16px;
-  font-weight: 600;
-  font-style: normal;
-  line-height: 16px;
-  color: #6b7180;
-  text-align: center;
-  white-space: pre-wrap;
+  padding: 24px 16px;
 `;
 
 const buttonWrapperCss = css`
   display: flex;
   gap: 9px;
 `;
+
+Dialog.Title = Title;
+Dialog.Description = Description;
+Dialog.CancelButton = CancelButton;
+Dialog.ConfirmButton = ConfirmButton;
+
+export default Dialog;
