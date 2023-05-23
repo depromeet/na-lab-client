@@ -1,5 +1,7 @@
 import { css, Global } from '@emotion/react';
 
+import theme from './theme';
+
 const resetCss = css`
   html,
   body,
@@ -142,8 +144,6 @@ const resetCss = css`
     border-collapse: collapse;
   }
 `;
-
-import theme from './theme';
 
 const globalStyles = css`
   ${resetCss};
