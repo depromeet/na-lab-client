@@ -7,22 +7,24 @@ import { domMax, LazyMotion } from 'framer-motion';
 import GlobalStyle from '../src/styles/GlobalStyle';
 
 const previewDecorator = (Story) => {
-  useEffect(()=>{document.body.className = pretendard.className},[])
+  useEffect(() => {
+    document.body.className = pretendard.className;
+  }, []);
 
-  return (<ThemeProvider theme={defaultTheme}>
-  <GlobalStyle />
-  <LazyMotion features={domMax}>
-    <div className={pretendard.className} style={{ width: '100%', maxWidth: '480px', margin: '0 auto' }}>
-      <Story />
-    </div>
-  </LazyMotion>
-</ThemeProvider>)
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <GlobalStyle />
+      <LazyMotion features={domMax}>
+        <div className={pretendard.className} style={{ width: '100%', maxWidth: '480px', margin: '0 auto' }}>
+          <Story />
+        </div>
+      </LazyMotion>
+    </ThemeProvider>
+  );
 };
 
 const preview: Preview = {
-  decorators: [
-    (Story) => previewDecorator(Story),
-  ],
+  decorators: [(Story) => previewDecorator(Story)],
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
