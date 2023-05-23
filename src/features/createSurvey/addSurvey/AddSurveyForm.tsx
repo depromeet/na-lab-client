@@ -16,7 +16,7 @@ const TOGGLE_LIST = [
   },
 ];
 
-const AddSurveyForm = () => {
+const AddSurveyForm = ({}) => {
   const [selectToggleTab, setSelectToggleTab] = useState(TOGGLE_LIST[0].type);
   const [questionInput, setQuestionInput] = useState('');
 
@@ -48,6 +48,9 @@ const containerCss = css`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  height: calc(100vh - 12px);
+
   text-align: center;
 `;
 

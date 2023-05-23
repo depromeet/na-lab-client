@@ -1,13 +1,19 @@
 import { useState } from 'react';
 import { css } from '@emotion/react';
 
+import BottomSheet from '~/components/bottomSheet/BottomSheet';
+import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
+import AddMyQuestion from '~/features/createSurvey/addSurvey/AddMyQuestion';
+import AddSurveyForm from '~/features/createSurvey/addSurvey/AddSurveyForm';
 import { BASIC_QUESTION_LIST } from '~/features/createSurvey/constants';
 import QuestionList from '~/features/createSurvey/questionList/QuestionList';
 import QuestionWithDndList from '~/features/createSurvey/questionList/QuestionListWithDnd';
 import { type QuestionItem } from '~/features/createSurvey/types';
+import useBoolean from '~/hooks/common/useBoolean';
 
 const CreateSurvey = () => {
   const [customItems, setCustomsItems] = useState<QuestionItem[]>(BASIC_QUESTION_LIST);
+  const [isShowing, toggleShowing] = useBoolean(false);
 
   return (
     <section css={containerCss}>
@@ -15,6 +21,11 @@ const CreateSurvey = () => {
       <QuestionList items={BASIC_QUESTION_LIST} />
       <h1>추가 질문</h1>
       <QuestionWithDndList items={customItems} setItems={setCustomsItems} />
+      <AddMyQuestion onAction={toggleShowing} />
+      <BottomSheet isShowing={isShowing}>
+        <BottomSheetHandleIcon onClick={toggleShowing} />
+        <AddSurveyForm />
+      </BottomSheet>
     </section>
   );
 };
