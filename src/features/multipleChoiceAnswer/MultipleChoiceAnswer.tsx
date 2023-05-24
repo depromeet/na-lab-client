@@ -3,14 +3,26 @@ import { css } from '@emotion/react';
 import colors from '~/styles/color';
 import { BODY_2_BOLD } from '~/styles/typo';
 
-const MultipleChoiceAnswer = ({ variant = 'highlighted', totalCount = 3, answeredCount = 1 }) => {
+interface Props {
+  variant?: 'highlighted' | 'default';
+  totalCount: number;
+  answeredCount: number;
+  answerText: string;
+}
+
+const MultipleChoiceAnswer = ({
+  variant = 'highlighted',
+  totalCount = 3,
+  answeredCount = 1,
+  answerText = 'UX가 좋습니다 졸려일무 무리무리무리루',
+}: Props) => {
   return (
-    <div css={ContainerCss(variant)}>
-      <div css={PercentageBar(variant, totalCount, answeredCount)} />
-      <div css={TextContainerCss(variant)}>
-        <div css={[TextCss(variant)]}>UX가 좋습니다 졸려일무 무리무리무리루</div>
+    <div css={containerCss(variant)}>
+      <div css={percentageBar(variant, totalCount, answeredCount)} />
+      <div css={textContainerCss(variant)}>
+        <div css={[textCss(variant)]}>{answerText}</div>
         {/* TODO 아이콘 변경 예정 */}
-        <div css={[BODY_2_BOLD, CountTextCss(variant)]}>{answeredCount}명</div>
+        <div css={[BODY_2_BOLD, countTextCss(variant)]}>{answeredCount}명</div>
       </div>
     </div>
   );
@@ -33,7 +45,7 @@ const textStyles: Record<string, Record<string, string>> = {
   },
 };
 
-const ContainerCss = (variant: string) => css`
+const containerCss = (variant: string) => css`
   position: relative;
 
   width: 329px;
@@ -43,7 +55,7 @@ const ContainerCss = (variant: string) => css`
   border-radius: 10px;
 `;
 
-const PercentageBar = (variant: string, totalCount: number, answeredCount: number) => css`
+const percentageBar = (variant: string, totalCount: number, answeredCount: number) => css`
   position: absolute;
 
   width: ${(329 / totalCount) * answeredCount}px;
@@ -53,7 +65,7 @@ const PercentageBar = (variant: string, totalCount: number, answeredCount: numbe
   border-radius: ${totalCount === answeredCount ? '10px' : '10px 0 0 10px'};
 `;
 
-const TextContainerCss = (variant: string) => css`
+const textContainerCss = (variant: string) => css`
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -64,7 +76,7 @@ const TextContainerCss = (variant: string) => css`
   color: ${variant === 'default' ? colors.gray_400 : colors.primary_200};
 `;
 
-const TextCss = (variant: string) => css`
+const textCss = (variant: string) => css`
   overflow: hidden;
 
   width: 210px;
@@ -79,7 +91,7 @@ const TextCss = (variant: string) => css`
   ${textStyles[variant]}
 `;
 
-const CountTextCss = (variant: string) => css`
+const countTextCss = (variant: string) => css`
   z-index: 10;
   color: ${variant === 'default' ? colors.gray_400 : colors.primary_200};
   background-color: transparent;
