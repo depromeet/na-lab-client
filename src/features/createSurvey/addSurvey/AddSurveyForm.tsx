@@ -5,16 +5,19 @@ import Button from '~/components/button/Button';
 import { XCircleButton } from '~/components/button/CircleButton';
 import ChoiceForm from '~/features/createSurvey/addSurvey/choiceForm/ChoiceForm';
 import TextToggle from '~/features/createSurvey/addSurvey/TextToggle';
-import { type ChoiceQuestionItem, type ShortQuestionItem } from '~/features/createSurvey/types';
+import { type ChoiceQuestionItem, type QuestionType, type ShortQuestionItem } from '~/features/createSurvey/types';
 import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
 
-const TOGGLE_LIST = [
+const TOGGLE_LIST: {
+  type: QuestionType;
+  label: string;
+}[] = [
   {
-    type: 'CHOICE',
+    type: 'choice',
     label: '객관식',
   },
   {
-    type: 'SHORT_ANSWER',
+    type: 'short',
     label: '주관식',
   },
 ];
@@ -24,7 +27,7 @@ interface Props {
 }
 
 const AddSurveyForm = ({ onClose }: Props) => {
-  const [selectToggleTab, setSelectToggleTab] = useState(TOGGLE_LIST[0].type);
+  const [selectToggleTab, setSelectToggleTab] = useState<QuestionType>(TOGGLE_LIST[0].type);
   const [questionInput, setQuestionInput] = useState('');
 
   const [maxSelect, setMaxSelect] = useState(1);
@@ -36,7 +39,7 @@ const AddSurveyForm = ({ onClose }: Props) => {
   };
 
   const onAction = () => {
-    if (selectToggleTab === 'CHOICE') {
+    if (selectToggleTab === 'choice') {
       const choices = inputs.slice(0, -1).map((input, idx) => ({
         content: input,
         order: idx + 1,
@@ -64,7 +67,11 @@ const AddSurveyForm = ({ onClose }: Props) => {
     <article css={containerCss}>
       <section css={topSection}>
         <h1 css={HEAD_2_BOLD}>나만의 질문 추가</h1>
-        <TextToggle list={TOGGLE_LIST} selectItem={selectToggleTab} onItemClick={(type) => setSelectToggleTab(type)} />
+        <TextToggle
+          list={TOGGLE_LIST}
+          selectItem={selectToggleTab}
+          onItemClick={(type) => setSelectToggleTab(type as QuestionType)}
+        />
       </section>
       <textarea
         css={textAreaCss}
