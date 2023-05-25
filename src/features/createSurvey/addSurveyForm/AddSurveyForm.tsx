@@ -6,6 +6,7 @@ import { XCircleButton } from '~/components/button/CircleButton';
 import ChoiceForm from '~/features/createSurvey/addSurveyForm/choiceForm/ChoiceForm';
 import TextToggle from '~/features/createSurvey/addSurveyForm/TextToggle';
 import { DEFAULT_OPTION_LENGTH, QUESTION_MAX_LENGTH } from '~/features/createSurvey/constants';
+import { fixedBottomCss } from '~/features/createSurvey/styles';
 import {
   type ChoiceQuestionItem,
   type QuestionItem,
@@ -105,9 +106,9 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
           <ChoiceForm maxSelect={maxSelect} setMaxSelect={setMaxSelect} inputs={inputs} setInputs={setInputs} />
         )}
 
-        <article css={bottomCss}>
+        <article css={[fixedBottomCss, bottomCss]}>
           <XCircleButton onClick={onCloseClick} />
-          <Button onClick={onComplete} disabled={isButtonDisabled}>
+          <Button onClick={onComplete} disabled={isButtonDisabled} css={submitButtonCss}>
             완료
           </Button>
         </article>
@@ -124,14 +125,14 @@ const bottomSectionCss = css`
   overflow-y: auto;
   width: 100%;
 `;
-const bottomCss = css`
-  position: absolute;
-  right: 16px;
-  bottom: 12px;
-  left: 16px;
 
+const bottomCss = css`
   display: flex;
   justify-content: space-between;
+`;
+
+const submitButtonCss = css`
+  width: 50%;
 `;
 
 const containerCss = css`

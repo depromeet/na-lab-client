@@ -44,6 +44,8 @@ const CreateSurvey = () => {
 export default CreateSurvey;
 
 const sectionCss = css`
+  margin: 0 7px;
+
   & > h1 {
     margin-bottom: 0.75rem;
   }
