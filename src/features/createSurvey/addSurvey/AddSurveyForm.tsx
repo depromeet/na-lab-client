@@ -38,7 +38,30 @@ const AddSurveyForm = ({ onClose }: Props) => {
     setQuestionInput(e.target.value);
   };
 
+  const checkFormComplete = () => {
+    // TODO : toast로 변경
+    if (questionInput === '') {
+      alert('제목을 입력해주세요');
+
+      return false;
+    }
+
+    inputs.slice(0, -1).forEach((input) => {
+      if (input === '') {
+        alert('모든 옵션을 입력해주세요');
+
+        return false;
+      }
+    });
+
+    return true;
+  };
+
   const onAction = () => {
+    if (!checkFormComplete()) {
+      return;
+    }
+
     if (selectToggleTab === 'choice') {
       const choices = inputs.slice(0, -1).map((input, idx) => ({
         content: input,
