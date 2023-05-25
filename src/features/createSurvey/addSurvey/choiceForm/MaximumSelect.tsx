@@ -13,7 +13,7 @@ const MaximumSelect = ({ value, setValue }: Props) => {
   return (
     <div css={containerCss}>
       <span>최대 선택 개수</span>
-      <Counter value={value} setValue={setValue} minValue={1} maxValue={5} />
+      <Counter value={value} setValue={setValue} minValue={1} maxValue={19} />
     </div>
   );
 };

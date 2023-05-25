@@ -19,15 +19,39 @@ interface Props {
 const ChoiceForm = ({ maxSelect, setMaxSelect, inputs, setInputs }: Props) => {
   const [isChecked, toggleCheck] = useBoolean(false);
 
+  const onClick = () => {
+    if (isChecked === true) {
+      setMaxSelect(1);
+    } else {
+      setMaxSelect(2);
+    }
+    toggleCheck();
+  };
+
   useDidUpdate(() => {
     if (maxSelect >= inputs.length) {
       setInputs((prev) => [...prev, '']);
+    }
+    if (maxSelect === 1) {
+      // TODO : 색상 구분된 선택지가 하나로 줄어들고, - 0.5초 후 복수선택 가능 선택 해제,
+      // TODO : ‘복수 선택이 해제되었어요’ 토스트 2초간 띄우기
+      const timer = setTimeout(() => {
+        console.info('복수 선택이 해제되었어요');
+        onClick();
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+    if (maxSelect > 19) {
+      // TODO : 최대 19 초과시: 토스트 알림 2초간 띄우기
+      alert('최대 선택 개수를 초과했어요');
+      setMaxSelect(19);
     }
   }, [maxSelect]);
 
   return (
     <section css={containerCss}>
-      <Check isChecked={isChecked} toggleCheck={toggleCheck} label="복수선택 가능" />
+      <Check isChecked={isChecked} toggleCheck={onClick} label="복수선택 가능" />
       {isChecked && (
         <m.div variants={defaultFadeInDownVariants} initial="initial" animate="animate" exit="exit">
           <MaximumSelect value={maxSelect} setValue={setMaxSelect} />

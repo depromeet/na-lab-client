@@ -39,6 +39,8 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
   const [maxSelect, setMaxSelect] = useState(1);
   const [inputs, setInputs] = useState(['', '']);
 
+  const isChoice = selectToggleTab === 'choice';
+
   const onQuestionInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length > 45) return alert('45자 이내로 입력해주세요.');
     setQuestionInput(e.target.value);
@@ -52,7 +54,7 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
       return false;
     }
 
-    if (selectToggleTab === 'choice') {
+    if (isChoice) {
       inputs.slice(0, -1).forEach((input) => {
         if (input === '') {
           alert('모든 옵션을 입력해주세요');
@@ -70,7 +72,7 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
       return;
     }
 
-    if (selectToggleTab === 'choice') {
+    if (isChoice) {
       const choices = inputs.slice(0, -1).map((input, idx) => ({
         content: input,
         order: idx + 1,
@@ -112,7 +114,9 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
         onChange={onQuestionInputChange}
         placeholder="이곳에 질문을 입력하세요"
       />
-      <ChoiceForm maxSelect={maxSelect} setMaxSelect={setMaxSelect} inputs={inputs} setInputs={setInputs} />
+      {isChoice && (
+        <ChoiceForm maxSelect={maxSelect} setMaxSelect={setMaxSelect} inputs={inputs} setInputs={setInputs} />
+      )}
 
       <section css={bottomCss}>
         <XCircleButton onClick={onClose} />

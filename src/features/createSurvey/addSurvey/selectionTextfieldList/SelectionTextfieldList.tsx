@@ -59,7 +59,7 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
             onBlur={() => setFocusInput(null)}
             onDelete={() => onItemDelete(index)}
             isFocused={focusInput === index}
-            isLast={index === inputs.length - 1}
+            isLast={inputs.length < 20 && index === inputs.length - 1}
             isEssential={isMultiChoice && index < basicCount}
           />
         );
