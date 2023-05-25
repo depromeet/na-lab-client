@@ -1,4 +1,4 @@
-import Intro from '~/features/createSurvey/Intro';
+import Intro from '~/features/createSurvey/intro/Intro';
 
 const CreateSurveyPage = () => {
   return <Intro />;
