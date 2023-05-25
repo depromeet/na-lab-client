@@ -2,6 +2,7 @@ import { type Dispatch, type SetStateAction } from 'react';
 import { css, type Theme } from '@emotion/react';
 
 import Counter from '~/features/createSurvey/addSurvey/choiceForm/Counter';
+import { MULTI_SELECT_MAX_COUNT, MULTI_SELECT_MIN_COUNT } from '~/features/createSurvey/constants';
 import { BODY_2_BOLD } from '~/styles/typo';
 
 interface Props {
@@ -13,7 +14,12 @@ const MaximumSelect = ({ value, setValue }: Props) => {
   return (
     <div css={containerCss}>
       <span>최대 선택 개수</span>
-      <Counter value={value} setValue={setValue} minValue={1} maxValue={19} />
+      <Counter
+        value={value}
+        setValue={setValue}
+        minValue={MULTI_SELECT_MIN_COUNT - 1}
+        maxValue={MULTI_SELECT_MAX_COUNT + 1}
+      />
     </div>
   );
 };

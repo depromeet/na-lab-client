@@ -5,6 +5,7 @@ import Button from '~/components/button/Button';
 import { XCircleButton } from '~/components/button/CircleButton';
 import ChoiceForm from '~/features/createSurvey/addSurvey/choiceForm/ChoiceForm';
 import TextToggle from '~/features/createSurvey/addSurvey/TextToggle';
+import { DEFAULT_OPTION_LENGTH, QUESTION_MAX_LENGTH } from '~/features/createSurvey/constants';
 import {
   type ChoiceQuestionItem,
   type QuestionItem,
@@ -37,43 +38,23 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
   const [questionInput, setQuestionInput] = useState('');
 
   const [maxSelect, setMaxSelect] = useState(1);
-  const [inputs, setInputs] = useState(['', '']);
+  const [inputs, setInputs] = useState(new Array(DEFAULT_OPTION_LENGTH + 1).fill(''));
 
   const isChoice = selectToggleTab === 'choice';
+  const optionInputs = isChoice ? inputs.slice(0, -1) : inputs; // 다른 옵션 추가 제외
+
+  const isAllInputFilled = !isChoice || optionInputs.every((input) => input !== '');
+  const isButtonDisabled = !isAllInputFilled || removeSpaceAndEnter(questionInput) === '';
 
   const onQuestionInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length > 45) return alert('45자 이내로 입력해주세요.');
+    // TODO : 질문 45자 초과시: ‘글자수를 초과했어요' 토스트 2초간띄우기
+    if (e.target.value.length > QUESTION_MAX_LENGTH) return alert('45자 이내로 입력해주세요.');
     setQuestionInput(e.target.value);
   };
 
-  const checkFormComplete = () => {
-    // TODO : toast로 변경
-    if (questionInput === '') {
-      alert('제목을 입력해주세요');
-
-      return false;
-    }
-
-    if (isChoice) {
-      inputs.slice(0, -1).forEach((input) => {
-        if (input === '') {
-          alert('모든 옵션을 입력해주세요');
-
-          return false;
-        }
-      });
-    }
-
-    return true;
-  };
-
   const onComplete = () => {
-    if (!checkFormComplete()) {
-      return;
-    }
-
     if (isChoice) {
-      const choices = inputs.slice(0, -1).map((input, idx) => ({
+      const choices = optionInputs.map((input, idx) => ({
         content: input,
         order: idx + 1,
       }));
@@ -98,6 +79,11 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
     }
   };
 
+  const onCloseClick = () => {
+    // TODO : ‘X’ 버튼 터치하여 닫기 -> ‘질문 폼 생성을 그만두시겠어요? 팝업 -> ‘네' 버튼을 누르면 모달 내려감 (텍스트 입력 전후 모두 해당)
+    onClose();
+  };
+
   return (
     <article css={containerCss}>
       <section css={topSection}>
@@ -120,8 +106,10 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
         )}
 
         <article css={bottomCss}>
-          <XCircleButton onClick={onClose} />
-          <Button onClick={onComplete}>완료</Button>
+          <XCircleButton onClick={onCloseClick} />
+          <Button onClick={onComplete} disabled={isButtonDisabled}>
+            완료
+          </Button>
         </article>
       </section>
     </article>
@@ -129,6 +117,8 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
 };
 
 export default AddSurveyForm;
+
+const removeSpaceAndEnter = (str: string) => str.replaceAll(' ', '').replaceAll('\n', '');
 
 const bottomSectionCss = css`
   overflow-y: auto;

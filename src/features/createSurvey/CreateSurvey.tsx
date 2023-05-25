@@ -13,7 +13,7 @@ import useBoolean from '~/hooks/common/useBoolean';
 
 const CreateSurvey = () => {
   const [customItems, setCustomsItems] = useState<QuestionItem[]>([]);
-  const [isShowing, toggleShowing] = useBoolean(true);
+  const [isShowing, toggleShowing] = useBoolean(false);
 
   const addNewQuestion = (question: QuestionItem) => {
     setCustomsItems((prev) => [...prev, question]);
@@ -28,7 +28,9 @@ const CreateSurvey = () => {
       <QuestionWithDndList items={customItems} setItems={setCustomsItems} />
       <AddMyQuestion onAction={toggleShowing} />
       <BottomSheet isShowing={isShowing}>
-        <BottomSheetHandleIcon onClick={toggleShowing} />
+        <button type="button" onClick={toggleShowing}>
+          <BottomSheetHandleIcon />
+        </button>
         <AddSurveyForm onClose={toggleShowing} onAction={addNewQuestion} />
       </BottomSheet>
     </section>
