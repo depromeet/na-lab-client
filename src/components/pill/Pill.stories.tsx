@@ -36,7 +36,7 @@ const meta: Meta = {
 
 export default meta;
 
-export function Colors() {
+export function Default() {
   return (
     <div
       css={css`
@@ -71,6 +71,36 @@ export function Colors() {
       </Pill>
 
       <Pill color="purple">
+        <적응력_좋은 />
+        적응력 좋은
+      </Pill>
+
+      <Pill size="large">
+        <적응력_좋은 />
+        적응력 좋은
+      </Pill>
+
+      <Pill size="large" color="bluegreen">
+        <적응력_좋은 />
+        적응력 좋은
+      </Pill>
+
+      <Pill size="large" color="pink">
+        <적응력_좋은 />
+        적응력 좋은
+      </Pill>
+
+      <Pill size="large" color="skyblue">
+        <적응력_좋은 />
+        적응력 좋은
+      </Pill>
+
+      <Pill size="large" color="yellowgreen">
+        <적응력_좋은 />
+        적응력 좋은
+      </Pill>
+
+      <Pill size="large" color="purple">
         <적응력_좋은 />
         적응력 좋은
       </Pill>

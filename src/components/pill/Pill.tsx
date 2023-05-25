@@ -7,10 +7,23 @@ type Size = 'large' | 'medium';
 type Color = 'default' | 'bluegreen' | 'pink' | 'skyblue' | 'yellowgreen' | 'purple';
 
 interface Props extends HTMLAttributes<HTMLSpanElement> {
+  /**
+   * @description Pill의 크기를 설정합니다
+   * @default medium
+   * @type 'medium' | 'large'
+   */
   size?: Size;
+  /**
+   * @description Pill의 색상을 설정합니다
+   * @default default
+   * @type 'default' | 'bluegreen' | 'pink' | 'skyblue' | 'yellowgreen' | 'purple'
+   */
   color?: Color;
 }
 
+/**
+ * @description 디자인 시스템 Pill을 span 형태로 그립니다
+ */
 const Pill = forwardRef(function Pill(
   { size = 'medium', color = 'default', children, ...rest }: Props,
   forwardedRef: Ref<HTMLSpanElement>,
@@ -94,4 +107,10 @@ const spanCss = (theme: Theme) => css`
   color: ${theme.colors.gray_500};
 
   border-radius: 24px;
+
+  transition: background-color 0.2s ${theme.transition.defaultEasing};
+
+  & > svg {
+    transition: fill 0.2s ${theme.transition.defaultEasing};
+  }
 `;
