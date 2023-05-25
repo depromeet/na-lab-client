@@ -12,8 +12,13 @@ import { type QuestionItem } from '~/features/createSurvey/types';
 import useBoolean from '~/hooks/common/useBoolean';
 
 const CreateSurvey = () => {
-  const [customItems, setCustomsItems] = useState<QuestionItem[]>(BASIC_QUESTION_LIST);
+  const [customItems, setCustomsItems] = useState<QuestionItem[]>([]);
   const [isShowing, toggleShowing] = useBoolean(true);
+
+  const addNewQuestion = (question: QuestionItem) => {
+    setCustomsItems((prev) => [...prev, question]);
+    toggleShowing();
+  };
 
   return (
     <section css={containerCss}>
@@ -24,7 +29,7 @@ const CreateSurvey = () => {
       <AddMyQuestion onAction={toggleShowing} />
       <BottomSheet isShowing={isShowing}>
         <BottomSheetHandleIcon onClick={toggleShowing} />
-        <AddSurveyForm onClose={toggleShowing} />
+        <AddSurveyForm onClose={toggleShowing} onAction={addNewQuestion} />
       </BottomSheet>
     </section>
   );

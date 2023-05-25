@@ -5,7 +5,12 @@ import Button from '~/components/button/Button';
 import { XCircleButton } from '~/components/button/CircleButton';
 import ChoiceForm from '~/features/createSurvey/addSurvey/choiceForm/ChoiceForm';
 import TextToggle from '~/features/createSurvey/addSurvey/TextToggle';
-import { type ChoiceQuestionItem, type QuestionType, type ShortQuestionItem } from '~/features/createSurvey/types';
+import {
+  type ChoiceQuestionItem,
+  type QuestionItem,
+  type QuestionType,
+  type ShortQuestionItem,
+} from '~/features/createSurvey/types';
 import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
 
 const TOGGLE_LIST: {
@@ -24,9 +29,10 @@ const TOGGLE_LIST: {
 
 interface Props {
   onClose: () => void;
+  onAction: (question: QuestionItem) => void;
 }
 
-const AddSurveyForm = ({ onClose }: Props) => {
+const AddSurveyForm = ({ onClose, onAction }: Props) => {
   const [selectToggleTab, setSelectToggleTab] = useState<QuestionType>(TOGGLE_LIST[0].type);
   const [questionInput, setQuestionInput] = useState('');
 
@@ -46,18 +52,20 @@ const AddSurveyForm = ({ onClose }: Props) => {
       return false;
     }
 
-    inputs.slice(0, -1).forEach((input) => {
-      if (input === '') {
-        alert('모든 옵션을 입력해주세요');
+    if (selectToggleTab === 'choice') {
+      inputs.slice(0, -1).forEach((input) => {
+        if (input === '') {
+          alert('모든 옵션을 입력해주세요');
 
-        return false;
-      }
-    });
+          return false;
+        }
+      });
+    }
 
     return true;
   };
 
-  const onAction = () => {
+  const onComplete = () => {
     if (!checkFormComplete()) {
       return;
     }
@@ -75,14 +83,16 @@ const AddSurveyForm = ({ onClose }: Props) => {
         choices: choices,
         max_selectable_count: maxSelect,
       };
-      console.log('data: ', data);
+
+      onAction(data);
     } else {
       const data: ShortQuestionItem = {
         type: 'short',
         form_type: 'custom',
         title: questionInput,
       };
-      console.log('data: ', data);
+
+      onAction(data);
     }
   };
 
@@ -106,7 +116,7 @@ const AddSurveyForm = ({ onClose }: Props) => {
 
       <section css={bottomCss}>
         <XCircleButton onClick={onClose} />
-        <Button onClick={onAction}>완료</Button>
+        <Button onClick={onComplete}>완료</Button>
       </section>
     </article>
   );
