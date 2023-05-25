@@ -29,6 +29,8 @@ const ChoiceForm = ({ maxSelect, setMaxSelect, inputs, setInputs }: Props) => {
   };
 
   useDidUpdate(() => {
+    if (isChecked === false) return;
+
     if (maxSelect >= inputs.length) {
       setInputs((prev) => [...prev, '']);
     }

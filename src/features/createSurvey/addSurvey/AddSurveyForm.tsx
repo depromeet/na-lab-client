@@ -108,19 +108,21 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
           onItemClick={(type) => setSelectToggleTab(type as QuestionType)}
         />
       </section>
-      <textarea
-        css={textAreaCss}
-        value={questionInput}
-        onChange={onQuestionInputChange}
-        placeholder="이곳에 질문을 입력하세요"
-      />
-      {isChoice && (
-        <ChoiceForm maxSelect={maxSelect} setMaxSelect={setMaxSelect} inputs={inputs} setInputs={setInputs} />
-      )}
+      <section css={bottomSectionCss}>
+        <textarea
+          css={textAreaCss}
+          value={questionInput}
+          onChange={onQuestionInputChange}
+          placeholder="이곳에 질문을 입력하세요"
+        />
+        {isChoice && (
+          <ChoiceForm maxSelect={maxSelect} setMaxSelect={setMaxSelect} inputs={inputs} setInputs={setInputs} />
+        )}
 
-      <section css={bottomCss}>
-        <XCircleButton onClick={onClose} />
-        <Button onClick={onComplete}>완료</Button>
+        <article css={bottomCss}>
+          <XCircleButton onClick={onClose} />
+          <Button onClick={onComplete}>완료</Button>
+        </article>
       </section>
     </article>
   );
@@ -128,6 +130,10 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
 
 export default AddSurveyForm;
 
+const bottomSectionCss = css`
+  overflow-y: auto;
+  width: 100%;
+`;
 const bottomCss = css`
   position: absolute;
   right: 16px;
