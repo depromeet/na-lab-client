@@ -61,8 +61,8 @@ const headerCss = (theme: Theme) => css`
   align-items: center;
   justify-content: space-between;
 
-  height: 48px;
-  padding: 16px;
+  height: 56px;
+  padding: 0.875rem 1rem;
 
   border: 1px solid ${theme.colors.gray_50};
 `;
