@@ -2,14 +2,12 @@ import Image from 'next/image';
 import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
-import { defaultEasing } from '~/constants/motions';
-
 const WatsonCharacter = () => {
   return (
-    <m.article css={containerCss} exit={articleExit}>
+    <m.article css={containerCss}>
       {/* TODO : lottie로 대체 */}
       <m.div variants={imageVariant} initial="init" animate="animate">
-        <Image src="/images/watson_character.png" width={147} height={132} alt="watson" />
+        <Image src="/images/intro/watson_character.png" width={147} height={132} alt="watson" />
       </m.div>
 
       <m.div css={shadowCss} animate={shadowAnimate} transition={transition}>
@@ -22,12 +20,6 @@ const WatsonCharacter = () => {
 export default WatsonCharacter;
 
 const transition = { duration: 1.8, ease: 'easeIn', repeat: Infinity, repeatDelay: 0.4 };
-
-const articleExit = {
-  y: 10,
-  opacity: 0,
-  transition: { duration: 0.5, ease: defaultEasing },
-};
 
 const imageVariant = {
   init: {
