@@ -3,8 +3,9 @@ import { ThemeProvider } from '@emotion/react';
 import { type Meta } from '@storybook/react';
 import { domMax, LazyMotion } from 'framer-motion';
 
-import TextToggle from '~/features/createSurvey/AddSurveyForm/TextToggle';
 import defaultTheme from '~/styles/theme';
+
+import TextToggle from './TextToggle';
 
 const meta: Meta<typeof TextToggle> = {
   title: 'TextToggle',

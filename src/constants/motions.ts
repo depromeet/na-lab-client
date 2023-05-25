@@ -52,3 +52,24 @@ export const defaultFadeInUpVariants: Variants = {
     willChange: 'opacity, transform',
   },
 };
+
+export const defaultFadeInDownVariants: Variants = {
+  initial: {
+    opacity: 0,
+    y: -10,
+    transition: { duration: 0.3, ease: defaultEasing },
+    willChange: 'opacity, transform',
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.3, ease: defaultEasing },
+    willChange: 'opacity, transform',
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    transition: { duration: 0.3, ease: defaultEasing },
+    willChange: 'opacity, transform',
+  },
+};

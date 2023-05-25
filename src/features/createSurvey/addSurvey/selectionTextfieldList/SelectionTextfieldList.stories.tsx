@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { type Meta } from '@storybook/react';
 
-import SelectTextFieldList from '~/features/createSurvey/AddSurveyForm/selectionTextfieldList/SelectionTextfieldList';
+import SelectTextFieldList from './SelectionTextfieldList';
 
 const meta: Meta<typeof SelectTextFieldList> = {
   title: 'SelectTextFieldList',
