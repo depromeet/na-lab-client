@@ -83,7 +83,7 @@ const Paragraph3 = () => {
 
 const Paragraph4 = () => {
   return (
-    <article css={[backgroundCss]}>
+    <article css={backgroundCss}>
       <section css={paragraphContainerCss}>
         <StaggerWrapper>
           <p>지금, 피드백을 받을 수 있는</p>
