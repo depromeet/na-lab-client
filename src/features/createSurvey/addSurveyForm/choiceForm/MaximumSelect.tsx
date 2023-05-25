@@ -1,7 +1,7 @@
 import { type Dispatch, type SetStateAction } from 'react';
 import { css, type Theme } from '@emotion/react';
 
-import Counter from '~/features/createSurvey/addSurvey/choiceForm/Counter';
+import Counter from '~/features/createSurvey/addSurveyForm/choiceForm/Counter';
 import { MULTI_SELECT_MAX_COUNT, MULTI_SELECT_MIN_COUNT } from '~/features/createSurvey/constants';
 import { BODY_2_BOLD } from '~/styles/typo';
 

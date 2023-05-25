@@ -1,17 +1,23 @@
 import { useState } from 'react';
-import { css } from '@emotion/react';
+import { type Meta } from '@storybook/react';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
 import AddMyQuestion from '~/features/createSurvey/addSurveyForm/AddMyQuestion';
-import AddSurveyForm from '~/features/createSurvey/addSurveyForm/AddSurveyForm';
-import { BASIC_QUESTION_LIST } from '~/features/createSurvey/constants';
-import QuestionList from '~/features/createSurvey/questionList/QuestionList';
 import QuestionWithDndList from '~/features/createSurvey/questionList/QuestionListWithDnd';
 import { type QuestionItem } from '~/features/createSurvey/types';
 import useBoolean from '~/hooks/common/useBoolean';
 
-const CreateSurvey = () => {
+import AddSurveyForm from './AddSurveyForm';
+
+const meta: Meta<typeof AddSurveyForm> = {
+  title: 'AddSurveyForm',
+  component: AddSurveyForm,
+};
+
+export default meta;
+
+export function Default() {
   const [customItems, setCustomsItems] = useState<QuestionItem[]>([]);
   const [isShowing, toggleShowing] = useBoolean(false);
 
@@ -21,11 +27,9 @@ const CreateSurvey = () => {
   };
 
   return (
-    <section css={containerCss}>
-      <h1>기본 질문</h1>
-      <QuestionList items={BASIC_QUESTION_LIST} />
-      <h1>추가 질문</h1>
+    <>
       <QuestionWithDndList items={customItems} setItems={setCustomsItems} />
+
       <AddMyQuestion onAction={toggleShowing} />
       <BottomSheet isShowing={isShowing}>
         <button type="button" onClick={toggleShowing}>
@@ -33,14 +37,6 @@ const CreateSurvey = () => {
         </button>
         <AddSurveyForm onClose={toggleShowing} onAction={addNewQuestion} />
       </BottomSheet>
-    </section>
+    </>
   );
-};
-
-export default CreateSurvey;
-
-const containerCss = css`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
+}

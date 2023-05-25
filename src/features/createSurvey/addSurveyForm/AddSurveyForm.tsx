@@ -3,8 +3,8 @@ import { css, type Theme } from '@emotion/react';
 
 import Button from '~/components/button/Button';
 import { XCircleButton } from '~/components/button/CircleButton';
-import ChoiceForm from '~/features/createSurvey/addSurvey/choiceForm/ChoiceForm';
-import TextToggle from '~/features/createSurvey/addSurvey/TextToggle';
+import ChoiceForm from '~/features/createSurvey/addSurveyForm/choiceForm/ChoiceForm';
+import TextToggle from '~/features/createSurvey/addSurveyForm/TextToggle';
 import { DEFAULT_OPTION_LENGTH, QUESTION_MAX_LENGTH } from '~/features/createSurvey/constants';
 import {
   type ChoiceQuestionItem,
