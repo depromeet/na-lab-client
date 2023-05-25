@@ -9,13 +9,15 @@ interface Props {
   label: string;
 }
 
+const ID = 'multi-check';
+
 const Check = ({ isChecked, toggleCheck, label }: Props) => {
   return (
     <div css={containerCss}>
-      <button id="multi-check" type="button" css={(theme) => checkBoxCss(theme, isChecked)} onClick={toggleCheck}>
+      <button id={ID} type="button" css={(theme) => checkBoxCss(theme, isChecked)} onClick={toggleCheck}>
         {isChecked && <SmallCheckIcon />}
       </button>
-      <label htmlFor="multi-check" css={checkboxLabelCss}>
+      <label htmlFor={ID} css={checkboxLabelCss}>
         {label}
       </label>
     </div>
