@@ -1,5 +1,4 @@
 import { type PropsWithChildren, useEffect } from 'react';
-import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { AnimatePresence, m } from 'framer-motion';
 
@@ -83,57 +82,31 @@ const Paragraph3 = () => {
 
 const Paragraph4 = () => {
   return (
-    <article css={[backgroundCss]}>
-      <section css={paragraphContainerCss}>
-        <StaggerWrapper>
-          <p>지금, 피드백을 받을 수 있는</p>
-          <p>
-            <strong>나의 질문 폼</strong>을 생성해보세요!
-          </p>
-        </StaggerWrapper>
-      </section>
-      <section css={characterContainerCss}>
-        <m.div variants={imageVariant} initial="initial" animate="animate" exit="exit">
-          <Image src="/images/intro/intro_question_create.png" width={254} height={284} alt="나의 질문폼" />
-        </m.div>
-      </section>
+    <article css={[articleCss]}>
+      <StaggerWrapper>
+        <p>지금, 피드백을 받을 수 있는</p>
+        <p>
+          <strong>나의 질문 폼</strong>을 생성해보세요!
+        </p>
+      </StaggerWrapper>
     </article>
   );
 };
 
 const WatsonContainer = ({ children }: PropsWithChildren) => {
   return (
-    <article css={[backgroundCss, characterBackgroundCss]}>
+    <article css={[characterBgCss]}>
       <section css={paragraphContainerCss}>{children}</section>
       <section css={characterContainerCss}>
-        <m.div variants={imageVariant} initial="initial" animate="animate" exit="exit">
-          <WatsonCharacter />
-        </m.div>
+        <WatsonCharacter />
       </section>
     </article>
   );
 };
 
-const imageVariant = {
-  initial: {
-    opacity: 0,
-    y: 10,
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-  },
-  exit: {
-    opacity: 0,
-    y: 10,
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-};
-
 const paragraphContainerCss = css`
   position: fixed;
-  top: 25%;
+  top: 27%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -147,13 +120,11 @@ const characterContainerCss = css`
   transform: translate(-50%, -50%);
 `;
 
-const backgroundCss = css`
+const characterBgCss = css`
   width: 100%;
   height: 100vh;
-`;
 
-const characterBackgroundCss = css`
-  background-image: url('/images/intro/intro_bg.png');
+  background-image: url('/images/intro_bg.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -170,6 +141,11 @@ const sectionCss = (theme: Theme) => css`
     color: ${theme.colors.primary_300};
   }
 `;
+
+const articleCss = css`
+  padding-top: 126px;
+`;
+
 const fixedBottomCss = (theme: Theme) => css`
   position: fixed;
   bottom: 12px;
