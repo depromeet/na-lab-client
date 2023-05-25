@@ -54,7 +54,7 @@ const contentCss = css`
 
   /* TODO: 디자인에 따라 변경 필요 */
   min-height: 300px;
-  max-height: 68%;
+  max-height: 99%;
   padding-top: 6px;
 
   background-color: #fff;

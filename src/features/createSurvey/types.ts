@@ -21,6 +21,8 @@ export interface ShortQuestionRequest {
   title: string;
   order: number;
 }
+export type ChoiceQuestionItem = Omit<ChoiceQuestionRequest, 'order'>;
+export type ShortQuestionItem = Omit<ShortQuestionRequest, 'order'>;
+export type QuestionItem = ChoiceQuestionItem | ShortQuestionItem;
 
-export type QuestionItem = Omit<ChoiceQuestionRequest, 'order'> | Omit<ShortQuestionRequest, 'order'>;
 export type QuestionRequest = ChoiceQuestionRequest | ShortQuestionRequest;
