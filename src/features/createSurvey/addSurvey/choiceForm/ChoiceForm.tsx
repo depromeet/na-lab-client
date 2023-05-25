@@ -19,9 +19,6 @@ interface Props {
 const ChoiceForm = ({ maxSelect, setMaxSelect, inputs, setInputs }: Props) => {
   const [isChecked, toggleCheck] = useBoolean(false);
 
-  // const [maxSelect, setMaxSelect] = useState(1);
-  // const [inputs, setInputs] = useState(['', '']);
-
   useDidUpdate(() => {
     if (maxSelect >= inputs.length) {
       setInputs((prev) => [...prev, '']);
