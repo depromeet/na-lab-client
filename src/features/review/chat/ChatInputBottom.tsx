@@ -69,7 +69,7 @@ const ChatInputBottom = ({ onBackClick, isBackDisabled, onTextSubmit, onFocus }:
 
   return (
     <form css={wrapperCss} onSubmit={onSubmit}>
-      <m.div animate={backButtonVariants(isInputWide)}>
+      <m.div animate={backButtonTransition(isInputWide)}>
         <ArrowCircleButton onClick={onBackClick} disabled={isBackDisabled} type="button" />
       </m.div>
       <m.textarea
@@ -81,7 +81,7 @@ const ChatInputBottom = ({ onBackClick, isBackDisabled, onTextSubmit, onFocus }:
         onFocus={onInnerFocus}
         onBlur={onBlur}
         style={{ width: isInputWide ? INPUT_OPEN_WIDTH : INPUT_DEFAULT_WIDTH }}
-        css={inputCss}
+        css={textareaCss}
       />
       <button type="submit" disabled={!Boolean(text)} css={buttonCss}>
         <SendIcon />
@@ -99,7 +99,7 @@ const wrapperCss = (theme: Theme) => css`
   align-items: center;
 `;
 
-const backButtonVariants = (isInputWide: boolean): TargetAndTransition => ({
+const backButtonTransition = (isInputWide: boolean): TargetAndTransition => ({
   scale: isInputWide ? 0.8 : 1,
   transition: {
     duration: 0.2,
@@ -107,7 +107,7 @@ const backButtonVariants = (isInputWide: boolean): TargetAndTransition => ({
   },
 });
 
-const inputCss = (theme: Theme) => css`
+const textareaCss = (theme: Theme) => css`
   ${BODY_1};
 
   resize: none;
