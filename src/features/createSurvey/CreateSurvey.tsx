@@ -21,26 +21,30 @@ const CreateSurvey = () => {
   };
 
   return (
-    <section css={containerCss}>
-      <h1>기본 질문</h1>
-      <QuestionList items={BASIC_QUESTION_LIST} />
-      <h1>추가 질문</h1>
-      <QuestionWithDndList items={customItems} setItems={setCustomsItems} />
-      <AddMyQuestion onAction={toggleShowing} />
+    <>
+      <section css={sectionCss}>
+        <h1>기본 질문</h1>
+        <QuestionList items={BASIC_QUESTION_LIST} />
+      </section>
+      <section css={sectionCss}>
+        <h1>추가 질문</h1>
+        <QuestionWithDndList items={customItems} setItems={setCustomsItems} />
+        <AddMyQuestion onAction={toggleShowing} />
+      </section>
       <BottomSheet isShowing={isShowing}>
         <button type="button" onClick={toggleShowing}>
           <BottomSheetHandleIcon />
         </button>
         <AddSurveyForm onClose={toggleShowing} onAction={addNewQuestion} />
       </BottomSheet>
-    </section>
+    </>
   );
 };
 
 export default CreateSurvey;
 
-const containerCss = css`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+const sectionCss = css`
+  & > h1 {
+    margin-bottom: 0.75rem;
+  }
 `;
