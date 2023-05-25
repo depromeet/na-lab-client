@@ -17,7 +17,7 @@ interface Props extends ButtonAttributes {
 
 /**
  * @description 디자인 시스템의 `Rect Small` 버튼에 대응하는 기본 버튼 입니다.
- * padding `15.5px 68px`과 함께 폰트 사이즈 `HEAD_2_BOLD`가 적용되어 있습니다.
+ * padding `14px 24px`과 함께 폰트 사이즈 `HEAD_2_BOLD`가 적용되어 있습니다.
  */
 const Button = forwardRef(function Button(
   { children, type = 'button', color = 'navy', ...rest }: Props,
@@ -50,7 +50,7 @@ const buttonCss = (theme: Theme, color: Color) => css`
   justify-content: center;
 
   box-sizing: border-box;
-  padding: 15.5px 68px;
+  padding: 14px 24px;
 
   border-radius: 8px;
 
