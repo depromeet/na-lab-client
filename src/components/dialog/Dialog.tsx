@@ -1,13 +1,9 @@
-import {
-  type ComponentProps,
-  type CSSProperties,
-  type MouseEvent,
-  type ReactElement,
-  useEffect,
-  useState,
-} from 'react';
+import { type ComponentProps, type MouseEvent, type ReactElement } from 'react';
 import { css } from '@emotion/react';
 import { m } from 'framer-motion';
+
+import { defaultFadeInUpVariants, defaultFadeInVariants } from '~/constants/motions';
+import useScrollLock from '~/hooks/common/useScrollLock';
 
 import AnimatePortal from '../portal/AnimatePortal';
 import { CancelButton, ConfirmButton } from './DialogButton';
@@ -47,9 +43,11 @@ interface Props {
  * @param confirmButton 우측 확인 버튼을 `ReactElement`로 전달해주세요. Dialog.ConfirmButton을 사용하세요.
  */
 const Dialog = ({ isShowing, mode, onClickOutside, ...props }: Props & ComponentProps<typeof AnimatePortal>) => {
+  useScrollLock({ lock: isShowing });
+
   return (
     <AnimatePortal isShowing={isShowing} mode={mode}>
-      <div>
+      <div css={dialogPositionCss}>
         <DialogBlur onClickOutside={onClickOutside} />
         <DialogContent {...props} />
       </div>
@@ -57,13 +55,35 @@ const Dialog = ({ isShowing, mode, onClickOutside, ...props }: Props & Component
   );
 };
 
+const dialogPositionCss = css`
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100vh;
+`;
+
 const DialogBlur = ({ onClickOutside }: Pick<Props, 'onClickOutside'>) => {
   const onClickOutsideDefault = (e: MouseEvent) => {
     if (e.target !== e.currentTarget) return;
     if (onClickOutside) onClickOutside();
   };
 
-  return <m.div onClick={onClickOutsideDefault} css={blurCss} animate={{ opacity: [0, 1] }} exit={{ opacity: 0 }} />;
+  return (
+    <m.div
+      onClick={onClickOutsideDefault}
+      css={blurCss}
+      variants={defaultFadeInVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    />
+  );
 };
 
 const blurCss = css`
@@ -72,7 +92,7 @@ const blurCss = css`
   top: 0;
   left: 0;
 
-  width: 100vw;
+  width: 100%;
   height: 100%;
 
   background-color: #d8e3ff99;
@@ -80,27 +100,8 @@ const blurCss = css`
 `;
 
 const DialogContent = ({ title, description, cancelButton, confirmButton }: Omit<Props, 'onClickOutside'>) => {
-  const [width, setWidth] = useState(480);
-
-  useEffect(() => {
-    setWidth(Math.min(window.innerWidth, 480) - 48);
-
-    const containerStyle = document.body.style;
-    containerStyle.cssText = `
-      position: fixed; 
-      top: -${window.scrollY}px;
-      overflow-y: scroll;
-      width: 100%;`;
-
-    return () => {
-      const scrollY = containerStyle.top;
-      containerStyle.cssText = '';
-      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-    };
-  }, []);
-
   return (
-    <m.div style={{ width } as CSSProperties} css={containerCss} animate={{ opacity: [0, 1] }} exit={{ opacity: 0 }}>
+    <m.div css={containerCss} variants={defaultFadeInUpVariants} initial="initial" animate="animate" exit="exit">
       <div css={textWrapperCss}>
         {title && (typeof title === 'string' ? <Title>{title}</Title> : title)}
         {description && (typeof description === 'string' ? <Description>{description}</Description> : description)}
@@ -116,14 +117,12 @@ const DialogContent = ({ title, description, cancelButton, confirmButton }: Omit
 const containerCss = css`
   position: fixed;
   z-index: 1000;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 
   display: flex;
   flex-direction: column;
   gap: 16px;
 
+  max-width: 480px;
   padding: 16px;
 
   background-color: white;
