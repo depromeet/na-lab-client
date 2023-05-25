@@ -1,5 +1,5 @@
 import { type ComponentProps, forwardRef, type Ref } from 'react';
-import { css, type Theme } from '@emotion/react';
+import { css, type Theme, useTheme } from '@emotion/react';
 
 import ArrowIcon from '../icons/ArrowIcon';
 import XIcon from '../icons/XIcon';
@@ -37,6 +37,11 @@ const buttonCss = (theme: Theme) => css`
   &:hover {
     background-color: ${theme.colors.gray_100};
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: ${theme.colors.gray_50};
+  }
 `;
 
 type CircleButtonPropsWithoutChildren = Omit<ComponentProps<typeof CircleButton>, 'children'>;
@@ -44,19 +49,32 @@ type ArrowIconDirection = Pick<ComponentProps<typeof ArrowIcon>, 'direction'>;
 
 export const ArrowCircleButton = ({
   direction = 'left',
+  disabled,
   ...rest
 }: CircleButtonPropsWithoutChildren & ArrowIconDirection) => {
+  const iconColor = useDisabledIconColor(disabled);
+
   return (
-    <CircleButton {...rest}>
-      <ArrowIcon direction={direction} size={28} viewBox="0 0 24 24" />
+    <CircleButton disabled={disabled} {...rest}>
+      <ArrowIcon direction={direction} color={iconColor} size={28} viewBox="0 0 24 24" />
     </CircleButton>
   );
 };
 
-export const XCircleButton = (props: CircleButtonPropsWithoutChildren) => {
+export const XCircleButton = ({ disabled, ...rest }: CircleButtonPropsWithoutChildren) => {
+  const iconColor = useDisabledIconColor(disabled);
+
   return (
-    <CircleButton {...props}>
-      <XIcon size={28} viewBox="0 0 24 24" />
+    <CircleButton {...rest}>
+      <XIcon size={28} color={iconColor} viewBox="0 0 24 24" />
     </CircleButton>
   );
+};
+
+const useDisabledIconColor = (disabled?: boolean) => {
+  const theme = useTheme();
+  const disabledIconColor = theme.colors.gray_300;
+
+  // NOTE: undefined는 기본 색상을 뜻합니다.
+  return disabled ? disabledIconColor : undefined;
 };
