@@ -9,7 +9,10 @@
       "files": [
         "**/*.tsx"
       ],
-      "customSyntax": "@stylelint/postcss-css-in-js"
+      "customSyntax": "@stylelint/postcss-css-in-js",
+      "rules": {
+        "value-keyword-case": null
+      }
     }
   ]
 }
