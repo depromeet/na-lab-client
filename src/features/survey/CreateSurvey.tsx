@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { css } from '@emotion/react';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
@@ -13,12 +12,13 @@ import QuestionWithDndList from '~/features/survey/questionList/QuestionListWith
 import { fixedBottomCss } from '~/features/survey/styles';
 import { type QuestionItem, type QuestionRequest } from '~/features/survey/types';
 import useBoolean from '~/hooks/common/useBoolean';
+import useLocalStorage from '~/hooks/storage/useLocalStorage';
 
 const CreateSurvey = () => {
   const [isShowing, toggleShowing] = useBoolean(false);
   const [isDialogShowing, toggleDialogShowing] = useBoolean(false);
 
-  const [customItems, setCustomsItems] = useState<QuestionItem[]>([]);
+  const [customItems, setCustomsItems] = useLocalStorage<QuestionItem[]>('customQuestions', []);
 
   const addNewQuestion = (question: QuestionItem) => {
     setCustomsItems((prev) => [...prev, question]);
