@@ -32,8 +32,8 @@ const nextConfig = {
   },
   transpilePackages: ['react-hotjar'],
   images: {
-    loader: 'custom',
-    loaderFile: './loader.js',
+    loader: 'akamai',
+    path: '/',
   },
 };
 
