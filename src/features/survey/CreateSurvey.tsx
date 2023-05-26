@@ -11,7 +11,7 @@ import CreateDialog from '~/features/survey/CreateDialog';
 import QuestionList from '~/features/survey/questionList/QuestionList';
 import QuestionWithDndList from '~/features/survey/questionList/QuestionListWithDnd';
 import { fixedBottomCss } from '~/features/survey/styles';
-import { type QuestionItem } from '~/features/survey/types';
+import { type QuestionItem, type QuestionRequest } from '~/features/survey/types';
 import useBoolean from '~/hooks/common/useBoolean';
 
 const CreateSurvey = () => {
@@ -26,7 +26,7 @@ const CreateSurvey = () => {
   };
 
   const onCreateSurvey = () => {
-    console.log('onCreateSurvey');
+    console.log('onCreateSurvey', getCreateSurveyRequestData(customItems));
   };
 
   return (
@@ -66,3 +66,17 @@ const sectionCss = css`
     margin-bottom: 0.75rem;
   }
 `;
+
+const getCreateSurveyRequestData = (customItems: QuestionItem[]): QuestionRequest[] => {
+  const basicQuestions = BASIC_QUESTION_LIST.map((item, idx) => ({
+    ...item,
+    order: idx + 1,
+  }));
+
+  const customQuestions = customItems.map((item, idx) => ({
+    ...item,
+    order: idx + BASIC_QUESTION_LIST.length + 1,
+  }));
+
+  return [...basicQuestions, ...customQuestions];
+};
