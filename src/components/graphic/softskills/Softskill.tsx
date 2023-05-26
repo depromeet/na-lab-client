@@ -12,3 +12,5 @@ const Softskill = ({ name }: Props) => {
 };
 
 export default Softskill;
+
+export const softskillList: Softskills[] = Object.keys(softskills) as Softskills[];
