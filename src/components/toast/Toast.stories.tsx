@@ -1,5 +1,6 @@
 import { type Meta } from '@storybook/react';
 
+import Button from '../button/Button';
 import WarningIcon from '../icons/WarningIcon';
 import Toast from './Toast';
 import useToast from './useToast';
@@ -16,11 +17,8 @@ export function Default() {
 
   return (
     <div>
-      <button type="button" onClick={() => fireToast({ content: '토스트 메세지 입니다' })}>
-        토스트 발사
-      </button>
-      <button
-        type="button"
+      <Button onClick={() => fireToast({ content: '토스트 메세지 입니다' })}>토스트 발사</Button>
+      <Button
         onClick={() =>
           fireToast({
             content: (
@@ -34,7 +32,7 @@ export function Default() {
         }
       >
         다른 토스트 발사
-      </button>
+      </Button>
     </div>
   );
 }
