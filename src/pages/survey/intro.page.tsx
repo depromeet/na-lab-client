@@ -1,7 +1,7 @@
 import Intro from '~/features/survey/Intro';
 
-const CreateSurveyPage = () => {
+const IntroPage = () => {
   return <Intro />;
 };
 
-export default CreateSurveyPage;
+export default IntroPage;
