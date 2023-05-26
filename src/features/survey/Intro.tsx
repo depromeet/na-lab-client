@@ -5,9 +5,9 @@ import { AnimatePresence, m } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
-import { defaultEasing } from '~/constants/motions';
 import { RESEARCHER_NAME } from '~/constants/name';
 import WatsonCharacter from '~/features/survey/intro/WatsonCharacter';
+import { centerContainerCss, CTAVariants, imageVariant, paragraphContainerCss } from '~/features/survey/styles';
 import useBoolean from '~/hooks/common/useBoolean';
 import useStep from '~/hooks/step/useStep';
 
@@ -92,7 +92,7 @@ const Paragraph4 = () => {
           </p>
         </StaggerWrapper>
       </section>
-      <section css={characterContainerCss}>
+      <section css={centerContainerCss}>
         <m.div variants={imageVariant} initial="initial" animate="animate" exit="exit">
           <Image src="/images/intro/intro_question_create.png" width={254} height={284} alt="나의 질문폼" />
         </m.div>
@@ -105,7 +105,7 @@ const WatsonContainer = ({ children }: PropsWithChildren) => {
   return (
     <article css={[backgroundCss, characterBackgroundCss]}>
       <section css={paragraphContainerCss}>{children}</section>
-      <section css={characterContainerCss}>
+      <section css={centerContainerCss}>
         <m.div variants={imageVariant} initial="initial" animate="animate" exit="exit">
           <WatsonCharacter />
         </m.div>
@@ -113,39 +113,6 @@ const WatsonContainer = ({ children }: PropsWithChildren) => {
     </article>
   );
 };
-
-const imageVariant = {
-  initial: {
-    opacity: 0,
-    y: 10,
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-  },
-  exit: {
-    opacity: 0,
-    y: 10,
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-};
-
-const paragraphContainerCss = css`
-  position: fixed;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  width: 100%;
-`;
-
-const characterContainerCss = css`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
 
 const backgroundCss = css`
   width: 100%;
@@ -183,27 +150,6 @@ const fixedBottomCss = (theme: Theme) => css`
 
 const 문구_수 = 4;
 const 매_문구_지속시간 = 3500;
-
-export const CTAVariants = {
-  initial: {
-    opacity: 0,
-    y: 30,
-    x: '-50%',
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    x: '-50%',
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-  exit: {
-    opacity: 0,
-    y: 30,
-    x: '-50%',
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-};
 
 const useParagraphStep = () => {
   const { currentStep, next: paragraphStep } = useStep({ initial: 1, max: 문구_수 });
