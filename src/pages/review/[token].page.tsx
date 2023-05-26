@@ -5,11 +5,11 @@ import { AnimatePresence } from 'framer-motion';
 
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Intro from '~/features/review/steps/Intro';
-import ShortQuestion from '~/features/review/steps/ShortQuestion';
 import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
 
 const Cowork = dynamic(() => import('~/features/review/steps/Cowork'), { ssr: false });
 const Softskill = dynamic(() => import('~/features/review/steps/Softskill'), { ssr: false });
+const ShortQuestion = dynamic(() => import('~/features/review/steps/ShortQuestion'), { ssr: false });
 
 const ReviewPage = () => {
   // TODO: 이후 token 검증 및 조회 로직 추가
