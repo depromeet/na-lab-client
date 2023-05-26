@@ -57,8 +57,6 @@ const sectionCss = css`
   flex-grow: 1;
   align-items: center;
   justify-content: center;
-
-  padding-bottom: 192px;
 `;
 
 const outerCircleCss = css`
