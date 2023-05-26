@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { type Meta } from '@storybook/react';
 
-import { BASIC_QUESTION_LIST } from '~/features/createSurvey/constants';
-import QuestionList from '~/features/createSurvey/questionList/QuestionList';
-import QuestionWithDndList from '~/features/createSurvey/questionList/QuestionListWithDnd';
-import { type QuestionItem } from '~/features/createSurvey/types';
+import { BASIC_QUESTION_LIST } from '~/features/survey/constants';
+import QuestionList from '~/features/survey/questionList/QuestionList';
+import QuestionWithDndList from '~/features/survey/questionList/QuestionListWithDnd';
+import { type QuestionItem } from '~/features/survey/types';
 
 const meta: Meta<typeof QuestionList> = {
   title: 'QuestionList',

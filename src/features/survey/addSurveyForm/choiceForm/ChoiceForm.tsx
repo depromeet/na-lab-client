@@ -3,14 +3,14 @@ import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInDownVariants } from '~/constants/motions';
-import Check from '~/features/createSurvey/addSurveyForm/choiceForm/Check';
-import MaximumSelect from '~/features/createSurvey/addSurveyForm/choiceForm/MaximumSelect';
-import SelectTextFieldList from '~/features/createSurvey/addSurveyForm/selectionTextfieldList/SelectionTextfieldList';
+import Check from '~/features/survey/addSurveyForm/choiceForm/Check';
+import MaximumSelect from '~/features/survey/addSurveyForm/choiceForm/MaximumSelect';
+import SelectTextFieldList from '~/features/survey/addSurveyForm/selectionTextfieldList/SelectionTextfieldList';
 import {
   CHOICE_CASE_MAX_SELECT_COUNT,
   DEFAULT_MAX_SELECT_COUNT,
   MULTI_SELECT_MAX_COUNT,
-} from '~/features/createSurvey/constants';
+} from '~/features/survey/constants';
 import useBoolean from '~/hooks/common/useBoolean';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 

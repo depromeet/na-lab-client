@@ -3,9 +3,9 @@ import { type Meta } from '@storybook/react';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
-import AddMyQuestion from '~/features/createSurvey/addSurveyForm/AddMyQuestion';
-import QuestionWithDndList from '~/features/createSurvey/questionList/QuestionListWithDnd';
-import { type QuestionItem } from '~/features/createSurvey/types';
+import AddMyQuestion from '~/features/survey/addSurveyForm/AddMyQuestion';
+import QuestionWithDndList from '~/features/survey/questionList/QuestionListWithDnd';
+import { type QuestionItem } from '~/features/survey/types';
 import useBoolean from '~/hooks/common/useBoolean';
 
 import AddSurveyForm from './AddSurveyForm';

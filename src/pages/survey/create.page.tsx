@@ -2,8 +2,8 @@ import { css } from '@emotion/react';
 
 import CTAButton from '~/components/button/CTAButton';
 import Header from '~/components/header/Header';
-import CreateSurvey from '~/features/createSurvey/CreateSurvey';
-import { fixedBottomCss } from '~/features/createSurvey/styles';
+import CreateSurvey from '~/features/survey/CreateSurvey';
+import { fixedBottomCss } from '~/features/survey/styles';
 
 const CreateSurveyPage = () => {
   return (

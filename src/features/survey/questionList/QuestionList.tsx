@@ -1,5 +1,5 @@
-import Question from '~/features/createSurvey/questionList/Question';
-import { type QuestionItem } from '~/features/createSurvey/types';
+import Question from '~/features/survey/questionList/Question';
+import { type QuestionItem } from '~/features/survey/types';
 
 interface Props {
   items: QuestionItem[];

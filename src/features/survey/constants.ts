@@ -1,4 +1,4 @@
-import { type QuestionItem } from '~/features/createSurvey/types';
+import { type QuestionItem } from '~/features/survey/types';
 
 export const BASIC_QUESTION_LIST: QuestionItem[] = [
   {
