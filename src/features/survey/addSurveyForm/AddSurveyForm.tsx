@@ -4,6 +4,7 @@ import { css, type Theme } from '@emotion/react';
 import Button from '~/components/button/Button';
 import { XCircleButton } from '~/components/button/CircleButton';
 import ChoiceForm from '~/features/survey/addSurveyForm/choiceForm/ChoiceForm';
+import CreateStopDialog from '~/features/survey/addSurveyForm/CreateStopDialog';
 import TextToggle from '~/features/survey/addSurveyForm/TextToggle';
 import { DEFAULT_OPTION_LENGTH, QUESTION_MAX_LENGTH } from '~/features/survey/constants';
 import { fixedBottomCss } from '~/features/survey/styles';
@@ -13,6 +14,7 @@ import {
   type QuestionType,
   type ShortQuestionItem,
 } from '~/features/survey/types';
+import useBoolean from '~/hooks/common/useBoolean';
 import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
 
 const TOGGLE_LIST: {
@@ -35,6 +37,8 @@ interface Props {
 }
 
 const AddSurveyForm = ({ onClose, onAction }: Props) => {
+  const [isDialogOpen, _, onDialogOpen, onDialogClose] = useBoolean(false);
+
   const [selectToggleTab, setSelectToggleTab] = useState<QuestionType>(TOGGLE_LIST[0].type);
   const [questionInput, setQuestionInput] = useState('');
 
@@ -80,8 +84,8 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
     }
   };
 
-  const onCloseClick = () => {
-    // TODO : ‘X’ 버튼 터치하여 닫기 -> ‘질문 폼 생성을 그만두시겠어요? 팝업 -> ‘네' 버튼을 누르면 모달 내려감 (텍스트 입력 전후 모두 해당)
+  const onStop = () => {
+    onDialogClose();
     onClose();
   };
 
@@ -107,12 +111,13 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
         )}
 
         <article css={[fixedBottomCss, bottomCss]}>
-          <XCircleButton onClick={onCloseClick} />
+          <XCircleButton onClick={onDialogOpen} />
           <Button onClick={onComplete} disabled={isButtonDisabled} css={submitButtonCss}>
             완료
           </Button>
         </article>
       </section>
+      <CreateStopDialog isShowing={isDialogOpen} onClose={onDialogClose} onAction={onStop} />
     </article>
   );
 };
