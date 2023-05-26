@@ -56,11 +56,13 @@ const fixedTopCss = (theme: Theme) => css`
   margin: 0 auto;
 `;
 
-const headerCss = css`
+const headerCss = (theme: Theme) => css`
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  height: 48px;
-  padding: 16px;
+  height: 56px;
+  padding: 0.875rem 1rem;
+
+  border: 1px solid ${theme.colors.gray_50};
 `;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/react';
 import { Reorder, useDragControls } from 'framer-motion';
 
 import MenuIcon from '~/components/icons/MenuIcon';
@@ -20,9 +21,16 @@ function QuestionWithDnd({ item }: Props) {
       dragListener={false}
       dragControls={dragControls}
     >
-      <Question item={item} rightElement={<MenuIcon onPointerDown={(e) => dragControls.start(e)} />} />
+      <Question
+        item={item}
+        rightElement={<MenuIcon onPointerDown={(e) => dragControls.start(e)} css={menuIconCss} />}
+      />
     </Reorder.Item>
   );
 }
 
 export default QuestionWithDnd;
+
+const menuIconCss = css`
+  touch-action: none;
+`;

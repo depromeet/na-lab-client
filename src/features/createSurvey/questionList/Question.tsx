@@ -34,7 +34,7 @@ const listItemCss = css`
   display: flex;
   gap: 16px;
   align-items: center;
-  padding: 8px 23px;
+  padding: 0.5rem 0;
 `;
 
 const textContainerCss = css`
