@@ -80,11 +80,6 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
     }
   };
 
-  const onCloseClick = () => {
-    // TODO : ‘X’ 버튼 터치하여 닫기 -> ‘질문 폼 생성을 그만두시겠어요? 팝업 -> ‘네' 버튼을 누르면 모달 내려감 (텍스트 입력 전후 모두 해당)
-    onClose();
-  };
-
   return (
     <article css={containerCss}>
       <section css={topSection}>
@@ -107,7 +102,7 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
         )}
 
         <article css={[fixedBottomCss, bottomCss]}>
-          <XCircleButton onClick={onCloseClick} />
+          <XCircleButton onClick={onClose} />
           <Button onClick={onComplete} disabled={isButtonDisabled} css={submitButtonCss}>
             완료
           </Button>
