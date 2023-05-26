@@ -5,10 +5,9 @@ import { AnimatePresence, m } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
-import { defaultEasing } from '~/constants/motions';
 import { RESEARCHER_NAME } from '~/constants/name';
 import WatsonCharacter from '~/features/survey/intro/WatsonCharacter';
-import { centerContainerCss, paragraphContainerCss } from '~/features/survey/styles';
+import { centerContainerCss, CTAVariants, imageVariant, paragraphContainerCss } from '~/features/survey/styles';
 import useBoolean from '~/hooks/common/useBoolean';
 import useStep from '~/hooks/step/useStep';
 
@@ -115,23 +114,6 @@ const WatsonContainer = ({ children }: PropsWithChildren) => {
   );
 };
 
-const imageVariant = {
-  initial: {
-    opacity: 0,
-    y: 10,
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-  },
-  exit: {
-    opacity: 0,
-    y: 10,
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-};
-
 const backgroundCss = css`
   width: 100%;
   height: 100vh;
@@ -168,27 +150,6 @@ const fixedBottomCss = (theme: Theme) => css`
 
 const 문구_수 = 4;
 const 매_문구_지속시간 = 3500;
-
-export const CTAVariants = {
-  initial: {
-    opacity: 0,
-    y: 30,
-    x: '-50%',
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    x: '-50%',
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-  exit: {
-    opacity: 0,
-    y: 30,
-    x: '-50%',
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-};
 
 const useParagraphStep = () => {
   const { currentStep, next: paragraphStep } = useStep({ initial: 1, max: 문구_수 });
