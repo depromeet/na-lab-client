@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { css } from '@emotion/react';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
@@ -18,11 +17,11 @@ import useLocalStorage from '~/hooks/storage/useLocalStorage';
 
 const CreateSurvey = () => {
   const router = useInternalRouter();
+
   const [isShowing, toggleShowing] = useBoolean(false);
   const [isDialogShowing, toggleDialogShowing] = useBoolean(false);
 
-  const [customItems, setCustomsItems] = useState<QuestionItem[]>([]);
-
+  const [customItems, setCustomsItems] = useLocalStorage<QuestionItem[]>('customQuestions', []);
   const [_, setCreateSurveyRequest] = useLocalStorage<QuestionRequest[]>('createSurveyRequest', []);
 
   const addNewQuestion = (question: QuestionItem) => {
