@@ -42,6 +42,7 @@
     "axios": "^1.3.5",
     "dotenv": "^16.0.3",
     "framer-motion": "^10.12.2",
+    "jotai": "^2.1.0",
     "mixpanel-browser": "^2.46.0",
     "next": "13.3.0",
     "next-auth": "^4.22.1",
