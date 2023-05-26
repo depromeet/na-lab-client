@@ -13,12 +13,17 @@ import QuestionWithDndList from '~/features/survey/questionList/QuestionListWith
 import { fixedBottomCss } from '~/features/survey/styles';
 import { type QuestionItem, type QuestionRequest } from '~/features/survey/types';
 import useBoolean from '~/hooks/common/useBoolean';
+import useInternalRouter from '~/hooks/router/useInternalRouter';
+import useLocalStorage from '~/hooks/storage/useLocalStorage';
 
 const CreateSurvey = () => {
+  const router = useInternalRouter();
   const [isShowing, toggleShowing] = useBoolean(false);
   const [isDialogShowing, toggleDialogShowing] = useBoolean(false);
 
   const [customItems, setCustomsItems] = useState<QuestionItem[]>([]);
+
+  const [_, setCreateSurveyRequest] = useLocalStorage<QuestionRequest[]>('createSurveyRequest', []);
 
   const addNewQuestion = (question: QuestionItem) => {
     setCustomsItems((prev) => [...prev, question]);
@@ -26,7 +31,10 @@ const CreateSurvey = () => {
   };
 
   const onCreateSurvey = () => {
-    console.log('onCreateSurvey', getCreateSurveyRequestData(customItems));
+    const data = getCreateSurveyRequestData(customItems);
+    setCreateSurveyRequest(data);
+
+    router.push('/survey/join');
   };
 
   return (
