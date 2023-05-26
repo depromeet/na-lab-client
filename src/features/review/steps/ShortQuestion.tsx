@@ -24,17 +24,17 @@ interface Props extends StepProps {
   /**
    * @description 시작할 때 입력될 메세지와 시간
    */
-  startMessage: OtherMessage[];
+  startMessages: OtherMessage[];
   /**
    * @description 사용자가 발송한 이후 입력될 메세지와 시간
    */
-  afterUserMessage?: OtherMessage[];
+  afterUserMessages?: OtherMessage[];
 }
 
-const ShortQuestion = ({ prev, next, headerTitle, setReplies, startMessage, afterUserMessage }: Props) => {
+const ShortQuestion = ({ prev, next, headerTitle, setReplies, startMessages, afterUserMessages }: Props) => {
   const { messages, setMessage, onTextSubmit } = useMessage(setReplies);
-  useOtherMessage({ messages, setMessage, startMessage, afterUserMessage });
-  const { isAbleToSubmit } = useAbleToSubmit({ messages, startMessage, afterUserMessage });
+  useOtherMessage({ messages, setMessage, startMessages, afterUserMessages });
+  const { isAbleToSubmit } = useAbleToSubmit({ messages, startMessages, afterUserMessages });
 
   return (
     <>
@@ -64,15 +64,15 @@ const useMessage = (setReplies: Props['setReplies']) => {
 interface UseOtherMessageProps {
   messages: MessageType[];
   setMessage: Dispatch<SetStateAction<MessageType[]>>;
-  startMessage: Props['startMessage'];
-  afterUserMessage: Props['afterUserMessage'];
+  startMessages: Props['startMessages'];
+  afterUserMessages: Props['afterUserMessages'];
 }
 
-const useOtherMessage = ({ messages, setMessage, startMessage, afterUserMessage }: UseOtherMessageProps) => {
+const useOtherMessage = ({ messages, setMessage, startMessages, afterUserMessages }: UseOtherMessageProps) => {
   useDidMount(() => {
     const timeouts: NodeJS.Timeout[] = [];
 
-    startMessage.forEach(({ timing, text }) => {
+    startMessages.forEach(({ timing, text }) => {
       const timeout = setTimeout(() => {
         setMessage((prev) => [...prev, { from: 'other', content: text }]);
       }, timing);
@@ -88,15 +88,15 @@ const useOtherMessage = ({ messages, setMessage, startMessage, afterUserMessage 
   const isSetAfterMessage = useRef(false);
 
   useDidUpdate(() => {
-    if (!afterUserMessage) return;
+    if (!afterUserMessages) return;
     if (isSetAfterMessage.current) return;
 
     const timeouts: NodeJS.Timeout[] = [];
 
-    if (messages.length > startMessage.length) {
+    if (messages.length > startMessages.length) {
       isSetAfterMessage.current = true;
 
-      afterUserMessage.forEach(({ timing, text }) => {
+      afterUserMessages.forEach(({ timing, text }) => {
         const timeout = setTimeout(() => {
           setMessage((prev) => [...prev, { from: 'other', content: text }]);
         }, timing);
@@ -114,17 +114,17 @@ const useOtherMessage = ({ messages, setMessage, startMessage, afterUserMessage 
 
 interface UseAbleToSubmitProps {
   messages: MessageType[];
-  startMessage: Props['startMessage'];
-  afterUserMessage: Props['afterUserMessage'];
+  startMessages: Props['startMessages'];
+  afterUserMessages: Props['afterUserMessages'];
 }
 
-const useAbleToSubmit = ({ messages, startMessage, afterUserMessage }: UseAbleToSubmitProps) => {
+const useAbleToSubmit = ({ messages, startMessages, afterUserMessages }: UseAbleToSubmitProps) => {
   const [isAbleToSubmit, setIsAbleToSubmit] = useState(false);
 
   useDidUpdate(() => {
     if (isAbleToSubmit) return;
 
-    const allOtherMessageLength = startMessage.length + (afterUserMessage?.length ?? 0);
+    const allOtherMessageLength = startMessages.length + (afterUserMessages?.length ?? 0);
     if (messages.length <= allOtherMessageLength) return;
 
     const timeout = setTimeout(() => setIsAbleToSubmit(true), 1000);
