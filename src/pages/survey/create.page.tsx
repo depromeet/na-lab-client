@@ -1,21 +1,20 @@
-import { useRouter } from 'next/router';
 import { css } from '@emotion/react';
 
 import CTAButton from '~/components/button/CTAButton';
 import Header from '~/components/header/Header';
-import { SURVEY_PATH } from '~/constants/path';
 import CreateStopDialog from '~/features/survey/addSurveyForm/CreateStopDialog';
 import CreateSurvey from '~/features/survey/CreateSurvey';
 import { fixedBottomCss } from '~/features/survey/styles';
 import useBoolean from '~/hooks/common/useBoolean';
+import useInternalRouter from '~/hooks/router/useInternalRouter';
 
 const CreateSurveyPage = () => {
-  const router = useRouter();
+  const router = useInternalRouter();
   const [isDialogOpen, _, onDialogOpen, onDialogClose] = useBoolean(false);
 
   const onStop = () => {
     onDialogClose();
-    router.push(SURVEY_PATH.INIT);
+    router.push('/survey');
   };
 
   return (
