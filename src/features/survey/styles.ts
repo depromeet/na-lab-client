@@ -11,3 +11,19 @@ export const fixedBottomCss = (theme: Theme) => css`
   max-width: ${theme.size.maxWidth};
   padding: 0 16px;
 `;
+
+export const paragraphContainerCss = css`
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 100%;
+`;
+
+export const centerContainerCss = css`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;

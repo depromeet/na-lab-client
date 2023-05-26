@@ -8,6 +8,7 @@ import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import { defaultEasing } from '~/constants/motions';
 import { RESEARCHER_NAME } from '~/constants/name';
 import WatsonCharacter from '~/features/survey/intro/WatsonCharacter';
+import { centerContainerCss, paragraphContainerCss } from '~/features/survey/styles';
 import useBoolean from '~/hooks/common/useBoolean';
 import useStep from '~/hooks/step/useStep';
 
@@ -92,7 +93,7 @@ const Paragraph4 = () => {
           </p>
         </StaggerWrapper>
       </section>
-      <section css={characterContainerCss}>
+      <section css={centerContainerCss}>
         <m.div variants={imageVariant} initial="initial" animate="animate" exit="exit">
           <Image src="/images/intro/intro_question_create.png" width={254} height={284} alt="나의 질문폼" />
         </m.div>
@@ -105,7 +106,7 @@ const WatsonContainer = ({ children }: PropsWithChildren) => {
   return (
     <article css={[backgroundCss, characterBackgroundCss]}>
       <section css={paragraphContainerCss}>{children}</section>
-      <section css={characterContainerCss}>
+      <section css={centerContainerCss}>
         <m.div variants={imageVariant} initial="initial" animate="animate" exit="exit">
           <WatsonCharacter />
         </m.div>
@@ -130,22 +131,6 @@ const imageVariant = {
     transition: { duration: 0.5, ease: defaultEasing },
   },
 };
-
-const paragraphContainerCss = css`
-  position: fixed;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  width: 100%;
-`;
-
-const characterContainerCss = css`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
 
 const backgroundCss = css`
   width: 100%;
