@@ -9,6 +9,7 @@ import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
 
 const Cowork = dynamic(() => import('~/features/review/steps/Cowork'), { ssr: false });
 const Softskill = dynamic(() => import('~/features/review/steps/Softskill'), { ssr: false });
+const ShortQuestion = dynamic(() => import('~/features/review/steps/ShortQuestion'), { ssr: false });
 
 const ReviewPage = () => {
   // TODO: 이후 token 검증 및 조회 로직 추가
@@ -17,6 +18,7 @@ const ReviewPage = () => {
 
   const { isCoworked, setIsCoworked } = useIsCowork();
   const { selectedSoftskills, setSelectedSoftskills } = useSoftskills();
+  const { setStrength } = useStrength();
 
   const { currentElement } = useInjectedElementStep({
     elements: [
@@ -26,6 +28,16 @@ const ReviewPage = () => {
         key="softskill"
         selectedSoftskills={selectedSoftskills}
         setSelectedSoftskills={setSelectedSoftskills}
+      />,
+      <ShortQuestion
+        key="strength"
+        headerTitle="협업을 하면서 느꼈던 예진님만의 장점이 있나요?"
+        setReplies={setStrength}
+        startMessages={[
+          { timing: 1000, text: '협업을 한 적이 없다면 일상에서 드러나는 성격이나 행동에 대한 장점을 적어주세요.' },
+          { timing: 2000, text: '답변을 적어 저에게 메세지를 보내주시면, 익명으로 전달할게요!' },
+        ]}
+        afterUserMessages={[{ timing: 1000, text: '못한 말이 있다면 더 보낼 수 있어요.' }]}
       />,
       <div key="div">2</div>,
       <div key="div2">3</div>,
@@ -57,4 +69,10 @@ const useSoftskills = () => {
   const [selectedSoftskills, setSelectedSoftskills] = useState<Softskills[]>([]);
 
   return { selectedSoftskills, setSelectedSoftskills };
+};
+
+const useStrength = () => {
+  const [strength, setStrength] = useState<string[]>([]);
+
+  return { strength, setStrength };
 };
