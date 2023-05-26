@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
 
-import { BASIC_QUESTION_LIST } from '../../features/createSurvey/constants';
+import { BASIC_QUESTION_LIST } from '../survey/constants';
 import Question from './Question';
 
 const ChangeQuestion = () => {

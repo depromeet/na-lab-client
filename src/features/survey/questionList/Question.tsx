@@ -2,7 +2,7 @@ import { type ReactNode } from 'react';
 import { css, type Theme } from '@emotion/react';
 
 import EditIcon from '~/components/icons/EditIcon';
-import { type QuestionFormType, type QuestionItem, type QuestionType } from '~/features/createSurvey/types';
+import { type QuestionFormType, type QuestionItem, type QuestionType } from '~/features/survey/types';
 import colors from '~/styles/color';
 import { DETAIL, HEAD_3_SEMIBOLD } from '~/styles/typo';
 

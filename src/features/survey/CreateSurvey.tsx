@@ -3,12 +3,12 @@ import { css } from '@emotion/react';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
-import AddMyQuestion from '~/features/createSurvey/addSurveyForm/AddMyQuestion';
-import AddSurveyForm from '~/features/createSurvey/addSurveyForm/AddSurveyForm';
-import { BASIC_QUESTION_LIST } from '~/features/createSurvey/constants';
-import QuestionList from '~/features/createSurvey/questionList/QuestionList';
-import QuestionWithDndList from '~/features/createSurvey/questionList/QuestionListWithDnd';
-import { type QuestionItem } from '~/features/createSurvey/types';
+import AddMyQuestion from '~/features/survey/addSurveyForm/AddMyQuestion';
+import AddSurveyForm from '~/features/survey/addSurveyForm/AddSurveyForm';
+import { BASIC_QUESTION_LIST } from '~/features/survey/constants';
+import QuestionList from '~/features/survey/questionList/QuestionList';
+import QuestionWithDndList from '~/features/survey/questionList/QuestionListWithDnd';
+import { type QuestionItem } from '~/features/survey/types';
 import useBoolean from '~/hooks/common/useBoolean';
 
 const CreateSurvey = () => {

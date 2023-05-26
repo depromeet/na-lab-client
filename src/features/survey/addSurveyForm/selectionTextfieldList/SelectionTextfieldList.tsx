@@ -1,8 +1,8 @@
 import { type Dispatch, type SetStateAction, useState } from 'react';
 import { css } from '@emotion/react';
 
-import SelectionTextfield from '~/features/createSurvey/addSurveyForm/selectionTextfieldList/SelectionTextfield';
-import { OPTION_MAX_COUNT, OPTION_MAX_LENGTH, OPTION_MIN_COUNT } from '~/features/createSurvey/constants';
+import SelectionTextfield from '~/features/survey/addSurveyForm/selectionTextfieldList/SelectionTextfield';
+import { OPTION_MAX_COUNT, OPTION_MAX_LENGTH, OPTION_MIN_COUNT } from '~/features/survey/constants';
 
 interface Props {
   inputs: string[];

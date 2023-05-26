@@ -3,16 +3,16 @@ import { css, type Theme } from '@emotion/react';
 
 import Button from '~/components/button/Button';
 import { XCircleButton } from '~/components/button/CircleButton';
-import ChoiceForm from '~/features/createSurvey/addSurveyForm/choiceForm/ChoiceForm';
-import TextToggle from '~/features/createSurvey/addSurveyForm/TextToggle';
-import { DEFAULT_OPTION_LENGTH, QUESTION_MAX_LENGTH } from '~/features/createSurvey/constants';
-import { fixedBottomCss } from '~/features/createSurvey/styles';
+import ChoiceForm from '~/features/survey/addSurveyForm/choiceForm/ChoiceForm';
+import TextToggle from '~/features/survey/addSurveyForm/TextToggle';
+import { DEFAULT_OPTION_LENGTH, QUESTION_MAX_LENGTH } from '~/features/survey/constants';
+import { fixedBottomCss } from '~/features/survey/styles';
 import {
   type ChoiceQuestionItem,
   type QuestionItem,
   type QuestionType,
   type ShortQuestionItem,
-} from '~/features/createSurvey/types';
+} from '~/features/survey/types';
 import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
 
 const TOGGLE_LIST: {

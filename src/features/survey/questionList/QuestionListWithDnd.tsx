@@ -1,8 +1,8 @@
 import { type Dispatch } from 'react';
 import { Reorder } from 'framer-motion';
 
-import QuestionWithDnd from '~/features/createSurvey/questionList/QuestionWithDnd';
-import { type QuestionItem } from '~/features/createSurvey/types';
+import QuestionWithDnd from '~/features/survey/questionList/QuestionWithDnd';
+import { type QuestionItem } from '~/features/survey/types';
 
 interface Props {
   items: QuestionItem[];
