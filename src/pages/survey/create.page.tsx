@@ -1,18 +1,13 @@
 import { css } from '@emotion/react';
 
-import CTAButton from '~/components/button/CTAButton';
 import Header from '~/components/header/Header';
 import CreateSurvey from '~/features/survey/CreateSurvey';
-import { fixedBottomCss } from '~/features/survey/styles';
 
 const CreateSurveyPage = () => {
   return (
     <main css={containerCss}>
       <Header title="나의 질문폼" />
       <CreateSurvey />
-      <section css={[fixedBottomCss]}>
-        <CTAButton color="blue">이대로 생성하기</CTAButton>
-      </section>
     </main>
   );
 };
