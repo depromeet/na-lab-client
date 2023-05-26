@@ -17,7 +17,7 @@ const BottomNavigation = ({ onBackClick, isBackDisabled, onNextClick, isNextDisa
   return (
     <div css={wrapperCss}>
       <ArrowCircleButton onClick={onBackClick} disabled={isBackDisabled} />
-      <Button onClick={onNextClick} disabled={isNextDisabled}>
+      <Button onClick={onNextClick} disabled={isNextDisabled} css={buttonCss}>
         다음
       </Button>
     </div>
@@ -39,4 +39,8 @@ const wrapperCss = (theme: Theme) => css`
   padding-bottom: 12px;
 
   background: linear-gradient(180deg, rgb(255 255 255 / 0%) 0%, #fff 100%);
+`;
+
+const buttonCss = css`
+  padding: 15.5px 68px;
 `;
