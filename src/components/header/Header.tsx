@@ -64,5 +64,6 @@ const headerCss = (theme: Theme) => css`
   height: 56px;
   padding: 0.875rem 1rem;
 
+  background-color: ${theme.colors.white};
   border: 1px solid ${theme.colors.gray_50};
 `;
