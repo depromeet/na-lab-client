@@ -10,6 +10,7 @@ import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
 const Cowork = dynamic(() => import('~/features/review/steps/Cowork'), { ssr: false });
 const Softskill = dynamic(() => import('~/features/review/steps/Softskill'), { ssr: false });
 const ShortQuestion = dynamic(() => import('~/features/review/steps/ShortQuestion'), { ssr: false });
+const QuestionIntro = dynamic(() => import('~/features/review/steps/QuestionIntro'), { ssr: false });
 
 const ReviewPage = () => {
   // TODO: 이후 token 검증 및 조회 로직 추가
@@ -24,6 +25,7 @@ const ReviewPage = () => {
     elements: [
       <Intro key="intro" />,
       <Cowork key="cowork" isCoworked={isCoworked} setIsCoworked={setIsCoworked} />,
+      <QuestionIntro key="question-intro" />,
       <Softskill
         key="softskill"
         selectedSoftskills={selectedSoftskills}
