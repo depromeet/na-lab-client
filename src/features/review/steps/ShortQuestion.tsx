@@ -8,7 +8,7 @@ import MessageContainer from '../chat/MessageContainer';
 import SubmitButton from '../chat/SubmitButton';
 import { type MessageType } from '../chat/type';
 import QuestionHeader from '../QuestionHeader';
-import { type StepProps } from './type';
+import { type IsLastQuestion, type StepProps } from './type';
 
 interface OtherMessage {
   /**
@@ -18,7 +18,7 @@ interface OtherMessage {
   text: string;
 }
 
-interface Props extends StepProps {
+interface Props extends StepProps, IsLastQuestion {
   headerTitle: ComponentProps<typeof QuestionHeader>['title'];
   setReplies: Dispatch<SetStateAction<string[]>>;
   /**
@@ -31,7 +31,15 @@ interface Props extends StepProps {
   afterUserMessages?: OtherMessage[];
 }
 
-const ShortQuestion = ({ prev, next, headerTitle, setReplies, startMessages, afterUserMessages }: Props) => {
+const ShortQuestion = ({
+  prev,
+  next,
+  headerTitle,
+  setReplies,
+  startMessages,
+  afterUserMessages,
+  isLastQuestion = false,
+}: Props) => {
   const { messages, setMessage, onTextSubmit } = useMessage(setReplies);
   useOtherMessage({ messages, setMessage, startMessages, afterUserMessages });
   const { isAbleToSubmit } = useAbleToSubmit({ messages, startMessages, afterUserMessages });
@@ -41,7 +49,7 @@ const ShortQuestion = ({ prev, next, headerTitle, setReplies, startMessages, aft
       <QuestionHeader title={headerTitle} />
       <MessageContainer messages={messages} />
 
-      {isAbleToSubmit && <SubmitButton onClick={next}>답변 완료</SubmitButton>}
+      {isAbleToSubmit && <SubmitButton onClick={next}>{isLastQuestion ? '피드백 제출하기' : '답변 완료'}</SubmitButton>}
 
       <ChatInputBottom onTextSubmit={onTextSubmit} onBackClick={prev} />
     </>
