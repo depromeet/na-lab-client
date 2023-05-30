@@ -4,5 +4,5 @@ export interface StepProps {
 }
 
 export interface IsLastQuestion {
-  isLastQuestion: boolean;
+  isLastQuestion?: boolean;
 }
