@@ -5,6 +5,7 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 
 import Cowork from './Cowork';
 import Intro from './Intro';
+import QuestionIntro from './QuestionIntro';
 import Softskill from './Softskill';
 
 const meta = {
@@ -33,6 +34,14 @@ export function 협업_경험() {
   return (
     <main css={mainCss}>
       <Cowork isCoworked={isCoworked} setIsCoworked={setIsCoworked} />
+    </main>
+  );
+}
+
+export function 질문_인트로() {
+  return (
+    <main css={mainCss}>
+      <QuestionIntro />
     </main>
   );
 }
