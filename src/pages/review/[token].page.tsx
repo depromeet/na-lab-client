@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import { AnimatePresence } from 'framer-motion';
 
 import { type Softskills } from '~/components/graphic/softskills/type';
+import ChoiceQuestion from '~/features/review/steps/ChoiceQuestion';
 import Intro from '~/features/review/steps/Intro';
 import Last from '~/features/review/steps/Last';
 import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
@@ -12,6 +13,13 @@ const Cowork = dynamic(() => import('~/features/review/steps/Cowork'), { ssr: fa
 const Softskill = dynamic(() => import('~/features/review/steps/Softskill'), { ssr: false });
 const ShortQuestion = dynamic(() => import('~/features/review/steps/ShortQuestion'), { ssr: false });
 const QuestionIntro = dynamic(() => import('~/features/review/steps/QuestionIntro'), { ssr: false });
+
+const MOCK_CHOICES = [
+  { choice_id: 1, content: 'UX' },
+  { choice_id: 2, content: 'UI' },
+  { choice_id: 3, content: 'GUI' },
+  { choice_id: 4, content: 'BX' },
+];
 
 const ReviewPage = () => {
   // TODO: 이후 token 검증 및 조회 로직 추가
@@ -41,6 +49,18 @@ const ReviewPage = () => {
           { timing: 2000, text: '답변을 적어 저에게 메세지를 보내주시면, 익명으로 전달할게요!' },
         ]}
         afterUserMessages={[{ timing: 1000, text: '못한 말이 있다면 더 보낼 수 있어요.' }]}
+      />,
+      <ChoiceQuestion
+        key="choice"
+        title="저는 UX, UI, GUI 중에 어떤 분야에 더 강점이 있나요?"
+        choices={MOCK_CHOICES}
+        max_selectable_count={1}
+      />,
+      <ChoiceQuestion
+        key="multi choice"
+        title="저는 UX, UI, GUI 중에 어떤 분야에 더 강점이 있나요?"
+        choices={MOCK_CHOICES}
+        max_selectable_count={2}
       />,
       <Last key="last" onSubmit={() => console.warn('submit')} />,
     ],
