@@ -1,3 +1,4 @@
+import { type ReactNode } from 'react';
 import { css, type Theme } from '@emotion/react';
 
 import { type ToastProps } from '~/store/toast';
@@ -21,7 +22,7 @@ const toastCss = css`
   border-radius: 44px;
 `;
 
-const Text = ({ children }: { children: string }) => {
+const Text = ({ children }: { children: ReactNode }) => {
   return <span css={toastTextCss}>{children}</span>;
 };
 
