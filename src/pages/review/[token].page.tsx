@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Intro from '~/features/review/steps/Intro';
+import Last from '~/features/review/steps/Last';
 import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
 
 const Cowork = dynamic(() => import('~/features/review/steps/Cowork'), { ssr: false });
@@ -41,8 +42,7 @@ const ReviewPage = () => {
         ]}
         afterUserMessages={[{ timing: 1000, text: '못한 말이 있다면 더 보낼 수 있어요.' }]}
       />,
-      <div key="div">2</div>,
-      <div key="div2">3</div>,
+      <Last key="last" onSubmit={() => console.warn('submit')} />,
     ],
   });
 
