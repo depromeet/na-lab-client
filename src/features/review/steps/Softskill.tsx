@@ -3,6 +3,9 @@ import { css } from '@emotion/react';
 
 import { softskillList } from '~/components/graphic/softskills/Softskill';
 import { type Softskills } from '~/components/graphic/softskills/type';
+import WarningIcon from '~/components/icons/WarningIcon';
+import Toast from '~/components/toast/Toast';
+import useToast from '~/components/toast/useToast';
 
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
@@ -17,6 +20,8 @@ interface Props extends StepProps {
 const MAX_LENGTH = 5;
 
 const Softskill = ({ prev, next, selectedSoftskills, setSelectedSoftskills }: Props) => {
+  const { fireToast } = useToast();
+
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const clickedSoftskill = e.target.value as Softskills;
 
@@ -28,6 +33,16 @@ const Softskill = ({ prev, next, selectedSoftskills, setSelectedSoftskills }: Pr
 
     if (selectedSoftskills.length >= MAX_LENGTH) {
       e.target.checked = false;
+
+      fireToast({
+        content: (
+          <>
+            <WarningIcon />
+            <Toast.Text>키워드는 {MAX_LENGTH}개까지 선택할 수 있어요</Toast.Text>
+          </>
+        ),
+        higherThanCTA: true,
+      });
 
       return;
     }
