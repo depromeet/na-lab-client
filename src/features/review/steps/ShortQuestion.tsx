@@ -1,5 +1,8 @@
 import { type ComponentProps, type Dispatch, type SetStateAction, useRef, useState } from 'react';
+import { css } from '@emotion/react';
+import { m } from 'framer-motion';
 
+import { defaultFadeInVariants } from '~/constants/motions';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 
@@ -45,18 +48,25 @@ const ShortQuestion = ({
   const { isAbleToSubmit } = useAbleToSubmit({ messages, startMessages, afterUserMessages });
 
   return (
-    <>
+    <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
       <QuestionHeader title={headerTitle} />
       <MessageContainer messages={messages} />
 
       {isAbleToSubmit && <SubmitButton onClick={next}>{isLastQuestion ? '피드백 제출하기' : '답변 완료'}</SubmitButton>}
 
       <ChatInputBottom onTextSubmit={onTextSubmit} onBackClick={prev} />
-    </>
+    </m.section>
   );
 };
 
 export default ShortQuestion;
+
+const sectionCss = css`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`;
 
 const useMessage = (setReplies: Props['setReplies']) => {
   const [messages, setMessage] = useState<MessageType[]>([]);
