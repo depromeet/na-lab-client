@@ -59,6 +59,7 @@ __metadata:
     eslint-plugin-unused-imports: ^2.0.0
     framer-motion: ^10.12.2
     husky: ^8.0.3
+    jotai: ^2.1.0
     jsdom: ^21.1.1
     lint-staged: ^13.2.1
     mixpanel-browser: ^2.46.0
@@ -11103,6 +11104,18 @@ __metadata:
   version: 4.14.4
   resolution: "jose@npm:4.14.4"
   checksum: 2d820a91a8fd97c05d8bc8eedc373b944a0cd7f5fe41063086da233d0473c73fb523912a9f026ea870782bd221f4a515f441a2d3af4de48c6f2c76dac5082377
+  languageName: node
+  linkType: hard
+
+"jotai@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "jotai@npm:2.1.0"
+  peerDependencies:
+    react: ">=17.0.0"
+  peerDependenciesMeta:
+    react:
+      optional: true
+  checksum: 060b78dd221950c52e2c796f122b86b2cbbe99ba2b57e8c999a9b5403fd5f970cb8834296f0ac20bace85af8f96a8aac573efb9515382d215bbeace6c417a074
   languageName: node
   linkType: hard
 
