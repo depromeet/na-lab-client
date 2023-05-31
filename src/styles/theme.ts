@@ -10,6 +10,8 @@ const zIndex = {
   backdrop: 900,
   modal: 1000,
   toast: 2000,
+  above: (n: number) => n + 1,
+  below: (n: number) => n - 1,
 } as const;
 
 const theme = {
