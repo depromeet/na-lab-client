@@ -2,6 +2,9 @@ import { type Dispatch, type SetStateAction } from 'react';
 import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
+import WarningIcon from '~/components/icons/WarningIcon';
+import Toast from '~/components/toast/Toast';
+import useToast from '~/components/toast/useToast';
 import { defaultFadeInDownVariants } from '~/constants/motions';
 import Check from '~/features/survey/addSurveyForm/choiceForm/Check';
 import MaximumSelect from '~/features/survey/addSurveyForm/choiceForm/MaximumSelect';
@@ -22,6 +25,7 @@ interface Props {
 }
 
 const ChoiceForm = ({ maxSelect, setMaxSelect, inputs, setInputs }: Props) => {
+  const { fireToast } = useToast();
   const [isChecked, toggleCheck] = useBoolean(false);
 
   const onClick = () => {
@@ -40,18 +44,28 @@ const ChoiceForm = ({ maxSelect, setMaxSelect, inputs, setInputs }: Props) => {
       setInputs((prev) => [...prev, '']);
     }
     if (maxSelect === CHOICE_CASE_MAX_SELECT_COUNT) {
-      // 색상 구분된 선택지가 하나로 줄어들고, - 0.5초 후 복수선택 가능 선택 해제,
-      // TODO : ‘복수 선택이 해제되었어요’ 토스트 2초간 띄우기
       const timer = setTimeout(() => {
-        console.info('복수 선택이 해제되었어요');
+        fireToast({
+          content: '복수 선택이 해제되었어요',
+          higherThanCTA: true,
+        });
+
         onClick();
       }, 500);
 
       return () => clearTimeout(timer);
     }
     if (maxSelect > MULTI_SELECT_MAX_COUNT) {
-      // TODO : 최대 19 초과시: 토스트 알림 2초간 띄우기
-      alert('최대 선택 개수를 초과했어요');
+      fireToast({
+        content: (
+          <>
+            <WarningIcon />
+            <Toast.Text>최대 선택 개수를 초과했어요</Toast.Text>
+          </>
+        ),
+        higherThanCTA: true,
+      });
+
       setMaxSelect(MULTI_SELECT_MAX_COUNT);
     }
   }, [maxSelect]);
