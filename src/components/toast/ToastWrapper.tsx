@@ -38,6 +38,8 @@ export default ToastWrapper;
 
 const toastContainerCss = (higherThanCTA: boolean) => css`
   position: fixed;
+  z-index: 2000;
+
   bottom: ${higherThanCTA ? CTA_HEIGHT + CTA_PADDING : BOTTOM_SAFETY_HEIGHT}px;
   left: 0;
 
