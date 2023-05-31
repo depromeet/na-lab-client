@@ -1,8 +1,8 @@
-import { css } from '@emotion/react';
+import { css, type Theme } from '@emotion/react';
 
-export const scrimCss = css`
+export const scrimCss = (theme: Theme) => css`
   position: fixed;
-  z-index: 900;
+  z-index: ${theme.zIndex.backdrop};
   top: 0;
   left: 0;
 
