@@ -9,6 +9,7 @@ import { domMax, LazyMotion } from 'framer-motion';
 
 import { pretendard } from '~/assets/fonts/pretendard';
 import MonitoringInitializer from '~/components/monitoring/MonitoringInitializer';
+import ToastWrapper from '~/components/toast/ToastWrapper';
 import GlobalStyles from '~/styles/GlobalStyle';
 import defaultTheme from '~/styles/theme';
 
@@ -45,6 +46,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
               <GlobalStyles />
               <div css={defaultLayoutCss} className={pretendard.className}>
                 {getLayout(<Component {...pageProps} />)}
+                <ToastWrapper />
               </div>
             </LazyMotion>
           </ThemeProvider>

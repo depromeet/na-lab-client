@@ -4,6 +4,7 @@ import { type Meta } from '@storybook/react';
 
 import useInput from '~/hooks/common/useInput';
 
+import ChatInputBottom from './ChatInputBottom';
 import Message from './Message';
 import MessageContainer from './MessageContainer';
 import { type MessageType } from './type';
@@ -94,3 +95,24 @@ export const Chat = () => {
     </>
   );
 };
+
+export const ChatInput = () => {
+  const [messages, setMessage] = useState<MessageType[]>([]);
+
+  const onTextSubmit = (text: string) => {
+    setMessage((prev) => [...prev, { from: 'me', content: text }]);
+  };
+
+  return (
+    <main css={mainCss}>
+      <MessageContainer messages={messages} />
+      <ChatInputBottom onTextSubmit={onTextSubmit} />
+    </main>
+  );
+};
+
+const mainCss = css`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
