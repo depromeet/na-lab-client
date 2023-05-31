@@ -7,6 +7,7 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 import ChoiceQuestion from '~/features/review/steps/ChoiceQuestion';
 import Intro from '~/features/review/steps/Intro';
 import Last from '~/features/review/steps/Last';
+import Position from '~/features/review/steps/Position';
 import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
 
 const Cowork = dynamic(() => import('~/features/review/steps/Cowork'), { ssr: false });
@@ -32,6 +33,7 @@ const ReviewPage = () => {
 
   const { currentElement } = useInjectedElementStep({
     elements: [
+      <Position key="position" />,
       <Intro key="intro" />,
       <Cowork key="cowork" isCoworked={isCoworked} setIsCoworked={setIsCoworked} />,
       <QuestionIntro key="question-intro" />,
