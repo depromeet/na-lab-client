@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
@@ -22,7 +21,7 @@ const JoinGuidePage = () => {
       </StaggerWrapper>
       <section css={fixedContainerCss(58)}>
         <m.div variants={imageVariant} initial="initial" animate="animate" exit="exit">
-          <Image src="/images/survey/join_guide.png" width={300} height={300} alt="join guide" />
+          <img src="/images/survey/join_guide.png" width={300} height={300} alt="join guide" />
         </m.div>
       </section>
 

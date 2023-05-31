@@ -1,12 +1,13 @@
 import { type ReactElement } from 'react';
+import Link from 'next/link';
 
 import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
-import ChangeQuestion from '~/features/changeQuestion/ChangeQuestion';
 
 export default function Home() {
   return (
     <div>
-      <ChangeQuestion />
+      <Link href="/review/foo-bar">foo</Link>
+      {/* <ChangeQuestion /> */}
     </div>
   );
 }
