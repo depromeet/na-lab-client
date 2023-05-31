@@ -1,8 +1,10 @@
 import { type MouseEventHandler } from 'react';
 import { css, type Theme } from '@emotion/react';
+import { m } from 'framer-motion';
 
 import Button from '~/components/button/Button';
 import { ArrowCircleButton } from '~/components/button/CircleButton';
+import { defaultFadeInVariants } from '~/constants/motions';
 
 import { type IsLastQuestion } from './steps/type';
 import { fixedBottomCss } from './style';
@@ -23,7 +25,7 @@ const BottomNavigation = ({
 }: Props) => {
   return (
     <>
-      <div css={wrapperCss}>
+      <m.div css={wrapperCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
         <ArrowCircleButton onClick={onBackClick} disabled={isBackDisabled} />
         <Button
           onClick={onNextClick}
@@ -33,7 +35,7 @@ const BottomNavigation = ({
         >
           {isLastQuestion ? '피드백 제출하기' : '다음'}
         </Button>
-      </div>
+      </m.div>
       <div css={wrapperRemainerCss} />
     </>
   );

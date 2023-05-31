@@ -11,7 +11,7 @@ import { m, type TargetAndTransition } from 'framer-motion';
 
 import { ArrowCircleButton } from '~/components/button/CircleButton';
 import SendIcon from '~/components/icons/SendIcon';
-import { defaultEasing } from '~/constants/motions';
+import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 import useInput from '~/hooks/common/useInput';
 import { BODY_1 } from '~/styles/typo';
 
@@ -68,7 +68,14 @@ const ChatInputBottom = ({ onBackClick, isBackDisabled, onTextSubmit, onFocus }:
   };
 
   return (
-    <form css={wrapperCss} onSubmit={onSubmit}>
+    <m.form
+      css={wrapperCss}
+      onSubmit={onSubmit}
+      variants={defaultFadeInVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
       <m.div animate={backButtonTransition(isInputWide)}>
         <ArrowCircleButton onClick={onBackClick} disabled={isBackDisabled} type="button" />
       </m.div>
@@ -86,7 +93,7 @@ const ChatInputBottom = ({ onBackClick, isBackDisabled, onTextSubmit, onFocus }:
       <button type="submit" disabled={!Boolean(text)} css={buttonCss}>
         <SendIcon />
       </button>
-    </form>
+    </m.form>
   );
 };
 
