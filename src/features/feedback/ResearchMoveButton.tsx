@@ -15,7 +15,7 @@ const CollaborationBadge = () => {
       <section css={LeftBoxCss(theme)}>
         <article>
           <div css={TextWrapperCss(theme)}>
-            <main>쌓인 연구 일지 보러가기</main>
+            <span>쌓인 연구 일지 보러가기</span>
             <ChevronArrowRightIcon css={ChevronArrowRightIconCss} />
           </div>
           <div css={[BODY_1, UnreadMsgCountBadge(theme)]}>+{count}</div>
