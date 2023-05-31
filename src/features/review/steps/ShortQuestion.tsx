@@ -48,14 +48,17 @@ const ShortQuestion = ({
   const { isAbleToSubmit } = useAbleToSubmit({ messages, startMessages, afterUserMessages });
 
   return (
-    <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
+    <>
       <QuestionHeader title={headerTitle} />
-      <MessageContainer messages={messages} />
+      <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
+        <MessageContainer messages={messages} />
 
-      {isAbleToSubmit && <SubmitButton onClick={next}>{isLastQuestion ? '피드백 제출하기' : '답변 완료'}</SubmitButton>}
-
+        {isAbleToSubmit && (
+          <SubmitButton onClick={next}>{isLastQuestion ? '피드백 제출하기' : '답변 완료'}</SubmitButton>
+        )}
+      </m.section>
       <ChatInputBottom onTextSubmit={onTextSubmit} onBackClick={prev} />
-    </m.section>
+    </>
   );
 };
 

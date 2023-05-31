@@ -1,4 +1,7 @@
 import { css } from '@emotion/react';
+import { m } from 'framer-motion';
+
+import { defaultFadeInVariants } from '~/constants/motions';
 
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
@@ -22,7 +25,7 @@ const ChoiceQuestion = ({ prev, next, title, max_selectable_count, choices, isLa
   return (
     <>
       <QuestionHeader title={title} subTitle="예진님이 직접 입력한 질문이에요." />
-      <section css={sectionCss}>
+      <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
         <MaxSelectableSmall max={max_selectable_count} />
 
         <div css={choiceWrapperCss}>
@@ -30,7 +33,7 @@ const ChoiceQuestion = ({ prev, next, title, max_selectable_count, choices, isLa
             <Checkbox key={choice.choice_id}>{choice.content}</Checkbox>
           ))}
         </div>
-      </section>
+      </m.section>
       <BottomNavigation onBackClick={prev} onNextClick={next} isLastQuestion={isLastQuestion} />
     </>
   );
