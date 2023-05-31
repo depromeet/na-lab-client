@@ -4,22 +4,34 @@ import { css, type Theme } from '@emotion/react';
 import Button from '~/components/button/Button';
 import { ArrowCircleButton } from '~/components/button/CircleButton';
 
+import { type IsLastQuestion } from './steps/type';
 import { fixedBottomCss } from './style';
 
-interface Props {
+interface Props extends IsLastQuestion {
   onBackClick?: MouseEventHandler<HTMLButtonElement>;
   isBackDisabled?: boolean;
   onNextClick?: MouseEventHandler<HTMLButtonElement>;
   isNextDisabled?: boolean;
 }
 
-const BottomNavigation = ({ onBackClick, isBackDisabled, onNextClick, isNextDisabled }: Props) => {
+const BottomNavigation = ({
+  onBackClick,
+  isBackDisabled,
+  onNextClick,
+  isNextDisabled,
+  isLastQuestion = false,
+}: Props) => {
   return (
     <>
       <div css={wrapperCss}>
         <ArrowCircleButton onClick={onBackClick} disabled={isBackDisabled} />
-        <Button onClick={onNextClick} disabled={isNextDisabled} css={buttonCss}>
-          다음
+        <Button
+          onClick={onNextClick}
+          disabled={isNextDisabled}
+          css={buttonCss}
+          color={isLastQuestion ? 'blue' : 'navy'}
+        >
+          {isLastQuestion ? '피드백 제출하기' : '다음'}
         </Button>
       </div>
       <div css={wrapperRemainerCss} />
@@ -45,7 +57,7 @@ const wrapperCss = (theme: Theme) => css`
 `;
 
 const buttonCss = css`
-  padding: 15.5px 68px;
+  width: 168px;
 `;
 
 const wrapperRemainerCss = css`

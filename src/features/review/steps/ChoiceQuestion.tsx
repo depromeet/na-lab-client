@@ -4,7 +4,7 @@ import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
 import Checkbox from './choice/Checkbox';
 import MaxSelectableSmall from './choice/MaxSelectableSmall';
-import { type StepProps } from './type';
+import { type IsLastQuestion, type StepProps } from './type';
 
 // TODO: API 이후 hooks/api 로 이관
 interface Choice {
@@ -12,13 +12,13 @@ interface Choice {
   content: string;
 }
 
-interface Props extends StepProps {
+interface Props extends StepProps, IsLastQuestion {
   title: string;
   choices: Choice[];
   max_selectable_count: number;
 }
 
-const ChoiceQuestion = ({ prev, next, title, max_selectable_count, choices }: Props) => {
+const ChoiceQuestion = ({ prev, next, title, max_selectable_count, choices, isLastQuestion = false }: Props) => {
   return (
     <>
       <QuestionHeader title={title} subTitle="예진님이 직접 입력한 질문이에요." />
@@ -31,7 +31,7 @@ const ChoiceQuestion = ({ prev, next, title, max_selectable_count, choices }: Pr
           ))}
         </div>
       </section>
-      <BottomNavigation onBackClick={prev} onNextClick={next} />
+      <BottomNavigation onBackClick={prev} onNextClick={next} isLastQuestion={isLastQuestion} />
     </>
   );
 };
