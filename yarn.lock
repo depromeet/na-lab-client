@@ -13,6 +13,7 @@ __metadata:
     "@codechecks/client": ^0.1.12
     "@commitlint/cli": ^17.6.1
     "@commitlint/config-conventional": ^17.6.1
+    "@egjs/flicking": ^4.10.7
     "@egjs/flicking-plugins": ^4.7.0
     "@egjs/react-flicking": ^4.10.9
     "@emotion/babel-preset-css-prop": ^11.10.0
@@ -1992,7 +1993,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@egjs/flicking@npm:~4.10.7":
+"@egjs/flicking@npm:^4.10.7, @egjs/flicking@npm:~4.10.7":
   version: 4.10.7
   resolution: "@egjs/flicking@npm:4.10.7"
   dependencies:

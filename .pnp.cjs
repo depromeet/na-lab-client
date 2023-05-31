@@ -32,6 +32,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@codechecks/client", "npm:0.1.12"],\
             ["@commitlint/cli", "npm:17.6.1"],\
             ["@commitlint/config-conventional", "npm:17.6.1"],\
+            ["@egjs/flicking", "npm:4.10.7"],\
             ["@egjs/flicking-plugins", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:4.7.0"],\
             ["@egjs/react-flicking", "npm:4.10.9"],\
             ["@emotion/babel-preset-css-prop", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:11.10.0"],\
@@ -120,6 +121,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@codechecks/client", "npm:0.1.12"],\
             ["@commitlint/cli", "npm:17.6.1"],\
             ["@commitlint/config-conventional", "npm:17.6.1"],\
+            ["@egjs/flicking", "npm:4.10.7"],\
             ["@egjs/flicking-plugins", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:4.7.0"],\
             ["@egjs/react-flicking", "npm:4.10.9"],\
             ["@emotion/babel-preset-css-prop", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:11.10.0"],\
@@ -3296,7 +3298,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@egjs-flicking-plugins-virtual-d65476dfb7/0/cache/@egjs-flicking-plugins-npm-4.7.0-6727e808cd-201b17fd66.zip/node_modules/@egjs/flicking-plugins/",\
           "packageDependencies": [\
             ["@egjs/flicking-plugins", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:4.7.0"],\
-            ["@egjs/flicking", null],\
+            ["@egjs/flicking", "npm:4.10.7"],\
             ["@types/egjs__flicking", null]\
           ],\
           "packagePeers": [\
