@@ -15,12 +15,15 @@ interface Props {
 
 const BottomNavigation = ({ onBackClick, isBackDisabled, onNextClick, isNextDisabled }: Props) => {
   return (
-    <div css={wrapperCss}>
-      <ArrowCircleButton onClick={onBackClick} disabled={isBackDisabled} />
-      <Button onClick={onNextClick} disabled={isNextDisabled} css={buttonCss}>
-        다음
-      </Button>
-    </div>
+    <>
+      <div css={wrapperCss}>
+        <ArrowCircleButton onClick={onBackClick} disabled={isBackDisabled} />
+        <Button onClick={onNextClick} disabled={isNextDisabled} css={buttonCss}>
+          다음
+        </Button>
+      </div>
+      <div css={wrapperRemainerCss} />
+    </>
   );
 };
 
@@ -43,4 +46,9 @@ const wrapperCss = (theme: Theme) => css`
 
 const buttonCss = css`
   padding: 15.5px 68px;
+`;
+
+const wrapperRemainerCss = css`
+  flex-shrink: 0;
+  height: 104px;
 `;
