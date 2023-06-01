@@ -5,6 +5,7 @@ import { pretendard } from '../src/assets/fonts/pretendard';
 import defaultTheme from '../src/styles/theme';
 import { domMax, LazyMotion } from 'framer-motion';
 import GlobalStyle from '../src/styles/GlobalStyle';
+import ToastWrapper from '../src/components/toast/ToastWrapper';
 
 const previewDecorator = (Story) => {
   useEffect(() => {
@@ -17,6 +18,7 @@ const previewDecorator = (Story) => {
       <LazyMotion features={domMax}>
         <div className={pretendard.className} style={{ width: '100%', maxWidth: '480px', margin: '0 auto' }}>
           <Story />
+          <ToastWrapper />
         </div>
       </LazyMotion>
     </ThemeProvider>

@@ -1,6 +1,9 @@
 import { type Dispatch, type SetStateAction, useState } from 'react';
 import { css } from '@emotion/react';
 
+import WarningIcon from '~/components/icons/WarningIcon';
+import Toast from '~/components/toast/Toast';
+import useToast from '~/components/toast/useToast';
 import SelectionTextfield from '~/features/survey/addSurveyForm/selectionTextfieldList/SelectionTextfield';
 import { OPTION_MAX_COUNT, OPTION_MAX_LENGTH, OPTION_MIN_COUNT } from '~/features/survey/constants';
 
@@ -14,12 +17,20 @@ interface Props {
 }
 
 const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: Props) => {
+  const { fireToast } = useToast();
   const [focusInput, setFocusInput] = useState<number | null>(null);
 
   const onInputChange = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    // TODO : 선택지 18자 초과시:‘글자수를 초과했어요' 토스트 2초간띄우기
     if (e.target.value.length > OPTION_MAX_LENGTH) {
-      alert('최대 20자까지 입력 가능합니다.');
+      fireToast({
+        content: (
+          <>
+            <WarningIcon />
+            <Toast.Text>글자수를 초과했어요</Toast.Text>
+          </>
+        ),
+        higherThanCTA: true,
+      });
 
       return;
     }

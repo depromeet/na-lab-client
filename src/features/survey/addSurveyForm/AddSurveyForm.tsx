@@ -3,6 +3,9 @@ import { css, type Theme } from '@emotion/react';
 
 import Button from '~/components/button/Button';
 import { XCircleButton } from '~/components/button/CircleButton';
+import WarningIcon from '~/components/icons/WarningIcon';
+import Toast from '~/components/toast/Toast';
+import useToast from '~/components/toast/useToast';
 import ChoiceForm from '~/features/survey/addSurveyForm/choiceForm/ChoiceForm';
 import TextToggle from '~/features/survey/addSurveyForm/TextToggle';
 import { DEFAULT_OPTION_LENGTH, QUESTION_MAX_LENGTH } from '~/features/survey/constants';
@@ -35,6 +38,8 @@ interface Props {
 }
 
 const AddSurveyForm = ({ onClose, onAction }: Props) => {
+  const { fireToast } = useToast();
+
   const [selectToggleTab, setSelectToggleTab] = useState<QuestionType>(TOGGLE_LIST[0].type);
   const [questionInput, setQuestionInput] = useState('');
 
@@ -48,8 +53,19 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
   const isButtonDisabled = !isAllInputFilled || removeSpaceAndEnter(questionInput) === '';
 
   const onQuestionInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    // TODO : 질문 45자 초과시: ‘글자수를 초과했어요' 토스트 2초간띄우기
-    if (e.target.value.length > QUESTION_MAX_LENGTH) return alert('45자 이내로 입력해주세요.');
+    if (e.target.value.length > QUESTION_MAX_LENGTH) {
+      fireToast({
+        content: (
+          <>
+            <WarningIcon />
+            <Toast.Text>글자수를 초과했어요</Toast.Text>
+          </>
+        ),
+        higherThanCTA: true,
+      });
+
+      return;
+    }
     setQuestionInput(e.target.value);
   };
 
