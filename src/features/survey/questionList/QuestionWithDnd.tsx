@@ -47,7 +47,7 @@ const menuIconCss = css`
   touch-action: none;
 `;
 
-const inactiveShadow = '0px 0px 0px rgba(0,0,0,0.8)';
+const inactiveShadow = '0px 0px 0px rgba(255, 255, 255, 0.8)';
 const inactiveBackground = '#fff';
 
 const activeShadow = '0px 8px 32px rgba(0, 0, 0, 0.24)';
