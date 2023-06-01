@@ -4,59 +4,41 @@ import Logo from '~/assets/Logo';
 import XIcon from '~/components/icons/XIcon';
 import KakaoLoginButton from '~/components/kakaoLoginButton/KakaoLoginButton';
 import colors from '~/styles/color';
+import { HEAD_2_BOLD } from '~/styles/typo';
 
 export default function Login() {
   return (
     <main css={loginPageWrapperCss}>
       <XIcon css={xIconCss} />
-      <section css={loginPageTopSectionCss}>
-        <Logo css={logoCss} />
-      </section>
-      <section css={loginPageBottomSectionCss}>
-        <button type="button" css={startButtonCss}>
-          질문 폼 생성으로 시작하기
-        </button>
-        <KakaoLoginButton />
-      </section>
+      <Logo css={logoCss} />
+      <button type="button" css={startButtonCss}>
+        질문 폼 생성으로 시작하기
+      </button>
+      <KakaoLoginButton />
     </main>
   );
 }
 
 const loginPageWrapperCss = css`
-  /* display: flex;
-  flex-direction: column; */
+  position: relative;
 
-  /* align-items: center;
-  justify-content: center; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-  height: 100vh;
-  background-color: red;
+  width: 375px;
+  height: 812px;
 `;
 
 const xIconCss = css`
   position: absolute;
-  top: 10;
-  right: 10;
-`;
-
-const loginPageTopSectionCss = css`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 5;
-  align-items: center;
-  justify-content: center;
+  top: 12px;
+  right: 12px;
 `;
 
 const logoCss = css`
   margin-top: 176px;
-`;
-
-const loginPageBottomSectionCss = css`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: center;
 `;
 
 const startButtonCss = css`
@@ -67,10 +49,11 @@ const startButtonCss = css`
   width: 327px;
   height: 56px;
   padding: 0;
+  margin-top: 404px;
+  margin-bottom: 11px;
 
-  font-size: 18px;
-  font-weight: 500;
   color: ${colors.white};
+  ${HEAD_2_BOLD}
 
   background-color: ${colors.primary};
   border: none;

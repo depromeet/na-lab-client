@@ -1,12 +1,13 @@
-import { type ButtonHTMLAttributes, forwardRef, type Ref } from 'react';
+import { forwardRef, type Ref } from 'react';
 import { css, type Theme, useTheme } from '@emotion/react';
 
 import { HEAD_2_BOLD } from '~/styles/typo';
 
-type Color = 'navy' | 'blue' | 'gray';
-type ButtonAttr = ButtonHTMLAttributes<HTMLButtonElement>;
+import { type ButtonAttributes } from './type';
 
-interface Props extends ButtonAttr {
+type Color = 'navy' | 'blue' | 'gray';
+
+interface Props extends ButtonAttributes {
   /**
    * @description 'navy' | 'blue' | 'gray' 중 색상을 지정할 수 있습니다.
    * @default 'navy'
@@ -16,7 +17,7 @@ interface Props extends ButtonAttr {
 
 /**
  * @description 디자인 시스템의 `Rect Small` 버튼에 대응하는 기본 버튼 입니다.
- * padding `15.5px 68px`과 함께 폰트 사이즈 `HEAD_2_BOLD`가 적용되어 있습니다.
+ * padding `14px 24px`과 함께 폰트 사이즈 `HEAD_2_BOLD`가 적용되어 있습니다.
  */
 const Button = forwardRef(function Button(
   { children, type = 'button', color = 'navy', ...rest }: Props,
@@ -49,7 +50,7 @@ const buttonCss = (theme: Theme, color: Color) => css`
   justify-content: center;
 
   box-sizing: border-box;
-  padding: 15.5px 68px;
+  padding: 14px 24px;
 
   border-radius: 8px;
 

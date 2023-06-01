@@ -1,5 +1,5 @@
 import { type ComponentProps, type MouseEventHandler } from 'react';
-import { css } from '@emotion/react';
+import { css, type Theme } from '@emotion/react';
 import { m, type Variants } from 'framer-motion';
 
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
@@ -40,23 +40,25 @@ const BottomSheet = ({ onClickOutside, isShowing, children, mode }: Props) => {
 
 export default BottomSheet;
 
-const contentCss = css`
+const contentCss = (theme: Theme) => css`
   position: absolute;
-  z-index: 1000;
+  z-index: ${theme.zIndex.modal};
   top: 100%;
   left: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   width: 100%;
 
   /* TODO: 디자인에 따라 변경 필요 */
-  min-height: 400px;
-  max-height: 95%;
-  padding-top: 16px;
-  padding-right: 20px;
-  padding-left: 20px;
+  min-height: 300px;
+  max-height: 99%;
+  padding-top: 6px;
 
-  /* TODO: 디자인에 따라 변경 필요 */
-  background-color: white;
+  background-color: #fff;
+  border-radius: 16px 16px 0 0;
 `;
 
 const bottomSheetVariants: Variants = {

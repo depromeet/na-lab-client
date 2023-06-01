@@ -12,7 +12,15 @@ export default meta;
 export function Default() {
   return (
     <div>
-      <CollaborationBadge />
+      <CollaborationBadge variant="default" />
+    </div>
+  );
+}
+
+export function Gray() {
+  return (
+    <div>
+      <CollaborationBadge variant="gray" />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { signIn } from 'next-auth/react';
 import { css } from '@emotion/react';
 
 import colors from '~/styles/color';
+import { BODY_1 } from '~/styles/typo';
 
 const KakaoLoginButton = () => {
   // const { data: session } = useSession();
@@ -28,10 +29,6 @@ const KakaoLoginButton = () => {
 };
 
 const KakaoLoginWrapper = css`
-  margin: 10px;
-
-  font-size: 16px;
-  font-weight: 400;
   line-height: 24px;
   color: ${colors.gray_400};
 `;
@@ -43,6 +40,7 @@ const KakaoLoginButtonCss = css`
 
   margin-left: 5px;
   padding: 0;
+  ${BODY_1}
 
   color: ${colors.gray_400};
   text-decoration: underline;

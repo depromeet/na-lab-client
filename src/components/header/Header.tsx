@@ -46,7 +46,7 @@ const titleCss = css`
 
 const fixedTopCss = (theme: Theme) => css`
   position: fixed;
-  z-index: 1;
+  z-index: ${theme.zIndex.aboveDefault};
   top: 0;
   right: 0;
   left: 0;
@@ -56,11 +56,14 @@ const fixedTopCss = (theme: Theme) => css`
   margin: 0 auto;
 `;
 
-const headerCss = css`
+const headerCss = (theme: Theme) => css`
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  height: 48px;
-  padding: 16px;
+  height: 56px;
+  padding: 0.875rem 1rem;
+
+  background-color: ${theme.colors.white};
+  border: 1px solid ${theme.colors.gray_50};
 `;
