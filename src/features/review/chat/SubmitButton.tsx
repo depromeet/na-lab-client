@@ -31,12 +31,12 @@ const buttonCss = (theme: Theme) => css`
   ${HEAD_3_SEMIBOLD};
 
   position: fixed;
-  right: 16px;
   bottom: 72px;
 
   display: flex;
   gap: 8px;
   align-items: center;
+  align-self: flex-end;
   justify-content: center;
 
   padding: 8px 16px;

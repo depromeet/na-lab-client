@@ -1,10 +1,13 @@
 import { css } from '@emotion/react';
+import { m } from 'framer-motion';
+
+import { defaultFadeInVariants } from '~/constants/motions';
 
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
 import Checkbox from './choice/Checkbox';
 import MaxSelectableSmall from './choice/MaxSelectableSmall';
-import { type StepProps } from './type';
+import { type IsLastQuestion, type StepProps } from './type';
 
 // TODO: API 이후 hooks/api 로 이관
 interface Choice {
@@ -12,17 +15,17 @@ interface Choice {
   content: string;
 }
 
-interface Props extends StepProps {
+interface Props extends StepProps, IsLastQuestion {
   title: string;
   choices: Choice[];
   max_selectable_count: number;
 }
 
-const ChoiceQuestion = ({ prev, next, title, max_selectable_count, choices }: Props) => {
+const ChoiceQuestion = ({ prev, next, title, max_selectable_count, choices, isLastQuestion = false }: Props) => {
   return (
     <>
       <QuestionHeader title={title} subTitle="예진님이 직접 입력한 질문이에요." />
-      <section css={sectionCss}>
+      <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
         <MaxSelectableSmall max={max_selectable_count} />
 
         <div css={choiceWrapperCss}>
@@ -30,8 +33,8 @@ const ChoiceQuestion = ({ prev, next, title, max_selectable_count, choices }: Pr
             <Checkbox key={choice.choice_id}>{choice.content}</Checkbox>
           ))}
         </div>
-      </section>
-      <BottomNavigation onBackClick={prev} onNextClick={next} />
+      </m.section>
+      <BottomNavigation onBackClick={prev} onNextClick={next} isLastQuestion={isLastQuestion} />
     </>
   );
 };
