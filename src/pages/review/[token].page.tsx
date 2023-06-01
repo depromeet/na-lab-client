@@ -7,11 +7,12 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 import ChoiceQuestion from '~/features/review/steps/ChoiceQuestion';
 import Intro from '~/features/review/steps/Intro';
 import Last from '~/features/review/steps/Last';
-import Position from '~/features/review/steps/Position';
 import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
 
 const Cowork = dynamic(() => import('~/features/review/steps/Cowork'), { ssr: false });
+const Position = dynamic(() => import('~/features/review/steps/Position'), { ssr: false });
 const Softskill = dynamic(() => import('~/features/review/steps/Softskill'), { ssr: false });
+
 const ShortQuestion = dynamic(() => import('~/features/review/steps/ShortQuestion'), { ssr: false });
 const QuestionIntro = dynamic(() => import('~/features/review/steps/QuestionIntro'), { ssr: false });
 
