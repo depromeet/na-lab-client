@@ -1,18 +1,19 @@
 import { css } from '@emotion/react';
 
-import LogoBig from '~/assets/LogoBig';
+import Logo from '~/assets/Logo';
+import XIcon from '~/components/icons/XIcon';
 import KakaoLoginButton from '~/components/kakaoLoginButton/KakaoLoginButton';
 import colors from '~/styles/color';
 
 export default function Login() {
   return (
-    <main css={LoginPageWrapper}>
-      <section css={LoginPageTopSection}>
-        <h1 css={TitleCss}>나의 커리어 DNA 연구</h1>
-        <LogoBig />
+    <main css={loginPageWrapperCss}>
+      <XIcon css={xIconCss} />
+      <section css={loginPageTopSectionCss}>
+        <Logo css={logoCss} />
       </section>
-      <section css={LoginPageBottomSection}>
-        <button type="button" css={StartButton}>
+      <section css={loginPageBottomSectionCss}>
+        <button type="button" css={startButtonCss}>
           질문 폼 생성으로 시작하기
         </button>
         <KakaoLoginButton />
@@ -21,16 +22,24 @@ export default function Login() {
   );
 }
 
-const LoginPageWrapper = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+const loginPageWrapperCss = css`
+  /* display: flex;
+  flex-direction: column; */
+
+  /* align-items: center;
+  justify-content: center; */
 
   height: 100vh;
+  background-color: red;
 `;
 
-const LoginPageTopSection = css`
+const xIconCss = css`
+  position: absolute;
+  top: 10;
+  right: 10;
+`;
+
+const loginPageTopSectionCss = css`
   display: flex;
   flex-direction: column;
   flex-grow: 5;
@@ -38,7 +47,11 @@ const LoginPageTopSection = css`
   justify-content: center;
 `;
 
-const LoginPageBottomSection = css`
+const logoCss = css`
+  margin-top: 176px;
+`;
+
+const loginPageBottomSectionCss = css`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -46,23 +59,7 @@ const LoginPageBottomSection = css`
   justify-content: center;
 `;
 
-const TitleCss = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  margin: 10px;
-
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 33px;
-  line-height: 138%;
-  color: ${colors.black};
-  letter-spacing: -0.3px;
-`;
-
-const StartButton = css`
+const startButtonCss = css`
   cursor: pointer;
 
   overflow: visible;

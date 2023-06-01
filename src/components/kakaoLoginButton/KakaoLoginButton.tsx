@@ -33,7 +33,7 @@ const KakaoLoginWrapper = css`
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  color: ${colors.primary_50};
+  color: ${colors.gray_400};
 `;
 
 const KakaoLoginButtonCss = css`
@@ -41,9 +41,10 @@ const KakaoLoginButtonCss = css`
 
   overflow: visible;
 
+  margin-left: 5px;
   padding: 0;
 
-  color: ${colors.primary_50};
+  color: ${colors.gray_400};
   text-decoration: underline;
 
   background: inherit;
