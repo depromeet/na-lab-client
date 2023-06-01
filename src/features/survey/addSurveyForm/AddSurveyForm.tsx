@@ -49,7 +49,7 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
   const isChoice = selectToggleTab === 'choice';
   const optionInputs = isChoice ? inputs.slice(0, -1) : inputs; // 다른 옵션 추가 제외
 
-  const isAllInputFilled = !isChoice || optionInputs.every((input) => input !== '');
+  const isAllInputFilled = !isChoice || optionInputs.every((input) => removeSpaceAndEnter(input) !== '');
   const isButtonDisabled = !isAllInputFilled || removeSpaceAndEnter(questionInput) === '';
 
   const onQuestionInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
