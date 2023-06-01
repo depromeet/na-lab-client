@@ -49,13 +49,13 @@ const itemCss = (theme: Theme) => css`
 
   span {
     position: relative;
-    z-index: 2;
+    z-index: ${theme.zIndex.above(theme.zIndex.aboveDefault)};
   }
 `;
 
 const itemBoxCss = (theme: Theme) => css`
   position: absolute;
-  z-index: 1;
+  z-index: ${theme.zIndex.aboveDefault};
   top: 0;
   left: 0;
 

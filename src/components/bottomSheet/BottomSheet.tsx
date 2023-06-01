@@ -1,5 +1,5 @@
 import { type ComponentProps, type MouseEventHandler } from 'react';
-import { css } from '@emotion/react';
+import { css, type Theme } from '@emotion/react';
 import { m, type Variants } from 'framer-motion';
 
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
@@ -40,9 +40,9 @@ const BottomSheet = ({ onClickOutside, isShowing, children, mode }: Props) => {
 
 export default BottomSheet;
 
-const contentCss = css`
+const contentCss = (theme: Theme) => css`
   position: absolute;
-  z-index: 1000;
+  z-index: ${theme.zIndex.modal};
   top: 100%;
   left: 0;
 

@@ -52,9 +52,9 @@ const wrapperCss = css`
   margin-top: 126px;
 `;
 
-const pictureCss = css`
+const pictureCss = (theme: Theme) => css`
   position: absolute;
-  z-index: -1;
+  z-index: ${theme.zIndex.belowDefault};
   top: 0;
   left: 0;
 

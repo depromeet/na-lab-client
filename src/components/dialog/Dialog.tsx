@@ -1,5 +1,5 @@
 import { type ComponentProps, type MouseEvent, type ReactElement } from 'react';
-import { css } from '@emotion/react';
+import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInUpVariants, defaultFadeInVariants } from '~/constants/motions';
@@ -86,9 +86,9 @@ const DialogBlur = ({ onClickOutside }: Pick<Props, 'onClickOutside'>) => {
   );
 };
 
-const blurCss = css`
+const blurCss = (theme: Theme) => css`
   position: fixed;
-  z-index: 900;
+  z-index: ${theme.zIndex.backdrop};
   top: 0;
   left: 0;
 
@@ -114,9 +114,9 @@ const DialogContent = ({ title, description, cancelButton, confirmButton }: Omit
   );
 };
 
-const containerCss = css`
+const containerCss = (theme: Theme) => css`
   position: fixed;
-  z-index: 1000;
+  z-index: ${theme.zIndex.modal};
 
   display: flex;
   flex-direction: column;
