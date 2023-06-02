@@ -17,6 +17,7 @@ import {
   type ShortQuestionItem,
 } from '~/features/survey/types';
 import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
+import { removeSpaceAndEnter } from '~/utils/string';
 
 const TOGGLE_LIST: {
   type: QuestionType;
@@ -129,8 +130,6 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
 };
 
 export default AddSurveyForm;
-
-const removeSpaceAndEnter = (str: string) => str.replaceAll(' ', '').replaceAll('\n', '');
 
 const bottomSectionCss = css`
   overflow-y: auto;
