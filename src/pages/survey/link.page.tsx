@@ -8,11 +8,15 @@ import Toast from '~/components/toast/Toast';
 import useToast from '~/components/toast/useToast';
 import { fixedBottomCss } from '~/features/review/style';
 import { CTAVariants, fixedContainerCss, imageVariant } from '~/features/survey/styles';
+import { copyToClipBoard } from '~/utils/clipboard';
 
 const SurveyLinkPage = () => {
   const { fireToast } = useToast();
 
   const onNext = () => {
+    // TODO : 나의 질문 폼 링크 생성 후 교체
+    copyToClipBoard(window.location.href);
+
     fireToast({
       content: (
         <>
