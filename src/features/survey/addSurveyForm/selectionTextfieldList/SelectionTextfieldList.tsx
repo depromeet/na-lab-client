@@ -56,13 +56,13 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
 
   const onItemDelete = (index: number) => {
     if (inputs.length - 1 <= OPTION_MIN_COUNT) {
-      alert(`최소 ${OPTION_MIN_COUNT}개 이상의 옵션을 입력해주세요.`);
+      fireToast({ content: `최소 ${OPTION_MIN_COUNT}개 이상의 옵션을 입력해주세요.`, higherThanCTA: true });
 
       return;
     }
 
     if (inputs.length - 1 <= basicCount) {
-      alert(`최소 ${basicCount}개 이상의 옵션을 입력해주세요.`);
+      fireToast({ content: `최소 ${basicCount}개 이상의 옵션을 입력해주세요.`, higherThanCTA: true });
 
       return;
     }
