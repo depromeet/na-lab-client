@@ -20,15 +20,26 @@ export default meta;
 export function Default() {
   const [customItems, setCustomsItems] = useState<QuestionItem[]>([]);
   const [isShowing, toggleShowing] = useBoolean(false);
+  const [, , onIsDrag, offIsDrag] = useBoolean(false);
 
   const addNewQuestion = (question: QuestionItem) => {
     setCustomsItems((prev) => [...prev, question]);
     toggleShowing();
   };
 
+  const onDeleteCustomQuestion = (id: string) => {
+    setCustomsItems((prev) => prev.filter((item) => item.title !== id));
+  };
+
   return (
     <>
-      <QuestionWithDndList items={customItems} setItems={setCustomsItems} />
+      <QuestionWithDndList
+        items={customItems}
+        setItems={setCustomsItems}
+        onIsDrag={onIsDrag}
+        offIsDrag={offIsDrag}
+        onDelete={onDeleteCustomQuestion}
+      />
 
       <AddMyQuestion onAction={toggleShowing} />
       <BottomSheet isShowing={isShowing}>
