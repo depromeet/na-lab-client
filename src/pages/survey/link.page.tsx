@@ -34,7 +34,7 @@ const SurveyLinkPage = () => {
       </StaggerWrapper>
       <section css={fixedContainerCss(58)}>
         <m.div variants={imageVariant} initial="initial" animate="animate" exit="exit">
-          <img src="/images/survey/join_guide.png" width={300} height={300} alt="join guide" />
+          <img src="/images/survey/link.png" width={184} height={277} alt="link guide" />
         </m.div>
       </section>
 
