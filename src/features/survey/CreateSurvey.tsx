@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { css } from '@emotion/react';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
@@ -23,6 +24,7 @@ const CreateSurvey = () => {
 
   const [customItems, setCustomsItems] = useLocalStorage<QuestionItem[]>('customQuestions', []);
   const [_, setCreateSurveyRequest] = useLocalStorage<QuestionRequest[]>('createSurveyRequest', []);
+  const dragRef = useRef<HTMLDivElement | null>(null);
 
   const addNewQuestion = (question: QuestionItem) => {
     setCustomsItems((prev) => [...prev, question]);
@@ -44,9 +46,21 @@ const CreateSurvey = () => {
       </section>
       <section css={sectionCss}>
         <h1>추가 질문</h1>
-        <QuestionWithDndList items={customItems} setItems={setCustomsItems} />
+        <QuestionWithDndList items={customItems} setItems={setCustomsItems} dragRef={dragRef} />
         <AddMyQuestion onAction={toggleShowing} />
       </section>
+
+      <div
+        css={css`
+          width: 100px;
+          height: 100px;
+          background-color: red;
+        `}
+        ref={dragRef}
+      >
+        DropDelete
+      </div>
+      {/* <DropDelete /> */}
       <section css={[fixedBottomCss]}>
         <CTAButton onClick={toggleDialogShowing} color="blue">
           이대로 생성하기

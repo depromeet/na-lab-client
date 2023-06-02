@@ -8,9 +8,10 @@ import { type QuestionItem } from '~/features/survey/types';
 
 interface Props {
   item: QuestionItem;
+  dragRef?: React.RefObject<HTMLDivElement>;
 }
 
-function QuestionWithDnd({ item }: Props) {
+function QuestionWithDnd({ item, dragRef }: Props) {
   const y = useMotionValue(0);
   const { boxShadow, backgroundColor } = useRaisedShadow(y);
 
@@ -28,7 +29,20 @@ function QuestionWithDnd({ item }: Props) {
     >
       <Question
         item={item}
-        rightElement={<MenuIcon onPointerDown={(e) => dragControls.start(e)} css={menuIconCss} />}
+        rightElement={
+          <MenuIcon
+            onPointerDown={(e) => dragControls.start(e)}
+            onPointerUp={(e) => {
+              const target = e.target as HTMLDivElement;
+              if (dragRef && checkIsInner(dragRef, target)) {
+                console.log('inner!!');
+              } else {
+                console.log(dragRef?.current?.getBoundingClientRect(), target.getBoundingClientRect());
+              }
+            }}
+            css={menuIconCss}
+          />
+        }
       />
     </Reorder.Item>
   );
@@ -79,3 +93,18 @@ function useRaisedShadow(value: MotionValue<number>) {
 
   return { boxShadow, backgroundColor };
 }
+
+const checkIsInner = (dragRef: React.RefObject<HTMLDivElement>, target: HTMLDivElement) => {
+  if (!dragRef || !dragRef.current) return false;
+
+  const dragRect = dragRef.current.getBoundingClientRect();
+  const targetRect = target.getBoundingClientRect();
+
+  // NOTE : 아직 완전하지 못해 y축만 비교
+  const isInner = dragRect.y < targetRect.y && targetRect.y < dragRect.y + dragRect.height;
+  // &&
+  // dragRect.x < targetRect.x &&
+  // targetRect.x < dragRect.x + dragRect.width;
+
+  return isInner;
+};
