@@ -8,10 +8,15 @@ import { type QuestionItem } from '~/features/survey/types';
 
 interface Props {
   item: QuestionItem;
+
   dragRef?: React.RefObject<HTMLDivElement>;
+
+  offIsDrag: () => void;
+  onIsDrag: () => void;
+  onDelete: (title: string) => void;
 }
 
-function QuestionWithDnd({ item, dragRef }: Props) {
+function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props) {
   const y = useMotionValue(0);
   const { boxShadow, backgroundColor } = useRaisedShadow(y);
 
@@ -31,14 +36,17 @@ function QuestionWithDnd({ item, dragRef }: Props) {
         item={item}
         rightElement={
           <MenuIcon
-            onPointerDown={(e) => dragControls.start(e)}
+            onPointerDown={(e) => {
+              dragControls.start(e);
+              onIsDrag();
+            }}
             onPointerUp={(e) => {
               const target = e.target as HTMLDivElement;
+
               if (dragRef && checkIsInner(dragRef, target)) {
-                console.log('inner!!');
-              } else {
-                console.log(dragRef?.current?.getBoundingClientRect(), target.getBoundingClientRect());
+                onDelete(item.title);
               }
+              offIsDrag();
             }}
             css={menuIconCss}
           />

@@ -1,9 +1,10 @@
 import { useRef } from 'react';
-import { css } from '@emotion/react';
+import { css, type Theme } from '@emotion/react';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
 import CTAButton from '~/components/button/CTAButton';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
+import DeleteIcon from '~/components/icons/DeleteIcon';
 import useToast from '~/components/toast/useToast';
 import AddMyQuestion from '~/features/survey/addSurveyForm/AddMyQuestion';
 import AddSurveyForm from '~/features/survey/addSurveyForm/AddSurveyForm';
@@ -23,6 +24,7 @@ const CreateSurvey = () => {
 
   const [isShowing, toggleShowing] = useBoolean(false);
   const [isDialogShowing, toggleDialogShowing] = useBoolean(false);
+  const [isDrag, , onIsDrag, offIsDrag] = useBoolean(false);
 
   const [customItems, setCustomsItems] = useLocalStorage<QuestionItem[]>('customQuestions', []);
   const [_, setCreateSurveyRequest] = useLocalStorage<QuestionRequest[]>('createSurveyRequest', []);
@@ -50,6 +52,10 @@ const CreateSurvey = () => {
     toggleShowing();
   };
 
+  const onDeleteCustomQuestion = (id: string) => {
+    setCustomsItems((prev) => prev.filter((item) => item.title !== id));
+  };
+
   return (
     <>
       <section css={sectionCss}>
@@ -58,21 +64,23 @@ const CreateSurvey = () => {
       </section>
       <section css={sectionCss}>
         <h1>추가 질문</h1>
-        <QuestionWithDndList items={customItems} setItems={setCustomsItems} dragRef={dragRef} />
-        <AddMyQuestion onAction={toggleShowing} />
+        <QuestionWithDndList
+          items={customItems}
+          setItems={setCustomsItems}
+          dragRef={dragRef}
+          onIsDrag={onIsDrag}
+          offIsDrag={offIsDrag}
+          onDelete={onDeleteCustomQuestion}
+        />
+        <AddMyQuestion onAction={onAddQuestionClick} />
       </section>
 
-      <div
-        css={css`
-          width: 100px;
-          height: 100px;
-          background-color: red;
-        `}
-        ref={dragRef}
-      >
-        DropDelete
+      <div css={deleteContainerCss(isDrag)}>
+        <div css={deleteCss} ref={dragRef}>
+          <DeleteIcon />
+        </div>
       </div>
-      {/* <DropDelete /> */}
+
       <section css={[fixedBottomCss]}>
         <CTAButton onClick={toggleDialogShowing} color="blue">
           이대로 생성하기
@@ -91,6 +99,31 @@ const CreateSurvey = () => {
 };
 
 export default CreateSurvey;
+
+const deleteContainerCss = (isShowing: boolean) => css`
+  height: 50px;
+
+  ${isShowing ? 'display: block;' : 'visibility: hidden;'}
+`;
+
+const deleteCss = (theme: Theme) => css`
+  position: fixed;
+  z-index: ${theme.zIndex.aboveDefault};
+  right: 0;
+  bottom: 90px;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 56px;
+  height: 56px;
+  margin: 0 auto;
+
+  background-color: ${theme.colors.red};
+  border-radius: 50%;
+`;
 
 const sectionCss = css`
   margin: 0 7px;
