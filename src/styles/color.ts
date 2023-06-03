@@ -25,10 +25,15 @@ const colors = {
   red_300: '#DE4469',
 
   pink: '#F4E0F9',
+  pink_press: '#E6BFEF',
   purple: '#ECE7F7',
+  purple_press: '#D3C4F4',
   yellowgreen: '#EBF7DA',
+  yellowgreen_press: '#CDE7AC',
   bluegreen: '#DEF3EC',
+
   skyblue: '#E3F1FF',
+  skyblue_press: '#BFDBF7',
 } as const;
 
 export default colors;
