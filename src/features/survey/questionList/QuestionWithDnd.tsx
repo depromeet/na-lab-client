@@ -31,6 +31,14 @@ function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props
       dragControls={dragControls}
       style={{ boxShadow, y, backgroundColor }}
       css={itemContainerCss}
+      onDragEnd={() => {
+        // 중간에 멈추면 0으로 초기화
+        animate(y, 0);
+        offIsDrag();
+      }}
+      onDragStart={() => {
+        onIsDrag();
+      }}
     >
       <Question
         item={item}
@@ -38,7 +46,6 @@ function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props
           <MenuIcon
             onPointerDown={(e) => {
               dragControls.start(e);
-              onIsDrag();
             }}
             onPointerUp={(e) => {
               const target = e.target as HTMLDivElement;
@@ -46,7 +53,6 @@ function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props
               if (dragRef && checkIsInner(dragRef, target)) {
                 onDelete(item.title);
               }
-              offIsDrag();
             }}
             css={menuIconCss}
           />
