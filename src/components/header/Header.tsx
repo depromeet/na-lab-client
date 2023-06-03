@@ -46,7 +46,7 @@ const titleCss = css`
 
 const fixedTopCss = (theme: Theme) => css`
   position: fixed;
-  z-index: 1;
+  z-index: ${theme.zIndex.aboveDefault};
   top: 0;
   right: 0;
   left: 0;

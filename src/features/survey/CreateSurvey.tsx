@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
 import CTAButton from '~/components/button/CTAButton';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
+import useToast from '~/components/toast/useToast';
 import AddMyQuestion from '~/features/survey/addSurveyForm/AddMyQuestion';
 import AddSurveyForm from '~/features/survey/addSurveyForm/AddSurveyForm';
 import { BASIC_QUESTION_LIST } from '~/features/survey/constants';
@@ -17,6 +18,7 @@ import useLocalStorage from '~/hooks/storage/useLocalStorage';
 
 const CreateSurvey = () => {
   const router = useInternalRouter();
+  const { fireToast } = useToast();
 
   const [isShowing, toggleShowing] = useBoolean(false);
   const [isDialogShowing, toggleDialogShowing] = useBoolean(false);
@@ -36,6 +38,16 @@ const CreateSurvey = () => {
     router.push('/survey/join');
   };
 
+  const onAddQuestionClick = () => {
+    if (customItems.length >= 20) {
+      fireToast({ content: '최대 20개의 질문을 추가할 수 있습니다.', higherThanCTA: true });
+
+      return;
+    }
+
+    toggleShowing();
+  };
+
   return (
     <>
       <section css={sectionCss}>
@@ -45,7 +57,7 @@ const CreateSurvey = () => {
       <section css={sectionCss}>
         <h1>추가 질문</h1>
         <QuestionWithDndList items={customItems} setItems={setCustomsItems} />
-        <AddMyQuestion onAction={toggleShowing} />
+        <AddMyQuestion onAction={onAddQuestionClick} />
       </section>
       <section css={[fixedBottomCss]}>
         <CTAButton onClick={toggleDialogShowing} color="blue">

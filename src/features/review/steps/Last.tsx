@@ -151,7 +151,7 @@ const bubbleSpanCss = (theme: Theme) => css`
     content: '';
 
     position: absolute;
-    z-index: -1;
+    z-index: ${theme.zIndex.belowDefault};
     bottom: -20%;
     left: 50%;
     transform: translateX(-50%);

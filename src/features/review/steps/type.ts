@@ -4,3 +4,7 @@ export interface StepProps {
 }
 
 export type Position = 'designer' | 'product-manager' | 'programmer' | 'other';
+
+export interface IsLastQuestion {
+  isLastQuestion?: boolean;
+}
