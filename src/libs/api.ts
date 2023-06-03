@@ -6,9 +6,8 @@ import { errorMessage } from '~/exceptions/messages';
 import { type ApiErrorScheme } from '~/exceptions/type';
 import { isProd } from '~/utils/common';
 
-// TODO: API 배포 후 설정 필요
-const DEVELOPMENT_API_URL = '';
-const PRODUCTION_API_URL = '';
+const DEVELOPMENT_API_URL = ' https://test.nalab.me';
+const PRODUCTION_API_URL = 'https://api.nalab.me';
 
 const instance = axios.create({
   baseURL: isProd(process.env.NODE_ENV) ? PRODUCTION_API_URL : DEVELOPMENT_API_URL,
