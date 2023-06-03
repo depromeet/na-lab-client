@@ -10,7 +10,7 @@ import theme from '~/styles/theme';
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
 import PositionCard from './position/PositionCard';
-import { Position, type StepProps } from './type';
+import { type Position as PositionType, type StepProps } from './type';
 
 import '@egjs/react-flicking/dist/flicking.css';
 
@@ -54,8 +54,8 @@ const positionCards: PositionCardProps[] = [
 ];
 
 interface Props extends StepProps {
-  position: Position | null;
-  setPosition: Dispatch<SetStateAction<Position | null>>;
+  position: PositionType | null;
+  setPosition: Dispatch<SetStateAction<PositionType | null>>;
 }
 
 const Position = ({ prev, next, position, setPosition }: Props) => {
@@ -68,7 +68,7 @@ const Position = ({ prev, next, position, setPosition }: Props) => {
       return;
     }
 
-    const currentPosition = e.target.value as Position;
+    const currentPosition = e.target.value as PositionType;
     setPosition(currentPosition);
   };
 

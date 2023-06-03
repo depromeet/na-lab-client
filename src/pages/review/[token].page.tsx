@@ -7,12 +7,12 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 import ChoiceQuestion from '~/features/review/steps/ChoiceQuestion';
 import Intro from '~/features/review/steps/Intro';
 import Last from '~/features/review/steps/Last';
+import { type Position as PositionType } from '~/features/review/steps/type';
 import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
 
 const Cowork = dynamic(() => import('~/features/review/steps/Cowork'), { ssr: false });
 const Position = dynamic(() => import('~/features/review/steps/Position'), { ssr: false });
 const Softskill = dynamic(() => import('~/features/review/steps/Softskill'), { ssr: false });
-
 const ShortQuestion = dynamic(() => import('~/features/review/steps/ShortQuestion'), { ssr: false });
 const QuestionIntro = dynamic(() => import('~/features/review/steps/QuestionIntro'), { ssr: false });
 
@@ -29,12 +29,13 @@ const ReviewPage = () => {
   // const { token } = router.query;
 
   const { isCoworked, setIsCoworked } = useIsCowork();
+  const { position, setPosition } = usePosition();
   const { selectedSoftskills, setSelectedSoftskills } = useSoftskills();
   const { setStrength } = useStrength();
 
   const { currentElement } = useInjectedElementStep({
     elements: [
-      <Position key="position" />,
+      <Position key="position" position={position} setPosition={setPosition} />,
       <Intro key="intro" />,
       <Cowork key="cowork" isCoworked={isCoworked} setIsCoworked={setIsCoworked} />,
       <QuestionIntro key="question-intro" />,
@@ -88,6 +89,12 @@ const useIsCowork = () => {
   const [isCoworked, setIsCoworked] = useState<null | boolean>(null);
 
   return { isCoworked, setIsCoworked };
+};
+
+const usePosition = () => {
+  const [position, setPosition] = useState<PositionType | null>(null);
+
+  return { position, setPosition };
 };
 
 const useSoftskills = () => {
