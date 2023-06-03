@@ -59,7 +59,7 @@ const articleCss = css`
 `;
 
 const pictureCss = css`
-  user-select: none;
+  pointer-events: none;
 
   position: absolute;
   z-index: 1;
