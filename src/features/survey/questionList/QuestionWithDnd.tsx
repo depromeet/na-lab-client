@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { css } from '@emotion/react';
-import { animate, type MotionValue, Reorder, useDragControls, useMotionValue, useTransform } from 'framer-motion';
+import { animate, Reorder, useDragControls, useMotionValue, useTransform } from 'framer-motion';
 
 import MenuIcon from '~/components/icons/MenuIcon';
 import Question from '~/features/survey/questionList/Question';
@@ -20,7 +20,10 @@ const DELETE_BUTTON_BOTTOM = 90;
 
 function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props) {
   const y = useMotionValue(0);
-  const { boxShadow, backgroundColor } = useRaisedShadow(y);
+
+  const boxShadow = useMotionValue(inactiveShadow);
+  const backgroundColor = useMotionValue(inactiveBackground);
+
   const ref = useRef<HTMLDivElement | null>(null);
   const bottom = useRef<number>(100);
 
@@ -30,6 +33,20 @@ function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props
 
   const handleScroll = () => {
     bottom.current = window.innerHeight - (ref.current?.getBoundingClientRect().bottom ?? 100) - DELETE_BUTTON_BOTTOM;
+  };
+
+  const onDragEnd = () => {
+    // 중간에 멈추면 0으로 초기화
+    animate(y, 0);
+    animate(boxShadow, inactiveShadow);
+    animate(backgroundColor, inactiveBackground);
+    offIsDrag();
+  };
+
+  const onDragStart = () => {
+    onIsDrag();
+    animate(boxShadow, activeShadow);
+    animate(backgroundColor, activeBg);
   };
 
   useEffect(() => {
@@ -53,14 +70,8 @@ function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props
       dragConstraints={{ top: 0, bottom: bottom.current }}
       style={{ boxShadow, y, backgroundColor, scale }}
       css={itemContainerCss}
-      onDragEnd={() => {
-        // 중간에 멈추면 0으로 초기화
-        animate(y, 0);
-        offIsDrag();
-      }}
-      onDragStart={() => {
-        onIsDrag();
-      }}
+      onDragEnd={onDragEnd}
+      onDragStart={onDragStart}
     >
       <Question
         item={item}
@@ -102,34 +113,6 @@ const inactiveBackground = '#fff';
 
 const activeShadow = '0px 8px 32px rgba(0, 0, 0, 0.24)';
 const activeBg = '#F2F5FF';
-
-function useRaisedShadow(value: MotionValue<number>) {
-  const boxShadow = useMotionValue(inactiveShadow);
-  const backgroundColor = useMotionValue(inactiveBackground);
-
-  useEffect(() => {
-    let isActive = false;
-
-    value.onChange((latest) => {
-      const wasActive = isActive;
-      if (latest !== 0) {
-        isActive = true;
-        if (isActive !== wasActive) {
-          animate(boxShadow, activeShadow);
-          animate(backgroundColor, activeBg);
-        }
-      } else {
-        isActive = false;
-        if (isActive !== wasActive) {
-          animate(boxShadow, inactiveShadow);
-          animate(backgroundColor, inactiveBackground);
-        }
-      }
-    });
-  }, [value, boxShadow, backgroundColor]);
-
-  return { boxShadow, backgroundColor };
-}
 
 const checkIsInner = (dragRef: React.RefObject<HTMLDivElement>, target: HTMLDivElement) => {
   if (!dragRef || !dragRef.current) return false;
