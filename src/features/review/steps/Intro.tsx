@@ -42,7 +42,9 @@ export default Intro;
 
 const sectionCss = (theme: Theme) => css`
   position: relative;
+  z-index: ${theme.zIndex.aboveFixed};
   width: 100%;
+  background-color: ${theme.colors.white};
 
   & strong {
     font-weight: bold;
