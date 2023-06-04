@@ -64,6 +64,8 @@ const wrapperCss = (theme: Theme, isCurrentDisabled: boolean) => css`
   margin: 0 auto;
 
   opacity: ${isCurrentDisabled ? 0 : 1};
+
+  transition: opacity 0.3s ${theme.transition.defaultEasing};
 `;
 
 const stepBackgroundCss = (theme: Theme) => css`

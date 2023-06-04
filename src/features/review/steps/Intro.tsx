@@ -4,7 +4,7 @@ import { AnimatePresence, m } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
-import { defaultEasing } from '~/constants/motions';
+import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 import useBoolean from '~/hooks/common/useBoolean';
 import useStep from '~/hooks/step/useStep';
 
@@ -17,7 +17,7 @@ const Intro = ({ next }: StepProps) => {
 
   // TODO: section에 인터랙션 적용
   return (
-    <section css={sectionCss}>
+    <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
       <article css={articleCss}>
         <AnimatePresence mode="wait">
           {currentStep === 1 && <Paragraph1 key="1" />}
@@ -28,13 +28,13 @@ const Intro = ({ next }: StepProps) => {
       </article>
 
       {isCTAButtonVisible && (
-        <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
+        <m.div css={fixedBottomCss} variants={CTAVariants}>
           <CTAButton color="blue" onClick={next}>
             시작하기
           </CTAButton>
         </m.div>
       )}
-    </section>
+    </m.section>
   );
 };
 
