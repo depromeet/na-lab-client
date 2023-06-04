@@ -34,6 +34,7 @@ const CreateSurvey = () => {
       </section>
 
       <section css={sectionCss}>
+        <h1>추가 질문</h1>
         <AddQuestionList customItems={customItems} setCustomsItems={setCustomsItems} />
       </section>
 

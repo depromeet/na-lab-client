@@ -1,5 +1,6 @@
 import { type Dispatch, useRef } from 'react';
 import { css, type Theme } from '@emotion/react';
+import { Reorder } from 'framer-motion';
 import { type SetStateAction } from 'jotai';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
@@ -8,7 +9,7 @@ import DeleteIcon from '~/components/icons/DeleteIcon';
 import useToast from '~/components/toast/useToast';
 import AddMyQuestion from '~/features/survey/addSurveyForm/AddMyQuestion';
 import AddSurveyForm from '~/features/survey/addSurveyForm/AddSurveyForm';
-import QuestionWithDndList from '~/features/survey/questionList/QuestionListWithDnd';
+import QuestionWithDnd from '~/features/survey/questionList/QuestionWithDnd';
 import { type QuestionItem } from '~/features/survey/types';
 import useBoolean from '~/hooks/common/useBoolean';
 
@@ -45,15 +46,19 @@ const AddQuestionList = ({ customItems, setCustomsItems }: Props) => {
 
   return (
     <>
-      <h1>추가 질문</h1>
-      <QuestionWithDndList
-        items={customItems}
-        setItems={setCustomsItems}
-        dragRef={dragRef}
-        onIsDrag={onIsDrag}
-        offIsDrag={offIsDrag}
-        onDelete={onDeleteCustomQuestion}
-      />
+      <Reorder.Group data-testid="dnd-component" as="ul" values={customItems} onReorder={setCustomsItems}>
+        {customItems.map((item) => (
+          <QuestionWithDnd
+            onIsDrag={onIsDrag}
+            offIsDrag={offIsDrag}
+            item={item}
+            key={item.title}
+            dragRef={dragRef}
+            onDelete={onDeleteCustomQuestion}
+          />
+        ))}
+      </Reorder.Group>
+
       <AddMyQuestion onAction={onAddQuestionClick} />
 
       <div css={deleteContainerCss(isDrag)}>
