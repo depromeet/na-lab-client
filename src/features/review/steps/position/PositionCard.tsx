@@ -37,7 +37,7 @@ const PositionCard = ({
         <Image src={imgSrc.default} alt={title} fill />
       </picture>
       <div css={(theme) => contentWrapperCss(theme, checkedBackgroundColor)}>
-        <h2 css={headingCss}>{title}</h2>
+        <h2 css={HEAD_1}>{title}</h2>
         <small css={smallCss}>{subTitle}</small>
         <Checkbox value={value} checked={checked} onChange={onChange} checkedColor={checkedColor} />
       </div>
@@ -108,10 +108,6 @@ const contentWrapperCss = (theme: Theme, checkedBackgroundColor: string) => css`
   &:has(input:checked)::before {
     opacity: 1;
   }
-`;
-
-const headingCss = css`
-  ${HEAD_1}
 `;
 
 const smallCss = (theme: Theme) => css`
