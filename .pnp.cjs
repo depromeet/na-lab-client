@@ -32,6 +32,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@codechecks/client", "npm:0.1.12"],\
             ["@commitlint/cli", "npm:17.6.1"],\
             ["@commitlint/config-conventional", "npm:17.6.1"],\
+            ["@egjs/flicking", "npm:4.10.7"],\
+            ["@egjs/flicking-plugins", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:4.7.0"],\
+            ["@egjs/react-flicking", "npm:4.10.9"],\
             ["@emotion/babel-preset-css-prop", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:11.10.0"],\
             ["@emotion/react", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:11.10.6"],\
             ["@playwright/test", "npm:1.32.3"],\
@@ -118,6 +121,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@codechecks/client", "npm:0.1.12"],\
             ["@commitlint/cli", "npm:17.6.1"],\
             ["@commitlint/config-conventional", "npm:17.6.1"],\
+            ["@egjs/flicking", "npm:4.10.7"],\
+            ["@egjs/flicking-plugins", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:4.7.0"],\
+            ["@egjs/react-flicking", "npm:4.10.9"],\
             ["@emotion/babel-preset-css-prop", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:11.10.0"],\
             ["@emotion/react", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:11.10.6"],\
             ["@playwright/test", "npm:1.32.3"],\
@@ -2868,6 +2874,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@cfcs/core", [\
+        ["npm:0.0.24", {\
+          "packageLocation": "./.yarn/cache/@cfcs-core-npm-0.0.24-29a0e9b63c-6e1873f0ce.zip/node_modules/@cfcs/core/",\
+          "packageDependencies": [\
+            ["@cfcs/core", "npm:0.0.24"],\
+            ["@egjs/component", "npm:3.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:0.0.4", {\
+          "packageLocation": "./.yarn/cache/@cfcs-core-npm-0.0.4-924e478c05-12f8b33094.zip/node_modules/@cfcs/core/",\
+          "packageDependencies": [\
+            ["@cfcs/core", "npm:0.0.4"],\
+            ["@egjs/component", "npm:3.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@codechecks/client", [\
         ["npm:0.1.12", {\
           "packageLocation": "./.yarn/cache/@codechecks-client-npm-0.1.12-491b157544-ba7528a610.zip/node_modules/@codechecks/client/",\
@@ -3215,6 +3239,103 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@discoveryjs-json-ext-npm-0.5.7-fe04af1f31-2176d301cc.zip/node_modules/@discoveryjs/json-ext/",\
           "packageDependencies": [\
             ["@discoveryjs/json-ext", "npm:0.5.7"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@egjs/agent", [\
+        ["npm:2.4.3", {\
+          "packageLocation": "./.yarn/cache/@egjs-agent-npm-2.4.3-44b804869b-4f2654ba7a.zip/node_modules/@egjs/agent/",\
+          "packageDependencies": [\
+            ["@egjs/agent", "npm:2.4.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@egjs/axes", [\
+        ["npm:3.8.4", {\
+          "packageLocation": "./.yarn/cache/@egjs-axes-npm-3.8.4-e3e1db3188-3f4fba2e7c.zip/node_modules/@egjs/axes/",\
+          "packageDependencies": [\
+            ["@egjs/axes", "npm:3.8.4"],\
+            ["@cfcs/core", "npm:0.0.4"],\
+            ["@egjs/agent", "npm:2.4.3"],\
+            ["@egjs/component", "npm:3.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@egjs/component", [\
+        ["npm:3.0.4", {\
+          "packageLocation": "./.yarn/cache/@egjs-component-npm-3.0.4-b79cd4bcb9-d41371ee86.zip/node_modules/@egjs/component/",\
+          "packageDependencies": [\
+            ["@egjs/component", "npm:3.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@egjs/flicking", [\
+        ["npm:4.10.7", {\
+          "packageLocation": "./.yarn/cache/@egjs-flicking-npm-4.10.7-b6134c66d7-a19a81dad9.zip/node_modules/@egjs/flicking/",\
+          "packageDependencies": [\
+            ["@egjs/flicking", "npm:4.10.7"],\
+            ["@egjs/axes", "npm:3.8.4"],\
+            ["@egjs/component", "npm:3.0.4"],\
+            ["@egjs/imready", "npm:1.4.1"],\
+            ["@egjs/list-differ", "npm:1.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@egjs/flicking-plugins", [\
+        ["npm:4.7.0", {\
+          "packageLocation": "./.yarn/cache/@egjs-flicking-plugins-npm-4.7.0-6727e808cd-201b17fd66.zip/node_modules/@egjs/flicking-plugins/",\
+          "packageDependencies": [\
+            ["@egjs/flicking-plugins", "npm:4.7.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:4.7.0", {\
+          "packageLocation": "./.yarn/__virtual__/@egjs-flicking-plugins-virtual-d65476dfb7/0/cache/@egjs-flicking-plugins-npm-4.7.0-6727e808cd-201b17fd66.zip/node_modules/@egjs/flicking-plugins/",\
+          "packageDependencies": [\
+            ["@egjs/flicking-plugins", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:4.7.0"],\
+            ["@egjs/flicking", "npm:4.10.7"],\
+            ["@types/egjs__flicking", null]\
+          ],\
+          "packagePeers": [\
+            "@egjs/flicking",\
+            "@types/egjs__flicking"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@egjs/imready", [\
+        ["npm:1.4.1", {\
+          "packageLocation": "./.yarn/cache/@egjs-imready-npm-1.4.1-f85bc8817c-719afe734c.zip/node_modules/@egjs/imready/",\
+          "packageDependencies": [\
+            ["@egjs/imready", "npm:1.4.1"],\
+            ["@cfcs/core", "npm:0.0.24"],\
+            ["@egjs/component", "npm:3.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@egjs/list-differ", [\
+        ["npm:1.0.1", {\
+          "packageLocation": "./.yarn/cache/@egjs-list-differ-npm-1.0.1-36343c9698-2c126c66d7.zip/node_modules/@egjs/list-differ/",\
+          "packageDependencies": [\
+            ["@egjs/list-differ", "npm:1.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@egjs/react-flicking", [\
+        ["npm:4.10.9", {\
+          "packageLocation": "./.yarn/cache/@egjs-react-flicking-npm-4.10.9-c1359706a8-7bfff4065f.zip/node_modules/@egjs/react-flicking/",\
+          "packageDependencies": [\
+            ["@egjs/react-flicking", "npm:4.10.9"],\
+            ["@egjs/component", "npm:3.0.4"],\
+            ["@egjs/flicking", "npm:4.10.7"],\
+            ["@egjs/list-differ", "npm:1.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\

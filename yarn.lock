@@ -13,6 +13,9 @@ __metadata:
     "@codechecks/client": ^0.1.12
     "@commitlint/cli": ^17.6.1
     "@commitlint/config-conventional": ^17.6.1
+    "@egjs/flicking": ^4.10.7
+    "@egjs/flicking-plugins": ^4.7.0
+    "@egjs/react-flicking": ^4.10.9
     "@emotion/babel-preset-css-prop": ^11.10.0
     "@emotion/react": ^11.10.6
     "@playwright/test": ^1.32.3
@@ -1653,6 +1656,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cfcs/core@npm:^0.0.24":
+  version: 0.0.24
+  resolution: "@cfcs/core@npm:0.0.24"
+  dependencies:
+    "@egjs/component": ^3.0.4
+  checksum: 6e1873f0ce85d2a401f3938a5bc9ce396c49b1fdcac0a3b2369245be25d7a7522e98515b7b7157ad6f0ce7b4e0a996b47ed2d3b8c70a4531e57d83b6dedbafa9
+  languageName: node
+  linkType: hard
+
+"@cfcs/core@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "@cfcs/core@npm:0.0.4"
+  dependencies:
+    "@egjs/component": ^3.0.2
+  checksum: 12f8b330945052802a01a3cf0e54d0452f1d39114a3d05e9dd7123f5e23be30774f760a99ab8991540a1138fe2e858fc3673ccb20c357dd831adc6f5e8f86328
+  languageName: node
+  linkType: hard
+
 "@codechecks/client@npm:^0.1.12":
   version: 0.1.12
   resolution: "@codechecks/client@npm:0.1.12"
@@ -1935,6 +1956,80 @@ __metadata:
   version: 0.5.7
   resolution: "@discoveryjs/json-ext@npm:0.5.7"
   checksum: 2176d301cc258ea5c2324402997cf8134ebb212469c0d397591636cea8d3c02f2b3cf9fd58dcb748c7a0dade77ebdc1b10284fa63e608c033a1db52fddc69918
+  languageName: node
+  linkType: hard
+
+"@egjs/agent@npm:^2.2.1":
+  version: 2.4.3
+  resolution: "@egjs/agent@npm:2.4.3"
+  checksum: 4f2654ba7a877bb9cd1019c86fa245efb3a4c5e07a24e0e2a0bf1724ee457d25a57960a39b26c5fcd1fb71e80d2e6e3ad53eba6ab1a6f2099568f050fb28ee29
+  languageName: node
+  linkType: hard
+
+"@egjs/axes@npm:^3.8.3":
+  version: 3.8.4
+  resolution: "@egjs/axes@npm:3.8.4"
+  dependencies:
+    "@cfcs/core": ^0.0.4
+    "@egjs/agent": ^2.2.1
+    "@egjs/component": ^3.0.1
+  checksum: 3f4fba2e7c1aa8365739f0c75cf39c543855547bfa249d6aa31084bfb3b640cf145ad391fac250acf11a4b737ff95e37ca296f8e9da2798cc5063f3c1e9b5a71
+  languageName: node
+  linkType: hard
+
+"@egjs/component@npm:^3.0.1, @egjs/component@npm:^3.0.2, @egjs/component@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "@egjs/component@npm:3.0.4"
+  checksum: d41371ee868015021bf4148d6229ba17c8ad8be9246b2138bea6d2d03aaff789caef88e2593e2e03f065609e53ebcba00bde3fa2649fad4a3832f7c01eb17a64
+  languageName: node
+  linkType: hard
+
+"@egjs/flicking-plugins@npm:^4.7.0":
+  version: 4.7.0
+  resolution: "@egjs/flicking-plugins@npm:4.7.0"
+  peerDependencies:
+    "@egjs/flicking": ^4.1.0
+  checksum: 201b17fd66e3ea9c5df2f73477ba09dcc3857886006031a5c8ab3fdda8433c8ceb2f325474dd7f78cef01cf2968fbe311b9b4f53b79a26de50f0fe9e2fbec2ce
+  languageName: node
+  linkType: hard
+
+"@egjs/flicking@npm:^4.10.7, @egjs/flicking@npm:~4.10.7":
+  version: 4.10.7
+  resolution: "@egjs/flicking@npm:4.10.7"
+  dependencies:
+    "@egjs/axes": ^3.8.3
+    "@egjs/component": ^3.0.1
+    "@egjs/imready": ^1.3.1
+    "@egjs/list-differ": ^1.0.1
+  checksum: a19a81dad97a0d12520286df9bf9fb58510a89c105f588b2a72b2603f1d4cdf455c8e8b1c17fb5866959bbeca91933da7b2b9e97fe494a032c3c1915f10e7437
+  languageName: node
+  linkType: hard
+
+"@egjs/imready@npm:^1.3.1":
+  version: 1.4.1
+  resolution: "@egjs/imready@npm:1.4.1"
+  dependencies:
+    "@cfcs/core": ^0.0.24
+    "@egjs/component": ^3.0.1
+  checksum: 719afe734c4346555ffb75a5a487242c02a26509cfda9cc77272c7ec878e5058fff68027ea64a70a460b3e9393164df8adb70cba9a008d13d2029e8932687df9
+  languageName: node
+  linkType: hard
+
+"@egjs/list-differ@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@egjs/list-differ@npm:1.0.1"
+  checksum: 2c126c66d7753c1b86816192f265fa8a58fc45b62b739ebce9008202c2485dcc81d62a9e8d26ceb73efd1679140d39dd5ae3638d63e1ebaf5ca9d6bc824a16c7
+  languageName: node
+  linkType: hard
+
+"@egjs/react-flicking@npm:^4.10.9":
+  version: 4.10.9
+  resolution: "@egjs/react-flicking@npm:4.10.9"
+  dependencies:
+    "@egjs/component": ^3.0.2
+    "@egjs/flicking": ~4.10.7
+    "@egjs/list-differ": ^1.0.1
+  checksum: 7bfff4065fe54526ecb49b9d553cd2707eff248aef9ab83a702135cefd96a6c86f99941603f7c549ed42a6333ee722528c3116aa15d6d8b14b0cd475392dc76a
   languageName: node
   linkType: hard
 
