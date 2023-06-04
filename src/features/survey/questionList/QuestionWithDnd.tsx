@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { css } from '@emotion/react';
-import { animate, type MotionValue, Reorder, useDragControls, useMotionValue } from 'framer-motion';
+import { animate, type MotionValue, Reorder, useDragControls, useMotionValue, useTransform } from 'framer-motion';
 
 import MenuIcon from '~/components/icons/MenuIcon';
 import Question from '~/features/survey/questionList/Question';
@@ -16,11 +16,30 @@ interface Props {
   onDelete: (title: string) => void;
 }
 
+const DELETE_BUTTON_BOTTOM = 90;
+
 function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props) {
   const y = useMotionValue(0);
   const { boxShadow, backgroundColor } = useRaisedShadow(y);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const bottom = useRef<number>(100);
+
+  const scale = useTransform(y, [0, 0, bottom.current], [1, 1, 0.8]);
 
   const dragControls = useDragControls();
+
+  const handleScroll = () => {
+    bottom.current = window.innerHeight - (ref.current?.getBoundingClientRect().bottom ?? 100) - DELETE_BUTTON_BOTTOM;
+  };
+
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll); //clean up
+    };
+  }, []);
 
   return (
     <Reorder.Item
@@ -29,7 +48,10 @@ function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props
       value={item}
       dragListener={false}
       dragControls={dragControls}
-      style={{ boxShadow, y, backgroundColor }}
+      drag="y"
+      ref={ref}
+      dragConstraints={{ top: 0, bottom: bottom.current }}
+      style={{ boxShadow, y, backgroundColor, scale }}
       css={itemContainerCss}
       onDragEnd={() => {
         // 중간에 멈추면 0으로 초기화
@@ -87,6 +109,7 @@ function useRaisedShadow(value: MotionValue<number>) {
 
   useEffect(() => {
     let isActive = false;
+
     value.onChange((latest) => {
       const wasActive = isActive;
       if (latest !== 0) {
@@ -114,11 +137,7 @@ const checkIsInner = (dragRef: React.RefObject<HTMLDivElement>, target: HTMLDivE
   const dragRect = dragRef.current.getBoundingClientRect();
   const targetRect = target.getBoundingClientRect();
 
-  // NOTE : 아직 완전하지 못해 y축만 비교
   const isInner = dragRect.y < targetRect.y && targetRect.y < dragRect.y + dragRect.height;
-  // &&
-  // dragRect.x < targetRect.x &&
-  // targetRect.x < dragRect.x + dragRect.width;
 
   return isInner;
 };
