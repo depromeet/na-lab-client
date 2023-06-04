@@ -18,18 +18,22 @@ interface Props {
 
 const DELETE_BUTTON_BOTTOM = 90;
 
-function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props) {
-  const y = useMotionValue(0);
+const inactiveShadow = '0px 0px 0px rgba(255, 255, 255, 0.8)';
+const inactiveBackground = '#fff';
 
-  const boxShadow = useMotionValue(inactiveShadow);
-  const backgroundColor = useMotionValue(inactiveBackground);
+const activeShadow = '0px 8px 32px rgba(0, 0, 0, 0.24)';
+const activeBg = '#F2F5FF';
+
+function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props) {
+  const dragControls = useDragControls();
 
   const ref = useRef<HTMLDivElement | null>(null);
   const bottom = useRef<number>(100);
 
+  const y = useMotionValue(0);
+  const backgroundColor = useMotionValue(inactiveBackground);
+  const boxShadow = useMotionValue(inactiveShadow);
   const scale = useTransform(y, [0, 0, bottom.current], [1, 1, 0.8]);
-
-  const dragControls = useDragControls();
 
   const handleScroll = () => {
     bottom.current = window.innerHeight - (ref.current?.getBoundingClientRect().bottom ?? 100) - DELETE_BUTTON_BOTTOM;
@@ -49,6 +53,14 @@ function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props
     animate(backgroundColor, activeBg);
   };
 
+  const onItemPointerUp = (e: React.PointerEvent<SVGSVGElement>) => {
+    const target = e.target as HTMLDivElement;
+
+    if (dragRef && checkIsInner(dragRef, target)) {
+      onDelete(item.title);
+    }
+  };
+
   useEffect(() => {
     handleScroll();
     window.addEventListener('scroll', handleScroll);
@@ -63,10 +75,10 @@ function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props
       as="div"
       data-testid="dnd-item-component"
       value={item}
+      ref={ref}
+      drag="y"
       dragListener={false}
       dragControls={dragControls}
-      drag="y"
-      ref={ref}
       dragConstraints={{ top: 0, bottom: bottom.current }}
       style={{ boxShadow, y, backgroundColor, scale }}
       css={itemContainerCss}
@@ -76,19 +88,7 @@ function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props
       <Question
         item={item}
         rightElement={
-          <MenuIcon
-            onPointerDown={(e) => {
-              dragControls.start(e);
-            }}
-            onPointerUp={(e) => {
-              const target = e.target as HTMLDivElement;
-
-              if (dragRef && checkIsInner(dragRef, target)) {
-                onDelete(item.title);
-              }
-            }}
-            css={menuIconCss}
-          />
+          <MenuIcon onPointerDown={(e) => dragControls.start(e)} onPointerUp={onItemPointerUp} css={menuIconCss} />
         }
       />
     </Reorder.Item>
@@ -107,12 +107,6 @@ const itemContainerCss = css`
 const menuIconCss = css`
   touch-action: none;
 `;
-
-const inactiveShadow = '0px 0px 0px rgba(255, 255, 255, 0.8)';
-const inactiveBackground = '#fff';
-
-const activeShadow = '0px 8px 32px rgba(0, 0, 0, 0.24)';
-const activeBg = '#F2F5FF';
 
 const checkIsInner = (dragRef: React.RefObject<HTMLDivElement>, target: HTMLDivElement) => {
   if (!dragRef || !dragRef.current) return false;
