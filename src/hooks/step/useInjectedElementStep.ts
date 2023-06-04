@@ -13,6 +13,7 @@ const useInjectedElementStep = ({ initial = 0, elements }: Props) => {
 
   return {
     currentElement: cloneElement(elements[currentStep], { next, prev }),
+    currentStep,
     prev,
     next,
   };
