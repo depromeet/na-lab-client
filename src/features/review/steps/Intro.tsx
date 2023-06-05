@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { AnimatePresence, m } from 'framer-motion';
 
@@ -18,6 +19,11 @@ const Intro = ({ next }: StepProps) => {
   // TODO: section에 인터랙션 적용
   return (
     <section css={sectionCss}>
+      <picture css={pictureCss}>
+        <source srcSet="/images/intro/intro_bg.webp" type="image/webp" />
+        <Image src="/images/intro/intro_bg.png" alt="nalab intro" fill />
+      </picture>
+
       <article css={articleCss}>
         <AnimatePresence mode="wait">
           {currentStep === 1 && <Paragraph1 key="1" />}
@@ -43,6 +49,7 @@ export default Intro;
 const sectionCss = (theme: Theme) => css`
   position: relative;
   width: 100%;
+  height: 100%;
 
   & strong {
     font-weight: bold;
@@ -52,6 +59,16 @@ const sectionCss = (theme: Theme) => css`
 
 const articleCss = css`
   padding-top: 126px;
+`;
+
+const pictureCss = (theme: Theme) => css`
+  position: fixed;
+  z-index: ${theme.zIndex.belowDefault};
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
 `;
 
 const CTAVariants = {
