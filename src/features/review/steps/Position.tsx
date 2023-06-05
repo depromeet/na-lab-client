@@ -31,7 +31,7 @@ const positionCards: PositionCardProps[] = [
     value: 'designer',
     title: 'Designer',
     subTitle: '디자이너',
-    imgSrc: { default: `${IMAGE_BASE_URL}/design.png`, webp: `${IMAGE_BASE_URL}/design.webp` },
+    imgSrc: { default: `${IMAGE_BASE_URL}/designer.png`, webp: `${IMAGE_BASE_URL}/designer.webp` },
     checkedColor: theme.colors.pink_press,
     checkedBackgroundColor: theme.colors.pink,
   },
