@@ -5,6 +5,7 @@ import { AnimatePresence, m } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
+import WatsonCharacter from '~/components/watson/WatsonCharacter';
 import { defaultEasing } from '~/constants/motions';
 import useBoolean from '~/hooks/common/useBoolean';
 import useStep from '~/hooks/step/useStep';
@@ -33,6 +34,8 @@ const Intro = ({ next }: StepProps) => {
         </AnimatePresence>
       </article>
 
+      <WatsonCharacter />
+
       {isCTAButtonVisible && (
         <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
           <CTAButton color="blue" onClick={next}>
@@ -58,6 +61,7 @@ const sectionCss = (theme: Theme) => css`
 `;
 
 const articleCss = css`
+  margin-bottom: 42px;
   padding-top: 126px;
 `;
 
