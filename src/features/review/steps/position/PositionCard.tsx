@@ -97,16 +97,9 @@ const contentWrapperCss = (theme: Theme, checkedBackgroundColor: string) => css`
     width: 318px;
     height: 268px;
 
-    opacity: 0;
     background: ${checkedBackgroundColor};
     filter: blur(32px);
     border-radius: 50%;
-
-    transition: opacity 1s ${theme.transition.defaultEasing};
-  }
-
-  &:has(input:checked)::before {
-    opacity: 1;
   }
 `;
 
