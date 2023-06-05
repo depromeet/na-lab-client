@@ -69,9 +69,11 @@ const pictureCss = (theme: Theme) => css`
   position: fixed;
   z-index: ${theme.zIndex.belowDefault};
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
 
   width: 100%;
+  max-width: ${theme.size.maxWidth};
   height: 100%;
 `;
 
