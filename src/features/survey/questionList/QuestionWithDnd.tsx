@@ -54,6 +54,7 @@ function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props
   };
 
   const onItemPointerUp = (e: React.PointerEvent<SVGSVGElement>) => {
+    console.warn('onItemPointerUp: ');
     const target = e.target as HTMLDivElement;
     console.warn('dragRef: ', dragRef);
 
@@ -92,7 +93,23 @@ function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props
       <Question
         item={item}
         rightElement={
-          <MenuIcon onPointerDown={(e) => dragControls.start(e)} onPointerUp={onItemPointerUp} css={menuIconCss} />
+          <MenuIcon
+            onPointerDown={(e) => dragControls.start(e)}
+            onDrop={(e) => {
+              console.warn('onDrop: ');
+              const target = e.target as HTMLDivElement;
+              console.warn('dragRef: ', dragRef);
+
+              if (dragRef && checkIsInner(dragRef, target)) {
+                console.warn('delete', item.title);
+                onDelete(item.title);
+              } else {
+                console.warn('not delete');
+              }
+            }}
+            onPointerUp={onItemPointerUp}
+            css={menuIconCss}
+          />
         }
       />
     </Reorder.Item>
