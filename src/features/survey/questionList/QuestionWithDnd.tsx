@@ -55,13 +55,13 @@ function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props
 
   const onItemPointerUp = (e: React.PointerEvent<SVGSVGElement>) => {
     const target = e.target as HTMLDivElement;
-    console.info('dragRef: ', dragRef);
+    console.warn('dragRef: ', dragRef);
 
     if (dragRef && checkIsInner(dragRef, target)) {
-      console.info('delete', item.title);
+      console.warn('delete', item.title);
       onDelete(item.title);
     } else {
-      console.info('not delete');
+      console.warn('not delete');
     }
   };
 
@@ -119,7 +119,7 @@ const checkIsInner = (dragRef: React.RefObject<HTMLDivElement>, target: HTMLDivE
   const targetRect = target.getBoundingClientRect();
 
   const isInner = dragRect.y < targetRect.y && targetRect.y < dragRect.y + dragRect.height;
-  console.info('y: ', dragRect.y, targetRect.y);
+  console.warn('y: ', dragRect.y, targetRect.y);
 
   return isInner;
 };
