@@ -13,9 +13,8 @@ interface Props {
 const QuestionHeader = ({ title, subTitle }: Props) => {
   return (
     <m.header css={headerCss} variants={stagger(0.5)} initial="initial" animate="animate" exit="exit">
-      <div css={graphicDivCss}>
-        <WatsonSmall />
-      </div>
+      <WatsonSmall />
+
       <m.h1 css={headingCss} variants={fadeInUpVariants}>
         {title}
       </m.h1>
@@ -34,13 +33,6 @@ const headerCss = css`
   width: 100%;
   padding-top: 34px;
   padding-bottom: 18px;
-`;
-
-const graphicDivCss = css`
-  width: 27px;
-  height: 27px;
-  background-color: green;
-  border-radius: 50%;
 `;
 
 const headingCss = css`
