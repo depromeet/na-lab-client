@@ -16,7 +16,7 @@ interface Props {
   setCustomsItems: Dispatch<SetStateAction<QuestionItem[]>>;
 }
 
-const AddQuestionList = ({ customItems, setCustomsItems }: Props) => {
+const AdditionalQuestionList = ({ customItems, setCustomsItems }: Props) => {
   const [isShowing, toggleShowing] = useBoolean(false);
   const [isDrag, , onIsDrag, offIsDrag] = useBoolean(false);
   const { fireToast } = useToast();
@@ -70,7 +70,7 @@ const AddQuestionList = ({ customItems, setCustomsItems }: Props) => {
   );
 };
 
-export default AddQuestionList;
+export default AdditionalQuestionList;
 
 const deleteContainerCss = (isShowing: boolean) => css`
   height: 50px;
