@@ -62,9 +62,6 @@ jobs:
           path: ${{ env.CACHED_DEPENDENCY_PATHS }}
           key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
 
-      - name: Touch yarn lock
-        run: touch yarn.lock
-
       - name: Check build cache
         uses: actions/cache@v3
         id: cache_built_packages
