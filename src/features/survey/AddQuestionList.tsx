@@ -3,13 +3,11 @@ import { css, type Theme } from '@emotion/react';
 import { Reorder } from 'framer-motion';
 import { type SetStateAction } from 'jotai';
 
-import BottomSheet from '~/components/bottomSheet/BottomSheet';
-import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
 import DeleteIcon from '~/components/icons/DeleteIcon';
 import useToast from '~/components/toast/useToast';
 import AddMyQuestion from '~/features/survey/addSurveyForm/AddMyQuestion';
-import AddSurveyForm from '~/features/survey/addSurveyForm/AddSurveyForm';
 import QuestionWithDnd from '~/features/survey/questionList/QuestionWithDnd';
+import SurveyFormBottomSheet from '~/features/survey/SurveyFormBottomSheet';
 import { type QuestionItem } from '~/features/survey/types';
 import useBoolean from '~/hooks/common/useBoolean';
 
@@ -67,12 +65,7 @@ const AddQuestionList = ({ customItems, setCustomsItems }: Props) => {
         </div>
       </div>
 
-      <BottomSheet isShowing={isShowing}>
-        <button type="button" onClick={toggleShowing}>
-          <BottomSheetHandleIcon />
-        </button>
-        <AddSurveyForm onClose={toggleShowing} onAction={addNewQuestion} />
-      </BottomSheet>
+      <SurveyFormBottomSheet isShowing={isShowing} toggleShowing={toggleShowing} onAction={addNewQuestion} />
     </>
   );
 };
