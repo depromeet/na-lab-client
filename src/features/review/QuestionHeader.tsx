@@ -1,6 +1,7 @@
 import { css, type Theme } from '@emotion/react';
 import { m, type Variants } from 'framer-motion';
 
+import WatsonSmall from '~/components/watson/WatsonSmall';
 import { defaultEasing, defaultFadeInVariants, stagger } from '~/constants/motions';
 import { BODY_1, HEAD_1 } from '~/styles/typo';
 
@@ -12,7 +13,9 @@ interface Props {
 const QuestionHeader = ({ title, subTitle }: Props) => {
   return (
     <m.header css={headerCss} variants={stagger(0.5)} initial="initial" animate="animate" exit="exit">
-      <div css={graphicDivCss}></div>
+      <div css={graphicDivCss}>
+        <WatsonSmall />
+      </div>
       <m.h1 css={headingCss} variants={fadeInUpVariants}>
         {title}
       </m.h1>
