@@ -4,8 +4,8 @@ import { AnimatePresence, m } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
+import WatsonCharacter from '~/components/watson/WatsonCharacter';
 import { RESEARCHER_NAME } from '~/constants/name';
-import WatsonCharacter from '~/features/survey/intro/WatsonCharacter';
 import { centerContainerCss, CTAVariants, imageVariant, paragraphContainerCss } from '~/features/survey/styles';
 import useBoolean from '~/hooks/common/useBoolean';
 import useStep from '~/hooks/step/useStep';

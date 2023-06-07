@@ -62,10 +62,14 @@ const Last = ({ onSubmit }: Props) => {
 
 export default Last;
 
-const sectionCss = css`
+const sectionCss = (theme: Theme) => css`
+  z-index: ${theme.zIndex.aboveFixed};
+
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  background-color: ${theme.colors.white};
 `;
 
 const headerCss = css`
