@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { css } from '@emotion/react';
 
@@ -15,14 +15,16 @@ const KakaoLoginButton = () => {
     localStorage.setItem('na_lab_access_token', token.access_token);
   };
 
-  if (session) {
-    getTokenHandler();
-  }
-
   const logOutHandler = () => {
     signOut();
     localStorage.removeItem('na_lab_access_token');
   };
+
+  useEffect(() => {
+    if (session) {
+      getTokenHandler();
+    }
+  }, [session]);
 
   // TODO: 로그아웃 기능은 현재 없음, 추후 필요시 가공 필요
   if (session) {
