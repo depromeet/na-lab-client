@@ -39,8 +39,12 @@ export default QuestionIntro;
 
 const sectionCss = (theme: Theme) => css`
   position: relative;
+  z-index: ${theme.zIndex.aboveFixed};
+
   width: 100%;
   height: 100%;
+
+  background-color: ${theme.colors.white};
 
   & strong {
     font-weight: bold;
@@ -53,11 +57,17 @@ const wrapperCss = css`
 `;
 
 const pictureCss = (theme: Theme) => css`
-  position: absolute;
+  position: fixed;
   z-index: ${theme.zIndex.belowDefault};
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
 
   width: 100%;
+  max-width: ${theme.size.maxWidth};
   height: 100%;
+
+  & > img {
+    object-fit: cover;
+  }
 `;

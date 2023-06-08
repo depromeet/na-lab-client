@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
+import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { AnimatePresence, m } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
-import { defaultEasing } from '~/constants/motions';
+import WatsonCharacter from '~/components/watson/WatsonCharacter';
+import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 import useBoolean from '~/hooks/common/useBoolean';
 import useStep from '~/hooks/step/useStep';
 
@@ -15,9 +17,13 @@ const Intro = ({ next }: StepProps) => {
   const { currentStep } = useParagraphStep();
   const { isCTAButtonVisible } = useCTAButtonVisible();
 
-  // TODO: section에 인터랙션 적용
   return (
-    <section css={sectionCss}>
+    <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
+      <picture css={pictureCss}>
+        <source srcSet="/images/intro/intro_bg.webp" type="image/webp" />
+        <Image src="/images/intro/intro_bg.png" alt="nalab intro" fill />
+      </picture>
+
       <article css={articleCss}>
         <AnimatePresence mode="wait">
           {currentStep === 1 && <Paragraph1 key="1" />}
@@ -27,14 +33,16 @@ const Intro = ({ next }: StepProps) => {
         </AnimatePresence>
       </article>
 
+      <WatsonCharacter />
+
       {isCTAButtonVisible && (
-        <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
+        <m.div css={fixedBottomCss} variants={CTAVariants}>
           <CTAButton color="blue" onClick={next}>
             시작하기
           </CTAButton>
         </m.div>
       )}
-    </section>
+    </m.section>
   );
 };
 
@@ -42,7 +50,12 @@ export default Intro;
 
 const sectionCss = (theme: Theme) => css`
   position: relative;
+  z-index: ${theme.zIndex.aboveFixed};
+
   width: 100%;
+  height: 100%;
+
+  background-color: ${theme.colors.white};
 
   & strong {
     font-weight: bold;
@@ -51,7 +64,20 @@ const sectionCss = (theme: Theme) => css`
 `;
 
 const articleCss = css`
+  margin-bottom: 42px;
   padding-top: 126px;
+`;
+
+const pictureCss = (theme: Theme) => css`
+  position: fixed;
+  z-index: ${theme.zIndex.belowDefault};
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100%;
+  max-width: ${theme.size.maxWidth};
+  height: 100%;
 `;
 
 const CTAVariants = {

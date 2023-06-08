@@ -17,7 +17,7 @@ export const Default = ({ stepLength = 3 }) => {
 
   return (
     <>
-      <StepStatus currentStep={currentStep} stepLength={stepLength} />
+      <StepStatus currentStep={currentStep} stepLength={stepLength} notContainSteps={[]} />
 
       <div style={{ marginTop: '200px', display: 'flex' }}>
         <ArrowCircleButton onClick={prev} />

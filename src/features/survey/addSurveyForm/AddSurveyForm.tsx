@@ -17,6 +17,7 @@ import {
   type ShortQuestionItem,
 } from '~/features/survey/types';
 import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
+import { removeSpaceAndEnter } from '~/utils/string';
 
 const TOGGLE_LIST: {
   type: QuestionType;
@@ -49,7 +50,7 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
   const isChoice = selectToggleTab === 'choice';
   const optionInputs = isChoice ? inputs.slice(0, -1) : inputs; // 다른 옵션 추가 제외
 
-  const isAllInputFilled = !isChoice || optionInputs.every((input) => input !== '');
+  const isAllInputFilled = !isChoice || optionInputs.every((input) => removeSpaceAndEnter(input) !== '');
   const isButtonDisabled = !isAllInputFilled || removeSpaceAndEnter(questionInput) === '';
 
   const onQuestionInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -129,8 +130,6 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
 };
 
 export default AddSurveyForm;
-
-const removeSpaceAndEnter = (str: string) => str.replaceAll(' ', '').replaceAll('\n', '');
 
 const bottomSectionCss = css`
   overflow-y: auto;

@@ -22,14 +22,14 @@ describe('components/kakaoLoginButton/KakaoLoginButton', () => {
     expect(KakaoLoginButton).toBeDefined();
   });
 
-  test('유저가 로그인하지 않은 경우에는 카카오로 로그인 하기 버튼을 렌더링한다', () => {
+  test('유저가 로그인하지 않은 경우에는 카카오 로그인하기 버튼을 렌더링한다', () => {
     render(<KakaoLoginButton />);
-    expect(screen.getByRole('button')).toHaveTextContent('카카오 로그인 하기');
+    expect(screen.getByRole('button')).toHaveTextContent('카카오 로그인하기');
   });
 
-  test('"카카오 로그인 하기" 버튼을 클릭하면 signIn 함수를 호출한다', () => {
+  test('"카카오 로그인하기" 버튼을 클릭하면 signIn 함수를 호출한다', () => {
     render(<KakaoLoginButton />);
-    const loginButton = screen.getByRole('button', { name: '카카오 로그인 하기' });
+    const loginButton = screen.getByRole('button', { name: '카카오 로그인하기' });
     fireEvent.click(loginButton);
     expect(signIn).toHaveBeenCalledWith('kakao');
   });
