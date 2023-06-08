@@ -6,12 +6,19 @@ import { get } from '~/libs/api';
 import colors from '~/styles/color';
 import { BODY_1 } from '~/styles/typo';
 
+interface Response {
+  token_type: string;
+  access_token: string;
+}
+
 const KakaoLoginButton = () => {
   const { data: session } = useSession();
 
   if (session) {
     // TODO: 실 서버 배포 후 POST로 수정 및 엔드포인트 수정 필요
-    get('/oauth/kakao').then((response) => localStorage.setItem('na_lab_access_token', response.access_token));
+    get('/oauth/kakao').then((response: Response) =>
+      localStorage.setItem('na_lab_access_token', response.access_token),
+    );
   }
 
   // TODO: 로그아웃 기능은 현재 없음, 추후 필요시 가공 필요
