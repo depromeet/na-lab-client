@@ -1,14 +1,30 @@
 import React from 'react';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { css } from '@emotion/react';
+import axios from 'axios';
 
 import colors from '~/styles/color';
 import { BODY_1 } from '~/styles/typo';
 
 const KakaoLoginButton = () => {
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
 
-  // TODO: 추후 서버로 session.user.name 과 session.user.email 정보를 보내줄 수 있음
+  if (session) {
+    // TODO: 실 서버 배포 후 POST로 수정 및 엔드포인트 수정 필요
+    axios
+      .get('https://api.nalab.me/mock/oauth/kakao', {
+        nickname: session?.user?.name,
+        email: session?.user?.email,
+      })
+      .then(function (response) {
+        localStorage.setItem('na_lab_access_token', response.data.access_token);
+        // TODO: 로그인이 완료되면 다른 페이지로 라우팅 필요
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   // TODO: 로그아웃 기능은 현재 없음, 추후 필요시 주석 해제
   // if (session) {
   //   return (
