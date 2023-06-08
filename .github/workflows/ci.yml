@@ -37,7 +37,7 @@ jobs:
           key: ${{ steps.compute_lockfile_hash.outputs.hash }}
 
       - name: Install dependencies
-        if: steps.cache_dependencies.outputs.cache-hit == ''
+        if: steps.cache_dependencies.outputs.cache-hit == false
         run: yarn install --immutable
     outputs:
       dependency_cache_key: ${{ steps.compute_lockfile_hash.outputs.hash }}
@@ -70,7 +70,7 @@ jobs:
           key: ${{ env.BUILD_CACHE_KEY }}
 
       - name: Build
-        if: steps.cache_built_packages.outputs.cache-hit == ''
+        if: steps.cache_built_packages.outputs.cache-hit == false
         run: yarn build
 
     outputs:
