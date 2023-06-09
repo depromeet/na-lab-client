@@ -21,7 +21,6 @@ export default meta;
 export function Default() {
   const [customItems, setCustomsItems] = useState<QuestionItem[]>([]);
   const [isShowing, toggleShowing] = useBoolean(false);
-  const [, , onIsDrag, offIsDrag] = useBoolean(false);
 
   const addNewQuestion = (question: QuestionItem) => {
     setCustomsItems((prev) => [...prev, question]);
@@ -36,13 +35,7 @@ export function Default() {
     <>
       <Reorder.Group as="ul" values={customItems} onReorder={setCustomsItems}>
         {customItems.map((item) => (
-          <QuestionWithDnd
-            onIsDrag={onIsDrag}
-            offIsDrag={offIsDrag}
-            item={item}
-            key={item.title}
-            onDelete={onDeleteCustomQuestion}
-          />
+          <QuestionWithDnd item={item} key={item.title} onDelete={onDeleteCustomQuestion} isDeleteMode={false} />
         ))}
       </Reorder.Group>
 
