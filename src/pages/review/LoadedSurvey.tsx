@@ -20,6 +20,22 @@ const QuestionIntro = dynamic(() => import('~/features/review/steps/QuestionIntr
 
 const DEFAULT_STEP_LENGTH = 6;
 
+// const MOCKQ = [
+//   {
+//     type: 'choice',
+//     question_id: 2,
+//     order: 2,
+//     max_selectable_count: 2,
+//     title: 'string',
+//     choices: [
+//       { choice_id: 1, order: 1, content: 'ui' },
+//       { choice_id: 2, order: 2, content: 'ux' },
+//       { choice_id: 3, order: 3, content: 'aa' },
+//       { choice_id: 4, order: 4, content: 'dd' },
+//     ],
+//   },
+// ];
+
 const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
   const { isCoworked, setIsCoworked } = useIsCowork();
   const { position, setPosition } = usePosition();
@@ -55,8 +71,10 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
         ) : (
           <ChoiceQuestion
             key={eachQuestion.question_id}
+            nickname={target.nickname}
             title={eachQuestion.title}
             choices={eachQuestion.choices}
+            setChoices={setEachQuestionAnswer(eachQuestion.question_id)}
             max_selectable_count={eachQuestion.max_selectable_count}
             isLastQuestion={index === question.length - 1}
           />
@@ -108,7 +126,6 @@ const useSoftskills = () => {
 
 // const useStrength = () => {
 //   const [strength, setStrength] = useState<string[]>([]);
-
 //   return { strength, setStrength };
 // };
 
@@ -137,6 +154,7 @@ const useQuestionAnswers = ({ question }: Pick<SurveyRequest, 'question'>) => {
 
   const setEachQuestionAnswer =
     <T extends string[] | number[]>(id: number) =>
+    // TODO: (setStateAction: T | ((prevState: T) => T)) => { // react.SetStateAction 대응
     (setStateAction: (prevState: T) => T) => {
       setQuestionAnswers((prevQuestionAnswers) => {
         const targetQuestionAnswer = prevQuestionAnswers.find(
