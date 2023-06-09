@@ -1,11 +1,9 @@
-import { type Dispatch, useRef } from 'react';
-import { css, type Theme } from '@emotion/react';
+import { type Dispatch } from 'react';
 import { Reorder } from 'framer-motion';
 import { type SetStateAction } from 'jotai';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
-import DeleteIcon from '~/components/icons/DeleteIcon';
 import useToast from '~/components/toast/useToast';
 import AddMyQuestion from '~/features/survey/addSurveyForm/AddMyQuestion';
 import AddSurveyForm from '~/features/survey/addSurveyForm/AddSurveyForm';
@@ -19,11 +17,9 @@ interface Props {
 }
 
 const AddQuestionList = ({ customItems, setCustomsItems }: Props) => {
+  const [isDeleteMode, toggleIsDeleteMode] = useBoolean(false);
   const [isShowing, toggleShowing] = useBoolean(false);
-  const [isDrag, , onIsDrag, offIsDrag] = useBoolean(false);
   const { fireToast } = useToast();
-
-  const dragRef = useRef<HTMLDivElement | null>(null);
 
   const addNewQuestion = (question: QuestionItem) => {
     setCustomsItems((prev) => [...prev, question]);
@@ -40,32 +36,19 @@ const AddQuestionList = ({ customItems, setCustomsItems }: Props) => {
     toggleShowing();
   };
 
-  const onDeleteCustomQuestion = (id: string) => {
-    setCustomsItems((prev) => prev.filter((item) => item.title !== id));
+  const onDeleteCustomQuestion = (title: string) => {
+    setCustomsItems((prev) => prev.filter((item) => item.title !== title));
   };
 
   return (
     <>
       <Reorder.Group data-testid="dnd-component" as="ul" values={customItems} onReorder={setCustomsItems}>
         {customItems.map((item) => (
-          <QuestionWithDnd
-            onIsDrag={onIsDrag}
-            offIsDrag={offIsDrag}
-            item={item}
-            key={item.title}
-            dragRef={dragRef}
-            onDelete={onDeleteCustomQuestion}
-          />
+          <QuestionWithDnd key={item.title} item={item} onDelete={onDeleteCustomQuestion} isDeleteMode={isDeleteMode} />
         ))}
       </Reorder.Group>
 
       <AddMyQuestion onAction={onAddQuestionClick} />
-
-      <div css={deleteContainerCss(isDrag)}>
-        <div css={deleteCss} ref={dragRef}>
-          <DeleteIcon />
-        </div>
-      </div>
 
       <BottomSheet isShowing={isShowing}>
         <button type="button" onClick={toggleShowing}>
@@ -78,28 +61,3 @@ const AddQuestionList = ({ customItems, setCustomsItems }: Props) => {
 };
 
 export default AddQuestionList;
-
-const deleteContainerCss = (isShowing: boolean) => css`
-  height: 50px;
-
-  ${isShowing ? 'display: block;' : 'visibility: hidden;'}
-`;
-
-const deleteCss = (theme: Theme) => css`
-  position: fixed;
-  z-index: ${theme.zIndex.aboveDefault};
-  right: 0;
-  bottom: 90px;
-  left: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 56px;
-  height: 56px;
-  margin: 0 auto;
-
-  background-color: ${theme.colors.red};
-  border-radius: 50%;
-`;

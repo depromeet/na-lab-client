@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { css } from '@emotion/react';
-import { animate, Reorder, useDragControls, useMotionValue, useTransform } from 'framer-motion';
+import { animate, Reorder, useDragControls, useMotionValue } from 'framer-motion';
 
+import CircleDeleteIcon from '~/components/icons/CircleDeleteIcon';
 import MenuIcon from '~/components/icons/MenuIcon';
 import Question from '~/features/survey/questionList/Question';
 import { type QuestionItem } from '~/features/survey/types';
@@ -9,14 +10,9 @@ import { type QuestionItem } from '~/features/survey/types';
 interface Props {
   item: QuestionItem;
 
-  dragRef?: React.RefObject<HTMLDivElement>;
-
-  offIsDrag: () => void;
-  onIsDrag: () => void;
   onDelete: (title: string) => void;
+  isDeleteMode?: boolean;
 }
-
-const DELETE_BUTTON_BOTTOM = 90;
 
 const inactiveShadow = '0px 0px 0px rgba(255, 255, 255, 0.8)';
 const inactiveBackground = '#fff';
@@ -24,68 +20,33 @@ const inactiveBackground = '#fff';
 const activeShadow = '0px 8px 32px rgba(0, 0, 0, 0.24)';
 const activeBg = '#F2F5FF';
 
-function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props) {
+function QuestionWithDnd({ item, onDelete, isDeleteMode }: Props) {
   const dragControls = useDragControls();
-
-  const ref = useRef<HTMLDivElement | null>(null);
-  const bottom = useRef<number>(100);
 
   const y = useMotionValue(0);
   const backgroundColor = useMotionValue(inactiveBackground);
   const boxShadow = useMotionValue(inactiveShadow);
-  const scale = useTransform(y, [0, 0, bottom.current], [1, 1, 0.8]);
-
-  const handleScroll = () => {
-    bottom.current = window.innerHeight - (ref.current?.getBoundingClientRect().bottom ?? 100) - DELETE_BUTTON_BOTTOM;
-  };
 
   const onDragEnd = () => {
     // 중간에 멈추면 0으로 초기화
     animate(y, 0);
     animate(boxShadow, inactiveShadow);
     animate(backgroundColor, inactiveBackground);
-    offIsDrag();
   };
 
   const onDragStart = () => {
-    onIsDrag();
     animate(boxShadow, activeShadow);
     animate(backgroundColor, activeBg);
   };
-
-  const onItemPointerUp = (e: React.PointerEvent<SVGSVGElement>) => {
-    console.warn('onItemPointerUp: ');
-    const target = e.target as HTMLDivElement;
-    console.warn('dragRef: ', dragRef);
-
-    if (dragRef && checkIsInner(dragRef, target)) {
-      console.warn('delete', item.title);
-      onDelete(item.title);
-    } else {
-      console.warn('not delete');
-    }
-  };
-
-  useEffect(() => {
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll); //clean up
-    };
-  }, []);
 
   return (
     <Reorder.Item
       as="div"
       data-testid="dnd-item-component"
       value={item}
-      ref={ref}
       drag="y"
-      dragListener={false}
       dragControls={dragControls}
-      dragConstraints={{ top: 0, bottom: bottom.current }}
-      style={{ boxShadow, y, backgroundColor, scale }}
+      style={{ boxShadow, y, backgroundColor }}
       css={itemContainerCss}
       onDragEnd={onDragEnd}
       onDragStart={onDragStart}
@@ -93,23 +54,11 @@ function QuestionWithDnd({ item, dragRef, onIsDrag, offIsDrag, onDelete }: Props
       <Question
         item={item}
         rightElement={
-          <MenuIcon
-            onPointerDown={(e) => dragControls.start(e)}
-            onDrop={(e) => {
-              console.warn('onDrop: ');
-              const target = e.target as HTMLDivElement;
-              console.warn('dragRef: ', dragRef);
-
-              if (dragRef && checkIsInner(dragRef, target)) {
-                console.warn('delete', item.title);
-                onDelete(item.title);
-              } else {
-                console.warn('not delete');
-              }
-            }}
-            onPointerUp={onItemPointerUp}
-            css={menuIconCss}
-          />
+          isDeleteMode ? (
+            <CircleDeleteIcon onClick={() => onDelete(item.title)} />
+          ) : (
+            <MenuIcon onPointerDown={(e) => dragControls.start(e)} css={menuIconCss} />
+          )
         }
       />
     </Reorder.Item>
@@ -128,15 +77,3 @@ const itemContainerCss = css`
 const menuIconCss = css`
   touch-action: none;
 `;
-
-const checkIsInner = (dragRef: React.RefObject<HTMLDivElement>, target: HTMLDivElement) => {
-  if (!dragRef || !dragRef.current) return false;
-
-  const dragRect = dragRef.current.getBoundingClientRect();
-  const targetRect = target.getBoundingClientRect();
-
-  const isInner = dragRect.y < targetRect.y && targetRect.y < dragRect.y + dragRect.height;
-  console.warn('y: ', dragRect.y, targetRect.y);
-
-  return isInner;
-};
