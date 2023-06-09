@@ -24,7 +24,9 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
   const { isCoworked, setIsCoworked } = useIsCowork();
   const { position, setPosition } = usePosition();
   const { selectedSoftskills, setSelectedSoftskills } = useSoftskills();
-  const { setStrength } = useStrength();
+  // const { setStrength } = useStrength();
+
+  const { questionAnswers, setEachQuestionAnswer } = useQuestionAnswers({ question });
 
   const { currentElement, currentStep } = useInjectedElementStep({
     elements: [
@@ -43,7 +45,7 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
           <ShortQuestion
             key={eachQuestion.question_id}
             headerTitle={eachQuestion.title}
-            setReplies={setStrength}
+            setReplies={setEachQuestionAnswer(eachQuestion.question_id)}
             startMessages={[
               { timing: 1000, text: '협업을 한 적이 없다면 일상에서 드러나는 성격이나 행동에 대한 장점을 적어주세요.' },
               { timing: 2000, text: '답변을 적어 저에게 메세지를 보내주시면, 익명으로 전달할게요!' },
@@ -60,7 +62,7 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
           />
         ),
       ),
-      <Last key="last" onSubmit={() => console.warn('submit')} />,
+      <Last key="last" onSubmit={() => console.warn(questionAnswers)} />,
     ],
   });
 
@@ -104,8 +106,74 @@ const useSoftskills = () => {
   return { selectedSoftskills, setSelectedSoftskills };
 };
 
-const useStrength = () => {
-  const [strength, setStrength] = useState<string[]>([]);
+// const useStrength = () => {
+//   const [strength, setStrength] = useState<string[]>([]);
 
-  return { strength, setStrength };
+//   return { strength, setStrength };
+// };
+
+interface ShortQuestionAnswer {
+  type: 'short';
+  question_id: number;
+  reply: string[];
+}
+
+interface ChoiceQuestionAnswer {
+  type: 'choice';
+  question_id: number;
+  choices: number[];
+}
+
+type QuestionAnswer = ShortQuestionAnswer | ChoiceQuestionAnswer;
+
+const useQuestionAnswers = ({ question }: Pick<SurveyRequest, 'question'>) => {
+  const [questionAnswers, setQuestionAnswers] = useState<QuestionAnswer[]>(
+    question.map((eachQuestion) =>
+      eachQuestion.type === 'short'
+        ? { type: 'short', question_id: eachQuestion.question_id, reply: [] }
+        : { type: 'choice', question_id: eachQuestion.question_id, choices: [] },
+    ),
+  );
+
+  const setEachQuestionAnswer =
+    <T extends string[] | number[]>(id: number) =>
+    (setStateAction: (prevState: T) => T) => {
+      setQuestionAnswers((prevQuestionAnswers) => {
+        const targetQuestionAnswer = prevQuestionAnswers.find(
+          (eachQuestionAnswer) => eachQuestionAnswer.question_id === id,
+        );
+
+        if (!targetQuestionAnswer) return prevQuestionAnswers;
+
+        if (targetQuestionAnswer.type === 'short') {
+          const newTargetQuestionAnswer = setStateAction(targetQuestionAnswer.reply as T);
+
+          return prevQuestionAnswers.map((eachQuestionAnswer) =>
+            eachQuestionAnswer.question_id === id
+              ? ({
+                  ...eachQuestionAnswer,
+                  reply: newTargetQuestionAnswer,
+                } as ShortQuestionAnswer)
+              : eachQuestionAnswer,
+          );
+        }
+
+        if (targetQuestionAnswer.type === 'choice') {
+          const newTargetQuestionAnswer = setStateAction(targetQuestionAnswer.choices as T);
+
+          return prevQuestionAnswers.map((eachQuestionAnswer) =>
+            eachQuestionAnswer.question_id === id
+              ? ({
+                  ...eachQuestionAnswer,
+                  choices: newTargetQuestionAnswer,
+                } as ChoiceQuestionAnswer)
+              : eachQuestionAnswer,
+          );
+        }
+
+        return prevQuestionAnswers;
+      });
+    };
+
+  return { questionAnswers, setEachQuestionAnswer };
 };

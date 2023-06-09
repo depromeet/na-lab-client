@@ -23,7 +23,7 @@ interface OtherMessage {
 
 interface Props extends StepProps, IsLastQuestion {
   headerTitle: ComponentProps<typeof QuestionHeader>['title'];
-  setReplies: Dispatch<SetStateAction<string[]>>;
+  setReplies: (setStateAction: (prevState: string[]) => string[]) => void;
   /**
    * @description 시작할 때 입력될 메세지와 시간
    */
