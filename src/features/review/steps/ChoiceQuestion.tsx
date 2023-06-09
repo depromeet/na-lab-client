@@ -2,18 +2,13 @@ import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInVariants } from '~/constants/motions';
+import { type Choice } from '~/hooks/api/surveys/useGetSurveyById';
 
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
 import Checkbox from './choice/Checkbox';
 import MaxSelectableSmall from './choice/MaxSelectableSmall';
 import { type IsLastQuestion, type StepProps } from './type';
-
-// TODO: API 이후 hooks/api 로 이관
-interface Choice {
-  choice_id: number;
-  content: string;
-}
 
 interface Props extends StepProps, IsLastQuestion {
   title: string;

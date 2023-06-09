@@ -14,7 +14,7 @@ interface ShortQuestion {
   title: string;
 }
 
-interface Choice {
+export interface Choice {
   choice_id: number;
   order: number;
   content: string;
@@ -29,11 +29,11 @@ interface ChoiceQuestion {
   choices: Choice[];
 }
 
-interface Request {
+export interface Request {
   survey_id: number;
   question_count: number;
   target: Target;
-  questions: (ShortQuestion | ChoiceQuestion)[];
+  question: (ShortQuestion | ChoiceQuestion)[];
 }
 
 const useGetSurveyById = (id: string, option?: UseQueryOptions<Request>) => {
