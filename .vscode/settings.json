@@ -20,5 +20,8 @@
   "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
