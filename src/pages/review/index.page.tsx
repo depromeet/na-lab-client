@@ -11,6 +11,8 @@ import { type Position as PositionType } from '~/features/review/steps/type';
 import StepStatus from '~/features/review/StepStatus';
 import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
 
+import useSurveyIdValidation from './useSurveyIdValidation';
+
 const Cowork = dynamic(() => import('~/features/review/steps/Cowork'), { ssr: false });
 const Position = dynamic(() => import('~/features/review/steps/Position'), { ssr: false });
 const Softskill = dynamic(() => import('~/features/review/steps/Softskill'), { ssr: false });
@@ -26,8 +28,9 @@ const MOCK_CHOICES = [
 
 const ReviewPage = () => {
   // TODO: 이후 token 검증 및 조회 로직 추가
-  // const router = useRouter();
-  // const { token } = router.query;
+
+  const { data, isLoading } = useSurveyIdValidation();
+  console.log(isLoading, data);
 
   const { isCoworked, setIsCoworked } = useIsCowork();
   const { position, setPosition } = usePosition();
@@ -73,11 +76,17 @@ const ReviewPage = () => {
 
   return (
     <>
-      {/* TODO: API res에 따라 동적으로 생성되는 elements의 길이 주입 필요 */}
-      <StepStatus currentStep={currentStep} stepLength={9} notContainSteps={[0, 3, 8]} />
-      <main css={mainCss}>
-        <AnimatePresence mode="wait">{currentElement}</AnimatePresence>
-      </main>
+      {/* TODO: loading handler 넣기*/}
+      {isLoading ? (
+        <div>loading...</div>
+      ) : (
+        <>
+          <StepStatus currentStep={currentStep} stepLength={9} notContainSteps={[0, 3, 8]} />
+          <main css={mainCss}>
+            <AnimatePresence mode="wait">{currentElement}</AnimatePresence>
+          </main>
+        </>
+      )}
     </>
   );
 };
