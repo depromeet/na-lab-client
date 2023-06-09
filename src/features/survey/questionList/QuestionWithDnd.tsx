@@ -7,18 +7,18 @@ import MenuIcon from '~/components/icons/MenuIcon';
 import Question from '~/features/survey/questionList/Question';
 import { type QuestionItem } from '~/features/survey/types';
 
+const inactiveShadow = '0px 0px 0px rgba(255, 255, 255, 0.8)';
+const inactiveBackground = '#fff';
+
+const activeShadow = '0px 8px 32px rgba(0, 0, 0, 0.24)';
+const activeBg = '#F2F5FF';
+
 interface Props {
   item: QuestionItem;
 
   onDelete: (title: string) => void;
   isDeleteMode?: boolean;
 }
-
-const inactiveShadow = '0px 0px 0px rgba(255, 255, 255, 0.8)';
-const inactiveBackground = '#fff';
-
-const activeShadow = '0px 8px 32px rgba(0, 0, 0, 0.24)';
-const activeBg = '#F2F5FF';
 
 function QuestionWithDnd({ item, onDelete, isDeleteMode }: Props) {
   const dragControls = useDragControls();
