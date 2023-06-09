@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import CTAButton from '~/components/button/CTAButton';
-import AddQuestionList from '~/features/survey/AddQuestionList';
+import AddQuestionList from '~/features/survey/AdditionalQuestionList';
 import { BASIC_QUESTION_LIST } from '~/features/survey/constants';
 import CreateDialog from '~/features/survey/CreateDialog';
 import QuestionList from '~/features/survey/questionList/QuestionList';
