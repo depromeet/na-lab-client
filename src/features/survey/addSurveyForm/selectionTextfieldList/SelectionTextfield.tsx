@@ -77,6 +77,10 @@ const inputCoreCss = (theme: Theme) => css`
   color: ${theme.colors.black};
 
   border-radius: 8px;
+
+  &::placeholder {
+    color: ${theme.colors.gray_400};
+  }
 `;
 
 const itemCss = (theme: Theme, isEssential?: boolean) => css`

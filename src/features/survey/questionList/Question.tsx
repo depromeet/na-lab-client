@@ -86,9 +86,11 @@ const getType = (type: QuestionType, formType: QuestionFormType) => {
 const tagCss = (theme: Theme) => css`
   ${DETAIL}
 
+  display: inline-block;
   gap: 10px;
   order: 1;
 
+  height: 24px;
   padding: 2px 4px;
 
   color: ${theme.colors.gray_400};
