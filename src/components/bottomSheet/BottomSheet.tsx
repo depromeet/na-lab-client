@@ -2,10 +2,10 @@ import { type ComponentProps, type MouseEventHandler } from 'react';
 import { css, type Theme } from '@emotion/react';
 import { m, type Variants } from 'framer-motion';
 
+import { scrimCss } from '~/components/scrim/default.style';
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 
 import AnimatePortal from '../portal/AnimatePortal';
-import { scrimCss } from '../scrim/default.style';
 
 interface Props extends ComponentProps<typeof AnimatePortal> {
   /**
@@ -24,7 +24,7 @@ const BottomSheet = ({ onClickOutside, isShowing, children, mode }: Props) => {
     <AnimatePortal isShowing={isShowing} mode={mode}>
       <m.div
         onClick={onClickOutsideDefault}
-        css={scrimCss}
+        css={mobileScrimCss}
         variants={defaultFadeInVariants}
         initial="initial"
         animate="animate"
@@ -39,6 +39,15 @@ const BottomSheet = ({ onClickOutside, isShowing, children, mode }: Props) => {
 };
 
 export default BottomSheet;
+
+const mobileScrimCss = (theme: Theme) => css`
+  ${scrimCss(theme)}
+
+  right: 0;
+  left: 0;
+  max-width: ${theme.size.maxWidth};
+  margin: 0 auto;
+`;
 
 const contentCss = (theme: Theme) => css`
   position: absolute;
