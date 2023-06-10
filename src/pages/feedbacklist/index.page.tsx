@@ -31,12 +31,12 @@ export default function FeedbackList() {
     const feedbackList: FeedbackList = await get('/reviewers?survey-id=1');
     setFeedbackCount(feedbackList.feedbacks.length);
 
-    const feedbacksByYearAndMonthList = {};
+    const feedbacksByYearAndMonthList: Record<number, any> = {};
 
     feedbackList.feedbacks.forEach((feedback: Feedback) => {
       const date = new Date(feedback.created_at);
-      const year = String(date.getFullYear());
-      const month = String(date.getMonth() + 1);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
 
       if (!feedbacksByYearAndMonthList[year]) {
         feedbacksByYearAndMonthList[year] = {};
