@@ -1,12 +1,18 @@
 import { css, type Theme } from '@emotion/react';
 
 import EditIcon from '~/components/icons/EditIcon';
-import { type QuestionFormType, type QuestionItem, type QuestionType } from '~/features/survey/types';
+import {
+  type BasicQuestionItem,
+  type CustomQuestionItem,
+  type QuestionFormType,
+  type QuestionType,
+} from '~/features/survey/types';
 import colors from '~/styles/color';
 import { DETAIL, HEAD_3_SEMIBOLD } from '~/styles/typo';
 
 interface Props {
-  item: QuestionItem;
+  // TODO : 타입 수정
+  item: CustomQuestionItem | BasicQuestionItem;
 }
 
 const Question = ({ item }: Props) => {
@@ -21,7 +27,6 @@ const Question = ({ item }: Props) => {
         <p css={titleCss}>{item.title}</p>
         <span css={tagCss}>{tag}</span>
       </div>
-      {/* {rightElement} */}
     </li>
   );
 };
@@ -58,14 +63,30 @@ const iconContainerCss = css`
 `;
 
 const getType = (type: QuestionType, formType: QuestionFormType) => {
-  if (formType === 'tendency') {
+  if (type === 'basic') {
+    const typeCss = css`
+      background-color: ${colors.pink};
+    `;
+
+    if (formType === 'information') {
+      return {
+        tag: '참여한 동료 정보',
+        css: typeCss,
+      };
+    }
+    if (formType === 'tendency') {
+      return {
+        tag: '태그',
+        css: typeCss,
+      };
+    }
+
     return {
-      tag: '기본정보',
-      css: css`
-        background-color: ${colors.bluegreen};
-      `,
+      tag: '주관식',
+      css: typeCss,
     };
   }
+
   if (type === 'short') {
     return {
       tag: '주관식',
