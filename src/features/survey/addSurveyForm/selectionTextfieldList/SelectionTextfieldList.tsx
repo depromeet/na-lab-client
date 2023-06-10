@@ -20,6 +20,7 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
   const { fireToast } = useToast();
   const [focusInput, setFocusInput] = useState<number | null>(null);
 
+  const optionMinCount = isMultiChoice ? basicCount + 1 : OPTION_MIN_COUNT;
   const onInputChange = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > OPTION_MAX_LENGTH) {
       fireToast({
@@ -39,13 +40,20 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
     newInputs[index] = e.target.value;
 
     if (index === inputs.length - 1) {
+      if (inputs.length >= OPTION_MAX_COUNT) {
+        setInputs(() => [...newInputs]);
+
+        return;
+      }
       setInputs(() => [...newInputs, '']);
       setFocusInput(inputs.length - 1);
 
       return;
     }
 
-    if (index === inputs.length - 2 && index >= OPTION_MIN_COUNT && e.target.value === '') {
+    // 마지막에서 두번째 input이 비어있을 때, 마지막 input이 비어있으면 마지막 input을 삭제한다.
+    const isLastInputDeleteState = index === inputs.length - 2 && index >= optionMinCount && e.target.value === '';
+    if (isLastInputDeleteState) {
       setInputs((prev) => [...prev.slice(0, -2), '']);
 
       return;
@@ -55,17 +63,15 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
   };
 
   const onItemDelete = (index: number) => {
-    if (inputs.length - 1 <= OPTION_MIN_COUNT) {
-      fireToast({ content: `최소 ${OPTION_MIN_COUNT}개 이상의 옵션을 입력해주세요.`, higherThanCTA: true });
+    const isDeletePossible =
+      inputs.length == OPTION_MAX_COUNT ? inputs.length - 1 < optionMinCount : inputs.length - 1 <= optionMinCount;
+
+    if (isDeletePossible) {
+      fireToast({ content: `최소 ${optionMinCount}개 이상의 옵션을 입력해주세요.`, higherThanCTA: true });
 
       return;
     }
 
-    if (inputs.length - 1 <= basicCount) {
-      fireToast({ content: `최소 ${basicCount}개 이상의 옵션을 입력해주세요.`, higherThanCTA: true });
-
-      return;
-    }
     const newInputs = [...inputs];
     newInputs.splice(index, 1);
 
@@ -76,17 +82,20 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
     <div css={containerCss}>
       {inputs.map((input, index) => {
         return (
-          <SelectionTextfield
-            key={index}
-            value={input}
-            onChange={(e) => onInputChange(index)(e)}
-            onFocus={() => setFocusInput(index)}
-            onBlur={() => setFocusInput(null)}
-            onDelete={() => onItemDelete(index)}
-            isFocused={focusInput === index}
-            isLast={inputs.length < OPTION_MAX_COUNT && index === inputs.length - 1}
-            isEssential={isMultiChoice && index < basicCount}
-          />
+          <>
+            <SelectionTextfield
+              key={index}
+              value={input}
+              onChange={(e) => onInputChange(index)(e)}
+              onFocus={() => setFocusInput(index)}
+              onBlur={() => setFocusInput(null)}
+              onDelete={() => onItemDelete(index)}
+              isFocused={focusInput === index}
+              isLast={inputs.length < OPTION_MAX_COUNT && index === inputs.length - 1}
+              isEssential={isMultiChoice && index < basicCount}
+            />
+            <div>{index + 1}</div>
+          </>
         );
       })}
     </div>
