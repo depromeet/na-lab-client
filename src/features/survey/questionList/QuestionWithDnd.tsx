@@ -6,7 +6,7 @@ import CircleDeleteIcon from '~/components/icons/CircleDeleteIcon';
 import MenuIcon from '~/components/icons/MenuIcon';
 import { defaultScaleVariants } from '~/constants/motions';
 import Question from '~/features/survey/questionList/Question';
-import { type QuestionItem } from '~/features/survey/types';
+import { type CustomQuestionItem } from '~/features/survey/types';
 import { surveyDeleteModeAtom } from '~/store/surveyDeleteMode';
 
 const inactiveShadow = '0px 0px 0px rgba(255, 255, 255, 0.8)';
@@ -16,7 +16,7 @@ const activeShadow = '0px 8px 32px rgba(0, 0, 0, 0.24)';
 const activeBg = '#F2F5FF';
 
 interface Props {
-  item: QuestionItem;
+  item: CustomQuestionItem;
 
   onDelete: (title: string) => void;
 }

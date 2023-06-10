@@ -3,37 +3,43 @@ import { m } from 'framer-motion';
 
 import { HEAD_3_SEMIBOLD } from '~/styles/typo';
 
+export interface TextToggleItem {
+  type: string;
+  label: string;
+}
+
 interface Props {
-  list: {
-    type: string;
-    label: string;
-  }[];
+  list: [TextToggleItem, TextToggleItem];
   selectItem: string;
   onItemClick: (type: string) => void;
 }
 
 const TextToggle = ({ selectItem, list, onItemClick }: Props) => {
-  return (
-    <div>
-      <m.div animate css={containerCss}>
-        {list.map(({ label, type }) => {
-          const isSelected = type === selectItem;
+  const isActivated = selectItem === list[0].type;
 
-          return (
-            <button type="button" onClick={() => onItemClick(type)} css={itemCss} key={label}>
-              {isSelected ? <m.div animate css={itemBoxCss} layoutId="underline" /> : null}
-              <span css={(theme) => textCss(theme, isSelected)}>{label}</span>
-            </button>
-          );
-        })}
-      </m.div>
-    </div>
+  return (
+    <button type="button" css={containerCss}>
+      <m.div css={(theme) => selectBoxCss(theme, isActivated)} layout />
+      {list.map(({ label, type }) => {
+        const isSelected = type === selectItem;
+
+        return (
+          <button type="button" onClick={() => onItemClick(type)} css={itemCss} key={label}>
+            <span css={(theme) => textCss(theme, isSelected)}>{label}</span>
+          </button>
+        );
+      })}
+    </button>
   );
 };
+
+const ITEM_SIZE = 105;
 
 const textCss = (theme: Theme, isSelected: boolean) => css`
   ${HEAD_3_SEMIBOLD};
 
+  position: relative;
+  z-index: ${theme.zIndex.above(theme.zIndex.aboveDefault)};
   color: ${isSelected ? theme.colors.white : theme.colors.gray_400};
 `;
 
@@ -46,35 +52,39 @@ const itemCss = (theme: Theme) => css`
   background-color: ${theme.colors.gray_50};
   border: none;
   border-radius: 24px;
-
-  span {
-    position: relative;
-    z-index: ${theme.zIndex.above(theme.zIndex.aboveDefault)};
-  }
-`;
-
-const itemBoxCss = (theme: Theme) => css`
-  position: absolute;
-  z-index: ${theme.zIndex.aboveDefault};
-  top: 0;
-  left: 0;
-
-  width: 105px;
-  height: 32px;
-
-  background-color: ${theme.colors.primary_200};
-  border-radius: 24px;
 `;
 
 const containerCss = (theme: Theme) => css`
+  position: relative;
+
   display: flex;
   gap: 4px;
 
-  width: fit-content;
+  width: calc(${ITEM_SIZE}px * 2);
   padding: 5px;
 
   background-color: ${theme.colors.gray_50};
   border-radius: 34px;
+`;
+
+const selectBoxCss = (theme: Theme, isOn: boolean) => css`
+  ${isOn
+    ? css`
+        left: 0;
+      `
+    : css`
+        right: 0;
+      `}
+
+  position: absolute;
+  z-index: ${theme.zIndex.above(theme.zIndex.aboveDefault)};
+  top: 5px;
+
+  width: ${ITEM_SIZE}px;
+  height: 32px;
+
+  background-color: ${theme.colors.primary_200};
+  border-radius: 24px;
 `;
 
 export default TextToggle;

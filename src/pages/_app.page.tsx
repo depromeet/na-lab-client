@@ -7,7 +7,6 @@ import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { domMax, LazyMotion } from 'framer-motion';
 
-import { pretendard } from '~/assets/fonts/pretendard';
 import MonitoringInitializer from '~/components/monitoring/MonitoringInitializer';
 import ToastWrapper from '~/components/toast/ToastWrapper';
 import GlobalStyles from '~/styles/GlobalStyle';
@@ -44,7 +43,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           <ThemeProvider theme={defaultTheme}>
             <LazyMotion features={domMax}>
               <GlobalStyles />
-              <div css={defaultLayoutCss} className={pretendard.className}>
+              <div css={defaultLayoutCss}>
                 {getLayout(<Component {...pageProps} />)}
                 <ToastWrapper />
               </div>

@@ -5,7 +5,7 @@ import useToast from '~/components/toast/useToast';
 import AddMyQuestion from '~/features/survey/addSurveyForm/AddMyQuestion';
 import QuestionWithDnd from '~/features/survey/questionList/QuestionWithDnd';
 import SurveyFormBottomSheet from '~/features/survey/SurveyFormBottomSheet';
-import { type QuestionItem } from '~/features/survey/types';
+import { type CustomQuestionItem } from '~/features/survey/types';
 import useBoolean from '~/hooks/common/useBoolean';
 import {
   addSurveyCustomQuestionAtom,
@@ -14,6 +14,7 @@ import {
   reorderSurveyCustomQuestionsAtom,
 } from '~/store/surveyCustomQuestions';
 
+// TODO : CustomQuestionList로 이름 변경
 const AdditionalQuestionList = () => {
   const customItems = useAtomValue(getSurveyCustomQuestionsAtom);
   const addCustomQuestion = useSetAtom(addSurveyCustomQuestionAtom);
@@ -23,7 +24,7 @@ const AdditionalQuestionList = () => {
   const [isShowing, toggleShowing] = useBoolean(false);
   const { fireToast } = useToast();
 
-  const addNewQuestion = (question: QuestionItem) => {
+  const addNewQuestion = (question: CustomQuestionItem) => {
     addCustomQuestion(question);
     toggleShowing();
   };

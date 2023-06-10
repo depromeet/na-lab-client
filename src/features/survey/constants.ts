@@ -1,22 +1,46 @@
-import { type QuestionItem } from '~/features/survey/types';
+import { softskillList } from '~/components/graphic/softskills/Softskill';
+import { type BasicQuestionItem, type QuestionRequest } from '~/features/survey/types';
 
-export const BASIC_QUESTION_LIST: QuestionItem[] = [
+const softSkillChoices: {
+  content: string;
+  order: number;
+}[] = softskillList.map((softskill, index) => ({
+  content: softskill as string,
+  order: index,
+}));
+
+export const VIEW_BASIC_QUESTION_LIST: BasicQuestionItem[] = [
+  {
+    type: 'basic',
+    form_type: 'information',
+    title: '나와의 관계, 참여한 동료의 포지션',
+  },
+  {
+    type: 'basic',
+    form_type: 'tendency',
+    title: '동료들이 생각한 나의 이미지',
+  },
+  {
+    type: 'basic',
+    form_type: 'strength',
+    title: '협업을 하면서 느꼈던 나만의 장점이 있나요?',
+  },
+];
+
+export const REQUEST_BASIC_QUESTION_LIST: QuestionRequest[] = [
   {
     type: 'choice',
     form_type: 'tendency',
-    title: '나와의 관계, 상대방의 포지션, 나의 성향',
-    choices: [],
-    max_selectable_count: 1,
+    title: '동료들이 생각한 나의 이미지',
+    choices: softSkillChoices,
+    max_selectable_count: 5,
+    order: 1,
   },
   {
     type: 'short',
     form_type: 'strength',
-    title: '나의 직무적 강점은 무엇인가요?',
-  },
-  {
-    type: 'short',
-    form_type: 'weakness',
-    title: '나의 직무적 약점은 무엇인가요?',
+    title: '협업을 하면서 느꼈던 나만의 장점이 있나요?',
+    order: 2,
   },
 ];
 
