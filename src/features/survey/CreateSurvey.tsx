@@ -12,6 +12,7 @@ import useBoolean from '~/hooks/common/useBoolean';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import useLocalStorage from '~/hooks/storage/useLocalStorage';
 import { getSurveyCustomQuestionsAtom } from '~/store/surveyCustomQuestions';
+import { surveyDeleteModeAtom } from '~/store/surveyDeleteMode';
 
 const CreateSurvey = () => {
   const router = useInternalRouter();
@@ -20,6 +21,7 @@ const CreateSurvey = () => {
 
   const [_, setCreateSurveyRequest] = useLocalStorage<QuestionRequest[]>('createSurveyRequest', []);
 
+  const isDeleteMode = useAtomValue(surveyDeleteModeAtom);
   const customItems = useAtomValue(getSurveyCustomQuestionsAtom);
 
   const onCreateSurvey = () => {
@@ -41,7 +43,7 @@ const CreateSurvey = () => {
         <AddQuestionList />
       </section>
 
-      <section css={[fixedBottomCss]}>
+      <section css={[fixedBottomCss, isDeleteMode && opacityCss]}>
         <CTAButton onClick={toggleDialogShowing} color="blue">
           이대로 생성하기
         </CTAButton>
@@ -60,6 +62,10 @@ const sectionCss = css`
   & > h1 {
     margin-bottom: 0.75rem;
   }
+`;
+
+const opacityCss = css`
+  opacity: 0.5;
 `;
 
 const getCreateSurveyRequestData = (customItems: QuestionItem[]): QuestionRequest[] => {
