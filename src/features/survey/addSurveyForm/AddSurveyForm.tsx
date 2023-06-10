@@ -50,10 +50,11 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
   const [inputs, setInputs] = useState(new Array(DEFAULT_OPTION_LENGTH + 1).fill(''));
 
   const isChoice = selectToggleTab === 'choice';
+
   const optionInputs = isChoice ? inputs.slice(0, -1) : inputs; // 다른 옵션 추가 제외
 
-  const isAllInputFilled = !isChoice || optionInputs.every((input) => removeSpaceAndEnter(input) !== '');
-  const isButtonDisabled = !isAllInputFilled || removeSpaceAndEnter(questionInput) === '';
+  const fillInputCount = optionInputs.filter((input) => removeSpaceAndEnter(input) !== '').length;
+  const isButtonDisabled = removeSpaceAndEnter(questionInput) === '' || (isChoice && fillInputCount < maxSelect + 1);
 
   const onQuestionInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length > QUESTION_MAX_LENGTH) {
