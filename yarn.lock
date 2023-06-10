@@ -68,7 +68,6 @@ __metadata:
     mixpanel-browser: ^2.46.0
     next: 13.3.0
     next-auth: ^4.22.1
-    next-images: ^1.8.5
     next-router-mock: ^0.9.3
     postcss: ^8.4.21
     postcss-syntax: ^0.36.2
@@ -9236,18 +9235,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-loader@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "file-loader@npm:6.2.0"
-  dependencies:
-    loader-utils: ^2.0.0
-    schema-utils: ^3.0.0
-  peerDependencies:
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: faf43eecf233f4897b0150aaa874eeeac214e4f9de49738a9e0ef734a30b5260059e85b7edadf852b98e415f875bd5f12587768a93fd52aaf2e479ecf95fab20
-  languageName: node
-  linkType: hard
-
 "file-system-cache@npm:^2.0.0":
   version: 2.1.0
   resolution: "file-system-cache@npm:2.1.0"
@@ -12675,18 +12662,6 @@ __metadata:
     nodemailer:
       optional: true
   checksum: 42bae16b62bac4b3d215d991c7c964dfc071a84df32900a28d4cbc20d4b6a65689b3ba9f10633780a22ff0cbc420248d012614a5b0d82918f9bbb56f7f92f7c5
-  languageName: node
-  linkType: hard
-
-"next-images@npm:^1.8.5":
-  version: 1.8.5
-  resolution: "next-images@npm:1.8.5"
-  dependencies:
-    file-loader: ^6.2.0
-    url-loader: ^4.1.0
-  peerDependencies:
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: 7b4666ad8b3385a5894aa9407c97a6e0b05527d61d8702dd375bbe87e2ccbf55ccd28f8c2cf11306e8b2c91339a364b7138722745865ba987d07100065b50d28
   languageName: node
   linkType: hard
 
@@ -16954,23 +16929,6 @@ __metadata:
   version: 4.0.1
   resolution: "url-join@npm:4.0.1"
   checksum: f74e868bf25dbc8be6a8d7237d4c36bb5b6c62c72e594d5ab1347fe91d6af7ccd9eb5d621e30152e4da45c2e9a26bec21390e911ab54a62d4d82e76028374ee5
-  languageName: node
-  linkType: hard
-
-"url-loader@npm:^4.1.0":
-  version: 4.1.1
-  resolution: "url-loader@npm:4.1.1"
-  dependencies:
-    loader-utils: ^2.0.0
-    mime-types: ^2.1.27
-    schema-utils: ^3.0.0
-  peerDependencies:
-    file-loader: "*"
-    webpack: ^4.0.0 || ^5.0.0
-  peerDependenciesMeta:
-    file-loader:
-      optional: true
-  checksum: c1122a992c6cff70a7e56dfc2b7474534d48eb40b2cc75467cde0c6972e7597faf8e43acb4f45f93c2473645dfd803bcbc20960b57544dd1e4c96e77f72ba6fd
   languageName: node
   linkType: hard
 
