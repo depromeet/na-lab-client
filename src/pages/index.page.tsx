@@ -1,5 +1,5 @@
 import { type ReactElement } from 'react';
-import { css } from '@emotion/react';
+import { css, type Theme } from '@emotion/react';
 
 import Logo from '~/assets/Logo';
 import CTAButton from '~/components/button/CTAButton';
@@ -36,7 +36,7 @@ const logoCss = css`
   margin-top: 176px;
 `;
 
-const ctaWrapperCss = css`
+const ctaWrapperCss = (theme: Theme) => css`
   position: fixed;
   bottom: 36px;
 
@@ -46,5 +46,6 @@ const ctaWrapperCss = css`
   align-items: center;
 
   width: 100%;
+  max-width: ${theme.size.maxWidth};
   padding: 0 23px;
 `;
