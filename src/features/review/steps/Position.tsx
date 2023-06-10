@@ -115,6 +115,9 @@ const sectionCss = css`
 const positionWrapperCss = css`
   position: fixed;
   left: 0;
+
   overflow-x: hidden;
-  width: 100vw;
+
+  width: 100dvw;
+  padding: 30px 0;
 `;
