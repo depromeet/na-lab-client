@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { css } from '@emotion/react';
 
 import colors from '~/styles/color';
@@ -7,11 +6,6 @@ import { HEAD_2_BOLD } from '~/styles/typo';
 
 import CollaborationBadge from './CollaborationBadge';
 import UnreadBadgeIcon from './UnreadBadgeIcon';
-
-import blueProgrammer from '/public/images/feedback/blue-programmer.png';
-import greenPm from '/public/images/feedback/green-pm.png';
-import pinkDesigner from '/public/images/feedback/pink-designer.png';
-import Purple from '/public/images/feedback/purple.png';
 
 interface Reviewer {
   collaboration_experience: boolean;
@@ -34,7 +28,7 @@ type Position = 'developer' | 'designer' | 'product-manager' | 'other';
 
 const ReceivedFeedbackCard = ({ feedback }: Props) => {
   const [role, setRole] = useState('개발자');
-  const [roleImage, setRoleImage] = useState(blueProgrammer);
+  const [roleImage, setRoleImage] = useState('/images/feedback/blue-programmer.png');
 
   const { reviwer, is_read } = feedback;
   const { nickname, collaboration_experience, position } = reviwer;
@@ -42,16 +36,16 @@ const ReceivedFeedbackCard = ({ feedback }: Props) => {
   const changeImageCardByRole = (roleInput: string) => {
     if (roleInput === ('developer' as Position)) {
       setRole('개발자');
-      setRoleImage(blueProgrammer);
+      setRoleImage('/images/feedback/blue-programmer.png');
     } else if (roleInput === ('designer' as Position)) {
       setRole('디자이너');
-      setRoleImage(pinkDesigner);
+      setRoleImage('/images/feedback/pink-designer.png');
     } else if (roleInput === ('product-manager' as Position)) {
       setRole('기획자');
-      setRoleImage(greenPm);
+      setRoleImage('/images/feedback/green-pm.png');
     } else {
       setRole('지인');
-      setRoleImage(Purple);
+      setRoleImage('/images/feedback/purple.png');
     }
   };
 
@@ -64,7 +58,7 @@ const ReceivedFeedbackCard = ({ feedback }: Props) => {
       {is_read ? null : <UnreadBadgeIcon floatingTop="8px" floatingRight="8px" />}
 
       <figure css={BodyCss}>
-        <Image css={ImageCss} src={roleImage} alt="포지션별 이미지" />
+        <span css={ImageCss(roleImage)}></span>
         <div css={[HEAD_2_BOLD, DescCss]}>
           {role} {nickname}의<br />
           피드백
@@ -99,10 +93,13 @@ const BodyCss = css`
   justify-content: center;
 `;
 
-const ImageCss = css`
-  width: 65px;
+const ImageCss = (roleImage: string) => css`
+  width: 66px;
   height: 60px;
   margin: 20px auto auto;
+
+  background-image: url(${roleImage});
+  background-size: cover;
   border-radius: 5px;
 `;
 
