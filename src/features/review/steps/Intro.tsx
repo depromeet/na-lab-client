@@ -13,7 +13,11 @@ import useStep from '~/hooks/step/useStep';
 import { fixedBottomCss } from '../style';
 import { type StepProps } from './type';
 
-const Intro = ({ next }: StepProps) => {
+interface Props extends StepProps {
+  nickname: string;
+}
+
+const Intro = ({ nickname, next }: Props) => {
   const { currentStep } = useParagraphStep();
   const { isCTAButtonVisible } = useCTAButtonVisible();
 
@@ -26,10 +30,10 @@ const Intro = ({ next }: StepProps) => {
 
       <article css={articleCss}>
         <AnimatePresence mode="wait">
-          {currentStep === 1 && <Paragraph1 key="1" />}
+          {currentStep === 1 && <Paragraph1 key="1" nickname={nickname} />}
           {currentStep === 2 && <Paragraph2 key="2" />}
           {currentStep === 3 && <Paragraph3 key="3" />}
-          {currentStep === 4 && <Paragraph4 key="4" />}
+          {currentStep === 4 && <Paragraph4 key="4" nickname={nickname} />}
         </AnimatePresence>
       </article>
 
@@ -120,12 +124,14 @@ const useParagraphStep = () => {
   };
 };
 
-const Paragraph1 = () => {
+type NicknameProps = Pick<Props, 'nickname'>;
+
+const Paragraph1 = ({ nickname }: NicknameProps) => {
   return (
     <StaggerWrapper>
       <p>안녕하세요!</p>
       <p>
-        <strong>예진</strong>님의 커리어 DNA 연구소에
+        <strong>{nickname}</strong>님의 커리어 DNA 연구소에
       </p>
       <p>오신 걸 환영해요.</p>
     </StaggerWrapper>
@@ -156,10 +162,10 @@ const Paragraph3 = () => {
   );
 };
 
-const Paragraph4 = () => {
+const Paragraph4 = ({ nickname }: NicknameProps) => {
   return (
     <StaggerWrapper>
-      <p>아! 모든 연구는 예진 님에게</p>
+      <p>아! 모든 연구는 {nickname} 님에게</p>
       <p>
         <strong>익명</strong>으로 비밀리에 전달되니
       </p>

@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { type Meta } from '@storybook/react';
+import { Reorder } from 'framer-motion';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
 import AddMyQuestion from '~/features/survey/addSurveyForm/AddMyQuestion';
-import QuestionWithDndList from '~/features/survey/questionList/QuestionListWithDnd';
+import QuestionWithDnd from '~/features/survey/questionList/QuestionWithDnd';
 import { type QuestionItem } from '~/features/survey/types';
 import useBoolean from '~/hooks/common/useBoolean';
 
@@ -26,9 +27,17 @@ export function Default() {
     toggleShowing();
   };
 
+  const onDeleteCustomQuestion = (id: string) => {
+    setCustomsItems((prev) => prev.filter((item) => item.title !== id));
+  };
+
   return (
     <>
-      <QuestionWithDndList items={customItems} setItems={setCustomsItems} />
+      <Reorder.Group as="ul" values={customItems} onReorder={setCustomsItems}>
+        {customItems.map((item) => (
+          <QuestionWithDnd item={item} key={item.title} onDelete={onDeleteCustomQuestion} />
+        ))}
+      </Reorder.Group>
 
       <AddMyQuestion onAction={toggleShowing} />
       <BottomSheet isShowing={isShowing}>

@@ -9,7 +9,6 @@ import { BODY_1 } from '~/styles/typo';
 const KakaoLoginButton = () => {
   const { data: session } = useSession();
 
-  // TODO: 실 서버 배포 후 POST로 수정 및 엔드포인트 수정 필요
   const getTokenHandler = async () => {
     const token = await post('/oauth/kakao', {
       nickname: session?.user?.name,
