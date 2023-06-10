@@ -14,7 +14,7 @@ interface Reviewer {
 
 interface Feedback {
   feedback_id: number;
-  created_at: Date;
+  created_at: string;
   reviwer: Reviewer;
   is_read: boolean;
 }
