@@ -1,4 +1,3 @@
-import { type ReactNode } from 'react';
 import { css, type Theme } from '@emotion/react';
 
 import EditIcon from '~/components/icons/EditIcon';
@@ -8,10 +7,9 @@ import { DETAIL, HEAD_3_SEMIBOLD } from '~/styles/typo';
 
 interface Props {
   item: QuestionItem;
-  rightElement?: ReactNode;
 }
 
-const Question = ({ item, rightElement }: Props) => {
+const Question = ({ item }: Props) => {
   const { tag, css: typeCss } = getType(item.type, item.form_type);
 
   return (
@@ -23,7 +21,7 @@ const Question = ({ item, rightElement }: Props) => {
         <p css={titleCss}>{item.title}</p>
         <span css={tagCss}>{tag}</span>
       </div>
-      {rightElement}
+      {/* {rightElement} */}
     </li>
   );
 };

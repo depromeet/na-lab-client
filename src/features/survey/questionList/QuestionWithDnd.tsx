@@ -1,9 +1,10 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { animate, Reorder, useDragControls, useMotionValue } from 'framer-motion';
+import { animate, AnimatePresence, m, Reorder, useDragControls, useMotionValue } from 'framer-motion';
 
 import CircleDeleteIcon from '~/components/icons/CircleDeleteIcon';
 import MenuIcon from '~/components/icons/MenuIcon';
+import { defaultScaleVariants } from '~/constants/motions';
 import Question from '~/features/survey/questionList/Question';
 import { type QuestionItem } from '~/features/survey/types';
 
@@ -21,6 +22,7 @@ interface Props {
 }
 
 function QuestionWithDnd({ item, onDelete, isDeleteMode }: Props) {
+  // isDeleteMode 전역으로 변경하기
   const dragControls = useDragControls();
 
   const y = useMotionValue(0);
@@ -39,15 +41,6 @@ function QuestionWithDnd({ item, onDelete, isDeleteMode }: Props) {
     animate(backgroundColor, activeBg);
   };
 
-  // if (isDeleteMode) {
-  //   return (
-  //     <div css={itemContainerCss(isDeleteMode)}>
-  //       <CircleDeleteIcon onClick={() => onDelete(item.title)} />
-  //       <Question item={item} />
-  //     </div>
-  //   );
-  // }
-
   return (
     <Reorder.Item
       as="div"
@@ -60,44 +53,38 @@ function QuestionWithDnd({ item, onDelete, isDeleteMode }: Props) {
       onDragEnd={onDragEnd}
       onDragStart={onDragStart}
     >
-      {isDeleteMode ? (
-        <>
-          {/* animation 추가 */}
-          <CircleDeleteIcon onClick={() => onDelete(item.title)} />
-          <Question item={item} />
-        </>
-      ) : (
-        <Question
-          item={item}
-          rightElement={
-            // isDeleteMode ? (
-            //   <CircleDeleteIcon onClick={() => onDelete(item.title)} />
-            // ) : (
-            <MenuIcon onPointerDown={(e) => dragControls.start(e)} css={menuIconCss} />
-            // )
-          }
-        />
-      )}
+      <AnimatePresence mode="wait">
+        {isDeleteMode && (
+          <m.div css={deleteCss} variants={defaultScaleVariants} initial="initial" animate="animate" exit="exit">
+            <CircleDeleteIcon onClick={() => onDelete(item.title)} />
+          </m.div>
+        )}
+      </AnimatePresence>
+      <Question item={item} />
+      {!isDeleteMode && <MenuIcon onPointerDown={(e) => dragControls.start(e)} css={menuIconCss} />}
     </Reorder.Item>
   );
 }
 
 export default QuestionWithDnd;
 
+const deleteCss = () => css`
+  position: absolute;
+  top: 30px;
+  left: 12px;
+`;
+
 const itemContainerCss = (isDeleteMode: boolean) => css`
   position: relative;
   left: -23px;
+
+  display: flex;
+  justify-content: space-between;
 
   width: calc(100% + 23 * 2px);
   padding: 0.5rem 23px;
 
   transition: padding 0.2s ease-in-out;
-
-  & > svg {
-    position: absolute;
-    top: 30px;
-    left: 12px;
-  }
 
   ${isDeleteMode &&
   css`
@@ -107,4 +94,5 @@ const itemContainerCss = (isDeleteMode: boolean) => css`
 
 const menuIconCss = css`
   touch-action: none;
+  margin-top: 0.5rem;
 `;
