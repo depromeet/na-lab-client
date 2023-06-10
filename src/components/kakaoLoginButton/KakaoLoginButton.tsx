@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { css } from '@emotion/react';
 
+import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import { post } from '~/libs/api';
 import colors from '~/styles/color';
 import { BODY_1 } from '~/styles/typo';
@@ -20,12 +21,12 @@ const KakaoLoginButton = () => {
       email: session?.user?.email,
     });
 
-    localStorage.setItem('na_lab_access_token', token.access_token);
+    localStorage.setItem(LOCAL_STORAGE_KEY.accessToken, token.access_token);
   };
 
   const logOutHandler = () => {
     signOut();
-    localStorage.removeItem('na_lab_access_token');
+    localStorage.removeItem(LOCAL_STORAGE_KEY.accessToken);
   };
 
   useEffect(() => {
@@ -34,7 +35,6 @@ const KakaoLoginButton = () => {
     }
   }, [session]);
 
-  // TODO: 로그아웃 기능은 현재 없음, 추후 필요시 가공 필요
   if (session) {
     return (
       <div css={KakaoLoginWrapper}>
