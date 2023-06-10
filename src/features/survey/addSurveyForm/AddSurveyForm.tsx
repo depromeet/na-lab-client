@@ -19,10 +19,11 @@ import {
 import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
 import { removeSpaceAndEnter } from '~/utils/string';
 
-const TOGGLE_LIST: {
+interface ToggleItem {
   type: QuestionType;
   label: string;
-}[] = [
+}
+const TOGGLE_LIST: [ToggleItem, ToggleItem] = [
   {
     type: 'choice',
     label: '객관식',
