@@ -11,10 +11,10 @@ import { BODY_1 } from '~/styles/typo';
 
 const CreateSurveyPage = () => {
   const router = useInternalRouter();
-  const [isDialogOpen, _, onDialogOpen, onDialogClose] = useBoolean(false);
-  // const [isDeleteMode, toggleIsDeleteMode] = useBoolean(false);
 
   const [isDeleteMode, setIsDeleteMode] = useAtom(surveyDeleteModeAtom);
+
+  const [isDialogOpen, _, onDialogOpen, onDialogClose] = useBoolean(false);
 
   const onStop = () => {
     onDialogClose();

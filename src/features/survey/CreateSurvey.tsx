@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { useAtomValue } from 'jotai';
 
 import CTAButton from '~/components/button/CTAButton';
 import AddQuestionList from '~/features/survey/AdditionalQuestionList';
@@ -10,14 +11,16 @@ import { type QuestionItem, type QuestionRequest } from '~/features/survey/types
 import useBoolean from '~/hooks/common/useBoolean';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import useLocalStorage from '~/hooks/storage/useLocalStorage';
+import { getSurveyCustomQuestionsAtom } from '~/store/surveyCustomQuestions';
 
 const CreateSurvey = () => {
   const router = useInternalRouter();
 
   const [isDialogShowing, toggleDialogShowing] = useBoolean(false);
 
-  const [customItems, setCustomsItems] = useLocalStorage<QuestionItem[]>('customQuestions', []);
   const [_, setCreateSurveyRequest] = useLocalStorage<QuestionRequest[]>('createSurveyRequest', []);
+
+  const customItems = useAtomValue(getSurveyCustomQuestionsAtom);
 
   const onCreateSurvey = () => {
     const data = getCreateSurveyRequestData(customItems);
@@ -35,7 +38,7 @@ const CreateSurvey = () => {
 
       <section css={sectionCss}>
         <h1>추가 질문</h1>
-        <AddQuestionList customItems={customItems} setCustomsItems={setCustomsItems} />
+        <AddQuestionList />
       </section>
 
       <section css={[fixedBottomCss]}>
