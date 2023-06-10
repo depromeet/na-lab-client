@@ -58,7 +58,7 @@ const shadowCss = css`
 const WatsonImage = () => {
   return (
     <svg width="148" height="138" viewBox="0 0 148 138" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="73.9375" cy="74.0801" rx="58" ry="52" fill="url(#paint0_linear_2689_50508)" fill-opacity="0.3" />
+      <ellipse cx="73.9375" cy="74.0801" rx="58" ry="52" fill="url(#paint0_linear_2689_50508)" fillOpacity="0.3" />
       <ellipse
         cx="73.5335"
         cy="66.3245"
@@ -66,11 +66,11 @@ const WatsonImage = () => {
         ry="52"
         transform="rotate(-15 73.5335 66.3245)"
         fill="url(#paint1_linear_2689_50508)"
-        fill-opacity="0.2"
+        fillOpacity="0.2"
       />
       <ellipse cx="70" cy="71" rx="52" ry="43" fill="url(#paint2_linear_2689_50508)" />
       <g filter="url(#filter0_b_2689_50508)">
-        <ellipse cx="70.5" cy="71.5" rx="54.5" ry="46.5" fill="white" fill-opacity="0.05" />
+        <ellipse cx="70.5" cy="71.5" rx="54.5" ry="46.5" fill="white" fillOpacity="0.05" />
       </g>
       <circle cx="23.9375" cy="35.0801" r="2" fill="#A3BCFF" />
       <circle cx="85.9375" cy="20.0801" r="2" fill="#A3BCFF" />
@@ -91,9 +91,9 @@ const WatsonImage = () => {
           width="129"
           height="113"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feGaussianBlur in="BackgroundImageFix" stdDeviation="5" />
           <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_2689_50508" />
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_2689_50508" result="shape" />
@@ -106,8 +106,8 @@ const WatsonImage = () => {
           y2="126.537"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.452452" stop-color="#638FFF" />
-          <stop offset="1" stop-color="#EEFFB4" stop-opacity="0.1" />
+          <stop offset="0.452452" stopColor="#638FFF" />
+          <stop offset="1" stopColor="#EEFFB4" stopOpacity="0.1" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_2689_50508"
@@ -117,9 +117,9 @@ const WatsonImage = () => {
           y2="119.562"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#638FFF" />
-          <stop offset="0.555611" stop-color="#F3E0F9" />
-          <stop offset="1" stop-color="#F0FAD0" stop-opacity="0" />
+          <stop stopColor="#638FFF" />
+          <stop offset="0.555611" stopColor="#F3E0F9" />
+          <stop offset="1" stopColor="#F0FAD0" stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_2689_50508"
@@ -129,9 +129,9 @@ const WatsonImage = () => {
           y2="114.683"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.335773" stop-color="#638FFF" />
-          <stop offset="0.70416" stop-color="#96B5F2" />
-          <stop offset="1" stop-color="#F0FAD0" />
+          <stop offset="0.335773" stopColor="#638FFF" />
+          <stop offset="0.70416" stopColor="#96B5F2" />
+          <stop offset="1" stopColor="#F0FAD0" />
         </linearGradient>
       </defs>
     </svg>
@@ -141,7 +141,7 @@ const WatsonImage = () => {
 const WatsonShadow = () => {
   return (
     <svg width="105" height="19" viewBox="0 0 105 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="52.5" cy="9.5" rx="52.5" ry="9.5" fill="url(#paint0_radial_2117_45831)" fill-opacity="0.5" />
+      <ellipse cx="52.5" cy="9.5" rx="52.5" ry="9.5" fill="url(#paint0_radial_2117_45831)" fillOpacity="0.5" />
       <defs>
         <radialGradient
           id="paint0_radial_2117_45831"
@@ -151,8 +151,8 @@ const WatsonShadow = () => {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(52.5 9.5) rotate(90) scale(9.5 52.5)"
         >
-          <stop stop-color="#A2BCFF" />
-          <stop offset="1" stop-color="#F2F9DA" stop-opacity="0" />
+          <stop stopColor="#A2BCFF" />
+          <stop offset="1" stopColor="#F2F9DA" stopOpacity="0" />
         </radialGradient>
       </defs>
     </svg>

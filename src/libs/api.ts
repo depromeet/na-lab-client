@@ -6,12 +6,11 @@ import { errorMessage } from '~/exceptions/messages';
 import { type ApiErrorScheme } from '~/exceptions/type';
 import { isProd } from '~/utils/common';
 
-const DEVELOPMENT_API_URL = ' https://testapi.nalab.me';
-const PRODUCTION_API_URL = 'https://api.nalab.me';
+const DEVELOPMENT_API_URL = 'https://api.nalab.me/mock';
+const PRODUCTION_API_URL = 'https://api.nalab.me/v1';
 
 const instance = axios.create({
   baseURL: isProd(process.env.NODE_ENV) ? PRODUCTION_API_URL : DEVELOPMENT_API_URL,
-  withCredentials: true,
   timeout: 15000,
 });
 

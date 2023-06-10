@@ -5,50 +5,58 @@ import { css } from '@emotion/react';
 import colors from '~/styles/color';
 import { HEAD_2_BOLD } from '~/styles/typo';
 
-import blueProgrammer from '../../../public/images/blue-programmer.png';
-import greenPm from '../../../public/images/green-pm.png';
-import pinkDesigner from '../../../public/images/pink-designer.png';
-import Purple from '../../../public/images/purple.png';
 import CollaborationBadge from './CollaborationBadge';
 import UnreadBadgeIcon from './UnreadBadgeIcon';
 
+import blueProgrammer from '/public/images/feedback/blue-programmer.png';
+import greenPm from '/public/images/feedback/green-pm.png';
+import pinkDesigner from '/public/images/feedback/pink-designer.png';
+import Purple from '/public/images/feedback/purple.png';
+
 interface Props {
-  isRead?: boolean;
-  feedbackUser?: string;
-  isCollaborate?: boolean;
+  // todo any 수정
+  feedback: any;
 }
 
-const ReceivedFeedbackCard = ({ isRead = false, feedbackUser = '개발자', isCollaborate = true }: Props) => {
+const ReceivedFeedbackCard = ({ feedback }: Props) => {
+  const [role, setRole] = useState('개발자');
   const [roleImage, setRoleImage] = useState(blueProgrammer);
 
+  const { reviwer, is_read } = feedback;
+  const { nickname, collaboration_experience, position } = reviwer;
+
   const changeImageCardByRole = (roleInput: string) => {
-    if (roleInput === '개발자') {
+    if (roleInput === 'developer') {
+      setRole('개발자');
       setRoleImage(blueProgrammer);
-    } else if (roleInput === '디자이너') {
+    } else if (roleInput === 'designer') {
+      setRole('디자이너');
       setRoleImage(pinkDesigner);
-    } else if (roleInput === '기획자') {
+    } else if (roleInput === 'pm') {
+      setRole('기획자');
       setRoleImage(greenPm);
     } else {
+      setRole('지인');
       setRoleImage(Purple);
     }
   };
 
   useEffect(() => {
-    changeImageCardByRole(feedbackUser);
+    changeImageCardByRole(position);
   }, []);
 
   return (
     <section css={containerCss}>
-      {isRead ? null : <UnreadBadgeIcon floatingTop="8px" floatingRight="8px" />}
+      {is_read ? null : <UnreadBadgeIcon floatingTop="8px" floatingRight="8px" />}
 
       <figure css={BodyCss}>
         <Image css={ImageCss} src={roleImage} alt="포지션별 이미지" />
         <div css={[HEAD_2_BOLD, DescCss]}>
-          {feedbackUser}의<br />
+          {role} {nickname}의<br />
           피드백
         </div>
       </figure>
-      <footer css={FooterCss}>{isCollaborate ? <CollaborationBadge variant="gray" /> : null}</footer>
+      <footer css={FooterCss}>{collaboration_experience ? <CollaborationBadge variant="gray" /> : null}</footer>
     </section>
   );
 };
@@ -64,6 +72,7 @@ const containerCss = css`
   min-width: 161px;
   max-width: 161px;
   height: 215px;
+  margin: 3.5px 0;
 
   background-color: ${colors.white};
   border-radius: 8px;
