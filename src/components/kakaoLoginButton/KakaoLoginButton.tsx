@@ -6,14 +6,20 @@ import { post } from '~/libs/api';
 import colors from '~/styles/color';
 import { BODY_1 } from '~/styles/typo';
 
+interface Token {
+  token_type: string;
+  access_token: string;
+}
+
 const KakaoLoginButton = () => {
   const { data: session } = useSession();
 
   const getTokenHandler = async () => {
-    const token = await post('/oauth/kakao', {
+    const token: Token = await post('/oauth/kakao', {
       nickname: session?.user?.name,
       email: session?.user?.email,
     });
+
     localStorage.setItem('na_lab_access_token', token.access_token);
   };
 
