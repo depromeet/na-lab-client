@@ -111,7 +111,8 @@ const sectionCss = css`
 `;
 
 const positionWrapperCss = css`
-  position: fixed;
+  /* NOTE: flicking 기본 스타일 오버라이드 */
+  position: fixed !important;
   left: 0;
 
   overflow-x: hidden;
