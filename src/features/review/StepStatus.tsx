@@ -1,6 +1,6 @@
 import { css, type Theme, useTheme } from '@emotion/react';
 
-import { BODY_2_BOLD } from '~/styles/typo';
+import { BODY_2_REGULAR } from '~/styles/typo';
 
 interface Props {
   /**
@@ -89,7 +89,7 @@ const stepBarCss = (theme: Theme, widthPercentage: number) => css`
 `;
 
 const statusCss = (theme: Theme) => css`
-  ${BODY_2_BOLD}
+  ${BODY_2_REGULAR}
 
   position: absolute;
   top: 14px;
