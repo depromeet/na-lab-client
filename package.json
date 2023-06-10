@@ -49,7 +49,6 @@
     "mixpanel-browser": "^2.46.0",
     "next": "13.3.0",
     "next-auth": "^4.22.1",
-    "next-images": "^1.8.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hotjar": "^6.1.0"
