@@ -1,6 +1,8 @@
 import { css, type Theme } from '@emotion/react';
+import { useAtomValue } from 'jotai';
 
 import PlusIcon from '~/components/icons/PlusIcon';
+import { surveyDeleteModeAtom } from '~/store/surveyDeleteMode';
 import { HEAD_3_SEMIBOLD } from '~/styles/typo';
 
 interface Props {
@@ -8,8 +10,10 @@ interface Props {
 }
 
 const AddMyQuestion = ({ onAction }: Props) => {
+  const isDeleteMode = useAtomValue(surveyDeleteModeAtom);
+
   return (
-    <button type="button" css={containerCss} onClick={onAction}>
+    <button disabled={isDeleteMode} type="button" css={(theme) => containerCss(theme)} onClick={onAction}>
       <div className="icon-container" css={actionPlusCss}>
         <PlusIcon />
       </div>
@@ -34,6 +38,7 @@ const actionPlusCss = (theme: Theme) => css`
 
 const containerCss = (theme: Theme) => css`
   cursor: pointer;
+  user-select: none;
 
   display: flex;
   flex-direction: column;
@@ -59,6 +64,12 @@ const containerCss = (theme: Theme) => css`
       transition: background 0.2s ease-out;
       transition-delay: 0.1s;
     }
+  }
+
+  &:disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 `;
 

@@ -43,8 +43,8 @@ const CreateSurvey = () => {
         <AddQuestionList />
       </section>
 
-      <section css={[fixedBottomCss, isDeleteMode && opacityCss]}>
-        <CTAButton onClick={toggleDialogShowing} color="blue">
+      <section css={fixedBottomCss}>
+        <CTAButton onClick={toggleDialogShowing} color="blue" disabled={isDeleteMode}>
           이대로 생성하기
         </CTAButton>
       </section>
@@ -62,10 +62,6 @@ const sectionCss = css`
   & > h1 {
     margin-bottom: 0.75rem;
   }
-`;
-
-const opacityCss = css`
-  opacity: 0.5;
 `;
 
 const getCreateSurveyRequestData = (customItems: QuestionItem[]): QuestionRequest[] => {
