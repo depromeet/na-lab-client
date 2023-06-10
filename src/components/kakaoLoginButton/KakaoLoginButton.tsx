@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { css } from '@emotion/react';
 
-import { get } from '~/libs/api';
+import { post } from '~/libs/api';
 import colors from '~/styles/color';
 import { BODY_1 } from '~/styles/typo';
 
@@ -11,7 +11,10 @@ const KakaoLoginButton = () => {
 
   // TODO: 실 서버 배포 후 POST로 수정 및 엔드포인트 수정 필요
   const getTokenHandler = async () => {
-    const token = await get('/oauth/kakao');
+    const token = await post('/oauth/kakao', {
+      nickname: session?.user?.name,
+      email: session?.user?.email,
+    });
     localStorage.setItem('na_lab_access_token', token.access_token);
   };
 
