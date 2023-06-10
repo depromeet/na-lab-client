@@ -102,8 +102,6 @@ const Position = ({ prev, next, position, setPosition }: Props) => {
 export default Position;
 
 const sectionCss = css`
-  position: relative;
-
   display: flex;
   flex-direction: column;
   flex-grow: 1;
