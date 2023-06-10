@@ -119,14 +119,14 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
         {isChoice && (
           <ChoiceForm maxSelect={maxSelect} setMaxSelect={setMaxSelect} inputs={inputs} setInputs={setInputs} />
         )}
-
-        <article css={[fixedBottomCss, bottomCss]}>
-          <XCircleButton onClick={onClose} />
-          <Button onClick={onComplete} disabled={isButtonDisabled} css={submitButtonCss}>
-            완료
-          </Button>
-        </article>
       </section>
+
+      <article css={[fixedBottomCss, bottomCss]}>
+        <XCircleButton onClick={onClose} />
+        <Button onClick={onComplete} disabled={isButtonDisabled} css={submitButtonCss}>
+          완료
+        </Button>
+      </article>
     </article>
   );
 };
@@ -136,6 +136,7 @@ export default AddSurveyForm;
 const bottomSectionCss = css`
   overflow-y: auto;
   width: 100%;
+  padding-bottom: 180px;
 `;
 
 const bottomCss = css`
@@ -157,7 +158,6 @@ const containerCss = css`
   width: 100%;
   height: calc(100vh - 12px);
   padding: 0 16px;
-  padding-bottom: 104px;
 
   text-align: center;
 `;
