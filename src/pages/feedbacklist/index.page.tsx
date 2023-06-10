@@ -35,8 +35,8 @@ export default function FeedbackList() {
 
     feedbackList.feedbacks.forEach((feedback: Feedback) => {
       const date = new Date(feedback.created_at);
-      const year = date.getFullYear();
-      const month = date.getMonth() + 1;
+      const year = String(date.getFullYear());
+      const month = String(date.getMonth() + 1);
 
       if (!feedbacksByYearAndMonthList[year]) {
         feedbacksByYearAndMonthList[year] = {};
