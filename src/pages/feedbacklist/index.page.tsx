@@ -19,15 +19,20 @@ interface Feedback {
   is_read: boolean;
 }
 
+interface FeedbackList {
+  feedbacks: Feedback[];
+}
+
 export default function FeedbackList() {
   const [feedbacksByYearAndMonth, setFeedbacksByYearAndMonth] = useState(undefined);
   const [feedbackCount, setFeedbackCount] = useState(0);
 
   const getFeedbackList = async () => {
-    const feedbackList = await get('/reviewers?survey-id=1');
+    const feedbackList: FeedbackList = await get('/reviewers?survey-id=1');
     setFeedbackCount(feedbackList.feedbacks.length);
 
     const feedbacksByYearAndMonthList = {};
+
     feedbackList.feedbacks.forEach((feedback: Feedback) => {
       const date = new Date(feedback.created_at);
       const year = date.getFullYear();
