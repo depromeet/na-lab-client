@@ -49,6 +49,7 @@ const QuestionWithDnd = ({ item, onDelete }: Props) => {
       value={item}
       drag="y"
       dragControls={dragControls}
+      dragListener={false}
       style={{ boxShadow, y, backgroundColor }}
       css={itemContainerCss(isDeleteMode)}
       onDragEnd={onDragEnd}
