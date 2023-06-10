@@ -34,7 +34,7 @@ const PositionCard = ({
     <article css={articleCss}>
       <picture css={pictureCss}>
         <source srcSet={imgSrc.webp} type="image/webp" />
-        <Image src={imgSrc.default} alt={title} quality={100} fill />
+        <Image src={imgSrc.default} alt={title} fill />
       </picture>
       <div css={(theme) => contentWrapperCss(theme, checkedBackgroundColor)}>
         <h2 css={HEAD_1}>{title}</h2>
