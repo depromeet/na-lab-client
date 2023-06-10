@@ -6,15 +6,29 @@ import { get } from '~/libs/api';
 import colors from '~/styles/color';
 import { BODY_1, HEAD_1 } from '~/styles/typo';
 
+interface Reviewer {
+  collaboration_experience: boolean;
+  nickname: string;
+  position: string;
+}
+
+interface Feedback {
+  feedback_id: number;
+  created_at: Date;
+  reviwer: Reviewer;
+  is_read: boolean;
+}
+
 export default function FeedbackList() {
-  // todo type 지정
   const [feedbacksByYearAndMonth, setFeedbacksByYearAndMonth] = useState(undefined);
+  const [feedbackCount, setFeedbackCount] = useState(0);
 
   const getFeedbackList = async () => {
     const feedbackList = await get('/reviewers?survey-id=1');
+    setFeedbackCount(feedbackList.feedbacks.length);
 
     const feedbacksByYearAndMonthList = {};
-    feedbackList.feedbacks.forEach((feedback: any) => {
+    feedbackList.feedbacks.forEach((feedback: Feedback) => {
       const date = new Date(feedback.created_at);
       const year = date.getFullYear();
       const month = date.getMonth() + 1;
@@ -38,15 +52,15 @@ export default function FeedbackList() {
 
   const renderReceivedFeedbackCards = () => {
     const now = new Date();
-    const result = [];
+    const feedbackList = [];
     for (const year in feedbacksByYearAndMonth) {
       for (const month in feedbacksByYearAndMonth[year]) {
         const feedbacks = feedbacksByYearAndMonth[year][month];
-        const feedbackItems = feedbacks.map((feedback: any) => {
+        const feedbackItems = feedbacks.map((feedback: Feedback) => {
           return <ReceivedFeedbackCard key={feedback.feedback_id} feedback={feedback} />;
         });
 
-        result.push(
+        feedbackList.push(
           <div key={`${year}-${month}`}>
             <span css={monthTitleCss}>
               {now.getFullYear() === Number(year) ? `${month}월` : `${year}년 ${month}월`}
@@ -57,13 +71,13 @@ export default function FeedbackList() {
       }
     }
 
-    return result;
+    return feedbackList;
   };
 
   return (
     <main css={feedbackListCss}>
       <header css={titleCss}>
-        받은 피드백 <span css={titleNumberCss}>0</span>{' '}
+        받은 피드백 <span css={titleNumberCss}>{feedbackCount}</span>{' '}
       </header>
       <article css={feedbackPerMonthCss}>{renderReceivedFeedbackCards()}</article>
     </main>

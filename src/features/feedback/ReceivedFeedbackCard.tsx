@@ -13,10 +13,24 @@ import greenPm from '/public/images/feedback/green-pm.png';
 import pinkDesigner from '/public/images/feedback/pink-designer.png';
 import Purple from '/public/images/feedback/purple.png';
 
-interface Props {
-  // todo any 수정
-  feedback: any;
+interface Reviewer {
+  collaboration_experience: boolean;
+  nickname: string;
+  position: string;
 }
+
+interface Feedback {
+  feedback_id: number;
+  created_at: Date;
+  reviwer: Reviewer;
+  is_read: boolean;
+}
+
+interface Props {
+  feedback: Feedback;
+}
+
+type Position = 'developer' | 'designer' | 'product-manager' | 'other';
 
 const ReceivedFeedbackCard = ({ feedback }: Props) => {
   const [role, setRole] = useState('개발자');
@@ -26,13 +40,13 @@ const ReceivedFeedbackCard = ({ feedback }: Props) => {
   const { nickname, collaboration_experience, position } = reviwer;
 
   const changeImageCardByRole = (roleInput: string) => {
-    if (roleInput === 'developer') {
+    if (roleInput === ('developer' as Position)) {
       setRole('개발자');
       setRoleImage(blueProgrammer);
-    } else if (roleInput === 'designer') {
+    } else if (roleInput === ('designer' as Position)) {
       setRole('디자이너');
       setRoleImage(pinkDesigner);
-    } else if (roleInput === 'pm') {
+    } else if (roleInput === ('product-manager' as Position)) {
       setRole('기획자');
       setRoleImage(greenPm);
     } else {
