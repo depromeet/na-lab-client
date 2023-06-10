@@ -1,8 +1,9 @@
 import Question from '~/features/survey/questionList/Question';
-import { type QuestionItem } from '~/features/survey/types';
+import { type BasicQuestionItem, type QuestionItem } from '~/features/survey/types';
 
 interface Props {
-  items: QuestionItem[];
+  // TODO : 타입 수정
+  items: QuestionItem[] | BasicQuestionItem[];
 }
 const QuestionList = ({ items }: Props) => {
   return (
