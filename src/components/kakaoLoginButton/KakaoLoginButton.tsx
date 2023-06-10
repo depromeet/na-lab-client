@@ -33,6 +33,8 @@ const KakaoLoginButton = () => {
     if (session) {
       getTokenHandler();
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
   if (session) {
@@ -56,26 +58,26 @@ const KakaoLoginButton = () => {
 };
 
 const KakaoLoginWrapper = css`
+  ${BODY_1};
+
   line-height: 24px;
   color: ${colors.gray_400};
+
+  & * {
+    ${BODY_1};
+
+    color: ${colors.gray_400};
+  }
+
+  & button {
+    text-decoration: underline;
+  }
 `;
 
 const KakaoLoginButtonCss = css`
   cursor: pointer;
-
-  overflow: visible;
-
   margin-left: 5px;
-  padding: 0;
-  ${BODY_1}
-
-  color: ${colors.gray_400};
-  text-decoration: underline;
-
   background: inherit;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
 `;
 
 export default KakaoLoginButton;
