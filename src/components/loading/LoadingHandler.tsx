@@ -1,4 +1,4 @@
-import { type ComponentProps, type ReactNode } from 'react';
+import { type ComponentProps, Fragment, type ReactNode, useId } from 'react';
 import { AnimatePresence } from 'framer-motion';
 
 interface Props extends ComponentProps<typeof AnimatePresence> {
@@ -23,9 +23,12 @@ interface Props extends ComponentProps<typeof AnimatePresence> {
  * ```
  */
 const LoadingHandler = ({ children, isLoading, fallback, mode = 'wait', ...rest }: Props) => {
+  const fallbackId = useId();
+  const childrenId = useId();
+
   return (
     <AnimatePresence mode={mode} {...rest}>
-      {isLoading ? fallback : children}
+      {isLoading ? <Fragment key={fallbackId}>{fallback}</Fragment> : <Fragment key={childrenId}>{children}</Fragment>}
     </AnimatePresence>
   );
 };
