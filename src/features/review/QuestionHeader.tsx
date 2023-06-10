@@ -36,7 +36,7 @@ const headerCss = (theme: Theme) => css`
 
   width: 100%;
   padding-top: 34px;
-  padding-bottom: 18px;
+  padding-bottom: 14px;
 
   background-color: rgb(255 255 255 / 50%);
   backdrop-filter: blur(5px);
