@@ -1,12 +1,14 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { animate, AnimatePresence, m, Reorder, useDragControls, useMotionValue } from 'framer-motion';
+import { useAtomValue } from 'jotai';
 
 import CircleDeleteIcon from '~/components/icons/CircleDeleteIcon';
 import MenuIcon from '~/components/icons/MenuIcon';
 import { defaultScaleVariants } from '~/constants/motions';
 import Question from '~/features/survey/questionList/Question';
 import { type QuestionItem } from '~/features/survey/types';
+import { surveyDeleteModeAtom } from '~/store/surveyDeleteMode';
 
 const inactiveShadow = '0px 0px 0px rgba(255, 255, 255, 0.8)';
 const inactiveBackground = '#fff';
@@ -18,11 +20,12 @@ interface Props {
   item: QuestionItem;
 
   onDelete: (title: string) => void;
-  isDeleteMode: boolean;
 }
 
-function QuestionWithDnd({ item, onDelete, isDeleteMode }: Props) {
+function QuestionWithDnd({ item, onDelete }: Props) {
   // isDeleteMode 전역으로 변경하기
+
+  const isDeleteMode = useAtomValue(surveyDeleteModeAtom);
   const dragControls = useDragControls();
 
   const y = useMotionValue(0);

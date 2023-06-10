@@ -11,11 +11,7 @@ import useBoolean from '~/hooks/common/useBoolean';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import useLocalStorage from '~/hooks/storage/useLocalStorage';
 
-interface Props {
-  isDeleteMode: boolean;
-}
-
-const CreateSurvey = ({ isDeleteMode }: Props) => {
+const CreateSurvey = () => {
   const router = useInternalRouter();
 
   const [isDialogShowing, toggleDialogShowing] = useBoolean(false);
@@ -39,7 +35,7 @@ const CreateSurvey = ({ isDeleteMode }: Props) => {
 
       <section css={sectionCss}>
         <h1>추가 질문</h1>
-        <AddQuestionList customItems={customItems} setCustomsItems={setCustomsItems} isDeleteMode={isDeleteMode} />
+        <AddQuestionList customItems={customItems} setCustomsItems={setCustomsItems} />
       </section>
 
       <section css={[fixedBottomCss]}>

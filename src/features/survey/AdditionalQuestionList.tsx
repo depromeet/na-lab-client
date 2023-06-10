@@ -12,11 +12,9 @@ import useBoolean from '~/hooks/common/useBoolean';
 interface Props {
   customItems: QuestionItem[];
   setCustomsItems: Dispatch<SetStateAction<QuestionItem[]>>;
-
-  isDeleteMode: boolean;
 }
 
-const AdditionalQuestionList = ({ customItems, setCustomsItems, isDeleteMode }: Props) => {
+const AdditionalQuestionList = ({ customItems, setCustomsItems }: Props) => {
   const [isShowing, toggleShowing] = useBoolean(false);
   const { fireToast } = useToast();
 
@@ -43,7 +41,7 @@ const AdditionalQuestionList = ({ customItems, setCustomsItems, isDeleteMode }: 
     <>
       <Reorder.Group data-testid="dnd-component" as="ul" values={customItems} onReorder={setCustomsItems}>
         {customItems.map((item) => (
-          <QuestionWithDnd item={item} key={item.title} isDeleteMode={isDeleteMode} onDelete={onDeleteCustomQuestion} />
+          <QuestionWithDnd item={item} key={item.title} onDelete={onDeleteCustomQuestion} />
         ))}
       </Reorder.Group>
 
