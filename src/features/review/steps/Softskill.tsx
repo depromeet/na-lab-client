@@ -79,6 +79,7 @@ const sectionCss = css`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  padding-top: 20px;
 `;
 
 // TODO: 순서에 따라 색상 부여
