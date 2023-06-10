@@ -22,7 +22,9 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
 
   const optionMinCount = isMultiChoice ? basicCount + 1 : OPTION_MIN_COUNT;
   const onInputChange = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > OPTION_MAX_LENGTH) {
+    const isCharCountExceed = e.target.value.length > OPTION_MAX_LENGTH;
+
+    if (isCharCountExceed) {
       fireToast({
         content: (
           <>
@@ -39,12 +41,15 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
     const newInputs = [...inputs];
     newInputs[index] = e.target.value;
 
-    if (index === inputs.length - 1) {
-      if (inputs.length >= OPTION_MAX_COUNT) {
-        setInputs(() => [...newInputs]);
+    const isLastInput = index === inputs.length - 1;
+    const isMaxInputState = inputs.length >= OPTION_MAX_COUNT;
 
-        return;
-      }
+    if (isLastInput && isMaxInputState) {
+      setInputs(() => [...newInputs]);
+
+      return;
+    }
+    if (isLastInput) {
       setInputs(() => [...newInputs, '']);
       setFocusInput(inputs.length - 1);
 
@@ -52,8 +57,9 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
     }
 
     // 마지막에서 두번째 input이 비어있을 때, 마지막 input이 비어있으면 마지막 input을 삭제한다.
-    const isLastInputDeleteState = index === inputs.length - 2 && index >= optionMinCount && e.target.value === '';
-    if (isLastInputDeleteState) {
+    const isEmptyInput = e.target.value === '';
+    const isLastInputDeleteState = index === inputs.length - 2 && index >= optionMinCount;
+    if (isEmptyInput && isLastInputDeleteState) {
       setInputs((prev) => [...prev.slice(0, -2), '']);
 
       return;
@@ -82,20 +88,17 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
     <div css={containerCss}>
       {inputs.map((input, index) => {
         return (
-          <>
-            <SelectionTextfield
-              key={index}
-              value={input}
-              onChange={(e) => onInputChange(index)(e)}
-              onFocus={() => setFocusInput(index)}
-              onBlur={() => setFocusInput(null)}
-              onDelete={() => onItemDelete(index)}
-              isFocused={focusInput === index}
-              isLast={inputs.length < OPTION_MAX_COUNT && index === inputs.length - 1}
-              isEssential={isMultiChoice && index < basicCount}
-            />
-            <div>{index + 1}</div>
-          </>
+          <SelectionTextfield
+            key={index}
+            value={input}
+            onChange={(e) => onInputChange(index)(e)}
+            onFocus={() => setFocusInput(index)}
+            onBlur={() => setFocusInput(null)}
+            onDelete={() => onItemDelete(index)}
+            isFocused={focusInput === index}
+            isLast={inputs.length < OPTION_MAX_COUNT && index === inputs.length - 1}
+            isEssential={isMultiChoice && index < basicCount}
+          />
         );
       })}
     </div>
