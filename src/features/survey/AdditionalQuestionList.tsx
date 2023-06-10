@@ -1,6 +1,5 @@
-import { type Dispatch } from 'react';
 import { Reorder } from 'framer-motion';
-import { type SetStateAction } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 import useToast from '~/components/toast/useToast';
 import AddMyQuestion from '~/features/survey/addSurveyForm/AddMyQuestion';
@@ -8,18 +7,24 @@ import QuestionWithDnd from '~/features/survey/questionList/QuestionWithDnd';
 import SurveyFormBottomSheet from '~/features/survey/SurveyFormBottomSheet';
 import { type QuestionItem } from '~/features/survey/types';
 import useBoolean from '~/hooks/common/useBoolean';
+import {
+  addSurveyCustomQuestionAtom,
+  deleteSurveyCustomQuestionAtom,
+  getSurveyCustomQuestionsAtom,
+  reorderSurveyCustomQuestionsAtom,
+} from '~/store/surveyCustomQuestions';
 
-interface Props {
-  customItems: QuestionItem[];
-  setCustomsItems: Dispatch<SetStateAction<QuestionItem[]>>;
-}
+const AdditionalQuestionList = () => {
+  const customItems = useAtomValue(getSurveyCustomQuestionsAtom);
+  const addCustomQuestion = useSetAtom(addSurveyCustomQuestionAtom);
+  const deleteCustomQuestion = useSetAtom(deleteSurveyCustomQuestionAtom);
+  const reorderCustomQuestions = useSetAtom(reorderSurveyCustomQuestionsAtom);
 
-const AdditionalQuestionList = ({ customItems, setCustomsItems }: Props) => {
   const [isShowing, toggleShowing] = useBoolean(false);
   const { fireToast } = useToast();
 
   const addNewQuestion = (question: QuestionItem) => {
-    setCustomsItems((prev) => [...prev, question]);
+    addCustomQuestion(question);
     toggleShowing();
   };
 
@@ -33,13 +38,13 @@ const AdditionalQuestionList = ({ customItems, setCustomsItems }: Props) => {
     toggleShowing();
   };
 
-  const onDeleteCustomQuestion = (id: string) => {
-    setCustomsItems((prev) => prev.filter((item) => item.title !== id));
+  const onDeleteCustomQuestion = (questionTitle: string) => {
+    deleteCustomQuestion(questionTitle);
   };
 
   return (
     <>
-      <Reorder.Group data-testid="dnd-component" as="ul" values={customItems} onReorder={setCustomsItems}>
+      <Reorder.Group data-testid="dnd-component" as="ul" values={customItems} onReorder={reorderCustomQuestions}>
         {customItems.map((item) => (
           <QuestionWithDnd item={item} key={item.title} onDelete={onDeleteCustomQuestion} />
         ))}

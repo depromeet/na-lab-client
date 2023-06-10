@@ -1,4 +1,3 @@
-import React from 'react';
 import { css } from '@emotion/react';
 import { animate, AnimatePresence, m, Reorder, useDragControls, useMotionValue } from 'framer-motion';
 import { useAtomValue } from 'jotai';
@@ -22,10 +21,9 @@ interface Props {
   onDelete: (title: string) => void;
 }
 
-function QuestionWithDnd({ item, onDelete }: Props) {
-  // isDeleteMode 전역으로 변경하기
-
+const QuestionWithDnd = ({ item, onDelete }: Props) => {
   const isDeleteMode = useAtomValue(surveyDeleteModeAtom);
+
   const dragControls = useDragControls();
 
   const y = useMotionValue(0);
@@ -63,11 +61,13 @@ function QuestionWithDnd({ item, onDelete }: Props) {
           </m.div>
         )}
       </AnimatePresence>
+
       <Question item={item} />
+
       {!isDeleteMode && <MenuIcon onPointerDown={(e) => dragControls.start(e)} css={menuIconCss} />}
     </Reorder.Item>
   );
-}
+};
 
 export default QuestionWithDnd;
 
