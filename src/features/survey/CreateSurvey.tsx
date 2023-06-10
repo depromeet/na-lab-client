@@ -7,7 +7,7 @@ import { REQUEST_BASIC_QUESTION_LIST, VIEW_BASIC_QUESTION_LIST } from '~/feature
 import CreateDialog from '~/features/survey/CreateDialog';
 import QuestionList from '~/features/survey/questionList/QuestionList';
 import { fixedBottomCss } from '~/features/survey/styles';
-import { type QuestionItem, type QuestionRequest } from '~/features/survey/types';
+import { type CustomQuestionItem, type QuestionRequest } from '~/features/survey/types';
 import useBoolean from '~/hooks/common/useBoolean';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import useLocalStorage from '~/hooks/storage/useLocalStorage';
@@ -64,7 +64,7 @@ const sectionCss = css`
   }
 `;
 
-const getCreateSurveyRequestData = (customItems: QuestionItem[]): QuestionRequest[] => {
+const getCreateSurveyRequestData = (customItems: CustomQuestionItem[]): QuestionRequest[] => {
   const basicQuestions = REQUEST_BASIC_QUESTION_LIST;
 
   const customQuestions = customItems.map((item, idx) => ({

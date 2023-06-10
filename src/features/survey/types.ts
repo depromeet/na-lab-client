@@ -55,7 +55,4 @@ export interface ShortQuestionItem {
 
 export type CustomQuestionItem = ChoiceQuestionItem | ShortQuestionItem;
 
-// TODO : 삭제
-export type QuestionItem = ChoiceQuestionItem | ShortQuestionItem;
-
 export type QuestionRequest = ChoiceQuestionRequest | ShortQuestionRequest;

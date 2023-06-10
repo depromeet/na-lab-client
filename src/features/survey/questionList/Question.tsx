@@ -3,8 +3,8 @@ import { css, type Theme } from '@emotion/react';
 import EditIcon from '~/components/icons/EditIcon';
 import {
   type BasicQuestionItem,
+  type CustomQuestionItem,
   type QuestionFormType,
-  type QuestionItem,
   type QuestionType,
 } from '~/features/survey/types';
 import colors from '~/styles/color';
@@ -12,7 +12,7 @@ import { DETAIL, HEAD_3_SEMIBOLD } from '~/styles/typo';
 
 interface Props {
   // TODO : 타입 수정
-  item: QuestionItem | BasicQuestionItem;
+  item: CustomQuestionItem | BasicQuestionItem;
 }
 
 const Question = ({ item }: Props) => {

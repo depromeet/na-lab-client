@@ -12,7 +12,7 @@ import { DEFAULT_OPTION_LENGTH, QUESTION_MAX_LENGTH } from '~/features/survey/co
 import { fixedBottomCss } from '~/features/survey/styles';
 import {
   type ChoiceQuestionItem,
-  type QuestionItem,
+  type CustomQuestionItem,
   type QuestionType,
   type ShortQuestionItem,
 } from '~/features/survey/types';
@@ -35,9 +35,10 @@ const TOGGLE_LIST: {
 
 interface Props {
   onClose: () => void;
-  onAction: (question: QuestionItem) => void;
+  onAction: (question: CustomQuestionItem) => void;
 }
 
+// TODO : CustomQuestionAddForm으로 이름 변경
 const AddSurveyForm = ({ onClose, onAction }: Props) => {
   const { fireToast } = useToast();
 
