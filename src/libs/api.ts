@@ -7,7 +7,6 @@ import { errorMessage } from '~/exceptions/messages';
 import { type ApiErrorScheme } from '~/exceptions/type';
 import { isProd } from '~/utils/common';
 
-
 const DEVELOPMENT_API_URL = 'https://api.nalab.me/v1';
 const PRODUCTION_API_URL = 'https://api.nalab.me/v1';
 
