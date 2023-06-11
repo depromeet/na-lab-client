@@ -10,7 +10,7 @@ import theme from '~/styles/theme';
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
 import PositionCard from './position/PositionCard';
-import { type Position as PositionType, type StepProps } from './type';
+import { type StepProps } from './type';
 
 import '@egjs/react-flicking/dist/flicking.css';
 
@@ -20,7 +20,7 @@ const IMAGE_BASE_URL = '/images/review/position';
 
 const positionCards: PositionCardProps[] = [
   {
-    value: 'product-manager',
+    value: 'pm',
     title: 'PM',
     subTitle: '기획자',
     imgSrc: { default: `${IMAGE_BASE_URL}/pm.png`, webp: `${IMAGE_BASE_URL}/pm.webp` },
@@ -36,7 +36,7 @@ const positionCards: PositionCardProps[] = [
     checkedBackgroundColor: theme.colors.pink,
   },
   {
-    value: 'programmer',
+    value: 'developer',
     title: 'Developer',
     subTitle: '개발자',
     imgSrc: { default: `${IMAGE_BASE_URL}/developer.png`, webp: `${IMAGE_BASE_URL}/developer.webp` },
@@ -44,7 +44,7 @@ const positionCards: PositionCardProps[] = [
     checkedBackgroundColor: theme.colors.skyblue,
   },
   {
-    value: 'other',
+    value: 'others',
     title: 'Others',
     subTitle: '지인',
     imgSrc: { default: `${IMAGE_BASE_URL}/others.png`, webp: `${IMAGE_BASE_URL}/others.webp` },
@@ -54,8 +54,8 @@ const positionCards: PositionCardProps[] = [
 ];
 
 interface Props extends StepProps {
-  position: PositionType | null;
-  setPosition: Dispatch<SetStateAction<PositionType | null>>;
+  position: ReviewerPosition | null;
+  setPosition: Dispatch<SetStateAction<ReviewerPosition | null>>;
 }
 
 const Position = ({ prev, next, position, setPosition }: Props) => {
@@ -68,7 +68,7 @@ const Position = ({ prev, next, position, setPosition }: Props) => {
       return;
     }
 
-    const currentPosition = e.target.value as PositionType;
+    const currentPosition = e.target.value as ReviewerPosition;
     setPosition(currentPosition);
   };
 

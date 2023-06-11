@@ -1,4 +1,4 @@
-type ReviewerPosition = 'designer' | 'developer' | 'product-manager' | 'others';
+type ReviewerPosition = 'designer' | 'developer' | 'pm' | 'others';
 
 /**
  * reviewer_id 없음
