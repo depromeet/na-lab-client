@@ -65,6 +65,7 @@ const Softskill = ({ prev, next, selectedSoftskills, setSelectedSoftskills }: Pr
             graphicName={softskill}
             name={softskill.replace('_', ' ')}
             onChange={onChange}
+            checked={selectedSoftskills.includes(softskill)}
           />
         ))}
       </section>
