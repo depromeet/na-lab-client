@@ -1,12 +1,13 @@
-import axios, { type AxiosError, type AxiosResponse } from 'axios';
+import axios, { type AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 
+import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import ApiException from '~/exceptions/ApiException';
 import CustomException from '~/exceptions/CustomException';
 import { errorMessage } from '~/exceptions/messages';
 import { type ApiErrorScheme } from '~/exceptions/type';
 import { isProd } from '~/utils/common';
 
-const DEVELOPMENT_API_URL = 'https://api.nalab.me/mock';
+const DEVELOPMENT_API_URL = 'https://api.nalab.me/v1';
 const PRODUCTION_API_URL = 'https://api.nalab.me/v1';
 
 const instance = axios.create({
@@ -14,7 +15,17 @@ const instance = axios.create({
   timeout: 15000,
 });
 
-// TODO: 로그인 방법에 따라 헤더 변경 함수 필요할 수 있음
+const interceptorRequestFulfilled = (config: InternalAxiosRequestConfig) => {
+  const accessToken = localStorage.getItem(LOCAL_STORAGE_KEY.accessToken);
+  if (!config.headers) return config;
+  if (!accessToken) return config;
+
+  config.headers.Authorization = `Bearer ${accessToken}`;
+
+  return config;
+};
+
+instance.interceptors.request.use(interceptorRequestFulfilled);
 
 // Response interceptor
 const interceptorResponseFulfilled = (res: AxiosResponse) => {

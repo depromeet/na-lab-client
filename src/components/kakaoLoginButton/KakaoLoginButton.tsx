@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { css } from '@emotion/react';
 
+import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import { post } from '~/libs/api';
 import colors from '~/styles/color';
 import { BODY_1 } from '~/styles/typo';
@@ -20,21 +21,22 @@ const KakaoLoginButton = () => {
       email: session?.user?.email,
     });
 
-    localStorage.setItem('na_lab_access_token', token.access_token);
+    localStorage.setItem(LOCAL_STORAGE_KEY.accessToken, token.access_token);
   };
 
   const logOutHandler = () => {
     signOut();
-    localStorage.removeItem('na_lab_access_token');
+    localStorage.removeItem(LOCAL_STORAGE_KEY.accessToken);
   };
 
   useEffect(() => {
     if (session) {
       getTokenHandler();
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
-  // TODO: 로그아웃 기능은 현재 없음, 추후 필요시 가공 필요
   if (session) {
     return (
       <div css={KakaoLoginWrapper}>
@@ -56,26 +58,26 @@ const KakaoLoginButton = () => {
 };
 
 const KakaoLoginWrapper = css`
+  ${BODY_1};
+
   line-height: 24px;
   color: ${colors.gray_400};
+
+  & * {
+    ${BODY_1};
+
+    color: ${colors.gray_400};
+  }
+
+  & button {
+    text-decoration: underline;
+  }
 `;
 
 const KakaoLoginButtonCss = css`
   cursor: pointer;
-
-  overflow: visible;
-
   margin-left: 5px;
-  padding: 0;
-  ${BODY_1}
-
-  color: ${colors.gray_400};
-  text-decoration: underline;
-
   background: inherit;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
 `;
 
 export default KakaoLoginButton;
