@@ -104,7 +104,7 @@ const isCoworkedCss = css`
 `;
 
 const notCoworkedCss = css`
-  background-image: linear-gradient(#fafbff, #fafbff), linear-gradient(180deg, #1d2942 0.2%, #9eb9ff 100%);
+  background-image: linear-gradient(#fafbff, #fafbff), linear-gradient(0deg, #1d2942 0.2%, #9eb9ff 100%);
   box-shadow: 0 0 20.524px -14.8229px #415e9c;
 `;
 
