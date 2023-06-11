@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInVariants } from '~/constants/motions';
+import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import { type DefaultQuestion } from '~/hooks/api/surveys/useGetSurveyById';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
@@ -78,7 +79,10 @@ const sectionCss = css`
 type UseMessageProps = Pick<Props, 'questionId' | 'setReplies'>;
 
 const useMessage = ({ questionId, setReplies }: UseMessageProps) => {
-  const [messages, setMessage] = useLocalStorage<MessageType[]>(`nlasq ${questionId}`, []);
+  const [messages, setMessage] = useLocalStorage<MessageType[]>(
+    `${LOCAL_STORAGE_KEY.reviewShortQuestionMessages} ${questionId}`,
+    [],
+  );
 
   const onTextSubmit = (text: string) => {
     setReplies((prev) => [...prev, text]);

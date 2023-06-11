@@ -66,6 +66,7 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
           />
         ),
       ),
+      // TODO: post 이후 localStoreage short message 비우기
       <Last key="last" onSubmit={() => console.warn(questionAnswers)} />,
     ],
   });
