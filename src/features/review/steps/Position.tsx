@@ -76,7 +76,13 @@ const Position = ({ prev, next, position, setPosition }: Props) => {
     <>
       <QuestionHeader title="당신의 포지션을 알려주세요." />
       <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-        <Flicking align="center" circular plugins={plugins} css={positionWrapperCss}>
+        <Flicking
+          align="center"
+          circular
+          plugins={plugins}
+          css={positionWrapperCss}
+          defaultIndex={positionCards.findIndex((p) => p.value === position)}
+        >
           {/* NOTE: @egjs/flicking 사용으로 인해 div로 한 번 더 감싸줌 */}
           {positionCards.map((eachPosition) => (
             <div key={eachPosition.title}>
@@ -94,7 +100,7 @@ const Position = ({ prev, next, position, setPosition }: Props) => {
           ))}
         </Flicking>
       </m.section>
-      <BottomNavigation onBackClick={prev} isNextDisabled={position === null} onNextClick={next} />
+      <BottomNavigation onBackClick={() => prev?.()} isNextDisabled={position === null} onNextClick={() => next?.()} />
     </>
   );
 };

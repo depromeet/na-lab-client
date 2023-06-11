@@ -65,10 +65,15 @@ const Softskill = ({ prev, next, selectedSoftskills, setSelectedSoftskills }: Pr
             graphicName={softskill}
             name={softskill.replace('_', ' ')}
             onChange={onChange}
+            checked={selectedSoftskills.includes(softskill)}
           />
         ))}
       </section>
-      <BottomNavigation onBackClick={prev} isNextDisabled={!Boolean(selectedSoftskills.length)} onNextClick={next} />
+      <BottomNavigation
+        onBackClick={() => prev?.(2)}
+        isNextDisabled={!Boolean(selectedSoftskills.length)}
+        onNextClick={() => next?.()}
+      />
     </>
   );
 };

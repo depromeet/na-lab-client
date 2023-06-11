@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 /**
  * @description 페이지 새로 고침을 통해 상태가 유지되도록 로컬 저장소에 동기화합니다.
@@ -25,33 +25,23 @@ function useLocalStorage<T>(key: string, initialValue: T) {
 
   const setValue = (value: T | ((val: T) => T)) => {
     try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      if (typeof window !== 'undefined') {
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
-      }
+      setStoredValue((prev) => {
+        const nextValue = value instanceof Function ? value(prev) : value;
+
+        if (nextValue === null) {
+          localStorage.removeItem(key);
+        } else {
+          localStorage.setItem(key, JSON.stringify(nextValue));
+        }
+
+        return nextValue;
+      });
     } catch (error) {
       console.error(error);
     }
   };
 
-  const [hasMount, setHasMount] = useState(false);
-  // const isMounted = useRef(false);
-
-  useEffect(() => {
-    setHasMount(true);
-  }, []);
-
-  // useDidMount(() => {
-  //   isMounted.current = true;
-  // });
-
-  if (hasMount) {
-    return [storedValue, setValue] as const;
-  }
-
-  // mount 되기 이전에는 초기 값 반환
-  return [initialValue, setValue] as const;
+  return [storedValue, setValue] as const;
 }
 
 export default useLocalStorage;

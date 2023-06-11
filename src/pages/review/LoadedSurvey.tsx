@@ -4,39 +4,23 @@ import { css } from '@emotion/react';
 import { AnimatePresence } from 'framer-motion';
 
 import { type Softskills } from '~/components/graphic/softskills/type';
-import ChoiceQuestion from '~/features/review/steps/ChoiceQuestion';
 import Intro from '~/features/review/steps/Intro';
 import Last from '~/features/review/steps/Last';
 import { type Position as PositionType } from '~/features/review/steps/type';
 import StepStatus from '~/features/review/StepStatus';
-import { type Request as SurveyRequest } from '~/hooks/api/surveys/useGetSurveyById';
+import { type Response as SurveyResponse } from '~/hooks/api/surveys/useGetSurveyById';
 import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
 
 const Cowork = dynamic(() => import('~/features/review/steps/Cowork'), { ssr: false });
 const Position = dynamic(() => import('~/features/review/steps/Position'), { ssr: false });
+const QuestionIntro = dynamic(() => import('~/features/review/steps/QuestionIntro'), { ssr: false });
 const Softskill = dynamic(() => import('~/features/review/steps/Softskill'), { ssr: false });
 const ShortQuestion = dynamic(() => import('~/features/review/steps/ShortQuestion'), { ssr: false });
-const QuestionIntro = dynamic(() => import('~/features/review/steps/QuestionIntro'), { ssr: false });
+const ChoiceQuestion = dynamic(() => import('~/features/review/steps/ChoiceQuestion'), { ssr: false });
 
 const DEFAULT_STEP_LENGTH = 6;
 
-// const MOCKQ = [
-//   {
-//     type: 'choice',
-//     question_id: 2,
-//     order: 2,
-//     max_selectable_count: 2,
-//     title: 'string',
-//     choices: [
-//       { choice_id: 1, order: 1, content: 'ui' },
-//       { choice_id: 2, order: 2, content: 'ux' },
-//       { choice_id: 3, order: 3, content: 'aa' },
-//       { choice_id: 4, order: 4, content: 'dd' },
-//     ],
-//   },
-// ];
-
-const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
+const LoadedSurvey = ({ target, question, question_count }: SurveyResponse) => {
   const { isCoworked, setIsCoworked } = useIsCowork();
   const { position, setPosition } = usePosition();
   const { selectedSoftskills, setSelectedSoftskills } = useSoftskills();
@@ -55,11 +39,12 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
         selectedSoftskills={selectedSoftskills}
         setSelectedSoftskills={setSelectedSoftskills}
       />,
-      // TODO: 첫 번째 기본 질문 대응
+      // TODO: form_type 대응
       ...question.map((eachQuestion, index) =>
         eachQuestion.type === 'short' ? (
           <ShortQuestion
             key={eachQuestion.question_id}
+            questionId={eachQuestion.question_id}
             headerTitle={eachQuestion.title}
             setReplies={setEachQuestionAnswer(eachQuestion.question_id)}
             startMessages={[
@@ -73,6 +58,7 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
             key={eachQuestion.question_id}
             nickname={target.nickname}
             title={eachQuestion.title}
+            selectedChoicesId={(questionAnswers[index] as ChoiceQuestionAnswer).choices}
             choices={eachQuestion.choices}
             setChoices={setEachQuestionAnswer(eachQuestion.question_id)}
             max_selectable_count={eachQuestion.max_selectable_count}
@@ -80,6 +66,7 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
           />
         ),
       ),
+      // TODO: post 이후 localStoreage short message 비우기
       <Last key="last" onSubmit={() => console.warn(questionAnswers)} />,
     ],
   });
@@ -143,7 +130,7 @@ interface ChoiceQuestionAnswer {
 
 type QuestionAnswer = ShortQuestionAnswer | ChoiceQuestionAnswer;
 
-const useQuestionAnswers = ({ question }: Pick<SurveyRequest, 'question'>) => {
+const useQuestionAnswers = ({ question }: Pick<SurveyResponse, 'question'>) => {
   const [questionAnswers, setQuestionAnswers] = useState<QuestionAnswer[]>(
     question.map((eachQuestion) =>
       eachQuestion.type === 'short'

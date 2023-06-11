@@ -1,3 +1,3 @@
 export interface ApiErrorScheme {
-  'response-message': string;
+  response_messages: string;
 }

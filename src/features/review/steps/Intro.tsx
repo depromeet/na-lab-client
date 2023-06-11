@@ -41,7 +41,7 @@ const Intro = ({ nickname, next }: Props) => {
 
       {isCTAButtonVisible && (
         <m.div css={fixedBottomCss} variants={CTAVariants}>
-          <CTAButton color="blue" onClick={next}>
+          <CTAButton color="blue" onClick={() => next?.()}>
             시작하기
           </CTAButton>
         </m.div>

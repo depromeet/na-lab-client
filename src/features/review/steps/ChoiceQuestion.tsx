@@ -1,10 +1,9 @@
-import { type ChangeEventHandler, useState } from 'react';
+import { type ChangeEventHandler, type ComponentProps } from 'react';
 import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInVariants } from '~/constants/motions';
 import { type Choice } from '~/hooks/api/surveys/useGetSurveyById';
-import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
@@ -14,7 +13,8 @@ import { type IsLastQuestion, type StepProps } from './type';
 
 interface Props extends StepProps, IsLastQuestion {
   nickname: string;
-  title: string;
+  title: ComponentProps<typeof QuestionHeader>['title'];
+  selectedChoicesId: number[];
   choices: Choice[];
   max_selectable_count: number;
   setChoices: (setStateAction: (prevState: number[]) => number[]) => void;
@@ -26,11 +26,12 @@ const ChoiceQuestion = ({
   next,
   title,
   max_selectable_count,
+  selectedChoicesId,
   choices,
   setChoices,
   isLastQuestion = false,
 }: Props) => {
-  const { innerChoices, onChange } = useChoices({ max_selectable_count, setChoices });
+  const { onChange } = useChoices({ max_selectable_count, selectedChoicesId, setChoices });
 
   return (
     <>
@@ -44,14 +45,14 @@ const ChoiceQuestion = ({
               key={choice_id}
               value={choice_id}
               onChange={onChange}
-              checked={innerChoices.some((checkedChoiceId) => checkedChoiceId === choice_id)}
+              checked={selectedChoicesId.some((checkedChoiceId) => checkedChoiceId === choice_id)}
             >
               {content}
             </Checkbox>
           ))}
         </div>
       </m.section>
-      <BottomNavigation onBackClick={prev} onNextClick={next} isLastQuestion={isLastQuestion} />
+      <BottomNavigation onBackClick={() => prev?.()} onNextClick={() => next?.()} isLastQuestion={isLastQuestion} />
     </>
   );
 };
@@ -79,32 +80,26 @@ const choiceWrapperCss = css`
   margin-top: 12px;
 `;
 
-type UseChoicesProps = Pick<Props, 'max_selectable_count' | 'setChoices'>;
+type UseChoicesProps = Pick<Props, 'max_selectable_count' | 'selectedChoicesId' | 'setChoices'>;
 
-const useChoices = ({ max_selectable_count, setChoices }: UseChoicesProps) => {
-  const [innerChoices, setInnerChoices] = useState<number[]>([]);
-
+const useChoices = ({ max_selectable_count, selectedChoicesId, setChoices }: UseChoicesProps) => {
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const choiceId = Number(e.target.value);
 
     if (!e.target.checked) {
-      setInnerChoices((prev) => prev.filter((prevChoiceId) => prevChoiceId !== choiceId));
+      setChoices((prev) => prev.filter((prevChoiceId) => prevChoiceId !== choiceId));
 
       return;
     }
 
-    if (innerChoices.length >= max_selectable_count) {
-      setInnerChoices((prev) => [...prev.slice(1), choiceId]);
+    if (selectedChoicesId.length >= max_selectable_count) {
+      setChoices((prev) => [...prev.slice(1), choiceId]);
 
       return;
     }
 
-    setInnerChoices((prev) => [...prev, choiceId]);
+    setChoices((prev) => [...prev, choiceId]);
   };
 
-  useDidUpdate(() => {
-    setChoices(() => innerChoices);
-  }, [innerChoices]);
-
-  return { innerChoices, onChange };
+  return { onChange };
 };
