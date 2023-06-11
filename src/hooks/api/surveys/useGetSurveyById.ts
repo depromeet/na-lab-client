@@ -9,7 +9,7 @@ interface Target {
 
 type FormType = 'tendency' | 'choice' | 'strength';
 
-interface DefaultQuestion {
+export interface DefaultQuestion {
   question_id: number;
   order: number;
   title: string;

@@ -1,4 +1,4 @@
-import { type ChangeEventHandler } from 'react';
+import { type ChangeEventHandler, type ComponentProps } from 'react';
 import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
@@ -13,7 +13,7 @@ import { type IsLastQuestion, type StepProps } from './type';
 
 interface Props extends StepProps, IsLastQuestion {
   nickname: string;
-  title: string;
+  title: ComponentProps<typeof QuestionHeader>['title'];
   selectedChoicesId: number[];
   choices: Choice[];
   max_selectable_count: number;

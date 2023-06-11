@@ -3,8 +3,10 @@ import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInVariants } from '~/constants/motions';
+import { type DefaultQuestion } from '~/hooks/api/surveys/useGetSurveyById';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
+import useLocalStorage from '~/hooks/storage/useLocalStorage';
 
 import ChatInputBottom from '../chat/ChatInputBottom';
 import MessageContainer from '../chat/MessageContainer';
@@ -23,6 +25,7 @@ interface OtherMessage {
 
 interface Props extends StepProps, IsLastQuestion {
   headerTitle: ComponentProps<typeof QuestionHeader>['title'];
+  questionId: DefaultQuestion['question_id'];
   setReplies: (setStateAction: (prevState: string[]) => string[]) => void;
   /**
    * @description 시작할 때 입력될 메세지와 시간
@@ -38,14 +41,17 @@ const ShortQuestion = ({
   prev,
   next,
   headerTitle,
+  questionId,
   setReplies,
   startMessages,
   afterUserMessages,
   isLastQuestion = false,
 }: Props) => {
-  const { messages, setMessage, onTextSubmit } = useMessage(setReplies);
+  const { messages, setMessage, onTextSubmit } = useMessage({ questionId, setReplies });
   useOtherMessage({ messages, setMessage, startMessages, afterUserMessages });
   const { isAbleToSubmit } = useAbleToSubmit({ messages, startMessages, afterUserMessages });
+
+  console.log(messages);
 
   return (
     <>
@@ -71,8 +77,10 @@ const sectionCss = css`
   height: 100%;
 `;
 
-const useMessage = (setReplies: Props['setReplies']) => {
-  const [messages, setMessage] = useState<MessageType[]>([]);
+type UseMessageProps = Pick<Props, 'questionId' | 'setReplies'>;
+
+const useMessage = ({ questionId, setReplies }: UseMessageProps) => {
+  const [messages, setMessage] = useLocalStorage<MessageType[]>(`nlasq ${questionId}`, []);
 
   const onTextSubmit = (text: string) => {
     setReplies((prev) => [...prev, text]);
@@ -92,6 +100,9 @@ interface UseOtherMessageProps {
 const useOtherMessage = ({ messages, setMessage, startMessages, afterUserMessages }: UseOtherMessageProps) => {
   useDidMount(() => {
     const timeouts: NodeJS.Timeout[] = [];
+
+    // NOTE: 이미 발송된 적이 있다면 발송하지 않음
+    if (messages.length > 0) return;
 
     startMessages.forEach(({ timing, text }) => {
       const timeout = setTimeout(() => {
@@ -114,17 +125,20 @@ const useOtherMessage = ({ messages, setMessage, startMessages, afterUserMessage
 
     const timeouts: NodeJS.Timeout[] = [];
 
-    if (messages.length > startMessages.length) {
-      isSetAfterMessage.current = true;
+    // NOTE: 초기 메시지가 아직 발송되지 않았다면
+    if (messages.length <= startMessages.length) return;
+    // NOTE: 발송됐었다면
+    if (messages.length > startMessages.length + afterUserMessages.length) return;
 
-      afterUserMessages.forEach(({ timing, text }) => {
-        const timeout = setTimeout(() => {
-          setMessage((prev) => [...prev, { from: 'other', content: text }]);
-        }, timing);
+    isSetAfterMessage.current = true;
 
-        timeouts.push(timeout);
-      });
-    }
+    afterUserMessages.forEach(({ timing, text }) => {
+      const timeout = setTimeout(() => {
+        setMessage((prev) => [...prev, { from: 'other', content: text }]);
+      }, timing);
+
+      timeouts.push(timeout);
+    });
 
     return () => {
       isSetAfterMessage.current = false;
