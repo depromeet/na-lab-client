@@ -100,7 +100,7 @@ const Position = ({ prev, next, position, setPosition }: Props) => {
           ))}
         </Flicking>
       </m.section>
-      <BottomNavigation onBackClick={prev} isNextDisabled={position === null} onNextClick={next} />
+      <BottomNavigation onBackClick={() => prev?.()} isNextDisabled={position === null} onNextClick={() => next?.()} />
     </>
   );
 };

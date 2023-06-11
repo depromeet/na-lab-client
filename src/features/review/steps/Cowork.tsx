@@ -21,7 +21,6 @@ interface Props extends StepProps {
 
 const Cowork = ({ prev, next, isCoworked, setIsCoworked }: Props) => {
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    console.log('ff');
     setIsCoworked(Boolean(e.target.value));
   };
 
@@ -57,7 +56,12 @@ const Cowork = ({ prev, next, isCoworked, setIsCoworked }: Props) => {
         </div>
       </m.section>
 
-      <BottomNavigation isBackDisabled onBackClick={prev} isNextDisabled={isCoworked === null} onNextClick={next} />
+      <BottomNavigation
+        isBackDisabled
+        onBackClick={() => prev?.()}
+        isNextDisabled={isCoworked === null}
+        onNextClick={() => next?.()}
+      />
     </>
   );
 };

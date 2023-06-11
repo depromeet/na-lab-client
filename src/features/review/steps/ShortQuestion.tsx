@@ -54,10 +54,10 @@ const ShortQuestion = ({
         <MessageContainer messages={messages} />
 
         {isAbleToSubmit && (
-          <SubmitButton onClick={next}>{isLastQuestion ? '피드백 제출하기' : '답변 완료'}</SubmitButton>
+          <SubmitButton onClick={() => next?.()}>{isLastQuestion ? '피드백 제출하기' : '답변 완료'}</SubmitButton>
         )}
       </m.section>
-      <ChatInputBottom onTextSubmit={onTextSubmit} onBackClick={prev} />
+      <ChatInputBottom onTextSubmit={onTextSubmit} onBackClick={() => prev?.()} />
     </>
   );
 };

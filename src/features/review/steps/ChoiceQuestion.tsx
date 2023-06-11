@@ -51,7 +51,7 @@ const ChoiceQuestion = ({
           ))}
         </div>
       </m.section>
-      <BottomNavigation onBackClick={prev} onNextClick={next} isLastQuestion={isLastQuestion} />
+      <BottomNavigation onBackClick={() => prev?.()} onNextClick={() => next?.()} isLastQuestion={isLastQuestion} />
     </>
   );
 };

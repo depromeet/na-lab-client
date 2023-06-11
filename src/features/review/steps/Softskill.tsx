@@ -68,7 +68,11 @@ const Softskill = ({ prev, next, selectedSoftskills, setSelectedSoftskills }: Pr
           />
         ))}
       </section>
-      <BottomNavigation onBackClick={prev} isNextDisabled={!Boolean(selectedSoftskills.length)} onNextClick={next} />
+      <BottomNavigation
+        onBackClick={() => prev?.(2)}
+        isNextDisabled={!Boolean(selectedSoftskills.length)}
+        onNextClick={() => next?.()}
+      />
     </>
   );
 };
