@@ -7,7 +7,7 @@ import { errorMessage } from '~/exceptions/messages';
 import { type ApiErrorScheme } from '~/exceptions/type';
 import { isProd } from '~/utils/common';
 
-const DEVELOPMENT_API_URL = 'https://api.nalab.me/v1';
+const DEVELOPMENT_API_URL = 'https://api.nalab.me/mock';
 const PRODUCTION_API_URL = 'https://api.nalab.me/v1';
 
 const instance = axios.create({
@@ -38,7 +38,7 @@ const interceptorResponseFulfilled = (res: AxiosResponse) => {
 
 // Response interceptor
 const interceptorResponseRejected = (error: AxiosError<ApiErrorScheme>) => {
-  if (error.response?.data?.['response-message']) {
+  if (error.response?.data?.['response_messages']) {
     return Promise.reject(new ApiException(error.response.data, error.response.status));
   }
 
