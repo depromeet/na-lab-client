@@ -20,8 +20,8 @@ export const Default = ({ stepLength = 3 }) => {
       <StepStatus currentStep={currentStep} stepLength={stepLength} notContainSteps={[]} />
 
       <div style={{ marginTop: '200px', display: 'flex' }}>
-        <ArrowCircleButton onClick={prev} />
-        <ArrowCircleButton direction="right" onClick={next} />
+        <ArrowCircleButton onClick={() => prev()} />
+        <ArrowCircleButton direction="right" onClick={() => next()} />
       </div>
     </>
   );
