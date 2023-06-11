@@ -7,11 +7,17 @@ interface Target {
   nickname: string;
 }
 
-interface ShortQuestion {
-  type: 'short';
+type FormType = 'tendency' | 'choice' | 'strength';
+
+interface DefaultQuestion {
   question_id: number;
   order: number;
   title: string;
+  form_type: FormType;
+}
+
+interface ShortQuestion extends DefaultQuestion {
+  type: 'short';
 }
 
 export interface Choice {
@@ -20,12 +26,9 @@ export interface Choice {
   content: string;
 }
 
-interface ChoiceQuestion {
+interface ChoiceQuestion extends DefaultQuestion {
   type: 'choice';
-  question_id: number;
-  order: number;
   max_selectable_count: number;
-  title: string;
   choices: Choice[];
 }
 
