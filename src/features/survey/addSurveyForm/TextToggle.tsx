@@ -60,7 +60,7 @@ const containerCss = (theme: Theme) => css`
   display: flex;
   gap: 4px;
 
-  width: calc(${ITEM_SIZE}px * 2);
+  width: calc(${ITEM_SIZE}px * 2 + 10px);
   padding: 5px;
 
   background-color: ${theme.colors.gray_50};
@@ -70,10 +70,10 @@ const containerCss = (theme: Theme) => css`
 const selectBoxCss = (theme: Theme, isOn: boolean) => css`
   ${isOn
     ? css`
-        left: 0;
+        left: 5px;
       `
     : css`
-        right: 0;
+        right: 5px;
       `}
 
   position: absolute;
