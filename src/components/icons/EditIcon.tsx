@@ -15,4 +15,30 @@ const EditIcon = ({ size = 21, color = '#3D4350', ...rest }: ComponentProps<type
   );
 };
 
+export const FillEditIcon = ({ size = 30, color = '#3D4350', ...rest }: ComponentProps<typeof Svg>) => {
+  return (
+    <Svg size={size} {...rest}>
+      <g clipPath="url(#clip0_2998_54290)">
+        <path
+          d="M3.4312 26.4536L2.5694 20.5318L5.25728 17.8756L11.9648 24.7943L9.2769 27.4504L3.4312 26.4536Z"
+          fill={color}
+          stroke={color}
+          strokeWidth="2"
+        />
+        <rect
+          width="11.6363"
+          height="19.6832"
+          rx="0.941028"
+          transform="matrix(-0.696065 -0.717979 0.711295 -0.702894 14.5039 23.6895)"
+          fill={color}
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_2998_54290">
+          <rect width="30" height="30" fill="white" />
+        </clipPath>
+      </defs>
+    </Svg>
+  );
+};
 export default EditIcon;
