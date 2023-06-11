@@ -14,12 +14,6 @@ interface ShortQuestion {
   title: string;
 }
 
-export interface Choice {
-  choice_id: number;
-  order: number;
-  content: string;
-}
-
 interface ChoiceQuestion {
   type: 'choice';
   question_id: number;

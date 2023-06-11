@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInVariants } from '~/constants/motions';
-import { type Choice } from '~/hooks/api/surveys/useGetSurveyById';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 
 import BottomNavigation from '../BottomNavigation';
