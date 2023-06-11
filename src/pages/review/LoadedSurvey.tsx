@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import { AnimatePresence } from 'framer-motion';
 
 import { type Softskills } from '~/components/graphic/softskills/type';
+import Intro from '~/features/review/steps/Intro';
 import Last from '~/features/review/steps/Last';
 import { type Position as PositionType } from '~/features/review/steps/type';
 import StepStatus from '~/features/review/StepStatus';
@@ -29,7 +30,7 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
 
   const { currentElement, currentStep } = useInjectedElementStep({
     elements: [
-      // <Intro key="intro" nickname={target.nickname} />,
+      <Intro key="intro" nickname={target.nickname} />,
       <Cowork key="cowork" isCoworked={isCoworked} setIsCoworked={setIsCoworked} />,
       <Position key="position" position={position} setPosition={setPosition} />,
       <QuestionIntro key="question-intro" />,
@@ -43,6 +44,7 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
         eachQuestion.type === 'short' ? (
           <ShortQuestion
             key={eachQuestion.question_id}
+            questionId={eachQuestion.question_id}
             headerTitle={eachQuestion.title}
             setReplies={setEachQuestionAnswer(eachQuestion.question_id)}
             startMessages={[
@@ -56,6 +58,7 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
             key={eachQuestion.question_id}
             nickname={target.nickname}
             title={eachQuestion.title}
+            selectedChoicesId={(questionAnswers[index] as ChoiceQuestionAnswer).choices}
             choices={eachQuestion.choices}
             setChoices={setEachQuestionAnswer(eachQuestion.question_id)}
             max_selectable_count={eachQuestion.max_selectable_count}

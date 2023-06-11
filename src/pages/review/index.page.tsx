@@ -57,14 +57,12 @@ const useSurveyIdValidation = () => {
     setValidatedId(id);
   }, [isReady]);
 
-  const query = useGetSurveyById(validatedId as string, { enabled: Boolean(validatedId) });
-
-  useDidUpdate(() => {
-    if (!query.isLoading) return;
-    if (query.isError) {
+  const query = useGetSurveyById(validatedId as string, {
+    enabled: Boolean(validatedId),
+    onError: () => {
       handleInvalidateId();
-    }
-  }, [query.isLoading, query.isError]);
+    },
+  });
 
   return query;
 };

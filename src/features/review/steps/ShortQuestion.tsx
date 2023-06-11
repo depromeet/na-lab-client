@@ -51,8 +51,6 @@ const ShortQuestion = ({
   useOtherMessage({ messages, setMessage, startMessages, afterUserMessages });
   const { isAbleToSubmit } = useAbleToSubmit({ messages, startMessages, afterUserMessages });
 
-  console.log(messages);
-
   return (
     <>
       <QuestionHeader title={headerTitle} />
