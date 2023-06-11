@@ -1,4 +1,4 @@
-import { type ComponentProps, type Dispatch, type SetStateAction, useRef, useState } from 'react';
+import { type ComponentProps, type Dispatch, type SetStateAction, useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
@@ -158,7 +158,7 @@ interface UseAbleToSubmitProps {
 const useAbleToSubmit = ({ messages, startMessages, afterUserMessages }: UseAbleToSubmitProps) => {
   const [isAbleToSubmit, setIsAbleToSubmit] = useState(false);
 
-  useDidUpdate(() => {
+  useEffect(() => {
     if (isAbleToSubmit) return;
 
     const allOtherMessageLength = startMessages.length + (afterUserMessages?.length ?? 0);
@@ -169,6 +169,7 @@ const useAbleToSubmit = ({ messages, startMessages, afterUserMessages }: UseAble
     return () => {
       clearTimeout(timeout);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
   return { isAbleToSubmit };
