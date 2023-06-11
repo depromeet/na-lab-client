@@ -8,7 +8,7 @@ import Intro from '~/features/review/steps/Intro';
 import Last from '~/features/review/steps/Last';
 import { type Position as PositionType } from '~/features/review/steps/type';
 import StepStatus from '~/features/review/StepStatus';
-import { type Request as SurveyRequest } from '~/hooks/api/surveys/useGetSurveyById';
+import { type Response as SurveyResponse } from '~/hooks/api/surveys/useGetSurveyById';
 import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
 
 const Cowork = dynamic(() => import('~/features/review/steps/Cowork'), { ssr: false });
@@ -20,7 +20,7 @@ const ChoiceQuestion = dynamic(() => import('~/features/review/steps/ChoiceQuest
 
 const DEFAULT_STEP_LENGTH = 6;
 
-const LoadedSurvey = ({ target, question, question_count }: SurveyRequest) => {
+const LoadedSurvey = ({ target, question, question_count }: SurveyResponse) => {
   const { isCoworked, setIsCoworked } = useIsCowork();
   const { position, setPosition } = usePosition();
   const { selectedSoftskills, setSelectedSoftskills } = useSoftskills();
@@ -130,7 +130,7 @@ interface ChoiceQuestionAnswer {
 
 type QuestionAnswer = ShortQuestionAnswer | ChoiceQuestionAnswer;
 
-const useQuestionAnswers = ({ question }: Pick<SurveyRequest, 'question'>) => {
+const useQuestionAnswers = ({ question }: Pick<SurveyResponse, 'question'>) => {
   const [questionAnswers, setQuestionAnswers] = useState<QuestionAnswer[]>(
     question.map((eachQuestion) =>
       eachQuestion.type === 'short'

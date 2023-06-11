@@ -32,17 +32,17 @@ interface ChoiceQuestion extends DefaultQuestion {
   choices: Choice[];
 }
 
-export interface Request {
+export interface Response {
   survey_id: number;
   question_count: number;
   target: Target;
   question: (ShortQuestion | ChoiceQuestion)[];
 }
 
-const useGetSurveyById = (id: string, option?: UseQueryOptions<Request>) => {
-  return useQuery<Request>({
+const useGetSurveyById = (id: string, option?: UseQueryOptions<Response>) => {
+  return useQuery<Response>({
     queryKey: ['survey', id],
-    queryFn: () => get<Request>(`/surveys/${id}`),
+    queryFn: () => get<Response>(`/surveys/${id}`),
     ...option,
   });
 };
