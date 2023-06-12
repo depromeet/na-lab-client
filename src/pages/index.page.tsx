@@ -5,6 +5,7 @@ import Logo from '~/assets/Logo';
 import CTAButton from '~/components/button/CTAButton';
 import KakaoLoginButton from '~/components/kakaoLoginButton/KakaoLoginButton';
 import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
+import { post } from '~/libs/api';
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
       <Logo css={logoCss} />
 
       {/* NOTE: 질문 폼 생성을 위한 임시 코드 */}
-      {/* <button
+      <button
         type="button"
         onClick={() =>
           post('/surveys', {
@@ -77,7 +78,7 @@ export default function Home() {
         }
       >
         test
-      </button> */}
+      </button>
 
       <section css={ctaWrapperCss}>
         <CTAButton color="blue">질문 폼 생성으로 시작하기</CTAButton>

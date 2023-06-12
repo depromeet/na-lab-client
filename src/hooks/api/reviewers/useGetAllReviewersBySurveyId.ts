@@ -3,7 +3,7 @@ import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 import { get } from '~/libs/api';
 
 interface Feedback {
-  feedback_id: number;
+  feedback_id: string;
   created_at: string;
   is_read: boolean;
   reviewer: Reviewer;

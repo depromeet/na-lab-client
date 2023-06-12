@@ -60,7 +60,7 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyResponse) => {
             selectedChoicesId={(questionAnswers[index] as ChoiceQuestionAnswer).choices}
             choices={eachQuestion.choices}
             setChoices={setEachQuestionAnswer(eachQuestion.question_id)}
-            max_selectable_count={eachQuestion.max_selectable_count}
+            max_selection_count={eachQuestion.max_selection_count}
             isLastQuestion={index === question.length - 1}
           />
         ),
@@ -117,14 +117,14 @@ const useSoftskills = () => {
 
 interface ShortQuestionAnswer {
   type: 'short';
-  question_id: number;
+  question_id: string;
   reply: string[];
 }
 
 interface ChoiceQuestionAnswer {
   type: 'choice';
-  question_id: number;
-  choices: number[];
+  question_id: string;
+  choices: string[];
 }
 
 type QuestionAnswer = ShortQuestionAnswer | ChoiceQuestionAnswer;
@@ -139,7 +139,7 @@ const useQuestionAnswers = ({ question }: Pick<SurveyResponse, 'question'>) => {
   );
 
   const setEachQuestionAnswer =
-    <T extends string[] | number[]>(id: number) =>
+    <T extends string[]>(id: string) =>
     // TODO: (setStateAction: T | ((prevState: T) => T)) => { // react.SetStateAction 대응
     (setStateAction: (prevState: T) => T) => {
       setQuestionAnswers((prevQuestionAnswers) => {

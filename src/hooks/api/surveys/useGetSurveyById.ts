@@ -10,7 +10,7 @@ interface Target {
 type FormType = 'tendency' | 'choice' | 'strength';
 
 export interface DefaultQuestion {
-  question_id: number;
+  question_id: string;
   order: number;
   title: string;
   form_type: FormType;
@@ -22,12 +22,12 @@ interface ShortQuestion extends DefaultQuestion {
 
 interface ChoiceQuestion extends DefaultQuestion {
   type: 'choice';
-  max_selectable_count: number;
+  max_selection_count: number;
   choices: Choice[];
 }
 
 export interface Response {
-  survey_id: number;
+  survey_id: string;
   question_count: number;
   target: Target;
   question: (ShortQuestion | ChoiceQuestion)[];
