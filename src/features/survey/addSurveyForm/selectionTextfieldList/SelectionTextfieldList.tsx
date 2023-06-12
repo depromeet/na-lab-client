@@ -20,8 +20,11 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
   const { fireToast } = useToast();
   const [focusInput, setFocusInput] = useState<number | null>(null);
 
+  const optionMinCount = isMultiChoice ? basicCount + 1 : OPTION_MIN_COUNT;
   const onInputChange = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > OPTION_MAX_LENGTH) {
+    const isCharCountExceed = e.target.value.length > OPTION_MAX_LENGTH;
+
+    if (isCharCountExceed) {
       fireToast({
         content: (
           <>
@@ -38,14 +41,25 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
     const newInputs = [...inputs];
     newInputs[index] = e.target.value;
 
-    if (index === inputs.length - 1) {
+    const isLastInput = index === inputs.length - 1;
+    const isMaxInputState = inputs.length >= OPTION_MAX_COUNT;
+
+    if (isLastInput && isMaxInputState) {
+      setInputs(() => [...newInputs]);
+
+      return;
+    }
+    if (isLastInput) {
       setInputs(() => [...newInputs, '']);
       setFocusInput(inputs.length - 1);
 
       return;
     }
 
-    if (index === inputs.length - 2 && index >= OPTION_MIN_COUNT && e.target.value === '') {
+    // 마지막에서 두번째 input이 비어있을 때, 마지막 input이 비어있으면 마지막 input을 삭제한다.
+    const isEmptyInput = e.target.value === '';
+    const isLastInputDeleteState = index === inputs.length - 2 && index >= optionMinCount;
+    if (isEmptyInput && isLastInputDeleteState) {
       setInputs((prev) => [...prev.slice(0, -2), '']);
 
       return;
@@ -55,17 +69,15 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
   };
 
   const onItemDelete = (index: number) => {
-    if (inputs.length - 1 <= OPTION_MIN_COUNT) {
-      fireToast({ content: `최소 ${OPTION_MIN_COUNT}개 이상의 옵션을 입력해주세요.`, higherThanCTA: true });
+    const isDeletePossible =
+      inputs.length == OPTION_MAX_COUNT ? inputs.length - 1 < optionMinCount : inputs.length - 1 <= optionMinCount;
+
+    if (isDeletePossible) {
+      fireToast({ content: `최소 ${optionMinCount}개 이상의 옵션을 입력해주세요.`, higherThanCTA: true });
 
       return;
     }
 
-    if (inputs.length - 1 <= basicCount) {
-      fireToast({ content: `최소 ${basicCount}개 이상의 옵션을 입력해주세요.`, higherThanCTA: true });
-
-      return;
-    }
     const newInputs = [...inputs];
     newInputs.splice(index, 1);
 

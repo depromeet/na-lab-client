@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 export const HEAD_1 = css`
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.5rem;
   line-height: 138%;
   letter-spacing: -0.3px;

@@ -22,15 +22,16 @@ interface Feedback {
 
 interface Props {
   feedback: Feedback;
+  onClickFeedback: void;
 }
 
 type Position = 'developer' | 'designer' | 'product-manager' | 'other';
 
-const ReceivedFeedbackCard = ({ feedback }: Props) => {
+const ReceivedFeedbackCard = ({ feedback, onClickFeedback }: Props) => {
   const [role, setRole] = useState('개발자');
   const [roleImage, setRoleImage] = useState('/images/feedback/blue-programmer.png');
 
-  const { reviwer, is_read } = feedback;
+  const { feedback_id, reviwer, is_read } = feedback;
   const { nickname, collaboration_experience, position } = reviwer;
 
   const changeImageCardByRole = (roleInput: string) => {
@@ -54,7 +55,7 @@ const ReceivedFeedbackCard = ({ feedback }: Props) => {
   }, []);
 
   return (
-    <section css={containerCss}>
+    <section css={containerCss} role="presentation" onClick={() => onClickFeedback(feedback_id)}>
       {is_read ? null : <UnreadBadgeIcon floatingTop="8px" floatingRight="8px" />}
 
       <figure css={BodyCss}>

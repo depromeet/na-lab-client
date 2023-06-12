@@ -1,9 +1,50 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 import { get } from '~/libs/api';
 
-const useGetSurveyById = (id: string) => {
-  return useQuery({ queryKey: ['survey', id], queryFn: () => get(`/surveys/${id}`) });
+interface Target {
+  id: number;
+  nickname: string;
+}
+
+type FormType = 'tendency' | 'choice' | 'strength';
+
+export interface DefaultQuestion {
+  question_id: number;
+  order: number;
+  title: string;
+  form_type: FormType;
+}
+
+interface ShortQuestion extends DefaultQuestion {
+  type: 'short';
+}
+
+export interface Choice {
+  choice_id: number;
+  order: number;
+  content: string;
+}
+
+interface ChoiceQuestion extends DefaultQuestion {
+  type: 'choice';
+  max_selectable_count: number;
+  choices: Choice[];
+}
+
+export interface Response {
+  survey_id: number;
+  question_count: number;
+  target: Target;
+  question: (ShortQuestion | ChoiceQuestion)[];
+}
+
+const useGetSurveyById = (id: string, option?: UseQueryOptions<Response>) => {
+  return useQuery<Response>({
+    queryKey: ['survey', id],
+    queryFn: () => get<Response>(`/surveys/${id}`),
+    ...option,
+  });
 };
 
 export default useGetSurveyById;

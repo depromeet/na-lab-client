@@ -1,7 +1,9 @@
+import { type ChangeEventHandler, type ComponentProps } from 'react';
 import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInVariants } from '~/constants/motions';
+import { type Choice } from '~/hooks/api/surveys/useGetSurveyById';
 
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
@@ -9,32 +11,48 @@ import Checkbox from './choice/Checkbox';
 import MaxSelectableSmall from './choice/MaxSelectableSmall';
 import { type IsLastQuestion, type StepProps } from './type';
 
-// TODO: API 이후 hooks/api 로 이관
-interface Choice {
-  choice_id: number;
-  content: string;
-}
-
 interface Props extends StepProps, IsLastQuestion {
-  title: string;
+  nickname: string;
+  title: ComponentProps<typeof QuestionHeader>['title'];
+  selectedChoicesId: number[];
   choices: Choice[];
   max_selectable_count: number;
+  setChoices: (setStateAction: (prevState: number[]) => number[]) => void;
 }
 
-const ChoiceQuestion = ({ prev, next, title, max_selectable_count, choices, isLastQuestion = false }: Props) => {
+const ChoiceQuestion = ({
+  nickname,
+  prev,
+  next,
+  title,
+  max_selectable_count,
+  selectedChoicesId,
+  choices,
+  setChoices,
+  isLastQuestion = false,
+}: Props) => {
+  const { onChange } = useChoices({ max_selectable_count, selectedChoicesId, setChoices });
+
   return (
     <>
-      <QuestionHeader title={title} subTitle="예진님이 직접 입력한 질문이에요." />
+      <QuestionHeader title={title} subTitle={`${nickname}님이 직접 입력한 질문이에요.`} />
       <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
         <MaxSelectableSmall max={max_selectable_count} />
 
         <div css={choiceWrapperCss}>
-          {choices.map((choice) => (
-            <Checkbox key={choice.choice_id}>{choice.content}</Checkbox>
+          {choices.map(({ choice_id, content }) => (
+            <Checkbox
+              key={choice_id}
+              value={choice_id}
+              onChange={onChange}
+              checked={selectedChoicesId.some((checkedChoiceId) => checkedChoiceId === choice_id)}
+            >
+              {content}
+            </Checkbox>
           ))}
         </div>
       </m.section>
-      <BottomNavigation onBackClick={prev} onNextClick={next} isLastQuestion={isLastQuestion} />
+      <BottomNavigation onBackClick={() => prev?.()} onNextClick={() => next?.()} isLastQuestion={isLastQuestion} />
     </>
   );
 };
@@ -61,3 +79,27 @@ const choiceWrapperCss = css`
   width: 100%;
   margin-top: 12px;
 `;
+
+type UseChoicesProps = Pick<Props, 'max_selectable_count' | 'selectedChoicesId' | 'setChoices'>;
+
+const useChoices = ({ max_selectable_count, selectedChoicesId, setChoices }: UseChoicesProps) => {
+  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const choiceId = Number(e.target.value);
+
+    if (!e.target.checked) {
+      setChoices((prev) => prev.filter((prevChoiceId) => prevChoiceId !== choiceId));
+
+      return;
+    }
+
+    if (selectedChoicesId.length >= max_selectable_count) {
+      setChoices((prev) => [...prev.slice(1), choiceId]);
+
+      return;
+    }
+
+    setChoices((prev) => [...prev, choiceId]);
+  };
+
+  return { onChange };
+};

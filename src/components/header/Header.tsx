@@ -65,5 +65,5 @@ const headerCss = (theme: Theme) => css`
   padding: 0.875rem 1rem;
 
   background-color: ${theme.colors.white};
-  border: 1px solid ${theme.colors.gray_50};
+  border-bottom: 1px solid ${theme.colors.gray_50};
 `;

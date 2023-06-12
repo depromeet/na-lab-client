@@ -23,7 +23,7 @@ const mainCss = css`
 export function 인트로() {
   return (
     <main css={mainCss}>
-      <Intro />
+      <Intro nickname="예진" />
     </main>
   );
 }

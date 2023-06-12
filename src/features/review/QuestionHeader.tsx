@@ -29,10 +29,17 @@ const QuestionHeader = ({ title, subTitle }: Props) => {
 
 export default QuestionHeader;
 
-const headerCss = css`
+const headerCss = (theme: Theme) => css`
+  position: sticky;
+  z-index: ${theme.zIndex.belowFixed};
+  top: 0;
+
   width: 100%;
   padding-top: 34px;
-  padding-bottom: 18px;
+  padding-bottom: 14px;
+
+  background-color: rgb(255 255 255 / 50%);
+  backdrop-filter: blur(5px);
 `;
 
 const headingCss = css`

@@ -1,10 +1,6 @@
-import { useState } from 'react';
 import { type Meta } from '@storybook/react';
 
-import { BASIC_QUESTION_LIST } from '~/features/survey/constants';
 import QuestionList from '~/features/survey/questionList/QuestionList';
-import QuestionWithDndList from '~/features/survey/questionList/QuestionListWithDnd';
-import { type QuestionItem } from '~/features/survey/types';
 
 const meta: Meta<typeof QuestionList> = {
   title: 'QuestionList',
@@ -13,12 +9,7 @@ const meta: Meta<typeof QuestionList> = {
 
 export default meta;
 
+// TODO : 개발 끝나면, 스토리북에 기본질문 목록 띄우기
 export function Default() {
-  return <QuestionList items={BASIC_QUESTION_LIST} />;
-}
-
-export function DndList() {
-  const [customs, setCustoms] = useState<QuestionItem[]>(BASIC_QUESTION_LIST);
-
-  return <QuestionWithDndList items={customs} setItems={setCustoms} />;
+  return <QuestionList items={[]} />;
 }

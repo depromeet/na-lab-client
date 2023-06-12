@@ -12,17 +12,18 @@ import { DEFAULT_OPTION_LENGTH, QUESTION_MAX_LENGTH } from '~/features/survey/co
 import { fixedBottomCss } from '~/features/survey/styles';
 import {
   type ChoiceQuestionItem,
-  type QuestionItem,
+  type CustomQuestionItem,
   type QuestionType,
   type ShortQuestionItem,
 } from '~/features/survey/types';
 import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
 import { removeSpaceAndEnter } from '~/utils/string';
 
-const TOGGLE_LIST: {
+interface ToggleItem {
   type: QuestionType;
   label: string;
-}[] = [
+}
+const TOGGLE_LIST: [ToggleItem, ToggleItem] = [
   {
     type: 'choice',
     label: '객관식',
@@ -35,9 +36,10 @@ const TOGGLE_LIST: {
 
 interface Props {
   onClose: () => void;
-  onAction: (question: QuestionItem) => void;
+  onAction: (question: CustomQuestionItem) => void;
 }
 
+// TODO : CustomQuestionAddForm으로 이름 변경
 const AddSurveyForm = ({ onClose, onAction }: Props) => {
   const { fireToast } = useToast();
 
@@ -48,10 +50,11 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
   const [inputs, setInputs] = useState(new Array(DEFAULT_OPTION_LENGTH + 1).fill(''));
 
   const isChoice = selectToggleTab === 'choice';
+
   const optionInputs = isChoice ? inputs.slice(0, -1) : inputs; // 다른 옵션 추가 제외
 
-  const isAllInputFilled = !isChoice || optionInputs.every((input) => removeSpaceAndEnter(input) !== '');
-  const isButtonDisabled = !isAllInputFilled || removeSpaceAndEnter(questionInput) === '';
+  const fillInputCount = optionInputs.filter((input) => removeSpaceAndEnter(input) !== '').length;
+  const isButtonDisabled = removeSpaceAndEnter(questionInput) === '' || (isChoice && fillInputCount < maxSelect + 1);
 
   const onQuestionInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length > QUESTION_MAX_LENGTH) {
@@ -117,14 +120,14 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
         {isChoice && (
           <ChoiceForm maxSelect={maxSelect} setMaxSelect={setMaxSelect} inputs={inputs} setInputs={setInputs} />
         )}
-
-        <article css={[fixedBottomCss, bottomCss]}>
-          <XCircleButton onClick={onClose} />
-          <Button onClick={onComplete} disabled={isButtonDisabled} css={submitButtonCss}>
-            완료
-          </Button>
-        </article>
       </section>
+
+      <article css={[fixedBottomCss, bottomCss]}>
+        <XCircleButton onClick={onClose} />
+        <Button onClick={onComplete} disabled={isButtonDisabled} css={submitButtonCss}>
+          완료
+        </Button>
+      </article>
     </article>
   );
 };
@@ -134,6 +137,7 @@ export default AddSurveyForm;
 const bottomSectionCss = css`
   overflow-y: auto;
   width: 100%;
+  padding-bottom: 180px;
 `;
 
 const bottomCss = css`
@@ -155,7 +159,6 @@ const containerCss = css`
   width: 100%;
   height: calc(100vh - 12px);
   padding: 0 16px;
-  padding-bottom: 104px;
 
   text-align: center;
 `;

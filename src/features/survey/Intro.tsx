@@ -133,7 +133,7 @@ const sectionCss = (theme: Theme) => css`
   width: 100%;
 
   & strong {
-    font-weight: bold;
+    font-weight: 500;
     color: ${theme.colors.primary_300};
   }
 `;

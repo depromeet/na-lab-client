@@ -1,29 +1,33 @@
-import { type ReactNode } from 'react';
 import { css, type Theme } from '@emotion/react';
 
-import EditIcon from '~/components/icons/EditIcon';
-import { type QuestionFormType, type QuestionItem, type QuestionType } from '~/features/survey/types';
+import EditIcon, { FillEditIcon } from '~/components/icons/EditIcon';
+import EmpathizingIcon from '~/components/icons/EmpathizingIcon';
+import ListIcon from '~/components/icons/ListIcon';
+import MessageIcon from '~/components/icons/MessageIcon';
+import ProfileIcon from '~/components/icons/ProfileIcon';
+import {
+  type BasicQuestionItem,
+  type CustomQuestionItem,
+  type QuestionFormType,
+  type QuestionType,
+} from '~/features/survey/types';
 import colors from '~/styles/color';
 import { DETAIL, HEAD_3_SEMIBOLD } from '~/styles/typo';
 
 interface Props {
-  item: QuestionItem;
-  rightElement?: ReactNode;
+  item: CustomQuestionItem | BasicQuestionItem;
 }
 
-const Question = ({ item, rightElement }: Props) => {
-  const { tag, css: typeCss } = getType(item.type, item.form_type);
+const Question = ({ item }: Props) => {
+  const { tag, css: typeCss, icon } = getType(item.type, item.form_type);
 
   return (
     <li css={listItemCss}>
-      <div css={[iconContainerCss, typeCss]}>
-        <EditIcon color={colors.white} />
-      </div>
+      <div css={[iconContainerCss, typeCss]}>{icon ?? <EditIcon color={colors.white} />}</div>
       <div css={textContainerCss}>
         <p css={titleCss}>{item.title}</p>
         <span css={tagCss}>{tag}</span>
       </div>
-      {rightElement}
     </li>
   );
 };
@@ -60,37 +64,61 @@ const iconContainerCss = css`
 `;
 
 const getType = (type: QuestionType, formType: QuestionFormType) => {
-  if (formType === 'tendency') {
+  if (type === 'basic') {
+    const PINK_DARK_COLOR = '#E6BFEF';
+    const typeCss = css`
+      background-color: ${colors.pink};
+    `;
+
+    if (formType === 'information') {
+      return {
+        tag: '참여한 동료 정보',
+        css: typeCss,
+        icon: <ProfileIcon color={PINK_DARK_COLOR} />,
+      };
+    }
+    if (formType === 'tendency') {
+      return {
+        tag: '태그',
+        css: typeCss,
+        icon: <EmpathizingIcon color={PINK_DARK_COLOR} />,
+      };
+    }
+
     return {
-      tag: '기본정보',
-      css: css`
-        background-color: ${colors.bluegreen};
-      `,
+      tag: '주관식',
+      css: typeCss,
+      icon: <MessageIcon />,
     };
   }
+
   if (type === 'short') {
     return {
       tag: '주관식',
       css: css`
-        background-color: ${colors.yellowgreen};
+        background-color: ${colors.skyblue};
       `,
+      icon: <FillEditIcon color={colors.skyblue_press} />,
     };
   }
 
   return {
     tag: '객관식',
     css: css`
-      background-color: ${colors.pink};
+      background-color: ${colors.yellowgreen};
     `,
+    icon: <ListIcon />,
   };
 };
 
 const tagCss = (theme: Theme) => css`
   ${DETAIL}
 
+  display: inline-block;
   gap: 10px;
   order: 1;
 
+  height: 24px;
   padding: 2px 4px;
 
   color: ${theme.colors.gray_400};

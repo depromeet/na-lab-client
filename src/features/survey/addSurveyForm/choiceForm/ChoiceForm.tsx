@@ -40,21 +40,6 @@ const ChoiceForm = ({ maxSelect, setMaxSelect, inputs, setInputs }: Props) => {
   useDidUpdate(() => {
     if (isChecked === false) return;
 
-    if (maxSelect >= inputs.length) {
-      setInputs((prev) => [...prev, '']);
-    }
-    if (maxSelect === CHOICE_CASE_MAX_SELECT_COUNT) {
-      const timer = setTimeout(() => {
-        fireToast({
-          content: '복수 선택이 해제되었어요',
-          higherThanCTA: true,
-        });
-
-        onClick();
-      }, 500);
-
-      return () => clearTimeout(timer);
-    }
     if (maxSelect > MULTI_SELECT_MAX_COUNT) {
       fireToast({
         content: (
@@ -67,6 +52,26 @@ const ChoiceForm = ({ maxSelect, setMaxSelect, inputs, setInputs }: Props) => {
       });
 
       setMaxSelect(MULTI_SELECT_MAX_COUNT);
+
+      return;
+    }
+
+    const isIncrease = maxSelect === MULTI_SELECT_MAX_COUNT ? false : maxSelect >= inputs.length - 1;
+    if (isIncrease) {
+      setInputs((prev) => [...prev, '']);
+    }
+
+    if (maxSelect === CHOICE_CASE_MAX_SELECT_COUNT) {
+      const timer = setTimeout(() => {
+        fireToast({
+          content: '복수 선택이 해제되었어요',
+          higherThanCTA: true,
+        });
+
+        onClick();
+      }, 500);
+
+      return () => clearTimeout(timer);
     }
   }, [maxSelect]);
 

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 
+import Navigation from '~/components/navigation/Navigation.tsx';
 import ReceivedFeedbackCard from '~/features/feedback/ReceivedFeedbackCard';
+import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { get } from '~/libs/api';
 import colors from '~/styles/color';
 import { BODY_1, HEAD_1 } from '~/styles/typo';
@@ -24,11 +26,14 @@ interface FeedbackList {
 }
 
 export default function FeedbackList() {
+  const router = useInternalRouter();
+
   const [feedbacksByYearAndMonth, setFeedbacksByYearAndMonth] = useState(undefined);
   const [feedbackCount, setFeedbackCount] = useState(0);
 
   const getFeedbackList = async () => {
     const feedbackList: FeedbackList = await get('/reviewers?survey-id=1');
+    // TODO 여기 1 숫자 동적으로 변경 필요
     setFeedbackCount(feedbackList.feedbacks.length);
 
     const feedbacksByYearAndMonthList: Record<number, any> = {};
@@ -51,9 +56,9 @@ export default function FeedbackList() {
     setFeedbacksByYearAndMonth(feedbacksByYearAndMonthList);
   };
 
-  useEffect(() => {
-    getFeedbackList();
-  }, []);
+  const onClickFeedback = (feedbackId) => {
+    router.push(`/feedbacklist/${feedbackId}`);
+  };
 
   const renderReceivedFeedbackCards = () => {
     const now = new Date();
@@ -62,7 +67,9 @@ export default function FeedbackList() {
       for (const month in feedbacksByYearAndMonth[year]) {
         const feedbacks = feedbacksByYearAndMonth[year][month];
         const feedbackItems = feedbacks.map((feedback: Feedback) => {
-          return <ReceivedFeedbackCard key={feedback.feedback_id} feedback={feedback} />;
+          return (
+            <ReceivedFeedbackCard key={feedback.feedback_id} feedback={feedback} onClickFeedback={onClickFeedback} />
+          );
         });
 
         feedbackList.push(
@@ -79,17 +86,24 @@ export default function FeedbackList() {
     return feedbackList;
   };
 
+  useEffect(() => {
+    getFeedbackList();
+  }, []);
+
   return (
-    <main css={feedbackListCss}>
-      <header css={titleCss}>
-        받은 피드백 <span css={titleNumberCss}>{feedbackCount}</span>{' '}
-      </header>
-      <article css={feedbackPerMonthCss}>{renderReceivedFeedbackCards()}</article>
-    </main>
+    <>
+      <Navigation title={'연구결과'} />
+      <main css={containerCss}>
+        <header css={titleCss}>
+          받은 피드백 <span css={titleNumberCss}>{feedbackCount}</span>{' '}
+        </header>
+        <article css={feedbackPerMonthCss}>{renderReceivedFeedbackCards()}</article>
+      </main>
+    </>
   );
 }
 
-const feedbackListCss = css`
+const containerCss = css`
   display: flex;
   flex-direction: column;
 

@@ -1,5 +1,6 @@
-import axios, { type AxiosError, type AxiosResponse } from 'axios';
+import axios, { type AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 
+import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import ApiException from '~/exceptions/ApiException';
 import CustomException from '~/exceptions/CustomException';
 import { errorMessage } from '~/exceptions/messages';
@@ -14,7 +15,17 @@ const instance = axios.create({
   timeout: 15000,
 });
 
-// TODO: 로그인 방법에 따라 헤더 변경 함수 필요할 수 있음
+const interceptorRequestFulfilled = (config: InternalAxiosRequestConfig) => {
+  const accessToken = localStorage.getItem(LOCAL_STORAGE_KEY.accessToken);
+  if (!config.headers) return config;
+  if (!accessToken) return config;
+
+  config.headers.Authorization = `Bearer ${accessToken}`;
+
+  return config;
+};
+
+instance.interceptors.request.use(interceptorRequestFulfilled);
 
 // Response interceptor
 const interceptorResponseFulfilled = (res: AxiosResponse) => {
@@ -27,7 +38,7 @@ const interceptorResponseFulfilled = (res: AxiosResponse) => {
 
 // Response interceptor
 const interceptorResponseRejected = (error: AxiosError<ApiErrorScheme>) => {
-  if (error.response?.data?.['response-message']) {
+  if (error.response?.data?.['response_messages']) {
     return Promise.reject(new ApiException(error.response.data, error.response.status));
   }
 

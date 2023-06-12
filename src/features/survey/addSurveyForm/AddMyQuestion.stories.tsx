@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { type Meta } from '@storybook/react';
+import { Reorder } from 'framer-motion';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
 import AddMyQuestion from '~/features/survey/addSurveyForm/AddMyQuestion';
-import QuestionWithDndList from '~/features/survey/questionList/QuestionListWithDnd';
-import { type QuestionItem } from '~/features/survey/types';
+import QuestionWithDnd from '~/features/survey/questionList/QuestionWithDnd';
+import { type CustomQuestionItem } from '~/features/survey/types';
 import useBoolean from '~/hooks/common/useBoolean';
 
 import AddSurveyForm from './AddSurveyForm';
@@ -18,17 +19,25 @@ const meta: Meta<typeof AddSurveyForm> = {
 export default meta;
 
 export function Default() {
-  const [customItems, setCustomsItems] = useState<QuestionItem[]>([]);
+  const [customItems, setCustomsItems] = useState<CustomQuestionItem[]>([]);
   const [isShowing, toggleShowing] = useBoolean(false);
 
-  const addNewQuestion = (question: QuestionItem) => {
+  const addNewQuestion = (question: CustomQuestionItem) => {
     setCustomsItems((prev) => [...prev, question]);
     toggleShowing();
   };
 
+  const onDeleteCustomQuestion = (id: string) => {
+    setCustomsItems((prev) => prev.filter((item) => item.title !== id));
+  };
+
   return (
     <>
-      <QuestionWithDndList items={customItems} setItems={setCustomsItems} />
+      <Reorder.Group as="ul" values={customItems} onReorder={setCustomsItems}>
+        {customItems.map((item) => (
+          <QuestionWithDnd item={item} key={item.title} onDelete={onDeleteCustomQuestion} />
+        ))}
+      </Reorder.Group>
 
       <AddMyQuestion onAction={toggleShowing} />
       <BottomSheet isShowing={isShowing}>
