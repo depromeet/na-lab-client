@@ -1,9 +1,10 @@
+import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
-import { CTAVariants, fixedBottomCss, fixedContainerCss, imageVariant } from '~/features/survey/styles';
+import { CTAVariants, fixedBottomCss, fixedContainerCss } from '~/features/survey/styles';
 
 const JoinGuidePage = () => {
   const onNext = () => {
@@ -12,6 +13,11 @@ const JoinGuidePage = () => {
 
   return (
     <main css={mainCss}>
+      <picture css={pictureCss}>
+        <source srcSet="/images/survey/join-guide.webp" type="image/webp" />
+        <Image src="/images/survey/join-guide.png" alt="회원가입 안내" fill />
+      </picture>
+
       <StaggerWrapper wrapperOverrideCss={fixedContainerCss(25)}>
         <p>회원가입 하고</p>
         <p>당신의 커리어 질문 폼을</p>
@@ -19,11 +25,6 @@ const JoinGuidePage = () => {
           동료들에게 <strong css={strongCss}>공유</strong>하세요!
         </p>
       </StaggerWrapper>
-      <section css={fixedContainerCss(58)}>
-        <m.div variants={imageVariant} initial="initial" animate="animate" exit="exit">
-          <img src="/images/survey/join_guide.png" width={300} height={300} alt="join guide" />
-        </m.div>
-      </section>
 
       {/* TODO : 카카오 회원가입 버튼 스타일 변경  */}
       <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
@@ -42,4 +43,20 @@ const mainCss = css`
 
 const strongCss = (theme: Theme) => css`
   color: ${theme.colors.primary_200};
+`;
+
+const pictureCss = (theme: Theme) => css`
+  position: fixed;
+  z-index: ${theme.zIndex.belowDefault};
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100%;
+  max-width: ${theme.size.maxWidth};
+  height: 100%;
+
+  & > img {
+    object-fit: cover;
+  }
 `;
