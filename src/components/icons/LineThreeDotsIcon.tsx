@@ -1,3 +1,5 @@
+import { type ComponentProps } from 'react';
+
 import Svg from '../svg/Svg';
 
 const LineThreeDotsIcon = ({ color = '#3D4350', ...rest }: ComponentProps<typeof Svg>) => {
