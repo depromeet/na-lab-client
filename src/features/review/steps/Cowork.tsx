@@ -32,19 +32,36 @@ const Cowork = ({ prev, next, isCoworked, setIsCoworked }: Props) => {
         <div css={outerCircleCss}>
           <m.div css={innerCircleCss(isCoworked)}>
             <label css={[inputLabelCss, yesLabelCss]}>
-              <input type="radio" name={RADIO_NAME} value="yes" onChange={onChange} />
+              <input
+                type="radio"
+                name={RADIO_NAME}
+                value="yes"
+                defaultChecked={Boolean(isCoworked)}
+                onChange={onChange}
+              />
               <span>네, 있어요</span>
             </label>
 
             <label css={[inputLabelCss, noLabelCss]}>
-              <input type="radio" name={RADIO_NAME} value="" onChange={onChange} />
+              <input
+                type="radio"
+                name={RADIO_NAME}
+                value=""
+                defaultChecked={typeof isCoworked === 'boolean' && isCoworked === false}
+                onChange={onChange}
+              />
               <span>없어요</span>
             </label>
           </m.div>
         </div>
       </m.section>
 
-      <BottomNavigation isBackDisabled onBackClick={prev} isNextDisabled={isCoworked === null} onNextClick={next} />
+      <BottomNavigation
+        isBackDisabled
+        onBackClick={() => prev?.()}
+        isNextDisabled={isCoworked === null}
+        onNextClick={() => next?.()}
+      />
     </>
   );
 };

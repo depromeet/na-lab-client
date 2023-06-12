@@ -8,15 +8,15 @@ interface Props {
 const useStep = ({ initial = 0, max }: Props) => {
   const [currentStep, setCurrentStep] = useState(initial);
 
-  const prev = () => {
+  function prev(n?: number) {
     if (0 >= currentStep) return;
-    setCurrentStep((prevStep) => prevStep - 1);
-  };
+    setCurrentStep((prevStep) => prevStep - (n ? n : 1));
+  }
 
-  const next = () => {
+  function next(n?: number) {
     if (currentStep >= (max || Infinity)) return;
-    setCurrentStep((prevStep) => prevStep + 1);
-  };
+    setCurrentStep((prevStep) => prevStep + (n ? n : 1));
+  }
 
   return { currentStep, setCurrentStep, prev, next };
 };

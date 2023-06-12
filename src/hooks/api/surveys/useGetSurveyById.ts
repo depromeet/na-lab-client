@@ -7,33 +7,36 @@ interface Target {
   nickname: string;
 }
 
-interface ShortQuestion {
-  type: 'short';
+type FormType = 'tendency' | 'choice' | 'strength';
+
+export interface DefaultQuestion {
   question_id: number;
   order: number;
   title: string;
+  form_type: FormType;
 }
 
-interface ChoiceQuestion {
+interface ShortQuestion extends DefaultQuestion {
+  type: 'short';
+}
+
+interface ChoiceQuestion extends DefaultQuestion {
   type: 'choice';
-  question_id: number;
-  order: number;
   max_selectable_count: number;
-  title: string;
   choices: Choice[];
 }
 
-export interface Request {
+export interface Response {
   survey_id: number;
   question_count: number;
   target: Target;
   question: (ShortQuestion | ChoiceQuestion)[];
 }
 
-const useGetSurveyById = (id: string, option?: UseQueryOptions<Request>) => {
-  return useQuery<Request>({
+const useGetSurveyById = (id: string, option?: UseQueryOptions<Response>) => {
+  return useQuery<Response>({
     queryKey: ['survey', id],
-    queryFn: () => get<Request>(`/surveys/${id}`),
+    queryFn: () => get<Response>(`/surveys/${id}`),
     ...option,
   });
 };
