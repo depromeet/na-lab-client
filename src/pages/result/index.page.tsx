@@ -9,17 +9,24 @@ import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUser
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 
+import SurveyIdLoaded from './SurveyIdLoaded';
+
 const Result = () => {
+  // NOTE: 아래 3개의 훅은 필요한 곳 찾아 사용 필요
   // const { data } = useGetFeedbackById(1);
-  // const { data } = useGetAllFeedbacksBySurveyId('123');
+  // const { data: ass } = useGetAllFeedbacksBySurveyId('123');
   // const { data } = useGetAllReviewersBySurveyId('123');
-  // const { data } = useGetReviewersSummaryBySurveyId('123');
-  // const { data } = useGetFeedbackSummaryBySurveyId('123');
+
+  // NOTE: 현재 쌓인 데이터가 없어서, 개발할 시 mock에 요청 보내면서 해당 데이터 사용 X
+  // <LoadingHandler isLoading={false} fallback={<FixedSpinner />}>
+  // {data && <SurveyIdLoaded surveyId={'123'} />}
+  // 위처럼 변경해서 개발 필요
   const { isLoading, data } = useCheckSurveyId();
 
   return (
     <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
-      <div>{data?.survey_id}</div>
+      {/* TODO: useCheckSurveyId 의 데이터 넣기 필요 */}
+      {data && <SurveyIdLoaded surveyId={data.survey_id} />}
     </LoadingHandler>
   );
 };

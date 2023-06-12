@@ -1,6 +1,6 @@
 import { type Meta } from '@storybook/react';
 
-import ResearchMoveButton from './ResearchMoveButton';
+import ResearchMoveButton from './ResearchMoveAnchor';
 
 const meta: Meta<typeof ResearchMoveButton> = {
   title: 'ResearchMoveButton',
@@ -12,7 +12,7 @@ export default meta;
 export function Default() {
   return (
     <div>
-      <ResearchMoveButton />
+      <ResearchMoveButton newFeedbackNumber={1} />
     </div>
   );
 }
