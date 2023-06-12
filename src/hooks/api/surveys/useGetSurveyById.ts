@@ -20,12 +20,6 @@ interface ShortQuestion extends DefaultQuestion {
   type: 'short';
 }
 
-export interface Choice {
-  choice_id: number;
-  order: number;
-  content: string;
-}
-
 interface ChoiceQuestion extends DefaultQuestion {
   type: 'choice';
   max_selectable_count: number;

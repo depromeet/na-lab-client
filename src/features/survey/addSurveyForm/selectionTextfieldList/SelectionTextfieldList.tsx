@@ -87,6 +87,10 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
   return (
     <div css={containerCss}>
       {inputs.map((input, index) => {
+        const isLast =
+          (inputs.length < OPTION_MAX_COUNT && index === inputs.length - 1) ||
+          (inputs.length === OPTION_MAX_COUNT && index === inputs.length - 1 && input === '');
+
         return (
           <SelectionTextfield
             key={index}
@@ -96,7 +100,7 @@ const SelectTextFieldList = ({ inputs, basicCount, setInputs, isMultiChoice }: P
             onBlur={() => setFocusInput(null)}
             onDelete={() => onItemDelete(index)}
             isFocused={focusInput === index}
-            isLast={inputs.length < OPTION_MAX_COUNT && index === inputs.length - 1}
+            isLast={isLast}
             isEssential={isMultiChoice && index < basicCount}
           />
         );

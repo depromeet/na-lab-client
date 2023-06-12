@@ -3,10 +3,8 @@ import { css, type Theme, useTheme } from '@emotion/react';
 
 import CheckIcon from '~/components/icons/CheckIcon';
 
-import { type Position } from '../type';
-
 interface Props {
-  value: Position;
+  value: ReviewerPosition;
   checked: boolean;
   onChange: ChangeEventHandler<HTMLInputElement>;
   checkedColor: string;

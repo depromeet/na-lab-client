@@ -6,7 +6,6 @@ import { AnimatePresence } from 'framer-motion';
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Intro from '~/features/review/steps/Intro';
 import Last from '~/features/review/steps/Last';
-import { type Position as PositionType } from '~/features/review/steps/type';
 import StepStatus from '~/features/review/StepStatus';
 import { type Response as SurveyResponse } from '~/hooks/api/surveys/useGetSurveyById';
 import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
@@ -100,7 +99,7 @@ const useIsCowork = () => {
 };
 
 const usePosition = () => {
-  const [position, setPosition] = useState<PositionType | null>(null);
+  const [position, setPosition] = useState<ReviewerPosition | null>(null);
 
   return { position, setPosition };
 };
