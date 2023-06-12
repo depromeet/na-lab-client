@@ -32,7 +32,12 @@ const feedbacks = [
 export function Default() {
   return (
     <div>
-      <ReceivedFeedbackCard feedback={feedbacks[0]} />
+      <ReceivedFeedbackCard
+        feedback={feedbacks[0]}
+        onClickFeedback={() => {
+          return;
+        }}
+      />
     </div>
   );
 }
@@ -40,7 +45,12 @@ export function Default() {
 export function OtherFeedbackUser() {
   return (
     <div>
-      <ReceivedFeedbackCard feedback={feedbacks[0]} />
+      <ReceivedFeedbackCard
+        feedback={feedbacks[0]}
+        onClickFeedback={() => {
+          return;
+        }}
+      />
     </div>
   );
 }

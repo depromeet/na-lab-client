@@ -25,10 +25,18 @@ interface FeedbackList {
   feedbacks: Feedback[];
 }
 
+interface Feedbacks {
+  [year: string]: FeedbacksByMonth;
+}
+
+interface FeedbacksByMonth {
+  [month: string]: Feedback[];
+}
+
 export default function FeedbackList() {
   const router = useInternalRouter();
 
-  const [feedbacksByYearAndMonth, setFeedbacksByYearAndMonth] = useState(undefined);
+  const [feedbacksByYearAndMonth, setFeedbacksByYearAndMonth] = useState<Feedbacks | undefined>(undefined);
   const [feedbackCount, setFeedbackCount] = useState(0);
 
   const getFeedbackList = async () => {
@@ -36,7 +44,7 @@ export default function FeedbackList() {
     // TODO 여기 1 숫자 동적으로 변경 필요
     setFeedbackCount(feedbackList.feedbacks.length);
 
-    const feedbacksByYearAndMonthList: Record<number, any> = {};
+    const feedbacksByYearAndMonthList: Feedbacks = {};
 
     feedbackList.feedbacks.forEach((feedback: Feedback) => {
       const date = new Date(feedback.created_at);
@@ -56,7 +64,7 @@ export default function FeedbackList() {
     setFeedbacksByYearAndMonth(feedbacksByYearAndMonthList);
   };
 
-  const onClickFeedback = (feedbackId) => {
+  const onClickFeedback = (feedbackId: number) => {
     router.push(`/feedbacklist/${feedbackId}`);
   };
 

@@ -22,7 +22,7 @@ interface Feedback {
 
 interface Props {
   feedback: Feedback;
-  onClickFeedback: void;
+  onClickFeedback: (arg0: number) => void;
 }
 
 type Position = 'developer' | 'designer' | 'product-manager' | 'other';
@@ -55,7 +55,13 @@ const ReceivedFeedbackCard = ({ feedback, onClickFeedback }: Props) => {
   }, []);
 
   return (
-    <section css={containerCss} role="presentation" onClick={() => onClickFeedback(feedback_id)}>
+    <section
+      css={containerCss}
+      role="presentation"
+      onClick={() => {
+        onClickFeedback(feedback_id);
+      }}
+    >
       {is_read ? null : <UnreadBadgeIcon floatingTop="8px" floatingRight="8px" />}
 
       <figure css={BodyCss}>

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 type SurveyPaths = '/survey' | '/survey/intro' | '/survey/create' | '/survey/join' | '/survey/link';
 
-export type InternalPaths = '/' | 'test' | 'test2' | SurveyPaths;
+export type InternalPaths = '/' | 'test' | 'test2' | SurveyPaths | string;
 
 interface TransitionOptions {
   shallow?: boolean;

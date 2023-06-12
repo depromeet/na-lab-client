@@ -27,6 +27,12 @@ interface Question {
   reply?: string[];
 }
 
+interface Reviewer {
+  nickname: string;
+  collaboration_experience: boolean;
+  position: string;
+}
+
 interface Feedback {
   feedback_id: number;
   created_at: string;
@@ -105,10 +111,10 @@ const Feedback = () => {
   };
 
   const renderUserInfoTendency = () => {
-    const tendencyList = [];
+    const tendencyList: any[] = [];
     feedback.question.forEach((question) => {
       if (question.type === 'choice' && question.form_type === 'tendency') {
-        question.choices.map((choice) => {
+        question.choices?.map((choice) => {
           // todo 일단 '긍정적인'으로 import 중인데 들어오는 데이터에 따라 변경 필요
           tendencyList.push(
             <Pill css={pillCss} color="skyblue">
@@ -144,7 +150,7 @@ const Feedback = () => {
         </header>
 
         <div css={userInfoContainerCss}>
-          <div css={userInfoTitleCss}>{session?.user.name} 님의 성향</div>
+          <div css={userInfoTitleCss}>{session?.user?.name} 님의 성향</div>
           <div css={userInfoBodyCss}>{renderUserInfoTendency()}</div>
         </div>
 
@@ -162,7 +168,7 @@ const Feedback = () => {
                 <>
                   <div css={questionTitleCss}>Q. {question.title}</div>
                   <div css={questionChoiceBodyCss}>
-                    {question.choices.map((choice) => (
+                    {question.choices?.map((choice) => (
                       <div key={choice.choice_id} css={questionChoiceCss}>
                         {choice.content}
                       </div>
