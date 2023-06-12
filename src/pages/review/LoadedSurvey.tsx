@@ -19,6 +19,7 @@ import usePostFeedbackBySurveyId, {
 } from '~/hooks/api/surveys/usePostFeedbackBySurveyId';
 import useWillUnmount from '~/hooks/lifeCycle/useWillUnmount';
 import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
+import recordEvent from '~/utils/event';
 import { removeLocalStorageItemWithPrefix } from '~/utils/localStorage';
 
 const Cowork = dynamic(() => import('~/features/review/steps/Cowork'), { ssr: false });
@@ -212,6 +213,7 @@ const usePostMutation = ({ survey_id, isCoworked, position, questionAnswers }: U
     {
       onSuccess: () => {
         removeStoragedMessages();
+        recordEvent({ action: '리뷰어 - 마지막 - 질문 응답 성공' });
       },
       onError: () => {
         fireToast({ content: '문제가 발생했어요. 다시 실행해 주세요.' });

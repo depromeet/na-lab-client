@@ -3,6 +3,8 @@ import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInVariants } from '~/constants/motions';
+import useDidMount from '~/hooks/lifeCycle/useDidMount';
+import recordEvent from '~/utils/event';
 
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
@@ -31,6 +33,10 @@ const ChoiceQuestion = ({
   isLastQuestion = false,
 }: Props) => {
   const { onChange } = useChoices({ max_selection_count, selectedChoicesId, setChoices });
+
+  useDidMount(() => {
+    recordEvent({ action: '리뷰어 - 객관식 질문' });
+  });
 
   return (
     <>

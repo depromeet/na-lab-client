@@ -6,6 +6,8 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 import WarningIcon from '~/components/icons/WarningIcon';
 import Toast from '~/components/toast/Toast';
 import useToast from '~/components/toast/useToast';
+import useDidMount from '~/hooks/lifeCycle/useDidMount';
+import recordEvent from '~/utils/event';
 
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
@@ -22,6 +24,10 @@ const MAX_LENGTH = 5;
 
 const Softskill = ({ prev, next, nickname, selectedSoftskills, setSelectedSoftskills }: Props) => {
   const { fireToast } = useToast();
+
+  useDidMount(() => {
+    recordEvent({ action: '리뷰어 - 소프트 스킬' });
+  });
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const clickedSoftskill = e.target.value as Softskills;

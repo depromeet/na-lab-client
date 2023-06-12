@@ -3,7 +3,9 @@ import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInVariants } from '~/constants/motions';
+import useDidMount from '~/hooks/lifeCycle/useDidMount';
 import { HEAD_2_BOLD, HEAD_2_REGULAR } from '~/styles/typo';
+import recordEvent from '~/utils/event';
 
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
@@ -21,6 +23,10 @@ const Cowork = ({ prev, next, nickname, isCoworked, setIsCoworked }: Props) => {
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setIsCoworked(Boolean(e.target.value));
   };
+
+  useDidMount(() => {
+    recordEvent({ action: '리뷰어 - 협업 경험' });
+  });
 
   return (
     <>

@@ -5,7 +5,9 @@ import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInVariants } from '~/constants/motions';
+import useDidMount from '~/hooks/lifeCycle/useDidMount';
 import theme from '~/styles/theme';
+import recordEvent from '~/utils/event';
 
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
@@ -71,6 +73,10 @@ const Position = ({ prev, next, position, setPosition }: Props) => {
     const currentPosition = e.target.value as ReviewerPosition;
     setPosition(currentPosition);
   };
+
+  useDidMount(() => {
+    recordEvent({ action: '리뷰어 - 포지션' });
+  });
 
   return (
     <>

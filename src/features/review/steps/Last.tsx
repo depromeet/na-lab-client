@@ -13,6 +13,7 @@ import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { BODY_2_REGULAR } from '~/styles/typo';
+import recordEvent from '~/utils/event';
 
 import { fixedBottomCss } from '../style';
 
@@ -30,6 +31,7 @@ const Last = ({ onSubmit, isLoading }: Props) => {
     // TODO: 로그인 확인해서 안했으면, 로그인 화면으로
     // TODO: 했으면 생성 페이지로
 
+    recordEvent({ action: '리뷰어 - 마지막 - 나도 질문 폼 생성하기 버튼 클릭' });
     router.push('/');
   };
 

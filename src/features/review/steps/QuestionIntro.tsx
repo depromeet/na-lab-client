@@ -5,6 +5,7 @@ import { m } from 'framer-motion';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import { defaultFadeInVariants } from '~/constants/motions';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
+import recordEvent from '~/utils/event';
 
 import { type StepProps } from './type';
 
@@ -19,6 +20,10 @@ const QuestionIntro = ({ nickname, next }: Props) => {
     }, 3000);
 
     return () => clearTimeout(timeout);
+  });
+
+  useDidMount(() => {
+    recordEvent({ action: '리뷰어 - 질문 인트로' });
   });
 
   return (
