@@ -6,6 +6,8 @@ import { m, type Variants } from 'framer-motion';
 import CTAButton from '~/components/button/CTAButton';
 import XIcon from '~/components/icons/XIcon';
 import InternalLink from '~/components/link/InternalLink';
+import FixedSpinner from '~/components/loading/FixedSpinner';
+import LoadingHandler from '~/components/loading/LoadingHandler';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
@@ -16,9 +18,10 @@ import { fixedBottomCss } from '../style';
 
 interface Props {
   onSubmit: VoidFunction;
+  isLoading: boolean;
 }
 
-const Last = ({ onSubmit }: Props) => {
+const Last = ({ onSubmit, isLoading }: Props) => {
   const router = useInternalRouter();
 
   useDidMount(onSubmit);
@@ -31,32 +34,34 @@ const Last = ({ onSubmit }: Props) => {
   };
 
   return (
-    <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-      <header css={headerCss}>
-        <InternalLink href="/">
-          <XIcon />
-        </InternalLink>
-      </header>
+    <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
+      <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
+        <header css={headerCss}>
+          <InternalLink href="/">
+            <XIcon />
+          </InternalLink>
+        </header>
 
-      <StaggerWrapper>
-        <p>응답해주셔서 감사해요.</p>
-        <p>좋은 연구 자료가 되었어요!</p>
-      </StaggerWrapper>
+        <StaggerWrapper>
+          <p>응답해주셔서 감사해요.</p>
+          <p>좋은 연구 자료가 되었어요!</p>
+        </StaggerWrapper>
 
-      <picture css={pictureCss}>
-        <source srcSet="/images/review/last.webp" type="image/webp" />
-        <Image src="/images/review/last.png" alt="응답해주셔서 감사해요" fill />
-      </picture>
+        <picture css={pictureCss}>
+          <source srcSet="/images/review/last.webp" type="image/webp" />
+          <Image src="/images/review/last.png" alt="응답해주셔서 감사해요" fill />
+        </picture>
 
-      <m.div css={ctaWrapperCss} variants={ctaVariants}>
-        <m.span css={bubbleSpanCss} variants={bubbleVariants}>
-          단 3분이면 나의 질문 폼 링크를 만들 수 있어요!
-        </m.span>
-        <CTAButton onClick={onClickCTA} color="blue">
-          나도 커리어 질문 폼 생성하기
-        </CTAButton>
-      </m.div>
-    </m.section>
+        <m.div css={ctaWrapperCss} variants={ctaVariants}>
+          <m.span css={bubbleSpanCss} variants={bubbleVariants}>
+            단 3분이면 나의 질문 폼 링크를 만들 수 있어요!
+          </m.span>
+          <CTAButton onClick={onClickCTA} color="blue">
+            나도 커리어 질문 폼 생성하기
+          </CTAButton>
+        </m.div>
+      </m.section>
+    </LoadingHandler>
   );
 };
 

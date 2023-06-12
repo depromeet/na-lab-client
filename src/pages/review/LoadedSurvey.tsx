@@ -1,14 +1,25 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { css } from '@emotion/react';
+import { useMutation } from '@tanstack/react-query';
 import { AnimatePresence } from 'framer-motion';
 
 import { type Softskills } from '~/components/graphic/softskills/type';
+import useToast from '~/components/toast/useToast';
+import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import Intro from '~/features/review/steps/Intro';
 import Last from '~/features/review/steps/Last';
 import StepStatus from '~/features/review/StepStatus';
 import { type Response as SurveyResponse } from '~/hooks/api/surveys/useGetSurveyById';
+import usePostFeedbackBySurveyId, {
+  type ChoiceQuestionFeedback,
+  type QuestionFeedback,
+  type ShortQuestionFeedback,
+} from '~/hooks/api/surveys/usePostFeedbackBySurveyId';
+import useWillUnmount from '~/hooks/lifeCycle/useWillUnmount';
 import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
+import { removeLocalStorageItemWithPrefix } from '~/utils/localStorage';
 
 const Cowork = dynamic(() => import('~/features/review/steps/Cowork'), { ssr: false });
 const Position = dynamic(() => import('~/features/review/steps/Position'), { ssr: false });
@@ -19,13 +30,17 @@ const ChoiceQuestion = dynamic(() => import('~/features/review/steps/ChoiceQuest
 
 const DEFAULT_STEP_LENGTH = 6;
 
-const LoadedSurvey = ({ target, question, question_count }: SurveyResponse) => {
+const LoadedSurvey = ({ survey_id, target, question, question_count }: SurveyResponse) => {
   const { isCoworked, setIsCoworked } = useIsCowork();
   const { position, setPosition } = usePosition();
   const { selectedSoftskills, setSelectedSoftskills } = useSoftskills();
-  // const { setStrength } = useStrength();
-
   const { questionAnswers, setEachQuestionAnswer } = useQuestionAnswers({ question });
+
+  const { isLoading, mutate } = usePostMutation({ survey_id, isCoworked, position, questionAnswers });
+
+  useWillUnmount(() => {
+    removeStoragedMessages();
+  });
 
   const { currentElement, currentStep } = useInjectedElementStep({
     elements: [
@@ -57,7 +72,7 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyResponse) => {
             key={eachQuestion.question_id}
             nickname={target.nickname}
             title={eachQuestion.title}
-            selectedChoicesId={(questionAnswers[index] as ChoiceQuestionAnswer).choices}
+            selectedChoicesId={(questionAnswers[index] as ChoiceQuestionFeedback).choices}
             choices={eachQuestion.choices}
             setChoices={setEachQuestionAnswer(eachQuestion.question_id)}
             max_selection_count={eachQuestion.max_selection_count}
@@ -65,8 +80,7 @@ const LoadedSurvey = ({ target, question, question_count }: SurveyResponse) => {
           />
         ),
       ),
-      // TODO: post 이후 localStoreage short message 비우기
-      <Last key="last" onSubmit={() => console.warn(questionAnswers)} />,
+      <Last key="last" onSubmit={mutate} isLoading={isLoading} />,
     ],
   });
 
@@ -110,27 +124,8 @@ const useSoftskills = () => {
   return { selectedSoftskills, setSelectedSoftskills };
 };
 
-// const useStrength = () => {
-//   const [strength, setStrength] = useState<string[]>([]);
-//   return { strength, setStrength };
-// };
-
-interface ShortQuestionAnswer {
-  type: 'short';
-  question_id: string;
-  reply: string[];
-}
-
-interface ChoiceQuestionAnswer {
-  type: 'choice';
-  question_id: string;
-  choices: string[];
-}
-
-type QuestionAnswer = ShortQuestionAnswer | ChoiceQuestionAnswer;
-
 const useQuestionAnswers = ({ question }: Pick<SurveyResponse, 'question'>) => {
-  const [questionAnswers, setQuestionAnswers] = useState<QuestionAnswer[]>(
+  const [questionAnswers, setQuestionAnswers] = useState<QuestionFeedback[]>(
     question.map((eachQuestion) =>
       eachQuestion.type === 'short'
         ? { type: 'short', question_id: eachQuestion.question_id, reply: [] }
@@ -157,7 +152,7 @@ const useQuestionAnswers = ({ question }: Pick<SurveyResponse, 'question'>) => {
               ? ({
                   ...eachQuestionAnswer,
                   reply: newTargetQuestionAnswer,
-                } as ShortQuestionAnswer)
+                } as ShortQuestionFeedback)
               : eachQuestionAnswer,
           );
         }
@@ -170,7 +165,7 @@ const useQuestionAnswers = ({ question }: Pick<SurveyResponse, 'question'>) => {
               ? ({
                   ...eachQuestionAnswer,
                   choices: newTargetQuestionAnswer,
-                } as ChoiceQuestionAnswer)
+                } as ChoiceQuestionFeedback)
               : eachQuestionAnswer,
           );
         }
@@ -180,4 +175,49 @@ const useQuestionAnswers = ({ question }: Pick<SurveyResponse, 'question'>) => {
     };
 
   return { questionAnswers, setEachQuestionAnswer };
+};
+
+const removeStoragedMessages = () => {
+  const prefix = LOCAL_STORAGE_KEY.reviewShortQuestionMessages;
+  removeLocalStorageItemWithPrefix(prefix);
+};
+
+interface UsePostFeedbackProps {
+  survey_id: Parameters<typeof usePostFeedbackBySurveyId>[0];
+  isCoworked: ReturnType<typeof useIsCowork>['isCoworked'];
+  position: ReturnType<typeof usePosition>['position'];
+  questionAnswers: ReturnType<typeof useQuestionAnswers>['questionAnswers'];
+}
+
+const usePostMutation = ({ survey_id, isCoworked, position, questionAnswers }: UsePostFeedbackProps) => {
+  const { fireToast } = useToast();
+  const router = useRouter();
+  const postFeedback = usePostFeedbackBySurveyId(survey_id);
+
+  const mutation = useMutation(
+    () => {
+      if (isCoworked === null) {
+        throw new Error('협업 경험을 선택해 주세요.');
+      }
+      if (position === null) {
+        throw new Error('포지션을 선택해 주세요.');
+      }
+
+      return postFeedback({
+        reviewer: { collaboration_experience: isCoworked, position },
+        question_feedback: questionAnswers,
+      });
+    },
+    {
+      onSuccess: () => {
+        removeStoragedMessages();
+      },
+      onError: () => {
+        fireToast({ content: '문제가 발생했어요. 다시 실행해 주세요.' });
+        setTimeout(() => router.reload(), 2000);
+      },
+    },
+  );
+
+  return mutation;
 };
