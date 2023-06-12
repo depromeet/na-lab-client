@@ -22,7 +22,7 @@ const JoinGuidePage = () => {
         <p>회원가입 하고</p>
         <p>당신의 커리어 질문 폼을</p>
         <p>
-          동료들에게 <strong css={strongCss}>공유</strong>하세요!
+          동료들에게 <strong>공유</strong>하세요!
         </p>
       </StaggerWrapper>
 
@@ -36,13 +36,14 @@ const JoinGuidePage = () => {
 
 export default JoinGuidePage;
 
-const mainCss = css`
+const mainCss = (theme: Theme) => css`
   width: 100%;
   height: 100vh;
-`;
 
-const strongCss = (theme: Theme) => css`
-  color: ${theme.colors.primary_200};
+  & strong {
+    font-weight: 500;
+    color: ${theme.colors.primary_300};
+  }
 `;
 
 const pictureCss = (theme: Theme) => css`

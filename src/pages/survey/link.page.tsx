@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
 
@@ -7,7 +8,7 @@ import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import Toast from '~/components/toast/Toast';
 import useToast from '~/components/toast/useToast';
 import { fixedBottomCss } from '~/features/review/style';
-import { CTAVariants, fixedContainerCss, imageVariant } from '~/features/survey/styles';
+import { CTAVariants, fixedContainerCss } from '~/features/survey/styles';
 import { copyToClipBoard } from '~/utils/clipboard';
 
 const SurveyLinkPage = () => {
@@ -30,17 +31,17 @@ const SurveyLinkPage = () => {
 
   return (
     <main css={mainCss}>
+      <picture css={pictureCss}>
+        <source srcSet="/images/survey/link-guide.webp" type="image/webp" />
+        <Image src="/images/survey/link-guide.png" alt="링크 공유 안내" fill />
+      </picture>
+
       <StaggerWrapper wrapperOverrideCss={fixedContainerCss(25)}>
         <p>아래 공유하기 버튼을 눌러</p>
         <p>
-          <strong css={strongCss}>나의 질문 폼 링크</strong>를 복사하세요!
+          <strong>나의 질문 폼 링크</strong>를 복사하세요!
         </p>
       </StaggerWrapper>
-      <section css={fixedContainerCss(58)}>
-        <m.div variants={imageVariant} initial="initial" animate="animate" exit="exit">
-          <img src="/images/survey/link.png" width={184} height={277} alt="link guide" />
-        </m.div>
-      </section>
 
       {/* TODO : 카카오 회원가입 버튼 스타일 변경  */}
       <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
@@ -54,11 +55,28 @@ const SurveyLinkPage = () => {
 
 export default SurveyLinkPage;
 
-const mainCss = css`
+const mainCss = (theme: Theme) => css`
   width: 100%;
   height: 100vh;
+
+  & strong {
+    font-weight: 500;
+    color: ${theme.colors.primary_300};
+  }
 `;
 
-const strongCss = (theme: Theme) => css`
-  color: ${theme.colors.primary_200};
+const pictureCss = (theme: Theme) => css`
+  position: fixed;
+  z-index: ${theme.zIndex.belowDefault};
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100%;
+  max-width: ${theme.size.maxWidth};
+  height: 100%;
+
+  & > img {
+    object-fit: cover;
+  }
 `;
