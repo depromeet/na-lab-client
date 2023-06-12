@@ -45,11 +45,12 @@ const LoadedSurvey = ({ survey_id, target, question, question_count }: SurveyRes
   const { currentElement, currentStep } = useInjectedElementStep({
     elements: [
       <Intro key="intro" nickname={target.nickname} />,
-      <Cowork key="cowork" isCoworked={isCoworked} setIsCoworked={setIsCoworked} />,
+      <Cowork key="cowork" nickname={target.nickname} isCoworked={isCoworked} setIsCoworked={setIsCoworked} />,
       <Position key="position" position={position} setPosition={setPosition} />,
-      <QuestionIntro key="question-intro" />,
+      <QuestionIntro key="question-intro" nickname={target.nickname} />,
       <Softskill
         key="softskill"
+        nickname={target.nickname}
         selectedSoftskills={selectedSoftskills}
         setSelectedSoftskills={setSelectedSoftskills}
       />,

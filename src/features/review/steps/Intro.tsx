@@ -14,7 +14,7 @@ import { fixedBottomCss } from '../style';
 import { type StepProps } from './type';
 
 interface Props extends StepProps {
-  nickname: string;
+  nickname: Reviewer['nickname'];
 }
 
 const Intro = ({ nickname, next }: Props) => {

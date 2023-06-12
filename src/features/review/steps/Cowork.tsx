@@ -9,24 +9,22 @@ import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
 import { type StepProps } from './type';
 
-// TODO: API 개발 이후 수정
-const MOCK_NAME = '예진';
-
 const RADIO_NAME = 'isCowork';
 
 interface Props extends StepProps {
+  nickname: Reviewer['nickname'];
   isCoworked: boolean | null;
   setIsCoworked: Dispatch<SetStateAction<boolean | null>>;
 }
 
-const Cowork = ({ prev, next, isCoworked, setIsCoworked }: Props) => {
+const Cowork = ({ prev, next, nickname, isCoworked, setIsCoworked }: Props) => {
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setIsCoworked(Boolean(e.target.value));
   };
 
   return (
     <>
-      <QuestionHeader title={`당신은 ${MOCK_NAME}님과 협업한 경험이 있나요?`} />
+      <QuestionHeader title={`당신은 ${nickname}님과 협업한 경험이 있나요?`} />
 
       <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
         <div css={outerCircleCss}>

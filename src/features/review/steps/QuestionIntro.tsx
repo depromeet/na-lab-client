@@ -8,7 +8,11 @@ import useDidMount from '~/hooks/lifeCycle/useDidMount';
 
 import { type StepProps } from './type';
 
-const QuestionIntro = ({ next }: StepProps) => {
+interface Props extends StepProps {
+  nickname: Reviewer['nickname'];
+}
+
+const QuestionIntro = ({ nickname, next }: Props) => {
   useDidMount(() => {
     const timeout = setTimeout(() => {
       next?.();
@@ -22,7 +26,7 @@ const QuestionIntro = ({ next }: StepProps) => {
       <StaggerWrapper wrapperOverrideCss={wrapperCss}>
         <p>좋아요!</p>
         <p>
-          이제부턴 <strong>예진</strong>님에 대해
+          이제부턴 <strong>{nickname}</strong>님에 대해
         </p>
         <p>본격적으로 여쭤볼게요.</p>
       </StaggerWrapper>
