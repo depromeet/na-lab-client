@@ -3,13 +3,25 @@ import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
+import useKakaoLogin from '~/components/kakaoLoginButton/useKakaoLogin';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import { CTAVariants, fixedBottomCss, fixedContainerCss } from '~/features/survey/styles';
+import { type QuestionRequest } from '~/features/survey/types';
+import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
+import useLocalStorage from '~/hooks/storage/useLocalStorage';
 
 const JoinGuidePage = () => {
-  const onNext = () => {
-    console.info('onNext');
-  };
+  const { loginHandler, isLoginState } = useKakaoLogin();
+  // TODO : storage key 변경
+  const [createSurveyRequest] = useLocalStorage<QuestionRequest[]>('createSurveyRequest', []);
+
+  useDidUpdate(() => {
+    if (isLoginState) {
+      // TODO : 로그인이 되었으므로, 로컬 스토리지의 값으로 나의 질문 폼 생성 API 호출
+      // TODO : 로컬 스토리지에 저장하는 값 계산해서 넣기
+      console.log('createSurveyRequest: ', createSurveyRequest);
+    }
+  }, [isLoginState]);
 
   return (
     <main css={mainCss}>
@@ -28,7 +40,7 @@ const JoinGuidePage = () => {
 
       {/* TODO : 카카오 회원가입 버튼 스타일 변경  */}
       <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
-        <CTAButton onClick={onNext}>카카오 계정으로 회원가입 하기</CTAButton>
+        <CTAButton onClick={loginHandler}>카카오 계정으로 회원가입 하기</CTAButton>
       </m.div>
     </main>
   );
