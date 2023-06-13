@@ -3,16 +3,10 @@ import { css } from '@emotion/react';
 
 import Navigation from '~/components/navigation/Navigation.tsx';
 import ReceivedFeedbackCard from '~/features/feedback/ReceivedFeedbackCard';
+import useGetAllReviewersBySurveyId from '~/hooks/api/reviewers/useGetAllReviewersBySurveyId';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
-import { get } from '~/libs/api';
 import colors from '~/styles/color';
 import { BODY_1, HEAD_1 } from '~/styles/typo';
-
-interface Reviewer {
-  collaboration_experience: boolean;
-  nickname: string;
-  position: string;
-}
 
 interface Feedback {
   feedback_id: number;
@@ -21,7 +15,7 @@ interface Feedback {
   is_read: boolean;
 }
 
-interface FeedbackList {
+interface Response {
   feedbacks: Feedback[];
 }
 
@@ -35,15 +29,17 @@ interface FeedbacksByMonth {
 
 export default function FeedbackList() {
   const router = useInternalRouter();
+  // todo status 활용해서 인증 작업하기
+  // const { status } = useSession();
+  // todo 여기 123 숫자 동적으로 변경 필요
+  const { data } = useGetAllReviewersBySurveyId('123');
+
+  console.log(data);
 
   const [feedbacksByYearAndMonth, setFeedbacksByYearAndMonth] = useState<Feedbacks | undefined>(undefined);
   const [feedbackCount, setFeedbackCount] = useState(0);
 
-  const getFeedbackList = async () => {
-    const feedbackList: FeedbackList = await get('/reviewers?survey-id=1');
-    // TODO 여기 1 숫자 동적으로 변경 필요
-    setFeedbackCount(feedbackList.feedbacks.length);
-
+  const getFeedbackList = (feedbackList: Response) => {
     const feedbacksByYearAndMonthList: Feedbacks = {};
 
     feedbackList.feedbacks.forEach((feedback: Feedback) => {
@@ -95,8 +91,11 @@ export default function FeedbackList() {
   };
 
   useEffect(() => {
-    getFeedbackList();
-  }, []);
+    if (data) {
+      getFeedbackList(data);
+      setFeedbackCount(data.feedbacks.length);
+    }
+  }, [data]);
 
   return (
     <>

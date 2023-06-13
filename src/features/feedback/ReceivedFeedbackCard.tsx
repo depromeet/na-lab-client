@@ -25,7 +25,7 @@ interface Props {
   onClickFeedback: (arg0: number) => void;
 }
 
-type Position = 'developer' | 'designer' | 'product-manager' | 'other';
+type Position = 'developer' | 'designer' | 'pm' | 'others';
 
 const ReceivedFeedbackCard = ({ feedback, onClickFeedback }: Props) => {
   const [role, setRole] = useState('개발자');
@@ -41,7 +41,7 @@ const ReceivedFeedbackCard = ({ feedback, onClickFeedback }: Props) => {
     } else if (roleInput === ('designer' as Position)) {
       setRole('디자이너');
       setRoleImage('/images/feedback/pink-designer.png');
-    } else if (roleInput === ('product-manager' as Position)) {
+    } else if (roleInput === ('pm' as Position)) {
       setRole('기획자');
       setRoleImage('/images/feedback/green-pm.png');
     } else {

@@ -6,7 +6,7 @@ interface Feedback {
   feedback_id: number;
   created_at: string;
   is_read: boolean;
-  reviewer: Reviewer;
+  reviwer: Reviewer;
 }
 
 interface Response {
