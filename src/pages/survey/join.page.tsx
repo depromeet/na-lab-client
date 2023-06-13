@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
@@ -7,13 +6,19 @@ import CTAButton from '~/components/button/CTAButton';
 import useKakaoLogin from '~/components/kakaoLoginButton/useKakaoLogin';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import { CTAVariants, fixedBottomCss, fixedContainerCss } from '~/features/survey/styles';
+import { type QuestionRequest } from '~/features/survey/types';
+import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
+import useLocalStorage from '~/hooks/storage/useLocalStorage';
 
 const JoinGuidePage = () => {
   const { loginHandler, isLoginState } = useKakaoLogin();
+  // TODO : storage key 변경
+  const [createSurveyRequest] = useLocalStorage<QuestionRequest[]>('createSurveyRequest', []);
 
-  useEffect(() => {
+  useDidUpdate(() => {
     if (isLoginState) {
       // TODO : 로그인이 되었으므로, 로컬 스토리지의 값으로 나의 질문 폼 생성 API 호출
+      console.log('createSurveyRequest: ', createSurveyRequest);
     }
   }, [isLoginState]);
 
