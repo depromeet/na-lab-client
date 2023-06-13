@@ -12,7 +12,7 @@ export default meta;
 export function Default() {
   return (
     <div>
-      <CollaborationCounter count={{ positive: 1, negative: 1 }} />
+      <CollaborationCounter count={{ yes: 1, no: 1 }} />
     </div>
   );
 }

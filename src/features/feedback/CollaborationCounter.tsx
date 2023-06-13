@@ -4,13 +4,13 @@ import ProfileIcon from '~/components/icons/ProfileIcon';
 import { HEAD_2_BOLD, HEAD_2_REGULAR } from '~/styles/typo';
 
 interface Props {
-  count: { positive: number; negative: number };
+  count: { yes: number; no: number };
 }
 
 const CollaborationCounter = ({ count }: Props) => (
   <div css={containerCss}>
-    <CollaborationCounterCard count={count.negative} positive={false} />
-    <CollaborationCounterCard count={count.positive} positive={true} />
+    <CollaborationCounterCard count={count.yes} positive={false} />
+    <CollaborationCounterCard count={count.no} positive={true} />
   </div>
 );
 
