@@ -1,7 +1,6 @@
-import { type ChangeEventHandler, type Dispatch, type SetStateAction } from 'react';
+import { type ChangeEventHandler } from 'react';
 import { css } from '@emotion/react';
 
-import { softskillList } from '~/components/graphic/softskills/Softskill';
 import { type Softskills } from '~/components/graphic/softskills/type';
 import WarningIcon from '~/components/icons/WarningIcon';
 import Toast from '~/components/toast/Toast';
@@ -16,13 +15,14 @@ import { type StepProps } from './type';
 
 interface Props extends StepProps {
   nickname: Reviewer['nickname'];
-  selectedSoftskills: Softskills[];
-  setSelectedSoftskills: Dispatch<SetStateAction<Softskills[]>>;
+  choices: Choice[];
+  selectedChoiceIds: string[];
+  setChoices: (setStateAction: (prevState: string[]) => string[]) => void;
 }
 
 const MAX_LENGTH = 5;
 
-const Softskill = ({ prev, next, nickname, selectedSoftskills, setSelectedSoftskills }: Props) => {
+const Softskill = ({ prev, next, nickname, choices, selectedChoiceIds, setChoices }: Props) => {
   const { fireToast } = useToast();
 
   useDidMount(() => {
@@ -30,15 +30,15 @@ const Softskill = ({ prev, next, nickname, selectedSoftskills, setSelectedSoftsk
   });
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const clickedSoftskill = e.target.value as Softskills;
+    const clickedChoiceId = e.target.value;
 
     if (!e.target.checked) {
-      setSelectedSoftskills((prevSoftskills) => prevSoftskills.filter((softskill) => softskill !== clickedSoftskill));
+      setChoices((prevChoices) => prevChoices.filter((choice) => choice !== clickedChoiceId));
 
       return;
     }
 
-    if (selectedSoftskills.length >= MAX_LENGTH) {
+    if (selectedChoiceIds.length >= MAX_LENGTH) {
       e.target.checked = false;
 
       fireToast({
@@ -55,7 +55,7 @@ const Softskill = ({ prev, next, nickname, selectedSoftskills, setSelectedSoftsk
     }
 
     if (e.target.checked) {
-      setSelectedSoftskills((prevSoftskills) => [...prevSoftskills, clickedSoftskill]);
+      setChoices((prevSoftskills) => [...prevSoftskills, clickedChoiceId]);
     }
   };
 
@@ -66,19 +66,20 @@ const Softskill = ({ prev, next, nickname, selectedSoftskills, setSelectedSoftsk
         subTitle="키워드를 최대 5개까지 선택해주세요."
       />
       <section css={sectionCss}>
-        {softskillList.map((softskill) => (
+        {choices.map((softskill) => (
           <PillCheckbox
-            key={softskill}
-            graphicName={softskill}
-            name={softskill.replaceAll('_', ' ')}
+            key={softskill.choice_id}
+            graphicName={softskill.content as Softskills}
+            name={softskill.content.replaceAll('_', ' ')}
             onChange={onChange}
-            checked={selectedSoftskills.includes(softskill)}
+            value={softskill.choice_id}
+            checked={selectedChoiceIds.includes(softskill.choice_id)}
           />
         ))}
       </section>
       <BottomNavigation
         onBackClick={() => prev?.(2)}
-        isNextDisabled={!Boolean(selectedSoftskills.length)}
+        isNextDisabled={!Boolean(choices.length)}
         onNextClick={() => next?.()}
       />
     </>

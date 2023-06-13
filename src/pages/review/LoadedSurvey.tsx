@@ -5,11 +5,9 @@ import { css } from '@emotion/react';
 import { useMutation } from '@tanstack/react-query';
 import { AnimatePresence } from 'framer-motion';
 
-import { type Softskills } from '~/components/graphic/softskills/type';
 import useToast from '~/components/toast/useToast';
 import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import Intro from '~/features/review/steps/Intro';
-import Last from '~/features/review/steps/Last';
 import StepStatus from '~/features/review/StepStatus';
 import { type Response as SurveyResponse } from '~/hooks/api/surveys/useGetSurveyById';
 import usePostFeedbackBySurveyId, {
@@ -28,13 +26,13 @@ const QuestionIntro = dynamic(() => import('~/features/review/steps/QuestionIntr
 const Softskill = dynamic(() => import('~/features/review/steps/Softskill'), { ssr: false });
 const ShortQuestion = dynamic(() => import('~/features/review/steps/ShortQuestion'), { ssr: false });
 const ChoiceQuestion = dynamic(() => import('~/features/review/steps/ChoiceQuestion'), { ssr: false });
+const Last = dynamic(() => import('~/features/review/steps/Last'), { ssr: false });
 
 const DEFAULT_STEP_LENGTH = 6;
 
 const LoadedSurvey = ({ survey_id, target, question, question_count }: SurveyResponse) => {
   const { isCoworked, setIsCoworked } = useIsCowork();
   const { position, setPosition } = usePosition();
-  const { selectedSoftskills, setSelectedSoftskills } = useSoftskills();
   const { questionAnswers, setEachQuestionAnswer } = useQuestionAnswers({ question });
 
   const { isLoading, mutate } = usePostMutation({ survey_id, isCoworked, position, questionAnswers });
@@ -50,13 +48,14 @@ const LoadedSurvey = ({ survey_id, target, question, question_count }: SurveyRes
       <Position key="position" position={position} setPosition={setPosition} />,
       <QuestionIntro key="question-intro" nickname={target.nickname} />,
       ...question.map((eachQuestion, index) => {
-        if (eachQuestion.form_type === 'tendency') {
+        if (eachQuestion.form_type === 'tendency' && eachQuestion.type === 'choice') {
           return (
             <Softskill
               key="softskill"
               nickname={target.nickname}
-              selectedSoftskills={selectedSoftskills}
-              setSelectedSoftskills={setSelectedSoftskills}
+              choices={eachQuestion.choices}
+              selectedChoiceIds={(questionAnswers[index] as ChoiceQuestionFeedback).choices}
+              setChoices={setEachQuestionAnswer(eachQuestion.question_id)}
             />
           );
         }
@@ -139,12 +138,6 @@ const usePosition = () => {
   const [position, setPosition] = useState<ReviewerPosition | null>(null);
 
   return { position, setPosition };
-};
-
-const useSoftskills = () => {
-  const [selectedSoftskills, setSelectedSoftskills] = useState<Softskills[]>([]);
-
-  return { selectedSoftskills, setSelectedSoftskills };
 };
 
 const useQuestionAnswers = ({ question }: Pick<SurveyResponse, 'question'>) => {
