@@ -49,24 +49,45 @@ const LoadedSurvey = ({ survey_id, target, question, question_count }: SurveyRes
       <Cowork key="cowork" nickname={target.nickname} isCoworked={isCoworked} setIsCoworked={setIsCoworked} />,
       <Position key="position" position={position} setPosition={setPosition} />,
       <QuestionIntro key="question-intro" nickname={target.nickname} />,
-      <Softskill
-        key="softskill"
-        nickname={target.nickname}
-        selectedSoftskills={selectedSoftskills}
-        setSelectedSoftskills={setSelectedSoftskills}
-      />,
-      // TODO: form_type 대응
-      ...question.map((eachQuestion, index) =>
-        eachQuestion.type === 'short' ? (
+      ...question.map((eachQuestion, index) => {
+        if (eachQuestion.form_type === 'tendency') {
+          return (
+            <Softskill
+              key="softskill"
+              nickname={target.nickname}
+              selectedSoftskills={selectedSoftskills}
+              setSelectedSoftskills={setSelectedSoftskills}
+            />
+          );
+        }
+
+        if (eachQuestion.form_type === 'strength') {
+          return (
+            <ShortQuestion
+              key="strength"
+              questionId={eachQuestion.question_id}
+              headerTitle={eachQuestion.title}
+              setReplies={setEachQuestionAnswer(eachQuestion.question_id)}
+              startMessages={[
+                {
+                  timing: 1000,
+                  text: '협업을 한 적이 없다면 일상에서 드러나는 성격이나 행동에 대한 장점을 적어주세요.',
+                },
+                { timing: 2000, text: '답변을 적어 저에게 메세지를 보내주시면, 익명으로 전달할게요!' },
+              ]}
+              afterUserMessages={[{ timing: 1000, text: '못한 말이 있다면 더 보낼 수 있어요.' }]}
+              isLastQuestion={index === question.length - 1}
+            />
+          );
+        }
+
+        return eachQuestion.type === 'short' ? (
           <ShortQuestion
             key={eachQuestion.question_id}
             questionId={eachQuestion.question_id}
             headerTitle={eachQuestion.title}
             setReplies={setEachQuestionAnswer(eachQuestion.question_id)}
-            startMessages={[
-              { timing: 1000, text: '협업을 한 적이 없다면 일상에서 드러나는 성격이나 행동에 대한 장점을 적어주세요.' },
-              { timing: 2000, text: '답변을 적어 저에게 메세지를 보내주시면, 익명으로 전달할게요!' },
-            ]}
+            startMessages={[{ timing: 1000, text: `${target.nickname} 님이 직접 입력한 질문이에요.` }]}
             isLastQuestion={index === question.length - 1}
           />
         ) : (
@@ -77,11 +98,11 @@ const LoadedSurvey = ({ survey_id, target, question, question_count }: SurveyRes
             selectedChoicesId={(questionAnswers[index] as ChoiceQuestionFeedback).choices}
             choices={eachQuestion.choices}
             setChoices={setEachQuestionAnswer(eachQuestion.question_id)}
-            max_selection_count={eachQuestion.max_selection_count}
+            max_selectable_count={eachQuestion.max_selectable_count}
             isLastQuestion={index === question.length - 1}
           />
-        ),
-      ),
+        );
+      }),
       <Last key="last" onSubmit={mutate} isLoading={isLoading} />,
     ],
   });

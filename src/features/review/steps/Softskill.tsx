@@ -70,7 +70,7 @@ const Softskill = ({ prev, next, nickname, selectedSoftskills, setSelectedSoftsk
           <PillCheckbox
             key={softskill}
             graphicName={softskill}
-            name={softskill.replace('_', ' ')}
+            name={softskill.replaceAll('_', ' ')}
             onChange={onChange}
             checked={selectedSoftskills.includes(softskill)}
           />
