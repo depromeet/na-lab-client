@@ -85,7 +85,7 @@ const AddSurveyForm = ({ onClose, onAction }: Props) => {
         form_type: 'custom',
         title: questionInput,
         choices: choices,
-        max_selection_count: maxSelect,
+        max_selectable_count: maxSelect,
       };
 
       onAction(data);

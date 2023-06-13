@@ -17,7 +17,7 @@ interface Props extends StepProps, IsLastQuestion {
   title: ComponentProps<typeof QuestionHeader>['title'];
   selectedChoicesId: string[];
   choices: Choice[];
-  max_selection_count: number;
+  max_selectable_count: number;
   setChoices: (setStateAction: (prevState: string[]) => string[]) => void;
 }
 
@@ -26,13 +26,13 @@ const ChoiceQuestion = ({
   prev,
   next,
   title,
-  max_selection_count,
+  max_selectable_count,
   selectedChoicesId,
   choices,
   setChoices,
   isLastQuestion = false,
 }: Props) => {
-  const { onChange } = useChoices({ max_selection_count, selectedChoicesId, setChoices });
+  const { onChange } = useChoices({ max_selectable_count, selectedChoicesId, setChoices });
 
   useDidMount(() => {
     recordEvent({ action: '리뷰어 - 객관식 질문' });
@@ -42,7 +42,7 @@ const ChoiceQuestion = ({
     <>
       <QuestionHeader title={title} subTitle={`${nickname}님이 직접 입력한 질문이에요.`} />
       <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-        <MaxSelectableSmall max={max_selection_count} />
+        <MaxSelectableSmall max={max_selectable_count} />
 
         <div css={choiceWrapperCss}>
           {choices.map(({ choice_id, content }) => (
@@ -57,7 +57,12 @@ const ChoiceQuestion = ({
           ))}
         </div>
       </m.section>
-      <BottomNavigation onBackClick={() => prev?.()} onNextClick={() => next?.()} isLastQuestion={isLastQuestion} />
+      <BottomNavigation
+        onBackClick={() => prev?.()}
+        isNextDisabled={selectedChoicesId.length === 0}
+        onNextClick={() => next?.()}
+        isLastQuestion={isLastQuestion}
+      />
     </>
   );
 };
@@ -85,9 +90,9 @@ const choiceWrapperCss = css`
   margin-top: 12px;
 `;
 
-type UseChoicesProps = Pick<Props, 'max_selection_count' | 'selectedChoicesId' | 'setChoices'>;
+type UseChoicesProps = Pick<Props, 'max_selectable_count' | 'selectedChoicesId' | 'setChoices'>;
 
-const useChoices = ({ max_selection_count, selectedChoicesId, setChoices }: UseChoicesProps) => {
+const useChoices = ({ max_selectable_count, selectedChoicesId, setChoices }: UseChoicesProps) => {
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const choiceId = e.target.value;
 
@@ -97,7 +102,7 @@ const useChoices = ({ max_selection_count, selectedChoicesId, setChoices }: UseC
       return;
     }
 
-    if (selectedChoicesId.length >= max_selection_count) {
+    if (selectedChoicesId.length >= max_selectable_count) {
       setChoices((prev) => [...prev.slice(1), choiceId]);
 
       return;

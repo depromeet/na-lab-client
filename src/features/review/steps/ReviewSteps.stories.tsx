@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { css } from '@emotion/react';
 
-import { type Softskills } from '~/components/graphic/softskills/type';
-
 import Cowork from './Cowork';
 import Intro from './Intro';
 import QuestionIntro from './QuestionIntro';
@@ -48,15 +46,21 @@ export function 질문_인트로() {
   );
 }
 
+const MOCK_SOFTSKILLS = [
+  { content: '개성이_뚜렷한', order: 0, choice_id: '456335196640616530' },
+  { content: '결단력_있는', order: 1, choice_id: '456335196640616531' },
+];
+
 export function 소프트_스킬() {
-  const [selectedSoftskills, setSelectedSoftskills] = useState<Softskills[]>([]);
+  const [selectedSoftskills, setSelectedSoftskills] = useState<string[]>([]);
 
   return (
     <main css={mainCss}>
       <Softskill
         nickname={MOCK_NICKNAME}
-        selectedSoftskills={selectedSoftskills}
-        setSelectedSoftskills={setSelectedSoftskills}
+        choices={MOCK_SOFTSKILLS}
+        selectedChoiceIds={selectedSoftskills}
+        setChoices={setSelectedSoftskills}
       />
     </main>
   );
