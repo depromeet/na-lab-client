@@ -7,21 +7,32 @@ import useKakaoLogin from '~/components/kakaoLoginButton/useKakaoLogin';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import { CTAVariants, fixedBottomCss, fixedContainerCss } from '~/features/survey/styles';
 import { type QuestionRequest } from '~/features/survey/types';
+import useCreateSurvey from '~/hooks/api/surveys/useCreateSurvey';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
+import useInternalRouter from '~/hooks/router/useInternalRouter';
 import useLocalStorage from '~/hooks/storage/useLocalStorage';
 
 const JoinGuidePage = () => {
-  const { loginHandler, isLoginState } = useKakaoLogin();
+  const router = useInternalRouter();
+  const { loginHandler, status } = useKakaoLogin();
   // TODO : storage key 변경
   const [createSurveyRequest] = useLocalStorage<QuestionRequest[]>('createSurveyRequest', []);
+  const { mutate: createSurvey } = useCreateSurvey();
 
   useDidUpdate(() => {
-    if (isLoginState) {
-      // TODO : 로그인이 되었으므로, 로컬 스토리지의 값으로 나의 질문 폼 생성 API 호출
-      // TODO : 로컬 스토리지에 저장하는 값 계산해서 넣기
-      console.log('createSurveyRequest: ', createSurveyRequest);
+    if (status === 'authenticated') {
+      createSurvey(
+        // ! TODO: 여기 데이터 확인 필요
+        { question: createSurveyRequest, question_count: createSurveyRequest.length },
+        {
+          onSuccess: () => {
+            router.push('/survey/link');
+            // TODO: 생성에 쓰인 로컬스토리지 값 비우기
+          },
+        },
+      );
     }
-  }, [isLoginState]);
+  }, [status]);
 
   return (
     <main css={mainCss}>
