@@ -18,6 +18,7 @@ const JoinGuidePage = () => {
   useDidUpdate(() => {
     if (isLoginState) {
       // TODO : 로그인이 되었으므로, 로컬 스토리지의 값으로 나의 질문 폼 생성 API 호출
+      // TODO : 로컬 스토리지에 저장하는 값 계산해서 넣기
       console.log('createSurveyRequest: ', createSurveyRequest);
     }
   }, [isLoginState]);
