@@ -8,7 +8,7 @@ import Pill from '~/components/pill/Pill';
 import CollaborationBadge from '~/features/feedback/CollaborationBadge';
 import useGetFeedbackById from '~/hooks/api/feedbacks/useGetFeedbackById';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
-import type { Choice, Question } from '~/remotes/question';
+import type { Choice } from '~/remotes/question';
 import colors from '~/styles/color';
 import { BODY_1, HEAD_1, HEAD_2_BOLD, HEAD_2_REGULAR } from '~/styles/typo';
 
@@ -40,7 +40,7 @@ const Feedback = () => {
     const COLOR_ORDER: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'purple'];
 
     // 현재 mock 데이터에 tendency 데이터가 없어서 제대로 노출되고 있지 않음.
-    data?.question.forEach((question: Question) => {
+    data?.question.forEach((question: any) => {
       if (question.type === 'choice' && question.form_type === 'tendency') {
         question.choices?.map((choice: Choice, i: number) => {
           tendencyElementList.push(
@@ -80,7 +80,7 @@ const Feedback = () => {
         </div>
 
         <div css={questionListCss}>
-          {data?.question.map((question: Question) => {
+          {data?.question.map((question: any) => {
             if (question.type === 'short') {
               return (
                 <div key={question.question_id}>
