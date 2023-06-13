@@ -3,13 +3,13 @@ import { type Softskills } from './type';
 type QuestionFormType = 'tendency' | 'strength' | 'custom';
 
 interface Choice {
-  choice_id: number;
+  choice_id: number | string;
   content: string | Softskills;
   order: number;
 }
 
 interface DefaultQuestion {
-  question_id: number;
+  question_id: string;
   form_type: QuestionFormType;
   title: string;
   order: number;

@@ -5,10 +5,15 @@ import { m } from 'framer-motion';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import { defaultFadeInVariants } from '~/constants/motions';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
+import recordEvent from '~/utils/event';
 
 import { type StepProps } from './type';
 
-const QuestionIntro = ({ next }: StepProps) => {
+interface Props extends StepProps {
+  nickname: Reviewer['nickname'];
+}
+
+const QuestionIntro = ({ nickname, next }: Props) => {
   useDidMount(() => {
     const timeout = setTimeout(() => {
       next?.();
@@ -17,12 +22,16 @@ const QuestionIntro = ({ next }: StepProps) => {
     return () => clearTimeout(timeout);
   });
 
+  useDidMount(() => {
+    recordEvent({ action: '리뷰어 - 질문 인트로' });
+  });
+
   return (
     <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
       <StaggerWrapper wrapperOverrideCss={wrapperCss}>
         <p>좋아요!</p>
         <p>
-          이제부턴 <strong>예진</strong>님에 대해
+          이제부턴 <strong>{nickname}</strong>님에 대해
         </p>
         <p>본격적으로 여쭤볼게요.</p>
       </StaggerWrapper>

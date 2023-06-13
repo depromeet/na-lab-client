@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useState } from 'react';
 
+import FixedSpinner from '~/components/loading/FixedSpinner';
+import LoadingHandler from '~/components/loading/LoadingHandler';
 import useToast from '~/components/toast/useToast';
 import useGetSurveyById from '~/hooks/api/surveys/useGetSurveyById';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
@@ -12,11 +14,8 @@ const ReviewPage = () => {
   const { data, isLoading } = useSurveyIdValidation();
 
   return (
-    <>
-      {/* TODO: loading handler */}
-      {isLoading ? (
-        <div>loading...</div>
-      ) : (
+    <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
+      {Boolean(data) && (
         <LoadedSurvey
           survey_id={data!.survey_id}
           question_count={data!.question_count}
@@ -24,7 +23,7 @@ const ReviewPage = () => {
           question={data!.question}
         />
       )}
-    </>
+    </LoadingHandler>
   );
 };
 

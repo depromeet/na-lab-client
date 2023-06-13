@@ -3,7 +3,9 @@ import { css } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInVariants } from '~/constants/motions';
+import useDidMount from '~/hooks/lifeCycle/useDidMount';
 import { type Choice } from '~/remotes/question';
+import recordEvent from '~/utils/event';
 
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
@@ -14,10 +16,10 @@ import { type IsLastQuestion, type StepProps } from './type';
 interface Props extends StepProps, IsLastQuestion {
   nickname: string;
   title: ComponentProps<typeof QuestionHeader>['title'];
-  selectedChoicesId: number[];
+  selectedChoicesId: string[];
   choices: Choice[];
   max_selectable_count: number;
-  setChoices: (setStateAction: (prevState: number[]) => number[]) => void;
+  setChoices: (setStateAction: (prevState: string[]) => string[]) => void;
 }
 
 const ChoiceQuestion = ({
@@ -32,6 +34,10 @@ const ChoiceQuestion = ({
   isLastQuestion = false,
 }: Props) => {
   const { onChange } = useChoices({ max_selectable_count, selectedChoicesId, setChoices });
+
+  useDidMount(() => {
+    recordEvent({ action: '리뷰어 - 객관식 질문' });
+  });
 
   return (
     <>
@@ -52,7 +58,12 @@ const ChoiceQuestion = ({
           ))}
         </div>
       </m.section>
-      <BottomNavigation onBackClick={() => prev?.()} onNextClick={() => next?.()} isLastQuestion={isLastQuestion} />
+      <BottomNavigation
+        onBackClick={() => prev?.()}
+        isNextDisabled={selectedChoicesId.length === 0}
+        onNextClick={() => next?.()}
+        isLastQuestion={isLastQuestion}
+      />
     </>
   );
 };
@@ -84,7 +95,7 @@ type UseChoicesProps = Pick<Props, 'max_selectable_count' | 'selectedChoicesId' 
 
 const useChoices = ({ max_selectable_count, selectedChoicesId, setChoices }: UseChoicesProps) => {
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const choiceId = Number(e.target.value);
+    const choiceId = e.target.value;
 
     if (!e.target.checked) {
       setChoices((prev) => prev.filter((prevChoiceId) => prevChoiceId !== choiceId));

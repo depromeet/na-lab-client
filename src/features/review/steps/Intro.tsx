@@ -8,18 +8,24 @@ import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import WatsonCharacter from '~/components/watson/WatsonCharacter';
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 import useBoolean from '~/hooks/common/useBoolean';
+import useDidMount from '~/hooks/lifeCycle/useDidMount';
 import useStep from '~/hooks/step/useStep';
+import recordEvent from '~/utils/event';
 
 import { fixedBottomCss } from '../style';
 import { type StepProps } from './type';
 
 interface Props extends StepProps {
-  nickname: string;
+  nickname: Reviewer['nickname'];
 }
 
 const Intro = ({ nickname, next }: Props) => {
   const { currentStep } = useParagraphStep();
   const { isCTAButtonVisible } = useCTAButtonVisible();
+
+  useDidMount(() => {
+    recordEvent({ action: '리뷰어 - 인트로' });
+  });
 
   return (
     <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">

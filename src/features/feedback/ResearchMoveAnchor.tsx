@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { css, type Theme, useTheme } from '@emotion/react';
 
 import ChevronArrowRightIcon from '~/components/icons/ChevronArrowRightIcon';
@@ -6,31 +7,37 @@ import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
 
 import files from '../../../public/images/files.png';
 
-const CollaborationBadge = () => {
-  const theme = useTheme();
-  const count = 1;
+interface Props {
+  newFeedbackNumber: number;
+}
 
+const ResearchMoveAnchor = ({ newFeedbackNumber }: Props) => {
+  const theme = useTheme();
+
+  // TODO: link 위치 조정 필요
   return (
-    <button type="button" css={[HEAD_2_BOLD, ContainerCss]}>
-      <section css={LeftBoxCss(theme)}>
+    <Link href="/" type="button" css={[HEAD_2_BOLD, containerCss]}>
+      <section css={leftBoxCss(theme)}>
         <article>
-          <div css={TextWrapperCss(theme)}>
+          <div css={textWrapperCss(theme)}>
             <span>쌓인 연구 일지 보러가기</span>
-            <ChevronArrowRightIcon css={ChevronArrowRightIconCss} />
+            <ChevronArrowRightIcon css={chevronArrowRightIconCss} />
           </div>
-          <div css={[BODY_1, UnreadMsgCountBadge(theme)]}>+{count}</div>
+          <div css={[BODY_1, unreadMsgCountBadge(theme)]}>+{newFeedbackNumber}</div>
         </article>
         {/* TODO: 이미지는 3D 작업 완료 되면 변경 예정 */}
-        <Image css={FileImageCss} src={files} alt="파일 이미지" width={93} height={70} />
+        <Image css={fileImageCss} src={files} alt="파일 이미지" width={93} height={70} />
       </section>
-      <aside css={RightMarkCss(theme)}></aside>
-    </button>
+      <aside css={rightMarkCss(theme)}></aside>
+    </Link>
   );
 };
 
-export default CollaborationBadge;
+export default ResearchMoveAnchor;
 
-const ContainerCss = () => css`
+const containerCss = () => css`
+  all: unset;
+
   display: flex;
   flex-direction: row;
 
@@ -40,7 +47,7 @@ const ContainerCss = () => css`
   box-shadow: 3px 1px 18px -2px #b0b7ca59;
 `;
 
-const LeftBoxCss = (theme: Theme) => css`
+const leftBoxCss = (theme: Theme) => css`
   display: flex;
   flex-direction: row;
 
@@ -50,7 +57,7 @@ const LeftBoxCss = (theme: Theme) => css`
   background-color: ${theme.colors.white};
 `;
 
-const TextWrapperCss = (theme: Theme) => css`
+const textWrapperCss = (theme: Theme) => css`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -61,11 +68,15 @@ const TextWrapperCss = (theme: Theme) => css`
   color: ${theme.colors.gray_500};
 `;
 
-const ChevronArrowRightIconCss = css`
+const chevronArrowRightIconCss = css`
   margin-left: 11px;
 `;
 
-const UnreadMsgCountBadge = (theme: Theme) => css`
+const unreadMsgCountBadge = (theme: Theme) => css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 33px;
   height: 24px;
   margin: 11px auto auto 38px;
@@ -76,11 +87,11 @@ const UnreadMsgCountBadge = (theme: Theme) => css`
   border-radius: 24px;
 `;
 
-const FileImageCss = css`
+const fileImageCss = css`
   margin: 50px 22px auto auto;
 `;
 
-const RightMarkCss = (theme: Theme) => css`
+const rightMarkCss = (theme: Theme) => css`
   width: 10px;
   height: 118px;
   background-color: ${theme.colors.secondary_200};

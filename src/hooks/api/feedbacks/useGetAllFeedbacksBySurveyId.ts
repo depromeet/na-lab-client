@@ -4,14 +4,14 @@ import { get } from '~/libs/api';
 import { type Choice, type QuestionFormType } from '~/remotes/question';
 
 interface DefaultFeedback {
-  feedback_id: number;
+  feedback_id: string;
   created_at: string;
   is_read: boolean;
   reviewer: ReviewerWithId;
 }
 
 interface ChoiceFeedback extends DefaultFeedback {
-  choice_id: number[];
+  choice_id: string[];
 }
 
 interface ShortFeedback extends DefaultFeedback {
@@ -19,7 +19,7 @@ interface ShortFeedback extends DefaultFeedback {
 }
 
 interface DefaultQuestionFeedback {
-  question_id: number;
+  question_id: string;
   order: number;
   form_type: QuestionFormType;
   title: string;

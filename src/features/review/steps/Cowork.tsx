@@ -3,30 +3,34 @@ import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import { defaultFadeInVariants } from '~/constants/motions';
+import useDidMount from '~/hooks/lifeCycle/useDidMount';
 import { HEAD_2_BOLD, HEAD_2_REGULAR } from '~/styles/typo';
+import recordEvent from '~/utils/event';
 
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
 import { type StepProps } from './type';
 
-// TODO: API 개발 이후 수정
-const MOCK_NAME = '예진';
-
 const RADIO_NAME = 'isCowork';
 
 interface Props extends StepProps {
+  nickname: Reviewer['nickname'];
   isCoworked: boolean | null;
   setIsCoworked: Dispatch<SetStateAction<boolean | null>>;
 }
 
-const Cowork = ({ prev, next, isCoworked, setIsCoworked }: Props) => {
+const Cowork = ({ prev, next, nickname, isCoworked, setIsCoworked }: Props) => {
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setIsCoworked(Boolean(e.target.value));
   };
 
+  useDidMount(() => {
+    recordEvent({ action: '리뷰어 - 협업 경험' });
+  });
+
   return (
     <>
-      <QuestionHeader title={`당신은 ${MOCK_NAME}님과 협업한 경험이 있나요?`} />
+      <QuestionHeader title={`당신은 ${nickname}님과 협업한 경험이 있나요?`} />
 
       <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
         <div css={outerCircleCss}>

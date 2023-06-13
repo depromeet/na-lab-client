@@ -10,10 +10,10 @@ const meta: Meta<typeof ParticipatingReviewerChart> = {
 export default meta;
 
 const data = [
-  { position: 'product-manager', amount: 4 },
+  { position: 'pm', amount: 4 },
   { position: 'developer', amount: 1 },
   { position: 'designer', amount: 5 },
-  { position: 'other', amount: 1 },
+  { position: 'others', amount: 1 },
 ] as Props[];
 
 export function Default() {
