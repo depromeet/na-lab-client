@@ -1,9 +1,10 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
+import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import { type CustomQuestionItem } from '~/features/survey/types';
 
-const surveyCustomQuestionsAtom = atomWithStorage<CustomQuestionItem[]>('customQuestions', []);
+const surveyCustomQuestionsAtom = atomWithStorage<CustomQuestionItem[]>(LOCAL_STORAGE_KEY.surveyCustomQuestions, []);
 
 export const getSurveyCustomQuestionsAtom = atom((get) => get(surveyCustomQuestionsAtom));
 

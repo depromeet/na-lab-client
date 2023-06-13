@@ -3,6 +3,7 @@ import { useAtom, useAtomValue } from 'jotai';
 
 import CTAButton from '~/components/button/CTAButton';
 import Header from '~/components/header/Header';
+import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import CreateStopDialog from '~/features/survey/addSurveyForm/CreateStopDialog';
 import { REQUEST_BASIC_QUESTION_LIST } from '~/features/survey/constants';
 import CreateDialog from '~/features/survey/CreateDialog';
@@ -19,7 +20,10 @@ import { BODY_1 } from '~/styles/typo';
 
 const CreateSurveyPage = () => {
   const router = useInternalRouter();
-  const [, setCreateSurveyRequest] = useLocalStorage<QuestionRequest[]>('createSurveyRequest', []);
+  const [, setCreateSurveyRequest] = useLocalStorage<QuestionRequest[]>(
+    LOCAL_STORAGE_KEY.surveyCreateSurveyRequest,
+    [],
+  );
 
   const [isDeleteMode, setIsDeleteMode] = useAtom(surveyDeleteModeAtom);
   const customItems = useAtomValue(getSurveyCustomQuestionsAtom);
