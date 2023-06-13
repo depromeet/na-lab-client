@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react';
 import { css, type Theme } from '@emotion/react';
 import { useAtom, useAtomValue } from 'jotai';
 
@@ -9,7 +10,8 @@ import { REQUEST_BASIC_QUESTION_LIST } from '~/features/survey/constants';
 import CreateDialog from '~/features/survey/CreateDialog';
 import CreateSurvey from '~/features/survey/CreateSurvey';
 import { fixedBottomCss } from '~/features/survey/styles';
-import { type CreateSurveyRequest, type CustomQuestionItem, type QuestionRequest } from '~/features/survey/types';
+import { type CustomQuestionItem, type QuestionRequest } from '~/features/survey/types';
+import useCreateSurvey from '~/hooks/api/surveys/useCreateSurvey';
 import useBoolean from '~/hooks/common/useBoolean';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
@@ -19,6 +21,9 @@ import { surveyDeleteModeAtom } from '~/store/surveyDeleteMode';
 import { BODY_1 } from '~/styles/typo';
 
 const CreateSurveyPage = () => {
+  const { status } = useSession();
+  const { mutate: createSurvey } = useCreateSurvey();
+
   const router = useInternalRouter();
   const [, setCreateSurveyRequest] = useLocalStorage<QuestionRequest[]>(
     LOCAL_STORAGE_KEY.surveyCreateSurveyRequest,
@@ -38,19 +43,23 @@ const CreateSurveyPage = () => {
     router.push('/survey');
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const data = getCreateSurveyRequestData(customItems);
     // TODO : 추후 atom을 CreateSurveyRequest 타입으로 변경 예정입니다. 지금도 문제 없음
     setCreateSurveyRequest(data);
 
-    const token = localStorage.getItem(LOCAL_STORAGE_KEY.accessToken);
-    if (token) {
-      const requestData: CreateSurveyRequest = {
-        question_count: data.length,
-        question: data,
-      };
-      // TODO : 나의 질문 폼 생성 API 호출
-      console.log('requestData: ', requestData);
+    if (status === 'authenticated') {
+      await createSurvey(
+        { question: data, question_count: data.length },
+        {
+          onSuccess: ({ survey_id }) => {
+            // TODO: 서베이 아이디 저장해서 /survey/link에서 사용
+            console.warn(survey_id);
+            router.push('/survey/link');
+            // TODO: 생성에 쓰인 로컬스토리지 값 비우기
+          },
+        },
+      );
     } else {
       router.push('/survey/join');
     }
