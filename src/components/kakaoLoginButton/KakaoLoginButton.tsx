@@ -1,5 +1,4 @@
 import React from 'react';
-import { signIn } from 'next-auth/react';
 import { css } from '@emotion/react';
 
 import useKakaoLogin from '~/components/kakaoLoginButton/useKakaoLogin';
@@ -7,7 +6,7 @@ import colors from '~/styles/color';
 import { BODY_1 } from '~/styles/typo';
 
 const KakaoLoginButton = () => {
-  const { logOutHandler, isLoginState } = useKakaoLogin();
+  const { logOutHandler, loginHandler, isLoginState } = useKakaoLogin();
 
   if (isLoginState) {
     return (
@@ -22,7 +21,7 @@ const KakaoLoginButton = () => {
   return (
     <div css={KakaoLoginWrapper}>
       이미 계정이 있다면?
-      <button type="button" css={KakaoLoginButtonCss} onClick={() => signIn('kakao')}>
+      <button type="button" css={KakaoLoginButtonCss} onClick={loginHandler}>
         카카오 로그인하기
       </button>
     </div>
