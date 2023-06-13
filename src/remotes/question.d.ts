@@ -9,7 +9,7 @@ interface Choice {
 }
 
 interface DefaultQuestion {
-  question_id: number;
+  question_id: string;
   form_type: QuestionFormType;
   title: string;
   order: number;

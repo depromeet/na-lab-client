@@ -10,8 +10,6 @@ const meta: Meta<typeof Feedback> = {
 
 export default meta;
 
-type Position = 'developer' | 'designer' | 'product-manager' | 'other';
-
 const feedbacks = [
   {
     feedback_id: 5,
@@ -25,7 +23,7 @@ const feedbacks = [
       nickname: 'A',
       reviewer_id: 1,
       collaboration_experience: true,
-      position: 'developer' as Position,
+      position: 'developer' as ReviewerPosition,
     },
   },
   {
@@ -37,7 +35,7 @@ const feedbacks = [
       nickname: 'AX',
       reviewer_id: 2,
       collaboration_experience: false,
-      position: 'designer' as Position,
+      position: 'designer' as ReviewerPosition,
     },
   },
   {
@@ -51,7 +49,7 @@ const feedbacks = [
       nickname: 'K',
       reviewer_id: 3,
       collaboration_experience: true,
-      position: 'other' as Position,
+      position: 'others' as ReviewerPosition,
     },
   },
   {
@@ -65,7 +63,7 @@ const feedbacks = [
       nickname: 'BC',
       reviewer_id: 4,
       collaboration_experience: true,
-      position: 'product-manager' as Position,
+      position: 'pm' as ReviewerPosition,
     },
   },
 ];

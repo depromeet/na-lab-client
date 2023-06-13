@@ -2,7 +2,7 @@ import { type ComponentProps } from 'react';
 
 import Svg from '../svg/Svg';
 
-const LineThreeDotsIcon = ({ color = '#3D4350', ...rest }: ComponentProps<typeof Svg>) => {
+const LineThreeDotsIcon = ({ ...rest }: ComponentProps<typeof Svg>) => {
   return (
     <Svg size={24} color={color} isUsingFill {...rest}>
       <circle cx="4.83" cy="5.99992" r="1.33" fill="#3D4350" />

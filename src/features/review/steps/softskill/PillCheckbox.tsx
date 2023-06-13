@@ -12,10 +12,10 @@ interface Props extends InputAttributes {
   name: string;
 }
 
-const PillCheckbox = ({ graphicName, name, ...rest }: Props) => {
+const PillCheckbox = ({ graphicName, name, value, ...rest }: Props) => {
   return (
     <label css={labelCss}>
-      <input type="checkbox" value={graphicName} {...rest} />
+      <input type="checkbox" value={value} {...rest} />
       <Pill color="default">
         <Softskill name={graphicName} />
         {name}
