@@ -9,7 +9,7 @@ import { REQUEST_BASIC_QUESTION_LIST } from '~/features/survey/constants';
 import CreateDialog from '~/features/survey/CreateDialog';
 import CreateSurvey from '~/features/survey/CreateSurvey';
 import { fixedBottomCss } from '~/features/survey/styles';
-import { type CustomQuestionItem, type QuestionRequest } from '~/features/survey/types';
+import { type CreateSurveyRequest, type CustomQuestionItem, type QuestionRequest } from '~/features/survey/types';
 import useBoolean from '~/hooks/common/useBoolean';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
@@ -40,12 +40,17 @@ const CreateSurveyPage = () => {
 
   const onSubmit = () => {
     const data = getCreateSurveyRequestData(customItems);
+    // TODO : 추후 atom을 CreateSurveyRequest 타입으로 변경 예정입니다. 지금도 문제 없음
     setCreateSurveyRequest(data);
 
     const token = localStorage.getItem(LOCAL_STORAGE_KEY.accessToken);
     if (token) {
+      const requestData: CreateSurveyRequest = {
+        question_count: data.length,
+        question: data,
+      };
       // TODO : 나의 질문 폼 생성 API 호출
-      console.log('data: ', data);
+      console.log('requestData: ', requestData);
     } else {
       router.push('/survey/join');
     }

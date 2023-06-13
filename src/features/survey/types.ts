@@ -56,3 +56,8 @@ export interface ShortQuestionItem {
 export type CustomQuestionItem = ChoiceQuestionItem | ShortQuestionItem;
 
 export type QuestionRequest = ChoiceQuestionRequest | ShortQuestionRequest;
+
+export interface CreateSurveyRequest {
+  question_count: number;
+  question: QuestionRequest[];
+}
