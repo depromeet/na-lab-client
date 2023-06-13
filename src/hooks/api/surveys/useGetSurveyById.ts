@@ -22,7 +22,7 @@ interface ShortQuestion extends DefaultQuestion {
 
 interface ChoiceQuestion extends DefaultQuestion {
   type: 'choice';
-  max_selection_count: number;
+  max_selectable_count: number;
   choices: Choice[];
 }
 

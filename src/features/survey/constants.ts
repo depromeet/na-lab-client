@@ -33,7 +33,7 @@ export const REQUEST_BASIC_QUESTION_LIST: QuestionRequest[] = [
     form_type: 'tendency',
     title: '동료들이 생각한 나의 이미지',
     choices: softSkillChoices,
-    max_selection_count: 5,
+    max_selectable_count: 5,
     order: 1,
   },
   {
