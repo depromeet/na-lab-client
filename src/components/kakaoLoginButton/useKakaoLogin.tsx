@@ -10,9 +10,7 @@ interface Token {
 }
 
 const useKakaoLogin = () => {
-  const { data: session } = useSession();
-
-  const isLoginState = !!session;
+  const { data: session, status } = useSession();
 
   const getTokenHandler = async () => {
     const token: Token = await post('/oauth/kakao', {
@@ -43,7 +41,7 @@ const useKakaoLogin = () => {
   return {
     logOutHandler,
     loginHandler,
-    isLoginState,
+    status,
   };
 };
 

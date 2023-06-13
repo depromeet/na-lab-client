@@ -6,9 +6,9 @@ import colors from '~/styles/color';
 import { BODY_1 } from '~/styles/typo';
 
 const KakaoLoginButton = () => {
-  const { logOutHandler, loginHandler, isLoginState } = useKakaoLogin();
+  const { logOutHandler, loginHandler, status } = useKakaoLogin();
 
-  if (isLoginState) {
+  if (status === 'authenticated') {
     return (
       <div css={KakaoLoginWrapper}>
         <button type="button" onClick={logOutHandler}>
