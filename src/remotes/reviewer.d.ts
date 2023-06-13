@@ -10,5 +10,5 @@ interface Reviewer {
 }
 
 interface ReviewerWithId extends Reviewer {
-  reviewer_id: number;
+  reviewer_id: string;
 }

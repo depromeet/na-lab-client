@@ -5,27 +5,25 @@ import Svg from '~/components/svg/Svg';
 import { POSITION } from '~/constants/position';
 import { HEAD_2_REGULAR } from '~/styles/typo';
 
-export type Position = 'product-manager' | 'designer' | 'developer' | 'other';
-
 export interface Props {
-  position: Position;
+  position: ReviewerPosition;
   amount: number;
 }
 
-type ColorByPosition = Record<Position, string>;
+type ColorByPosition = Record<ReviewerPosition, string>;
 
 const FILL_COLOR_BY_POSITION: ColorByPosition = {
-  'product-manager': '#1D2942',
+  pm: '#1D2942',
   designer: '#D8E3FF',
   developer: '#638FFF',
-  other: '#F0F4FE',
+  others: '#F0F4FE',
 };
 
 const TEXT_COLOR_BY_POSITION: ColorByPosition = {
-  'product-manager': 'white',
+  pm: 'white',
   designer: '#677089',
   developer: 'white',
-  other: '#677089',
+  others: '#677089',
 };
 
 const PieChart = ({ data }: { data: Props[] }) => {
@@ -109,7 +107,7 @@ const captionCss = css`
   letter-spacing: -0.33px;
 `;
 
-const PositionColorBadgeIcon = ({ position }: { position: Position }) => {
+const PositionColorBadgeIcon = ({ position }: { position: ReviewerPosition }) => {
   return (
     <Svg width={14} height={14}>
       <circle cx="7" cy="7" r="7" fill={TEXT_COLOR_BY_POSITION[position]} />

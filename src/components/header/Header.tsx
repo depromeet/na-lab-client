@@ -8,9 +8,10 @@ interface Props {
   title?: string;
   rightButton?: React.ReactNode;
   onBackClick?: () => void;
+  isContainRemainer?: boolean;
 }
 
-const Header = ({ title, rightButton, onBackClick }: Props) => {
+const Header = ({ title, rightButton, onBackClick, isContainRemainer }: Props) => {
   const router = useRouter();
 
   const onBack = () => {
@@ -18,13 +19,16 @@ const Header = ({ title, rightButton, onBackClick }: Props) => {
   };
 
   return (
-    <header css={[headerCss, fixedTopCss]}>
-      <button type="button" onClick={onBack} css={iconButtonCss}>
-        <ArrowIcon />
-      </button>
-      {title && <h1 css={[HEAD_2_BOLD, titleCss]}>{title}</h1>}
-      {rightButton}
-    </header>
+    <>
+      <header css={[headerCss, fixedTopCss]}>
+        <button type="button" onClick={onBack} css={iconButtonCss}>
+          <ArrowIcon />
+        </button>
+        {title && <h1 css={[HEAD_2_BOLD, titleCss]}>{title}</h1>}
+        {rightButton}
+      </header>
+      {isContainRemainer && <div css={remainerCss} />}
+    </>
   );
 };
 
@@ -66,4 +70,8 @@ const headerCss = (theme: Theme) => css`
 
   background-color: ${theme.colors.white};
   border-bottom: 1px solid ${theme.colors.gray_50};
+`;
+
+const remainerCss = css`
+  height: 56px;
 `;

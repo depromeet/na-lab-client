@@ -8,6 +8,7 @@ import { type DefaultQuestion } from '~/hooks/api/surveys/useGetSurveyById';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 import useLocalStorage from '~/hooks/storage/useLocalStorage';
+import recordEvent from '~/utils/event';
 
 import ChatInputBottom from '../chat/ChatInputBottom';
 import MessageContainer from '../chat/MessageContainer';
@@ -51,6 +52,10 @@ const ShortQuestion = ({
   const { messages, setMessage, onTextSubmit } = useMessage({ questionId, setReplies });
   useOtherMessage({ messages, setMessage, startMessages, afterUserMessages });
   const { isAbleToSubmit } = useAbleToSubmit({ messages, startMessages, afterUserMessages });
+
+  useDidMount(() => {
+    recordEvent({ action: '리뷰어 - 주관식 질문' });
+  });
 
   return (
     <>

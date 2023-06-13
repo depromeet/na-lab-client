@@ -6,13 +6,11 @@ import { BODY_1, BODY_2_REGULAR } from '~/styles/typo';
 import CollaborationBadge from './CollaborationBadge';
 import UnreadBadgeIcon from './UnreadBadgeIcon';
 
-type Position = 'developer' | 'designer' | 'product-manager' | 'other';
-
 interface Reviewer {
   reviewer_id: number;
   nickname: string;
   collaboration_experience: boolean;
-  position: Position;
+  position: ReviewerPosition;
 }
 
 interface Props {
@@ -64,24 +62,24 @@ const badgeContainerCss = css`
   gap: 7px;
 `;
 
-const BACKGROUND_COLOR_BY_POSITION = (position: Position, theme: Theme) => {
+const BACKGROUND_COLOR_BY_POSITION = (position: ReviewerPosition, theme: Theme) => {
   switch (position) {
     case 'developer':
       return theme.colors.skyblue;
     case 'designer':
       return theme.colors.pink;
-    case 'product-manager':
+    case 'pm':
       return theme.colors.bluegreen;
-    case 'other':
+    case 'others':
       return theme.colors.yellowgreen;
   }
 };
 
-const AnonymousPositionBadge = ({ position, nickname }: { position: Position; nickname: string }) => (
+const AnonymousPositionBadge = ({ position, nickname }: { position: ReviewerPosition; nickname: string }) => (
   <div css={(theme: Theme) => AnonymousPositionBadgeCss(theme, position)}>{POSITION[position] + ' ' + nickname}</div>
 );
 
-const AnonymousPositionBadgeCss = (theme: Theme, position: Position) => css`
+const AnonymousPositionBadgeCss = (theme: Theme, position: ReviewerPosition) => css`
   ${BODY_2_REGULAR};
 
   width: fit-content;

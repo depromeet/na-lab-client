@@ -28,7 +28,7 @@ export interface ChoiceQuestionRequest {
   form_type: RequestQuestionFormType;
   title: string;
   choices: Choice[];
-  max_selectable_count: number;
+  max_selection_count: number;
   order: number;
 }
 
@@ -44,7 +44,7 @@ export interface ChoiceQuestionItem {
   form_type: 'custom';
   title: string;
   choices: Choice[];
-  max_selectable_count: number;
+  max_selection_count: number;
 }
 
 export interface ShortQuestionItem {

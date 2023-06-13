@@ -6,6 +6,8 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 import WarningIcon from '~/components/icons/WarningIcon';
 import Toast from '~/components/toast/Toast';
 import useToast from '~/components/toast/useToast';
+import useDidMount from '~/hooks/lifeCycle/useDidMount';
+import recordEvent from '~/utils/event';
 
 import BottomNavigation from '../BottomNavigation';
 import QuestionHeader from '../QuestionHeader';
@@ -13,14 +15,19 @@ import PillCheckbox from './softskill/PillCheckbox';
 import { type StepProps } from './type';
 
 interface Props extends StepProps {
+  nickname: Reviewer['nickname'];
   selectedSoftskills: Softskills[];
   setSelectedSoftskills: Dispatch<SetStateAction<Softskills[]>>;
 }
 
 const MAX_LENGTH = 5;
 
-const Softskill = ({ prev, next, selectedSoftskills, setSelectedSoftskills }: Props) => {
+const Softskill = ({ prev, next, nickname, selectedSoftskills, setSelectedSoftskills }: Props) => {
   const { fireToast } = useToast();
+
+  useDidMount(() => {
+    recordEvent({ action: '리뷰어 - 소프트 스킬' });
+  });
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const clickedSoftskill = e.target.value as Softskills;
@@ -55,7 +62,7 @@ const Softskill = ({ prev, next, selectedSoftskills, setSelectedSoftskills }: Pr
   return (
     <>
       <QuestionHeader
-        title="당신이 생각하는 예진 님은 어떤 이미지가 돋보이나요?"
+        title={`당신이 생각하는 ${nickname} 님은 어떤 이미지가 돋보이나요?`}
         subTitle="키워드를 최대 5개까지 선택해주세요."
       />
       <section css={sectionCss}>

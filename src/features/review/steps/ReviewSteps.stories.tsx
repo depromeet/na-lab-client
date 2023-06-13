@@ -20,10 +20,12 @@ const mainCss = css`
   height: 100vh;
 `;
 
+const MOCK_NICKNAME = '오혜성';
+
 export function 인트로() {
   return (
     <main css={mainCss}>
-      <Intro nickname="예진" />
+      <Intro nickname={MOCK_NICKNAME} />
     </main>
   );
 }
@@ -33,7 +35,7 @@ export function 협업_경험() {
 
   return (
     <main css={mainCss}>
-      <Cowork isCoworked={isCoworked} setIsCoworked={setIsCoworked} />
+      <Cowork nickname={MOCK_NICKNAME} isCoworked={isCoworked} setIsCoworked={setIsCoworked} />
     </main>
   );
 }
@@ -41,7 +43,7 @@ export function 협업_경험() {
 export function 질문_인트로() {
   return (
     <main css={mainCss}>
-      <QuestionIntro />
+      <QuestionIntro nickname={MOCK_NICKNAME} />
     </main>
   );
 }
@@ -51,7 +53,11 @@ export function 소프트_스킬() {
 
   return (
     <main css={mainCss}>
-      <Softskill selectedSoftskills={selectedSoftskills} setSelectedSoftskills={setSelectedSoftskills} />
+      <Softskill
+        nickname={MOCK_NICKNAME}
+        selectedSoftskills={selectedSoftskills}
+        setSelectedSoftskills={setSelectedSoftskills}
+      />
     </main>
   );
 }
