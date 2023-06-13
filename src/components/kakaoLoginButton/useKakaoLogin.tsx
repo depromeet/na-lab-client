@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { signOut, useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import { post } from '~/libs/api';
@@ -28,6 +28,10 @@ const useKakaoLogin = () => {
     localStorage.removeItem(LOCAL_STORAGE_KEY.accessToken);
   };
 
+  const loginHandler = () => {
+    signIn('kakao');
+  };
+
   useEffect(() => {
     if (session) {
       getTokenHandler();
@@ -38,6 +42,7 @@ const useKakaoLogin = () => {
 
   return {
     logOutHandler,
+    loginHandler,
     isLoginState,
   };
 };
