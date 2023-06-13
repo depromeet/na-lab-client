@@ -42,7 +42,13 @@ const CreateSurveyPage = () => {
     const data = getCreateSurveyRequestData(customItems);
     setCreateSurveyRequest(data);
 
-    router.push('/survey/join');
+    const token = localStorage.getItem(LOCAL_STORAGE_KEY.accessToken);
+    if (token) {
+      // TODO : 나의 질문 폼 생성 API 호출
+      console.log('data: ', data);
+    } else {
+      router.push('/survey/join');
+    }
   };
 
   useDidUpdate(() => {
