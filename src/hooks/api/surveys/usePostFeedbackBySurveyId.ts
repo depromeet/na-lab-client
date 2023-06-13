@@ -26,7 +26,7 @@ interface PostFeedbackRequest {
 
 const usePostFeedbackBySurveyId = (surveyId: string) => {
   const postFeedback = async (request: PostFeedbackRequest) => {
-    await post(`feedbacks?surveyId=${surveyId}`, request);
+    await post(`feedbacks?survey-id=${surveyId}`, request);
   };
 
   return postFeedback;

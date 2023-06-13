@@ -57,7 +57,12 @@ const ChoiceQuestion = ({
           ))}
         </div>
       </m.section>
-      <BottomNavigation onBackClick={() => prev?.()} onNextClick={() => next?.()} isLastQuestion={isLastQuestion} />
+      <BottomNavigation
+        onBackClick={() => prev?.()}
+        isNextDisabled={selectedChoicesId.length === 0}
+        onNextClick={() => next?.()}
+        isLastQuestion={isLastQuestion}
+      />
     </>
   );
 };
