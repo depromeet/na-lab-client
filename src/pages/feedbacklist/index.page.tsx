@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 
 import Header from '~/components/header/Header';
 import LineThreeDotsIcon from '~/components/icons/LineThreeDotsIcon';
+import SEO from '~/components/SEO/SEO';
 import ReceivedFeedbackCard from '~/features/feedback/ReceivedFeedbackCard';
 import useGetAllReviewersBySurveyId from '~/hooks/api/reviewers/useGetAllReviewersBySurveyId';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
@@ -98,6 +99,8 @@ export default function FeedbackList() {
 
   return (
     <>
+      <SEO />
+
       <Header
         title={'연구결과'}
         // TODO: bottom sheet

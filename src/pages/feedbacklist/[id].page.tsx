@@ -7,6 +7,7 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
 import LineThreeDotsIcon from '~/components/icons/LineThreeDotsIcon';
 import Pill from '~/components/pill/Pill';
+import SEO from '~/components/SEO/SEO';
 import CollaborationBadge from '~/features/feedback/CollaborationBadge';
 import useGetFeedbackById from '~/hooks/api/feedbacks/useGetFeedbackById';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
@@ -66,6 +67,8 @@ const Feedback = () => {
 
   return (
     <>
+      <SEO />
+
       <Header
         title={`${convertPositionToKorean(data?.reviewer.position)} ${data?.reviewer.nickname}의 피드백`}
         // TODO: bottom sheet

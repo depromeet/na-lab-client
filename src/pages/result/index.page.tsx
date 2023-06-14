@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
 import FixedSpinner from '~/components/loading/FixedSpinner';
 import LoadingHandler from '~/components/loading/LoadingHandler';
+import SEO from '~/components/SEO/SEO';
 import useToast from '~/components/toast/useToast';
 import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
@@ -24,10 +25,14 @@ const Result = () => {
   const { isLoading, data } = useCheckSurveyId();
 
   return (
-    <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
-      {/* TODO: useCheckSurveyId 의 데이터 넣기 필요 */}
-      {data && <SurveyIdLoaded surveyId={data.survey_id} />}
-    </LoadingHandler>
+    <>
+      <SEO />
+
+      <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
+        {/* TODO: useCheckSurveyId 의 데이터 넣기 필요 */}
+        {data && <SurveyIdLoaded surveyId={data.survey_id} />}
+      </LoadingHandler>
+    </>
   );
 };
 
