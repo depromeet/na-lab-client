@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 
-import Navigation from '~/components/navigation/Navigation.tsx';
+import Header from '~/components/header/Header';
+import LineThreeDotsIcon from '~/components/icons/LineThreeDotsIcon';
 import ReceivedFeedbackCard from '~/features/feedback/ReceivedFeedbackCard';
 import useGetAllReviewersBySurveyId from '~/hooks/api/reviewers/useGetAllReviewersBySurveyId';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
@@ -97,7 +98,15 @@ export default function FeedbackList() {
 
   return (
     <>
-      <Navigation title={'연구결과'} />
+      <Header
+        title={'연구결과'}
+        // TODO: bottom sheet
+        rightButton={
+          <button type="button">
+            <LineThreeDotsIcon />
+          </button>
+        }
+      />
       <main css={containerCss}>
         <header css={titleCss}>
           받은 피드백 <span css={titleNumberCss}>{feedbackCount}</span>{' '}
