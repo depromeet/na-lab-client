@@ -105,6 +105,7 @@ const surveySectionCss = (theme: Theme) => css`
 
   width: 100%;
   height: 100%;
+  padding-top: 126px;
 
   background-color: ${theme.colors.white};
 
