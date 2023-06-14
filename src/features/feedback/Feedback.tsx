@@ -6,13 +6,6 @@ import { BODY_1, BODY_2_REGULAR } from '~/styles/typo';
 import CollaborationBadge from './CollaborationBadge';
 import UnreadBadgeIcon from './UnreadBadgeIcon';
 
-interface Reviewer {
-  reviewer_id: number;
-  nickname: string;
-  collaboration_experience: boolean;
-  position: ReviewerPosition;
-}
-
 interface Props {
   reply: string[];
   is_read: boolean;
