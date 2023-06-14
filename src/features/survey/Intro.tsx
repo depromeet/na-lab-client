@@ -122,7 +122,7 @@ const WatsonContainer = ({ children }: PropsWithChildren) => {
   return (
     <article css={[backgroundCss]}>
       <picture css={pictureCss}>
-        <source srcSet="/images/intro/intro_bg.png" type="image/webp" />
+        <source srcSet="/images/intro/intro_bg.webp" type="image/webp" />
         <Image src="/images/intro/intro_bg.png" alt="나의 질문 폼 생성" fill />
       </picture>
 
