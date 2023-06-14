@@ -1,8 +1,10 @@
+import { type Softskills } from './type';
+
 type QuestionFormType = 'tendency' | 'strength' | 'custom';
 
 interface Choice {
   choice_id: string;
-  content: string;
+  content: string | Softskills;
   order: number;
 }
 

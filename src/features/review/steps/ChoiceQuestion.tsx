@@ -4,6 +4,7 @@ import { m } from 'framer-motion';
 
 import { defaultFadeInVariants } from '~/constants/motions';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
+import { type Choice } from '~/remotes/question';
 import recordEvent from '~/utils/event';
 
 import BottomNavigation from '../BottomNavigation';
