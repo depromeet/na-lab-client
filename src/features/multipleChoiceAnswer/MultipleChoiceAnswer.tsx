@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 
+import ProfileIcon from '~/components/icons/ProfileIcon';
 import colors from '~/styles/color';
 import { BODY_2_BOLD } from '~/styles/typo';
 
@@ -10,19 +11,22 @@ interface Props {
   answerText: string;
 }
 
-const MultipleChoiceAnswer = ({
-  variant = 'highlighted',
-  totalCount = 3,
-  answeredCount = 1,
-  answerText = 'UX가 좋습니다 졸려일무 무리무리무리루',
-}: Props) => {
+const MultipleChoiceAnswer = ({ variant = 'default', totalCount, answeredCount, answerText }: Props) => {
   return (
     <div css={containerCss(variant)}>
       <div css={percentageBar(variant, totalCount, answeredCount)} />
       <div css={textContainerCss(variant)}>
         <div css={[textCss(variant)]}>{answerText}</div>
-        {/* TODO 아이콘 변경 예정 */}
-        <div css={[BODY_2_BOLD, countTextCss(variant)]}>{answeredCount}명</div>
+
+        <div css={countContainerCss}>
+          <ProfileIcon
+            viewBox="0 0 30 30"
+            width={20}
+            height={20}
+            color={variant === 'highlighted' ? '#638FFF' : '#677089'}
+          />
+          <span css={[BODY_2_BOLD, countTextCss(variant)]}>{answeredCount}명</span>
+        </div>
       </div>
     </div>
   );
@@ -48,38 +52,42 @@ const textStyles: Record<string, Record<string, string>> = {
 const containerCss = (variant: string) => css`
   position: relative;
 
-  width: 329px;
+  width: 100%;
   height: 48px;
 
   background-color: ${variant === 'default' ? colors.gray_50 : colors.primary_50};
-  border-radius: 10px;
+  border-radius: 8px;
 `;
 
 const percentageBar = (variant: string, totalCount: number, answeredCount: number) => css`
   position: absolute;
 
-  width: ${(329 / totalCount) * answeredCount}px;
+  width: calc(100% / ${totalCount} * ${answeredCount});
   height: 48px;
 
   background-color: ${variant === 'default' ? colors.secondary_100 : colors.primary_100};
-  border-radius: ${totalCount === answeredCount ? '10px' : '10px 0 0 10px'};
+  border-radius: ${totalCount === answeredCount ? '8px' : '8px 0 0 8px'};
 `;
 
 const textContainerCss = (variant: string) => css`
   display: flex;
+  gap: 29px;
   align-items: center;
   justify-content: space-around;
 
-  width: 329px;
+  width: 100%;
   height: 48px;
+  padding: 12px 14px;
 
   color: ${variant === 'default' ? colors.gray_400 : colors.primary_200};
 `;
 
+const countContainerCss = css`
+  display: flex;
+`;
+
 const textCss = (variant: string) => css`
   overflow: hidden;
-
-  width: 210px;
 
   text-overflow: ellipsis;
   white-space: nowrap;
