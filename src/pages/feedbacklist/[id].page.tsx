@@ -40,8 +40,8 @@ const Feedback = () => {
     type Color = 'bluegreen' | 'pink' | 'skyblue' | 'yellowgreen' | 'purple';
     const COLOR_ORDER: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'purple'];
 
-    // 현재 mock 데이터에 tendency 데이터가 없어서 제대로 노출되고 있지 않음.
-    data?.question.forEach((question: any) => {
+    // NOTE: 현재 mock 데이터에 tendency 데이터가 없어서 제대로 노출되고 있지 않음.
+    data?.question.forEach((question) => {
       if (question.type === 'choice' && question.form_type === 'tendency') {
         question.choices?.map((choice: Choice, i: number) => {
           tendencyElementList.push(
