@@ -12,8 +12,6 @@ import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 
 const JoinGuidePage = () => {
   const { loginHandler, status } = useKakaoLogin();
-  // TODO : storage key 변경
-
   const { onCreate } = useCreateSurveyAction();
 
   useDidUpdate(() => {

@@ -11,13 +11,17 @@ import useToast from '~/components/toast/useToast';
 import { fixedBottomCss } from '~/features/review/style';
 import { CTAVariants, fixedContainerCss } from '~/features/survey/styles';
 import { copyToClipBoard } from '~/utils/clipboard';
+import { searchParam } from '~/utils/url';
 
 const SurveyLinkPage = () => {
   const { fireToast } = useToast();
 
   const onNext = () => {
-    // TODO : 나의 질문 폼 링크 생성 후 교체
-    copyToClipBoard(window.location.href);
+    const surveyId = searchParam('id');
+    const hostUrl = window.location.host;
+    const copyUrl = `${hostUrl}/review?id=${surveyId}`;
+
+    copyToClipBoard(copyUrl);
 
     fireToast({
       content: (
