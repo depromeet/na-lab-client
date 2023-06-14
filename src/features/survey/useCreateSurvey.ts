@@ -11,10 +11,7 @@ const useCreateSurveyAction = () => {
 
   const { status } = useSession();
   const { mutate: createSurvey } = useCreateSurvey();
-  const [createSurveyRequest, setCreateSurveyRequest] = useLocalStorage<QuestionRequest[]>(
-    LOCAL_STORAGE_KEY.surveyCreateSurveyRequest,
-    [],
-  );
+  const [createSurveyRequest] = useLocalStorage<QuestionRequest[]>(LOCAL_STORAGE_KEY.surveyCreateSurveyRequest, []);
 
   const onCreate = () => {
     if (status === 'authenticated') {
@@ -27,7 +24,8 @@ const useCreateSurveyAction = () => {
                 id: res.survey_id,
               },
             });
-            // TODO: 생성에 쓰인 로컬스토리지 값 비우기
+            localStorage.removeItem(LOCAL_STORAGE_KEY.surveyCreateSurveyRequest);
+            localStorage.removeItem(LOCAL_STORAGE_KEY.surveyCustomQuestions);
           },
         },
       );
