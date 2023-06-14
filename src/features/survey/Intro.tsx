@@ -84,17 +84,17 @@ const Paragraph3 = () => {
 const Paragraph4 = () => {
   return (
     <m.section css={surveySectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-      <StaggerWrapper>
+      <picture css={pictureCss}>
+        <source srcSet="/images/survey/intro-image-4.webp" type="image/webp" />
+        <Image src="/images/survey/intro-image-4.png" alt="나의 질문 폼 생성" fill />
+      </picture>
+
+      <StaggerWrapper wrapperOverrideCss={wrapperCss}>
         <p>지금, 피드백을 받을 수 있는 </p>
         <p>
           <strong>나의 질문 폼</strong>을 생성해보세요!
         </p>
       </StaggerWrapper>
-
-      <picture css={pictureCss}>
-        <source srcSet="/images/survey/intro-image-4.webp" type="image/webp" />
-        <Image src="/images/survey/intro-image-4.png" alt="나의 질문 폼 생성" fill />
-      </picture>
     </m.section>
   );
 };
@@ -115,6 +115,28 @@ const surveySectionCss = (theme: Theme) => css`
   }
 `;
 
+const wrapperCss = css`
+  margin-top: 126px;
+`;
+
+const WatsonContainer = ({ children }: PropsWithChildren) => {
+  return (
+    <article css={[backgroundCss]}>
+      <picture css={pictureCss}>
+        <source srcSet="/images/intro/intro_bg.webp" type="image/webp" />
+        <Image src="/images/intro/intro_bg.png" alt="나의 질문 폼 생성" fill />
+      </picture>
+
+      <section css={paragraphContainerCss}>{children}</section>
+      <section css={centerContainerCss}>
+        <m.div variants={imageVariant} initial="initial" animate="animate" exit="exit">
+          <WatsonCharacter />
+        </m.div>
+      </section>
+    </article>
+  );
+};
+
 const pictureCss = (theme: Theme) => css`
   position: fixed;
   z-index: ${theme.zIndex.belowDefault};
@@ -131,32 +153,10 @@ const pictureCss = (theme: Theme) => css`
   }
 `;
 
-const WatsonContainer = ({ children }: PropsWithChildren) => {
-  return (
-    <article css={[backgroundCss, characterBackgroundCss]}>
-      <section css={paragraphContainerCss}>{children}</section>
-      <section css={centerContainerCss}>
-        <m.div variants={imageVariant} initial="initial" animate="animate" exit="exit">
-          <WatsonCharacter />
-        </m.div>
-      </section>
-    </article>
-  );
-};
-
 const backgroundCss = css`
   width: 100%;
   height: 100vh;
 `;
-
-const characterBackgroundCss = css`
-  background-image: url('/images/intro/intro_bg.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-`;
-
-// NOTE : intro 공통
 
 const sectionCss = (theme: Theme) => css`
   position: relative;
