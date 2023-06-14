@@ -131,7 +131,6 @@ const resetCss = css`
 
   button {
     cursor: pointer;
-    user-select: none;
     background-color: unset;
     border: none;
   }

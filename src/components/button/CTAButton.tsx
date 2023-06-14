@@ -2,8 +2,6 @@
 import { type ComponentProps } from 'react';
 import { css } from '@emotion/react';
 
-import { noneUserSelect } from '~/styles/common';
-
 import Button from './Button';
 
 /**
@@ -20,7 +18,5 @@ const CTAButton = ({ children, ...rest }: ComponentProps<typeof Button>) => {
 export default CTAButton;
 
 const ctaCss = css`
-  ${noneUserSelect}
-
   width: 100%;
 `;
