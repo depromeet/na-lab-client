@@ -73,7 +73,7 @@ const textContainerCss = (variant: string) => css`
   display: flex;
   gap: 29px;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 
   width: 100%;
   height: 48px;
