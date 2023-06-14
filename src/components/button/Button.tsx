@@ -1,6 +1,7 @@
 import { forwardRef, type Ref } from 'react';
 import { css, type Theme, useTheme } from '@emotion/react';
 
+import { noneUserSelect } from '~/styles/common';
 import { HEAD_2_BOLD } from '~/styles/typo';
 
 import { type ButtonAttributes } from './type';
@@ -37,11 +38,13 @@ export default Button;
 
 const buttonCss = (theme: Theme, color: Color) => css`
   all: unset;
+
   ${color === 'navy' && navyCss(theme)}
   ${color === 'blue' && blueCss(theme)}
   ${color === 'gray' && grayCss(theme)}
-
+  
   ${HEAD_2_BOLD};
+  ${noneUserSelect}
 
   cursor: pointer;
 
