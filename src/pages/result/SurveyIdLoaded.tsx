@@ -28,9 +28,10 @@ interface Props {
 const PILL_COLORS: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'purple'];
 
 const SurveyIdLoaded = ({ surveyId }: Props) => {
-  const { isLoading, data: feedbackSummaryData } = useGetFeedbackSummaryBySurveyId(surveyId);
-  const { data: reviewersSummaryData } = useGetReviewersSummaryBySurveyId(surveyId);
-  const { data: allData } = useGetAllFeedbacksBySurveyId(surveyId);
+  const { isLoading: isFeedbackSummaryLoading, data: feedbackSummaryData } = useGetFeedbackSummaryBySurveyId(surveyId);
+  const { isLoading: isReviewersSummaryLoading, data: reviewersSummaryData } =
+    useGetReviewersSummaryBySurveyId(surveyId);
+  const { isLoading: isAllDataLoading, data: allData } = useGetAllFeedbacksBySurveyId(surveyId);
 
   const tendencyCountData = getTendencyCount(allData);
 
@@ -42,8 +43,11 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
   }, []);
 
   return (
-    <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
-      {feedbackSummaryData && reviewersSummaryData && (
+    <LoadingHandler
+      isLoading={isFeedbackSummaryLoading || isReviewersSummaryLoading || isAllDataLoading}
+      fallback={<FixedSpinner />}
+    >
+      {allData && feedbackSummaryData && reviewersSummaryData && (
         <>
           <Header
             title="연구 결과"
@@ -135,7 +139,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                       </div>
                     ) : (
                       <div css={shortTypeCss}>
-                        {question.feedbacks.map((feedback) => (
+                        {question.feedbacks?.map((feedback) => (
                           <Feedback
                             key={feedback.feedback_id}
                             reply={feedback.reply}
@@ -279,7 +283,7 @@ const getChoiceCount = (
 } => {
   const choiceDataWithCount = data?.choices.map((choice) => {
     let count = 0;
-    data.feedbacks.forEach((feedback) => {
+    data?.feedbacks?.forEach((feedback) => {
       count += feedback.choice_id.includes(choice.choice_id) ? 1 : 0;
     });
 
