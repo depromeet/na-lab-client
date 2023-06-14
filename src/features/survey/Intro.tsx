@@ -84,7 +84,7 @@ const Paragraph3 = () => {
 const Paragraph4 = () => {
   return (
     <m.section css={surveySectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-      <StaggerWrapper wrapperOverrideCss={wrapperCss}>
+      <StaggerWrapper>
         <p>지금, 피드백을 받을 수 있는 </p>
         <p>
           <strong>나의 질문 폼</strong>을 생성해보세요!
@@ -105,6 +105,7 @@ const surveySectionCss = (theme: Theme) => css`
 
   width: 100%;
   height: 100%;
+  padding-top: 126px;
 
   background-color: ${theme.colors.white};
 
@@ -112,10 +113,6 @@ const surveySectionCss = (theme: Theme) => css`
     font-weight: bold;
     color: ${theme.colors.primary_300};
   }
-`;
-
-const wrapperCss = css`
-  margin-top: 126px;
 `;
 
 const pictureCss = (theme: Theme) => css`
