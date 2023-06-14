@@ -1,7 +1,6 @@
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 import { get } from '~/libs/api';
-import { type Choice, type QuestionFormType } from '~/remotes/question';
 
 interface DefaultFeedback {
   feedback_id: string;

@@ -18,8 +18,7 @@
     "paths": {
       "~/*": ["./src/*"]
     },
-    "types": ["@emotion/react/types/css-prop", "@types/gtag.js"],
-    "allowImportingTsExtensions": true
+    "types": ["@emotion/react/types/css-prop", "@types/gtag.js"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "@types"],
   "exclude": ["node_modules"]

@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { type ReactElement, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { css } from '@emotion/react';
 
 import Softskill from '~/components/graphic/softskills/Softskill';
-import Navigation from '~/components/navigation/Navigation.tsx';
+import { type Softskills } from '~/components/graphic/softskills/type';
+import Header from '~/components/header/Header';
+import LineThreeDotsIcon from '~/components/icons/LineThreeDotsIcon';
 import Pill from '~/components/pill/Pill';
 import CollaborationBadge from '~/features/feedback/CollaborationBadge';
 import useGetFeedbackById from '~/hooks/api/feedbacks/useGetFeedbackById';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
-import type { Choice } from '~/remotes/question';
 import colors from '~/styles/color';
 import { BODY_1, HEAD_1, HEAD_2_BOLD, HEAD_2_REGULAR } from '~/styles/typo';
 
@@ -34,18 +35,18 @@ const Feedback = () => {
   };
 
   const renderUserInfoTendency = () => {
-    const tendencyElementList: any[] = [];
+    const tendencyElementList: ReactElement[] = [];
 
     type Color = 'bluegreen' | 'pink' | 'skyblue' | 'yellowgreen' | 'purple';
     const COLOR_ORDER: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'purple'];
 
-    // 현재 mock 데이터에 tendency 데이터가 없어서 제대로 노출되고 있지 않음.
-    data?.question.forEach((question: any) => {
+    // NOTE: 현재 mock 데이터에 tendency 데이터가 없어서 제대로 노출되고 있지 않음.
+    data?.question.forEach((question) => {
       if (question.type === 'choice' && question.form_type === 'tendency') {
         question.choices?.map((choice: Choice, i: number) => {
           tendencyElementList.push(
             <Pill css={pillCss} color={COLOR_ORDER[i]} key={choice.choice_id}>
-              <Softskill name={choice.content} />
+              <Softskill name={choice.content as Softskills} />
               {choice.content.replaceAll('_', ' ')}
             </Pill>,
           );
@@ -60,11 +61,21 @@ const Feedback = () => {
     if (id && data) {
       renderUserInfoTendency();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return (
     <>
-      <Navigation title={`${convertPositionToKorean(data?.reviewer.position)} ${data?.reviewer.nickname}의 피드백`} />
+      <Header
+        title={`${convertPositionToKorean(data?.reviewer.position)} ${data?.reviewer.nickname}의 피드백`}
+        // TODO: bottom sheet
+        rightButton={
+          <button type="button">
+            <LineThreeDotsIcon />
+          </button>
+        }
+      />
+
       <main css={containerCss}>
         <div css={titleCss}>
           <span css={titlebarCss}></span>
