@@ -37,25 +37,25 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   );
 
   return (
-    <ErrorBoundary>
-      <SessionProvider session={pageProps.session}>
-        <MonitoringInitializer />
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <ThemeProvider theme={defaultTheme}>
-              <LazyMotion features={domMax}>
-                <GlobalStyles />
+    <SessionProvider session={pageProps.session}>
+      <MonitoringInitializer />
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <ThemeProvider theme={defaultTheme}>
+            <LazyMotion features={domMax}>
+              <GlobalStyles />
+              <ErrorBoundary>
                 <div css={defaultLayoutCss}>
                   {getLayout(<Component {...pageProps} />)}
                   <ToastWrapper />
                 </div>
-              </LazyMotion>
-            </ThemeProvider>
-            <ReactQueryDevtools />
-          </Hydrate>
-        </QueryClientProvider>
-      </SessionProvider>
-    </ErrorBoundary>
+              </ErrorBoundary>
+            </LazyMotion>
+          </ThemeProvider>
+          <ReactQueryDevtools />
+        </Hydrate>
+      </QueryClientProvider>
+    </SessionProvider>
   );
 }
 
