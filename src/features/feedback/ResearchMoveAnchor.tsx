@@ -5,8 +5,6 @@ import { css, type Theme, useTheme } from '@emotion/react';
 import ChevronArrowRightIcon from '~/components/icons/ChevronArrowRightIcon';
 import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
 
-import files from '../../../public/images/files.png';
-
 interface Props {
   newFeedbackNumber: number;
 }
@@ -16,18 +14,17 @@ const ResearchMoveAnchor = ({ newFeedbackNumber }: Props) => {
 
   // TODO: link 위치 조정 필요
   return (
-    <Link href="/" type="button" css={[HEAD_2_BOLD, containerCss]}>
-      <section css={leftBoxCss(theme)}>
-        <article>
-          <div css={textWrapperCss(theme)}>
-            <span>쌓인 연구 일지 보러가기</span>
-            <ChevronArrowRightIcon css={chevronArrowRightIconCss} />
-          </div>
-          <div css={[BODY_1, unreadMsgCountBadge(theme)]}>+{newFeedbackNumber}</div>
-        </article>
+    <Link href="/" type="button" css={[HEAD_2_BOLD, containerCss(theme)]}>
+      <section css={leftBoxCss}>
+        <div css={textWrapperCss(theme)}>
+          <span css={HEAD_2_BOLD}>쌓인 연구 일지 보러가기</span>
+          <ChevronArrowRightIcon width={24} height={24} viewBox="0 0 8 14" css={chevronArrowRightIconCss} />
+        </div>
+        <div css={[BODY_1, unreadMsgCountBadge(theme)]}>+{newFeedbackNumber}</div>
+
         {/* TODO: 이미지는 3D 작업 완료 되면 변경 예정 */}
-        <Image css={fileImageCss} src={files} alt="파일 이미지" width={93} height={70} />
       </section>
+      <Image css={fileImageCss} src="/images/files.png" alt="파일 이미지" width={93} height={70} />
       <aside css={rightMarkCss(theme)}></aside>
     </Link>
   );
@@ -35,41 +32,38 @@ const ResearchMoveAnchor = ({ newFeedbackNumber }: Props) => {
 
 export default ResearchMoveAnchor;
 
-const containerCss = () => css`
+const containerCss = (theme: Theme) => css`
   all: unset;
 
+  position: relative;
+
   display: flex;
-  flex-direction: row;
 
-  width: 360px;
+  width: calc(100% - 15px);
   height: 120px;
+  padding-top: 24px;
+  padding-left: 38px;
 
+  background-color: ${theme.colors.white};
+  border-radius: 0 8px 8px 0;
   box-shadow: 3px 1px 18px -2px #b0b7ca59;
 `;
 
-const leftBoxCss = (theme: Theme) => css`
+const leftBoxCss = css`
   display: flex;
-  flex-direction: row;
-
-  width: 350px;
-  height: 118px;
-
-  background-color: ${theme.colors.white};
+  flex-direction: column;
+  gap: 11px;
 `;
 
 const textWrapperCss = (theme: Theme) => css`
   display: flex;
-  flex-direction: row;
+  gap: 2px;
   align-items: center;
-  justify-content: center;
-
-  margin: 24px auto auto 38px;
-
   color: ${theme.colors.gray_500};
 `;
 
 const chevronArrowRightIconCss = css`
-  margin-left: 11px;
+  padding: 5px 8px;
 `;
 
 const unreadMsgCountBadge = (theme: Theme) => css`
@@ -77,23 +71,29 @@ const unreadMsgCountBadge = (theme: Theme) => css`
   align-items: center;
   justify-content: center;
 
-  width: 33px;
-  height: 24px;
-  margin: 11px auto auto 38px;
+  width: fit-content;
+  padding: 0 8px;
 
   color: ${theme.colors.gray_50};
 
   background-color: ${theme.colors.red};
-  border-radius: 24px;
+  border-radius: 12px;
 `;
 
 const fileImageCss = css`
-  margin: 50px 22px auto auto;
+  position: absolute;
+  right: 22px;
+  bottom: 0;
 `;
 
 const rightMarkCss = (theme: Theme) => css`
+  position: absolute;
+  top: 0;
+  right: 0;
+
   width: 10px;
-  height: 118px;
+  height: 100%;
+
   background-color: ${theme.colors.secondary_200};
   border-radius: 0 8px 8px 0;
 `;
