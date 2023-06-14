@@ -27,7 +27,7 @@ describe('components/SEO/SEO', () => {
   afterEach(cleanup);
 
   describe('title', () => {
-    const DEFAULT_TITLE = '나랩';
+    const DEFAULT_TITLE = '나의 커리어 DNA 연구소 Na Lab';
 
     test('기본 title이 적용되어 있어야 한다', () => {
       renderAtHead(<SEO />);
@@ -49,7 +49,7 @@ describe('components/SEO/SEO', () => {
   });
 
   describe('description', () => {
-    const DEFAULT_DESCRIPTION = '나를 위한 연구소, 나랩';
+    const DEFAULT_DESCRIPTION = '익명 피드백으로 나의 직무 강점 찾기';
 
     test('기본 description이 적용되어 있어야 한다', () => {
       renderAtHead(<SEO />);
@@ -77,7 +77,7 @@ describe('components/SEO/SEO', () => {
     });
 
     describe('ogImage', () => {
-      const DEFAULT_OG_IMAGE = '/images/og-image.png';
+      const DEFAULT_OG_IMAGE = '/default-og.png';
 
       test('기본 ogImage가 적용되어 있어야 한다', () => {
         renderAtHead(<SEO />);

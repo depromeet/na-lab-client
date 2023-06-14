@@ -5,21 +5,26 @@ import Logo from '~/assets/Logo';
 import CTAButton from '~/components/button/CTAButton';
 import KakaoLoginButton from '~/components/kakaoLoginButton/KakaoLoginButton';
 import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
+import SEO from '~/components/SEO/SEO';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 
 export default function Home() {
   const router = useInternalRouter();
 
   return (
-    <main css={loginPageWrapperCss}>
-      <Logo css={logoCss} />
-      <section css={ctaWrapperCss}>
-        <CTAButton color="blue" onClick={() => router.push('/survey')}>
-          질문 폼 생성으로 시작하기
-        </CTAButton>
-        <KakaoLoginButton />
-      </section>
-    </main>
+    <>
+      <SEO />
+
+      <main css={loginPageWrapperCss}>
+        <Logo css={logoCss} />
+        <section css={ctaWrapperCss}>
+          <CTAButton color="blue" onClick={() => router.push('/survey')}>
+            질문 폼 생성으로 시작하기
+          </CTAButton>
+          <KakaoLoginButton />
+        </section>
+      </main>
+    </>
   );
 }
 

@@ -4,6 +4,7 @@ import { m } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
 import useKakaoLogin from '~/components/kakaoLoginButton/useKakaoLogin';
+import SEO from '~/components/SEO/SEO';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import { CTAVariants, fixedBottomCss, fixedContainerCss } from '~/features/survey/styles';
 import { type QuestionRequest } from '~/features/survey/types';
@@ -35,25 +36,29 @@ const JoinGuidePage = () => {
   }, [status]);
 
   return (
-    <main css={mainCss}>
-      <picture css={pictureCss}>
-        <source srcSet="/images/survey/join-guide.webp" type="image/webp" />
-        <Image src="/images/survey/join-guide.png" alt="회원가입 안내" fill />
-      </picture>
+    <>
+      <SEO />
 
-      <StaggerWrapper wrapperOverrideCss={fixedContainerCss(25)}>
-        <p>회원가입 하고</p>
-        <p>당신의 커리어 질문 폼을</p>
-        <p>
-          동료들에게 <strong>공유</strong>하세요!
-        </p>
-      </StaggerWrapper>
+      <main css={mainCss}>
+        <picture css={pictureCss}>
+          <source srcSet="/images/survey/join-guide.webp" type="image/webp" />
+          <Image src="/images/survey/join-guide.png" alt="회원가입 안내" fill />
+        </picture>
 
-      {/* TODO : 카카오 회원가입 버튼 스타일 변경  */}
-      <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
-        <CTAButton onClick={loginHandler}>카카오 계정으로 회원가입 하기</CTAButton>
-      </m.div>
-    </main>
+        <StaggerWrapper wrapperOverrideCss={fixedContainerCss(25)}>
+          <p>회원가입 하고</p>
+          <p>당신의 커리어 질문 폼을</p>
+          <p>
+            동료들에게 <strong>공유</strong>하세요!
+          </p>
+        </StaggerWrapper>
+
+        {/* TODO : 카카오 회원가입 버튼 스타일 변경  */}
+        <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
+          <CTAButton onClick={loginHandler}>카카오 계정으로 회원가입 하기</CTAButton>
+        </m.div>
+      </main>
+    </>
   );
 };
 

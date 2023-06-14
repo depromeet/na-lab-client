@@ -4,6 +4,7 @@ import { useAtom, useAtomValue } from 'jotai';
 
 import CTAButton from '~/components/button/CTAButton';
 import Header from '~/components/header/Header';
+import SEO from '~/components/SEO/SEO';
 import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import CreateStopDialog from '~/features/survey/addSurveyForm/CreateStopDialog';
 import { REQUEST_BASIC_QUESTION_LIST } from '~/features/survey/constants';
@@ -70,32 +71,36 @@ const CreateSurveyPage = () => {
   }, [customItems.length]);
 
   return (
-    <main css={containerCss}>
-      <Header
-        title="나의 질문폼"
-        onBackClick={onDialogOpen}
-        rightButton={
-          <button
-            disabled={isCustomItemsEmpty}
-            css={(theme) => deleteButtonCss(isDeleteMode, theme)}
-            type="button"
-            onClick={() => setIsDeleteMode(!isDeleteMode)}
-          >
-            {isDeleteMode ? '완료' : '삭제하기'}
-          </button>
-        }
-      />
-      <CreateSurvey />
+    <>
+      <SEO />
 
-      <section css={fixedBottomCss}>
-        <CTAButton onClick={toggleDialogShowing} color="blue" disabled={isDeleteMode}>
-          이대로 생성하기
-        </CTAButton>
-      </section>
+      <main css={containerCss}>
+        <Header
+          title="나의 질문폼"
+          onBackClick={onDialogOpen}
+          rightButton={
+            <button
+              disabled={isCustomItemsEmpty}
+              css={(theme) => deleteButtonCss(isDeleteMode, theme)}
+              type="button"
+              onClick={() => setIsDeleteMode(!isDeleteMode)}
+            >
+              {isDeleteMode ? '완료' : '삭제하기'}
+            </button>
+          }
+        />
+        <CreateSurvey />
 
-      <CreateDialog isShowing={isDialogShowing} onClose={toggleDialogShowing} onAction={onSubmit} />
-      <CreateStopDialog isShowing={isDialogOpen} onClose={onDialogClose} onAction={onStop} />
-    </main>
+        <section css={fixedBottomCss}>
+          <CTAButton onClick={toggleDialogShowing} color="blue" disabled={isDeleteMode}>
+            이대로 생성하기
+          </CTAButton>
+        </section>
+
+        <CreateDialog isShowing={isDialogShowing} onClose={toggleDialogShowing} onAction={onSubmit} />
+        <CreateStopDialog isShowing={isDialogOpen} onClose={onDialogClose} onAction={onStop} />
+      </main>
+    </>
   );
 };
 
