@@ -19,7 +19,7 @@ const Feedback = () => {
   const { data: session } = useSession();
   // todo status에 따라 로딩 처리 필요
 
-  const { data } = useGetFeedbackById(1);
+  const { data } = useGetFeedbackById('1');
 
   const convertPositionToKorean = (position: string | undefined) => {
     if (position === 'developer') {

@@ -9,7 +9,7 @@ import colors from '~/styles/color';
 import { BODY_1, HEAD_1 } from '~/styles/typo';
 
 interface Feedback {
-  feedback_id: number;
+  feedback_id: string;
   created_at: string;
   reviwer: Reviewer;
   is_read: boolean;
@@ -33,8 +33,6 @@ export default function FeedbackList() {
   // const { status } = useSession();
   // todo 여기 123 숫자 동적으로 변경 필요
   const { data } = useGetAllReviewersBySurveyId('123');
-
-  console.log(data);
 
   const [feedbacksByYearAndMonth, setFeedbacksByYearAndMonth] = useState<Feedbacks | undefined>(undefined);
   const [feedbackCount, setFeedbackCount] = useState(0);
@@ -60,7 +58,7 @@ export default function FeedbackList() {
     setFeedbacksByYearAndMonth(feedbacksByYearAndMonthList);
   };
 
-  const onClickFeedback = (feedbackId: number) => {
+  const onClickFeedback = (feedbackId: string) => {
     router.push(`/feedbacklist/${feedbackId}`);
   };
 

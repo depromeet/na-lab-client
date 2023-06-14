@@ -74,7 +74,7 @@ const Softskill = ({ prev, next, nickname, choices, selectedChoiceIds, setChoice
             name={softskill.content.replaceAll('_', ' ')}
             onChange={onChange}
             value={softskill.choice_id}
-            checked={selectedChoiceIds.includes(softskill.choice_id)}
+            checked={selectedChoiceIds.includes(String(softskill.choice_id))}
           />
         ))}
       </section>

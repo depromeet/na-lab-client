@@ -14,7 +14,7 @@ interface Reviewer {
 }
 
 interface Feedback {
-  feedback_id: number;
+  feedback_id: string;
   created_at: string;
   reviwer: Reviewer;
   is_read: boolean;
@@ -22,7 +22,7 @@ interface Feedback {
 
 interface Props {
   feedback: Feedback;
-  onClickFeedback: (arg0: number) => void;
+  onClickFeedback: (arg0: string) => void;
 }
 
 type Position = 'developer' | 'designer' | 'pm' | 'others';
@@ -59,7 +59,7 @@ const ReceivedFeedbackCard = ({ feedback, onClickFeedback }: Props) => {
       css={containerCss}
       role="presentation"
       onClick={() => {
-        onClickFeedback(feedback_id);
+        onClickFeedback(String(feedback_id));
       }}
     >
       {is_read ? null : <UnreadBadgeIcon floatingTop="8px" floatingRight="8px" />}

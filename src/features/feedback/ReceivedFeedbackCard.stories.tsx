@@ -13,7 +13,7 @@ type Position = 'developer' | 'designer' | 'product-manager' | 'other';
 
 const feedbacks = [
   {
-    feedback_id: 5,
+    feedback_id: '5',
     created_at: '2023-01-24T12:00:00',
     reply: [
       '예진이는 개발 관련 지식을 조금 더 공부해봐도 좋을 것 같아! 요즘 프로덕트 디자이너에겐 개발 지식을 아는 게 좋은 역량이 될 수 있어.',
