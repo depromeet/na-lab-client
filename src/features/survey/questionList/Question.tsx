@@ -37,13 +37,16 @@ export default Question;
 const listItemCss = css`
   display: flex;
   gap: 16px;
-  align-items: center;
+  align-items: flex-start;
+
+  width: 100%;
   padding: 0.5rem 0;
 `;
 
 const textContainerCss = css`
   user-select: none;
   flex-grow: 1;
+  min-width: 0;
 `;
 
 const titleCss = css`
@@ -58,6 +61,7 @@ const iconContainerCss = css`
   justify-content: center;
 
   width: 50px;
+  min-width: 50px;
   height: 50px;
 
   border-radius: 10px;
