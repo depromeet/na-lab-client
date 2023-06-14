@@ -6,7 +6,6 @@ import WarningIcon from '~/components/icons/WarningIcon';
 import Toast from '~/components/toast/Toast';
 import useToast from '~/components/toast/useToast';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
-import { type Choice } from '~/remotes/question';
 import recordEvent from '~/utils/event';
 
 import BottomNavigation from '../BottomNavigation';
@@ -74,7 +73,7 @@ const Softskill = ({ prev, next, nickname, choices, selectedChoiceIds, setChoice
             name={softskill.content.replaceAll('_', ' ')}
             onChange={onChange}
             value={softskill.choice_id}
-            checked={selectedChoiceIds.includes(String(softskill.choice_id))}
+            checked={selectedChoiceIds.includes(softskill.choice_id)}
           />
         ))}
       </section>
