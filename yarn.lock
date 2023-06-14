@@ -18,6 +18,7 @@ __metadata:
     "@egjs/react-flicking": ^4.10.9
     "@emotion/babel-preset-css-prop": ^11.10.0
     "@emotion/react": ^11.10.6
+    "@next/env": ^13.4.5
     "@playwright/test": ^1.32.3
     "@sentry/nextjs": ^7.49.0
     "@storybook/addon-essentials": ^7.0.6
@@ -69,6 +70,7 @@ __metadata:
     next: 13.3.0
     next-auth: ^4.22.1
     next-router-mock: ^0.9.3
+    next-sitemap: ^4.1.3
     postcss: ^8.4.21
     postcss-syntax: ^0.36.2
     prettier: ^2.8.7
@@ -1908,6 +1910,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@corex/deepmerge@npm:^4.0.43":
+  version: 4.0.43
+  resolution: "@corex/deepmerge@npm:4.0.43"
+  checksum: f0103bfcfb9938ba478868fad522b018b92615ba186b0322c92aa1f57e539b87d4379d88fee3a404264a83bd4b13c384cfb07834377997d6d71cd840a880b4c4
+  languageName: node
+  linkType: hard
+
 "@cspotcode/source-map-support@npm:^0.8.0":
   version: 0.8.1
   resolution: "@cspotcode/source-map-support@npm:0.8.1"
@@ -2656,6 +2665,13 @@ __metadata:
   version: 13.3.0
   resolution: "@next/env@npm:13.3.0"
   checksum: 17dbea6d019df98f8abebadcaed635d792c69368389c7869ca023acfba240294368a58eda761fb8047403b84e82edf25ea2af45afe06cc1807a25de42e256dd3
+  languageName: node
+  linkType: hard
+
+"@next/env@npm:^13.4.5":
+  version: 13.4.5
+  resolution: "@next/env@npm:13.4.5"
+  checksum: bdde73b6f1304fe2f275cbe26d8c447f66701f89afbe6b6a0c489f2dfaa8decc18a1728720c239f6c5dd3bf63a77a324e11105ff9a6cebf72c16ed478dffa9f0
   languageName: node
   linkType: hard
 
@@ -12429,7 +12445,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:1, minimist@npm:^1.2.0, minimist@npm:^1.2.5, minimist@npm:^1.2.6":
+"minimist@npm:1, minimist@npm:^1.2.0, minimist@npm:^1.2.5, minimist@npm:^1.2.6, minimist@npm:^1.2.8":
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
   checksum: 75a6d645fb122dad29c06a7597bddea977258957ed88d7a6df59b5cd3fe4a527e253e9bbf2e783e4b73657f9098b96a5fe96ab8a113655d4109108577ecf85b0
@@ -12672,6 +12688,23 @@ __metadata:
     next: ">=10.0.0"
     react: ">=17.0.0"
   checksum: 5e8a6ffd5517e896711af2bc009414ad3f68cb89ccc3d483bd03e818876d9bc95a2fc80d14db67e90f1ea26a39853ddd5b4902cb40398b51bef749b98b9ec38f
+  languageName: node
+  linkType: hard
+
+"next-sitemap@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "next-sitemap@npm:4.1.3"
+  dependencies:
+    "@corex/deepmerge": ^4.0.43
+    fast-glob: ^3.2.12
+    minimist: ^1.2.8
+  peerDependencies:
+    "@next/env": "*"
+    next: "*"
+  bin:
+    next-sitemap: bin/next-sitemap.mjs
+    next-sitemap-cjs: bin/next-sitemap.cjs
+  checksum: de9b292dffdafcaf0a1cd661471f34892aaad37820b613d6776f04a30ab5b1ead21b79890dcfdfb2de72e0f12d052674ffe165692f5b106495759f3d9cf5141e
   languageName: node
   linkType: hard
 

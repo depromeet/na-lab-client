@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.nalab.me
+
+# Sitemaps
+Sitemap: https://www.nalab.me/sitemap.xml
