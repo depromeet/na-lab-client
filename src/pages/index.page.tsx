@@ -3,16 +3,13 @@ import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 
 import Logo from '~/assets/Logo';
-import CTAButton from '~/components/button/CTAButton';
 import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
 import SEO from '~/components/SEO/SEO';
+import ConditionalCtaLink from '~/features/home/ConditionalCtaLink';
 import KakaoLoginButton from '~/features/home/KakaoLoginButton';
-import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { HEAD_2_BOLD } from '~/styles/typo';
 
 export default function Home() {
-  const router = useInternalRouter();
-
   return (
     <>
       <SEO />
@@ -29,10 +26,7 @@ export default function Home() {
         </section>
 
         <section css={ctaWrapperCss}>
-          <CTAButton color="navy" onClick={() => router.push('/survey')}>
-            질문 폼 생성으로 시작하기
-          </CTAButton>
-
+          <ConditionalCtaLink />
           <KakaoLoginButton />
         </section>
       </main>
