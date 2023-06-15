@@ -4,9 +4,9 @@ import { css, type Theme } from '@emotion/react';
 
 import Logo from '~/assets/Logo';
 import CTAButton from '~/components/button/CTAButton';
-import KakaoLoginButton from '~/components/kakaoLoginButton/KakaoLoginButton';
 import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
 import SEO from '~/components/SEO/SEO';
+import KakaoLoginButton from '~/features/home/KakaoLoginButton';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { HEAD_2_BOLD } from '~/styles/typo';
 

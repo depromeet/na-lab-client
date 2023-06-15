@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import useKakaoLogin from '~/components/kakaoLoginButton/useKakaoLogin';
+import useKakaoLogin from '~/hooks/auth/useKakaoLogin';
 import colors from '~/styles/color';
 import { BODY_1 } from '~/styles/typo';
 
@@ -12,7 +12,7 @@ const KakaoLoginButton = () => {
     return (
       <div css={KakaoLoginWrapper}>
         <button type="button" onClick={logOutHandler}>
-          로그아웃 하기
+          로그아웃
         </button>
       </div>
     );
@@ -47,12 +47,8 @@ const KakaoLoginWrapper = css`
 
 const KakaoLoginButtonCss = css`
   cursor: pointer;
-
   margin-left: 5px;
-
-  font-weight: 500;
   color: ${colors.primary};
-
   background: inherit;
 `;
 

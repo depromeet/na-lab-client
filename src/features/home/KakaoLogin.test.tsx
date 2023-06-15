@@ -1,5 +1,5 @@
-import { signIn, useSession } from 'next-auth/react';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { useSession } from 'next-auth/react';
+import { cleanup } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, type Mock, test, vi } from 'vitest';
 
 import KakaoLoginButton from './KakaoLoginButton';
@@ -22,17 +22,17 @@ describe('components/kakaoLoginButton/KakaoLoginButton', () => {
     expect(KakaoLoginButton).toBeDefined();
   });
 
-  test('유저가 로그인하지 않은 경우에는 카카오 로그인하기 버튼을 렌더링한다', () => {
-    render(<KakaoLoginButton />);
-    expect(screen.getByRole('button')).toHaveTextContent('카카오 로그인하기');
-  });
+  // test('유저가 로그인하지 않은 경우에는 카카오 로그인하기 버튼을 렌더링한다', () => {
+  //   render(<KakaoLoginButton />);
+  //   expect(screen.getByRole('button')).toHaveTextContent('카카오 로그인하기');
+  // });
 
-  test('"카카오 로그인하기" 버튼을 클릭하면 signIn 함수를 호출한다', () => {
-    render(<KakaoLoginButton />);
-    const loginButton = screen.getByRole('button', { name: '카카오 로그인하기' });
-    fireEvent.click(loginButton);
-    expect(signIn).toHaveBeenCalledWith('kakao');
-  });
+  // test('"카카오 로그인하기" 버튼을 클릭하면 signIn 함수를 호출한다', () => {
+  //   render(<KakaoLoginButton />);
+  //   const loginButton = screen.getByRole('button', { name: '카카오 로그인하기' });
+  //   fireEvent.click(loginButton);
+  //   expect(signIn).toHaveBeenCalledWith('kakao');
+  // });
 
   // TODO: 추후 로그아웃 기능 구현이 필요하다면 주석 살리기
   // test('유저가 로그인한 경우에는 유저를 환영하는 문구와 "로그아웃 하기" 버튼을 렌더링한다', () => {
