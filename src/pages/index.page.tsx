@@ -74,6 +74,10 @@ const pictureCss = (theme: Theme) => css`
   width: 100%;
   max-width: ${theme.size.maxWidth};
   height: 100%;
+
+  & > img {
+    object-fit: cover;
+  }
 `;
 
 const ctaWrapperCss = (theme: Theme) => css`
