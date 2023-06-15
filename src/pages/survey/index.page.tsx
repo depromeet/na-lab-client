@@ -1,3 +1,4 @@
+import SEO from '~/components/SEO/SEO';
 import Intro from '~/features/survey/Intro';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 
@@ -9,7 +10,13 @@ const CreateSurveyPage = () => {
     router.push('/survey/create');
   };
 
-  return <Intro next={next} />;
+  return (
+    <>
+      <SEO />
+
+      <Intro next={next} />
+    </>
+  );
 };
 
 export default CreateSurveyPage;

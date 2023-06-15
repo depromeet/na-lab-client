@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
 
@@ -32,6 +33,12 @@ const TextToggle = ({ selectItem, list, onItemClick }: Props) => {
     </button>
   );
 };
+
+function textTogglePropsAreEqual(prev: Props, next: Props) {
+  return prev.selectItem === next.selectItem;
+}
+
+export default memo(TextToggle, textTogglePropsAreEqual);
 
 const ITEM_SIZE = 105;
 
@@ -86,5 +93,3 @@ const selectBoxCss = (theme: Theme, isOn: boolean) => css`
   background-color: ${theme.colors.primary_200};
   border-radius: 24px;
 `;
-
-export default TextToggle;

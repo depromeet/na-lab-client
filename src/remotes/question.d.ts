@@ -28,9 +28,9 @@ interface ChoiceQuestion extends DefaultQuestion {
 
 type Question = ShortQuestion | ChoiceQuestion;
 
-interface WithIsRead<T> extends T {
+type WithIsRead<T> = T & {
   is_read: boolean;
-}
+};
 
 type ShortQuestionWithIsRead = WithIsRead<ShortQuestion>;
 

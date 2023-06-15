@@ -2,22 +2,27 @@ import { css, type Theme } from '@emotion/react';
 
 import CTAButton from '~/components/button/CTAButton';
 import InternalLink from '~/components/link/InternalLink';
+import SEO from '~/components/SEO/SEO';
 import { BODY_1, HEAD_1 } from '~/styles/typo';
 
 const NotFound = () => {
   return (
-    <main css={defaultLayoutCss}>
-      <section css={sectionCss}>
-        <h1 css={headingCss}>존재하지 않는 페이지예요.</h1>
-        <small css={smallCss}>404 NOT FOUND</small>
-      </section>
+    <>
+      <SEO />
 
-      <section css={sectionCss}>
-        <InternalLink href="/" css={linkCss}>
-          <CTAButton>홈으로 돌아가기</CTAButton>
-        </InternalLink>
-      </section>
-    </main>
+      <main css={defaultLayoutCss}>
+        <section css={sectionCss}>
+          <h1 css={headingCss}>존재하지 않는 페이지예요.</h1>
+          <small css={smallCss}>404 NOT FOUND</small>
+        </section>
+
+        <section css={sectionCss}>
+          <InternalLink href="/" css={linkCss}>
+            <CTAButton>홈으로 돌아가기</CTAButton>
+          </InternalLink>
+        </section>
+      </main>
+    </>
   );
 };
 
