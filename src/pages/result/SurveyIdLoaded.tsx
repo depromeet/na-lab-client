@@ -1,7 +1,10 @@
 import { useLayoutEffect, useState } from 'react';
+import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
+import { m } from 'framer-motion';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
+import CTAButton from '~/components/button/CTAButton';
 import Softskill from '~/components/graphic/softskills/Softskill';
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
@@ -16,6 +19,7 @@ import ParticipatingReviewerChart from '~/features/feedback/ParticipatingReviewe
 import QuestionListRow from '~/features/feedback/QuestionListRow';
 import ResearchMoveAnchor from '~/features/feedback/ResearchMoveAnchor';
 import MultipleChoiceAnswer from '~/features/multipleChoiceAnswer/MultipleChoiceAnswer';
+import { CTAVariants, fixedBottomCss, imageVariant } from '~/features/survey/styles';
 import useGetAllFeedbacksBySurveyId, {
   type ChoiceQuestionFeedback,
   type Response,
@@ -51,6 +55,23 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
     const limittedInnerWidth = window.innerWidth > 480 ? 480 : window.innerWidth;
     setInnerWidth(limittedInnerWidth);
   }, []);
+
+  if (feedbackSummaryData && feedbackSummaryData.all_feedback_count < 1) {
+    return (
+      <>
+        <Header title="연구 결과" isContainRemainer />
+        <section css={emptyFeedbackPageContainerCss}>
+          <m.div css={emptyFeedbackWrapperCss} variants={imageVariant} initial="initial" animate="animate" exit="exit">
+            <Image src="/images/feedback/empty-file.png" width={212} height={162} alt="빈 피드백" />
+            <span css={(theme) => emptyTextCss(theme)}>아직 도착한 피드백이 없어요</span>
+          </m.div>
+        </section>
+        <m.div css={fixedBottomCss} variants={CTAVariants}>
+          <CTAButton color="blue">공유하기</CTAButton>
+        </m.div>
+      </>
+    );
+  }
 
   return (
     <LoadingHandler
@@ -207,6 +228,26 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
 };
 
 export default SurveyIdLoaded;
+
+const emptyFeedbackPageContainerCss = css`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const emptyFeedbackWrapperCss = css`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+`;
+
+const emptyTextCss = (theme: Theme) => css`
+  ${HEAD_2_BOLD};
+
+  color: ${theme.colors.gray_400};
+`;
 
 const headerButtonCss = css`
   display: flex;

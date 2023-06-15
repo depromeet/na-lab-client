@@ -22,7 +22,7 @@ const ResearchMoveAnchor = ({ newFeedbackNumber }: Props) => {
         </div>
         <div css={[BODY_1, unreadMsgCountBadge(theme)]}>+{newFeedbackNumber}</div>
       </section>
-      <Image css={fileImageCss} src="/images/files.png" alt="파일 이미지" width={93} height={70} />
+      <Image css={fileImageCss} src="/images/feedback/files.png" alt="파일 이미지" width={93} height={70} />
       <aside css={rightMarkCss(theme)} />
     </Link>
   );
