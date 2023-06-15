@@ -31,10 +31,6 @@ const nextConfig = {
     hideSourceMaps: true,
   },
   transpilePackages: ['react-hotjar'],
-  images: {
-    loader: 'akamai',
-    path: '/',
-  },
 };
 
 const sentryWebpackPluginOptions = {

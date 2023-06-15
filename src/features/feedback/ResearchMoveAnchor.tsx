@@ -21,11 +21,9 @@ const ResearchMoveAnchor = ({ newFeedbackNumber }: Props) => {
           <ChevronArrowRightIcon width={24} height={24} viewBox="0 0 8 14" css={chevronArrowRightIconCss} />
         </div>
         <div css={[BODY_1, unreadMsgCountBadge(theme)]}>+{newFeedbackNumber}</div>
-
-        {/* TODO: 이미지는 3D 작업 완료 되면 변경 예정 */}
       </section>
       <Image css={fileImageCss} src="/images/files.png" alt="파일 이미지" width={93} height={70} />
-      <aside css={rightMarkCss(theme)}></aside>
+      <aside css={rightMarkCss(theme)} />
     </Link>
   );
 };
