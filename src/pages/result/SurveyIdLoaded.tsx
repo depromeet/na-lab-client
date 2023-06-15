@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState } from 'react';
 import Image from 'next/image';
-import { css, type Theme } from '@emotion/react';
-import { m } from 'framer-motion';
+import { css, keyframes, type Theme } from '@emotion/react';
+import { m, type Variants } from 'framer-motion';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
 import CTAButton from '~/components/button/CTAButton';
@@ -10,9 +10,14 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
 import LineThreeDotsIcon from '~/components/icons/LineThreeDotsIcon';
+import LinkIcon from '~/components/icons/LinkIcon';
 import FixedSpinner from '~/components/loading/FixedSpinner';
 import LoadingHandler from '~/components/loading/LoadingHandler';
 import Pill, { type Color } from '~/components/pill/Pill';
+import { BASE_URL } from '~/components/SEO/SEO';
+import Toast from '~/components/toast/Toast';
+import useToast from '~/components/toast/useToast';
+import { defaultEasing } from '~/constants/motions';
 import CollaborationCounter from '~/features/feedback/CollaborationCounter';
 import Feedback from '~/features/feedback/Feedback';
 import ParticipatingReviewerChart from '~/features/feedback/ParticipatingReviewerChart';
@@ -29,7 +34,8 @@ import useGetReviewersSummaryBySurveyId from '~/hooks/api/reviewers/useGetReview
 import useBoolean from '~/hooks/common/useBoolean';
 import useScrollLock from '~/hooks/common/useScrollLock';
 import { useScrollSpy } from '~/hooks/common/useScrollSpy';
-import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
+import { BODY_2_REGULAR, HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
+import { copyToClipBoard } from '~/utils/clipboard';
 
 interface Props {
   surveyId: string;
@@ -44,6 +50,8 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
   const { isLoading: isAllDataLoading, data: allData } = useGetAllFeedbacksBySurveyId(surveyId);
   const tendencyCountData = getTendencyCount(allData);
 
+  const { fireToast } = useToast();
+
   const [isShowing, toggle, _, setFalse] = useBoolean(false);
   useScrollLock({ lock: isShowing });
 
@@ -56,6 +64,20 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
     setInnerWidth(limittedInnerWidth);
   }, []);
 
+  const onClickCTA = () => {
+    copyToClipBoard(`${BASE_URL}/review?id=${surveyId}`);
+
+    fireToast({
+      content: (
+        <>
+          <LinkIcon />
+          <Toast.Text>나의 질문 폼 링크가 복사되었어요</Toast.Text>,
+        </>
+      ),
+      higherThanCTA: true,
+    });
+  };
+
   if (feedbackSummaryData && feedbackSummaryData.all_feedback_count < 1) {
     return (
       <>
@@ -67,7 +89,12 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
           </m.div>
         </section>
         <m.div css={fixedBottomCss} variants={CTAVariants}>
-          <CTAButton color="blue">공유하기</CTAButton>
+          <m.span css={bubbleSpanCss} variants={bubbleVariants}>
+            더 많은 동료들에게 질문 폼 링크를 공유해 보세요!
+          </m.span>
+          <CTAButton onClick={onClickCTA} color="blue">
+            공유하기
+          </CTAButton>
         </m.div>
       </>
     );
@@ -340,11 +367,82 @@ const choiceTypeCss = css`
   flex-direction: column;
   gap: 11px;
 `;
+
 const shortTypeCss = css`
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
+
+const floatingKeyframes = keyframes`
+  from {
+    transform: translateY(0) translateX(-50%);
+  }
+  65% {
+    transform: translateY(-3px) translateX(-50%);;
+  }
+  to {
+    transform: translateY(0) translateX(-50%);;
+  }
+`;
+
+const bubbleSpanCss = (theme: Theme) => css`
+  ${BODY_2_REGULAR};
+
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: max-content;
+  padding: 10px 14px;
+
+  color: ${theme.colors.white};
+
+  background-color: ${theme.colors.secondary_200};
+  border-radius: 6px;
+
+  animation: ${floatingKeyframes} 4s ${theme.transition.defaultEasing} infinite;
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    z-index: ${theme.zIndex.belowDefault};
+    bottom: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 0;
+    height: 0;
+
+    border-top: 24px solid ${theme.colors.secondary_200};
+    border-right: 12px solid transparent;
+    border-left: 12px solid transparent;
+    border-radius: 1px;
+  }
+`;
+
+const bubbleVariants: Variants = {
+  initial: {
+    opacity: 0,
+    y: 10,
+    x: '-50%',
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    x: '-50%',
+    transition: { duration: 0.5, ease: defaultEasing, delay: 1 },
+  },
+  exit: {
+    opacity: 0,
+    y: 10,
+    x: '-50%',
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
+};
 
 const getTendencyCount = (
   data?: Response,
