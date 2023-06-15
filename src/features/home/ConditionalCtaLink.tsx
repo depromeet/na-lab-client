@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { css } from '@emotion/react';
 
+import NewFeedbackBadge from '~/components/badge/NewFeedbackBadge';
 import CTAButton from '~/components/button/CTAButton';
 import InternalLink from '~/components/link/InternalLink';
+import useGetFeedbackSummaryBySurveyId from '~/hooks/api/feedbacks/useGetFeedbackSummaryBySurveyId';
 import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 
 const ConditionalCtaLink = () => {
@@ -16,7 +18,7 @@ const ConditionalCtaLink = () => {
     },
   });
 
-  if (Boolean(data)) return <ResultLink />;
+  if (data) return <ResultLink surveyId={data.survey_id} />;
   if (sessionStatus === 'unauthenticated') return <CreateQuestionFormLink />;
   if (isNotFound) return <CreateQuestionFormLink />;
 
@@ -33,14 +35,32 @@ const CreateQuestionFormLink = () => {
   );
 };
 
-const ResultLink = () => {
+interface ResultLinkProps {
+  surveyId: string;
+}
+
+const ResultLink = ({ surveyId }: ResultLinkProps) => {
+  const { data } = useGetFeedbackSummaryBySurveyId(surveyId);
+
   return (
     <InternalLink href="/result" css={linkCss}>
       <CTAButton>나의 연구 결과 보러가기</CTAButton>
+
+      {data && data.new_feedback_count > 0 && (
+        <NewFeedbackBadge newFeedbackCount={data.new_feedback_count} css={badgeCss} />
+      )}
     </InternalLink>
   );
 };
 
 const linkCss = css`
+  position: relative;
   width: 100%;
+`;
+
+const badgeCss = css`
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
 `;
