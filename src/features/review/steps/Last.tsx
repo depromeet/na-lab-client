@@ -31,11 +31,8 @@ const Last = ({ postMutation }: Props) => {
   });
 
   const onClickCTA: MouseEventHandler<HTMLButtonElement> = () => {
-    // TODO: 로그인 확인해서 안했으면, 로그인 화면으로
-    // TODO: 했으면 생성 페이지로
-
     recordEvent({ action: '리뷰어 - 마지막 - 나도 질문 폼 생성하기 버튼 클릭' });
-    router.push('/');
+    router.push('/survey');
   };
 
   return (
