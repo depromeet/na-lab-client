@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { css } from '@emotion/react';
 
+import CTAButton from '~/components/button/CTAButton';
 import InternalLink from '~/components/link/InternalLink';
 import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 
@@ -14,8 +16,8 @@ const ConditionalCtaLink = () => {
     },
   });
 
+  if (Boolean(data)) return <ResultLink />;
   if (sessionStatus === 'unauthenticated') return <CreateQuestionFormLink />;
-  if (sessionStatus === 'authenticated' && Boolean(data)) return <ResultLink />;
   if (isNotFound) return <CreateQuestionFormLink />;
 
   return <CreateQuestionFormLink />;
@@ -24,9 +26,21 @@ const ConditionalCtaLink = () => {
 export default ConditionalCtaLink;
 
 const CreateQuestionFormLink = () => {
-  return <InternalLink href="/survey">질문 폼 생성으로 시작하기</InternalLink>;
+  return (
+    <InternalLink href="/survey" css={linkCss}>
+      <CTAButton>질문 폼 생성으로 시작하기</CTAButton>
+    </InternalLink>
+  );
 };
 
 const ResultLink = () => {
-  return <InternalLink href="/result">나의 연구 결과 보러가기</InternalLink>;
+  return (
+    <InternalLink href="/result" css={linkCss}>
+      <CTAButton>나의 연구 결과 보러가기</CTAButton>
+    </InternalLink>
+  );
 };
+
+const linkCss = css`
+  width: 100%;
+`;

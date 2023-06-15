@@ -1,8 +1,10 @@
 import { type ReactNode, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import { useSetAtom } from 'jotai';
 
 import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import { post } from '~/libs/api';
+import { isUserTokenValidAtom } from '~/store/auth';
 
 interface Props {
   children: ReactNode;
@@ -10,6 +12,7 @@ interface Props {
 
 const AuthProvider = ({ children }: Props) => {
   const { data, status } = useSession();
+  const setIsUserTokenValid = useSetAtom(isUserTokenValidAtom);
 
   useEffect(() => {
     if (!data) return;
@@ -26,6 +29,7 @@ const AuthProvider = ({ children }: Props) => {
 
     const setToken = async () => {
       const token = await getToken();
+      setIsUserTokenValid(true);
       localStorage.setItem(LOCAL_STORAGE_KEY.accessToken, token.access_token);
     };
 
