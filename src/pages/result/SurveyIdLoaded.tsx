@@ -1,9 +1,11 @@
 import { useLayoutEffect, useState } from 'react';
 import { css, type Theme } from '@emotion/react';
 
+import BottomSheet from '~/components/bottomSheet/BottomSheet';
 import Softskill from '~/components/graphic/softskills/Softskill';
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
+import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
 import LineThreeDotsIcon from '~/components/icons/LineThreeDotsIcon';
 import FixedSpinner from '~/components/loading/FixedSpinner';
 import LoadingHandler from '~/components/loading/LoadingHandler';
@@ -11,6 +13,7 @@ import Pill, { type Color } from '~/components/pill/Pill';
 import CollaborationCounter from '~/features/feedback/CollaborationCounter';
 import Feedback from '~/features/feedback/Feedback';
 import ParticipatingReviewerChart from '~/features/feedback/ParticipatingReviewerChart';
+import QuestionListRow from '~/features/feedback/QuestionListRow';
 import ResearchMoveAnchor from '~/features/feedback/ResearchMoveAnchor';
 import MultipleChoiceAnswer from '~/features/multipleChoiceAnswer/MultipleChoiceAnswer';
 import useGetAllFeedbacksBySurveyId, {
@@ -19,6 +22,9 @@ import useGetAllFeedbacksBySurveyId, {
 } from '~/hooks/api/feedbacks/useGetAllFeedbacksBySurveyId';
 import useGetFeedbackSummaryBySurveyId from '~/hooks/api/feedbacks/useGetFeedbackSummaryBySurveyId';
 import useGetReviewersSummaryBySurveyId from '~/hooks/api/reviewers/useGetReviewersSummaryBySurveyId';
+import useBoolean from '~/hooks/common/useBoolean';
+import useScrollLock from '~/hooks/common/useScrollLock';
+import { useScrollSpy } from '~/hooks/common/useScrollSpy';
 import { HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
 
 interface Props {
@@ -32,11 +38,15 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
   const { isLoading: isReviewersSummaryLoading, data: reviewersSummaryData } =
     useGetReviewersSummaryBySurveyId(surveyId);
   const { isLoading: isAllDataLoading, data: allData } = useGetAllFeedbacksBySurveyId(surveyId);
-
   const tendencyCountData = getTendencyCount(allData);
 
-  const [innerWidth, setInnerWidth] = useState(0);
+  const [isShowing, toggle, _, setFalse] = useBoolean(false);
+  useScrollLock({ lock: isShowing });
 
+  const ids = allData?.question_feedback.map((question) => question.question_id) ?? [];
+  const currentObservedId = useScrollSpy(['participatingReviewerId', ...ids]);
+
+  const [innerWidth, setInnerWidth] = useState(0);
   useLayoutEffect(() => {
     const limittedInnerWidth = window.innerWidth > 480 ? 480 : window.innerWidth;
     setInnerWidth(limittedInnerWidth);
@@ -52,13 +62,36 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
           <Header
             title="연구 결과"
             rightButton={
-              // TODO: bottom sheet
-              <button type="button" css={headerButtonCss}>
+              <button type="button" css={headerButtonCss} onClick={toggle}>
                 <LineThreeDotsIcon />
               </button>
             }
             isContainRemainer
           />
+
+          <BottomSheet isShowing={isShowing} onClickOutside={setFalse}>
+            <BottomSheetHandleIcon onClick={setFalse} />
+            <QuestionListRow
+              item={{ type: 'participatingReviewer', title: '참여한 동료 정보' }}
+              isObservingNow={currentObservedId === 'participatingReviewerId'}
+              onListRowClick={() => {
+                scrollToTarget('participatingReviewerId');
+                setFalse();
+              }}
+            />
+
+            {allData.question_feedback.map((question) => (
+              <QuestionListRow
+                key={question.question_id}
+                item={question}
+                isObservingNow={currentObservedId === question.question_id}
+                onListRowClick={() => {
+                  scrollToTarget(question.question_id);
+                  setFalse();
+                }}
+              />
+            ))}
+          </BottomSheet>
 
           <main>
             <section css={upperSectionCss}>
@@ -72,7 +105,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                 </div>
               </article>
 
-              <article css={articleGapCss}>
+              <article css={articleGapCss} id="participatingReviewerId">
                 <h2 css={titleCss}>참여한 동료 정보</h2>
                 <div css={chartWrapperCss}>
                   <ParticipatingReviewerChart
@@ -93,7 +126,10 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                 </div>
               </article>
 
-              <article css={articleGapCss}>
+              <article
+                css={articleGapCss}
+                id={allData.question_feedback.find((question) => question.form_type === 'tendency')?.question_id}
+              >
                 <h2 css={titleCss}>동료들이 고른 나의 이미지</h2>
                 <div css={pillContainer}>
                   {tendencyCountData?.map((tendency, idx) => (
@@ -114,16 +150,17 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
             <section>
               {allData?.question_feedback
                 .filter((question) => question.form_type !== 'tendency')
-                .map((question) => (
-                  <article
-                    key={question.question_id}
-                    css={(theme) => questionArticleCss(theme, question.type, innerWidth)}
-                  >
-                    <div css={questionTitleCss}>
-                      <span>Q.</span>
-                      <h2>{question.title}</h2>
-                    </div>
-                    {question.type === 'choice' ? (
+                .map((question) =>
+                  question.type === 'choice' ? (
+                    <article
+                      key={question.question_id}
+                      css={(theme) => choiceQuestionContainerCss(theme)}
+                      id={question.question_id}
+                    >
+                      <div css={choiceQuestionTitleCss}>
+                        <span>Q.</span>
+                        <h2>{question.title}</h2>
+                      </div>
                       <div css={choiceTypeCss}>
                         {getChoiceCount(question).choiceDataWithCount.map((choice) => {
                           return (
@@ -137,7 +174,17 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                           );
                         })}
                       </div>
-                    ) : (
+                    </article>
+                  ) : (
+                    <article
+                      key={question.question_id}
+                      css={(theme) => shortQuestionContainerCss(theme, innerWidth)}
+                      id={question.question_id}
+                    >
+                      <div css={shortQuestionTitleCss}>
+                        <span>Q.</span>
+                        <h2>{question.title}</h2>
+                      </div>
                       <div css={shortTypeCss}>
                         {question.feedbacks?.map((feedback) => (
                           <Feedback
@@ -148,9 +195,9 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                           />
                         ))}
                       </div>
-                    )}
-                  </article>
-                ))}
+                    </article>
+                  ),
+                )}
             </section>
           </main>
         </>
@@ -214,7 +261,7 @@ const titleCss = css`
   margin: 16px 0;
 `;
 
-const questionTitleCss = css`
+const choiceQuestionTitleCss = css`
   display: flex;
   gap: 12px;
   ${HEAD_1}
@@ -222,15 +269,29 @@ const questionTitleCss = css`
   margin: 16px 0;
 `;
 
+const shortQuestionTitleCss = css`
+  display: flex;
+  gap: 12px;
+  ${HEAD_1}
+
+  margin: 16px 7px;
+`;
+
 const allFeedbackCountCss = (theme: Theme) => css`
   color: ${theme.colors.primary_200};
 `;
 
-const questionArticleCss = (theme: Theme, type: 'choice' | 'short', innerWidth: number) => css`
-  transform: ${type === 'short' ? 'translateX(-23px)' : 'none'};
-  width: ${type === 'short' ? innerWidth + 'px' : '100%'};
-  padding: ${type === 'short' ? '20px 16px 32px' : '20px 0 32px 0'};
-  background-color: ${type === 'choice' ? theme.colors.white : theme.colors.gray_50};
+const shortQuestionContainerCss = (theme: Theme, innerWidth: number) => css`
+  transform: translateX(-23px);
+  width: ${innerWidth}px;
+  padding: 20px 16px 32px;
+  background-color: ${theme.colors.gray_50};
+`;
+
+const choiceQuestionContainerCss = (theme: Theme) => css`
+  width: 100%;
+  padding: 20px 0 32px;
+  background-color: ${theme.colors.white};
 `;
 
 const choiceTypeCss = css`
@@ -299,4 +360,12 @@ const getChoiceCount = (
   });
 
   return { choiceDataWithCount: _choiceDataWithCount };
+};
+
+const scrollToTarget = (id: string) => {
+  const target = document.querySelector(`#${CSS.escape(id)}`);
+  if (target) {
+    target.scrollIntoView();
+    window.scrollBy(0, -56); // 상단바 높이만큼 위로 스크롤 조절
+  }
 };

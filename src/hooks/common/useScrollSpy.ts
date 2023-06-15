@@ -20,7 +20,7 @@ export const useScrollSpy = (ids: string[]) => {
           }
         });
       },
-      { rootMargin: '0% 0% -80% 0%' },
+      { rootMargin: '0% 0% -50% 0%' },
     );
 
     elements.forEach((element) => {

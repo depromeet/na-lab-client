@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, type Theme } from '@emotion/react';
 
 import ProfileIcon from '~/components/icons/ProfileIcon';
 import colors from '~/styles/color';
@@ -16,7 +16,7 @@ const MultipleChoiceAnswer = ({ variant = 'default', totalCount, answeredCount, 
     <div css={containerCss(variant)}>
       <div css={percentageBar(variant, totalCount, answeredCount)} />
       <div css={textContainerCss(variant)}>
-        <div css={[textCss(variant)]}>{answerText}</div>
+        <div css={(theme) => textCss(theme, variant)}>{answerText}</div>
 
         <div css={countContainerCss}>
           <ProfileIcon
@@ -25,7 +25,7 @@ const MultipleChoiceAnswer = ({ variant = 'default', totalCount, answeredCount, 
             height={20}
             color={variant === 'highlighted' ? '#638FFF' : '#677089'}
           />
-          <span css={[BODY_2_BOLD, countTextCss(variant)]}>{answeredCount}명</span>
+          <span css={(theme) => countTextCss(theme, variant)}>{answeredCount}명</span>
         </div>
       </div>
     </div>
@@ -86,7 +86,7 @@ const countContainerCss = css`
   display: flex;
 `;
 
-const textCss = (variant: string) => css`
+const textCss = (theme: Theme, variant: string) => css`
   overflow: hidden;
 
   text-overflow: ellipsis;
@@ -94,13 +94,15 @@ const textCss = (variant: string) => css`
 
   background-color: transparent;
 
-  z-index: 10;
+  z-index: ${theme.zIndex.aboveDefault};
 
   ${textStyles[variant]}
 `;
 
-const countTextCss = (variant: string) => css`
-  z-index: 10;
+const countTextCss = (theme: Theme, variant: string) => css`
+  ${BODY_2_BOLD}
+
+  z-index: ${theme.zIndex.aboveDefault};
   color: ${variant === 'default' ? colors.gray_400 : colors.primary_200};
   background-color: transparent;
 `;
