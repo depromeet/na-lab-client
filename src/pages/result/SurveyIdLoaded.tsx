@@ -138,7 +138,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                       color={PILL_COLORS[idx] ?? 'default'}
                       key={tendency.choice_id}
                     >
-                      <Softskill name={tendency.content} />
+                      <Softskill name={tendency.content as Softskills} />
                       {tendency.content.replaceAll('_', ' ')}
                       <span css={HEAD_2_BOLD}>{tendency.count}</span>
                     </Pill>
@@ -310,7 +310,7 @@ const getTendencyCount = (
 ): {
   count: number;
   choice_id: string;
-  content: Softskills;
+  content: string;
   order: number;
 }[] => {
   const tendencyData = data?.question_feedback.find(
@@ -320,6 +320,7 @@ const getTendencyCount = (
   return tendencyData?.choices
     .map((choice) => {
       let count = 0;
+
       tendencyData.feedbacks.forEach((feedback) => {
         count += feedback.choice_id.includes(choice.choice_id) ? 1 : 0;
       });

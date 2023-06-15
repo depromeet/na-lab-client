@@ -2,7 +2,7 @@ type QuestionFormType = 'tendency' | 'strength' | 'custom';
 
 interface Choice {
   choice_id: string;
-  content: string | Softskills;
+  content: string;
   order: number;
 }
 
