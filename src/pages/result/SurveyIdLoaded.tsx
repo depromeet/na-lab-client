@@ -379,10 +379,10 @@ const floatingKeyframes = keyframes`
     transform: translateY(0) translateX(-50%);
   }
   65% {
-    transform: translateY(-3px) translateX(-50%);;
+    transform: translateY(-3px) translateX(-50%);
   }
   to {
-    transform: translateY(0) translateX(-50%);;
+    transform: translateY(0) translateX(-50%);
   }
 `;
 
