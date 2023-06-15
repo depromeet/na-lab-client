@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { css, type Theme } from '@emotion/react';
+import { css, type Interpolation, type Theme } from '@emotion/react';
 
 import Svg from '~/components/svg/Svg';
 import { POSITION } from '~/constants/position';
@@ -85,7 +85,7 @@ const PieChart = ({ data }: { data: Props[] }) => {
   };
 
   return (
-    <Svg width={360} height={360} css={chartCss}>
+    <Svg width={360} height={360} css={pieChartCss}>
       {data.map((sliceData, idx) => renderSlice(sliceData, idx))}
       <path d="M 180 80 A 100 100 0 0 1 180 280" fill="#F4F5F9" />
       <path d="M 180 105 A 75 75 0 0 1 180 255" fill="white" />
@@ -93,7 +93,7 @@ const PieChart = ({ data }: { data: Props[] }) => {
   );
 };
 
-const chartCss = css`
+const pieChartCss = css`
   position: absolute;
   top: 0;
   left: -180px;
@@ -110,7 +110,7 @@ const captionCss = css`
 const PositionColorBadgeIcon = ({ position }: { position: ReviewerPosition }) => {
   return (
     <Svg width={14} height={14}>
-      <circle cx="7" cy="7" r="7" fill={TEXT_COLOR_BY_POSITION[position]} />
+      <circle cx="7" cy="7" r="7" fill={FILL_COLOR_BY_POSITION[position]} />
     </Svg>
   );
 };
@@ -184,9 +184,9 @@ const dashedLineCss = ({ colors }: Theme, lineWidth: number, idx: number) => css
   border: 1px dashed ${colors.gray_300};
 `;
 
-const ParticipatingReviewerChart = ({ data }: { data: Props[] }) => {
+const ParticipatingReviewerChart = ({ data, chartCss }: { data: Props[]; chartCss?: Interpolation<Theme> }) => {
   return (
-    <div css={containerCss}>
+    <div css={[containerCss, chartCss]}>
       <PieChart data={data} />
       <ChartDescription data={data} />
     </div>

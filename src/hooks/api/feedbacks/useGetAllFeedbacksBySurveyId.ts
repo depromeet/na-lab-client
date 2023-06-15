@@ -24,18 +24,18 @@ interface DefaultQuestionFeedback {
   title: string;
 }
 
-interface ChoiceQuestionFeedback extends DefaultQuestionFeedback {
+export interface ChoiceQuestionFeedback extends DefaultQuestionFeedback {
   type: 'choice';
   choices: Choice[];
   feedbacks: ChoiceFeedback[];
 }
 
-interface ShortQuestionFeedback extends DefaultQuestionFeedback {
+export interface ShortQuestionFeedback extends DefaultQuestionFeedback {
   type: 'short';
   feedbacks: ShortFeedback[];
 }
 
-interface Response {
+export interface Response {
   question_feedback: (ChoiceQuestionFeedback | ShortQuestionFeedback)[];
 }
 
