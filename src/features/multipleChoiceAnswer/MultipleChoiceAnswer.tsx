@@ -12,9 +12,11 @@ interface Props {
 }
 
 const MultipleChoiceAnswer = ({ variant = 'default', totalCount, answeredCount, answerText }: Props) => {
+  console.log(totalCount, answeredCount);
+
   return (
     <div css={containerCss(variant)}>
-      <div css={percentageBar(variant, totalCount, answeredCount)} />
+      <div css={percentageBar(variant, totalCount === 0 ? 1 : totalCount, answeredCount ?? 1)} />
       <div css={textContainerCss(variant)}>
         <div css={(theme) => textCss(theme, variant)}>{answerText}</div>
 
