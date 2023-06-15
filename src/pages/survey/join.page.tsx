@@ -3,12 +3,12 @@ import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
-import useKakaoLogin from '~/components/kakaoLoginButton/useKakaoLogin';
 import SEO from '~/components/SEO/SEO';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import { CTAVariants, fixedBottomCss, fixedContainerCss } from '~/features/survey/styles';
 import { type QuestionRequest } from '~/features/survey/types';
 import useCreateSurvey from '~/hooks/api/surveys/useCreateSurvey';
+import useKakaoLogin from '~/hooks/auth/useKakaoLogin';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import useLocalStorage from '~/hooks/storage/useLocalStorage';
