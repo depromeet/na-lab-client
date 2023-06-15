@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { css } from '@emotion/react';
 
 import Header from '~/components/header/Header';
@@ -6,7 +7,6 @@ import LineThreeDotsIcon from '~/components/icons/LineThreeDotsIcon';
 import SEO from '~/components/SEO/SEO';
 import ReceivedFeedbackCard from '~/features/feedback/ReceivedFeedbackCard';
 import useGetAllReviewersBySurveyId from '~/hooks/api/reviewers/useGetAllReviewersBySurveyId';
-import useInternalRouter from '~/hooks/router/useInternalRouter';
 import colors from '~/styles/color';
 import { BODY_1, HEAD_1 } from '~/styles/typo';
 
@@ -30,7 +30,7 @@ interface FeedbacksByMonth {
 }
 
 export default function FeedbackList() {
-  const router = useInternalRouter();
+  const router = useRouter();
   // todo status 활용해서 인증 작업하기
   // const { status } = useSession();
   // todo 여기 123 숫자 동적으로 변경 필요
