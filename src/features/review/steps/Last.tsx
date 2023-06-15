@@ -1,6 +1,7 @@
-import { type MouseEventHandler } from 'react';
+import { type MouseEventHandler, useState } from 'react';
 import Image from 'next/image';
 import { css, keyframes, type Theme } from '@emotion/react';
+import { type UseMutationResult } from '@tanstack/react-query';
 import { m, type Variants } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
@@ -18,14 +19,16 @@ import recordEvent from '~/utils/event';
 import { fixedBottomCss } from '../style';
 
 interface Props {
-  onSubmit: VoidFunction;
-  isLoading: boolean;
+  postMutation: UseMutationResult<void, unknown, void, unknown>;
 }
 
-const Last = ({ onSubmit, isLoading }: Props) => {
+const Last = ({ postMutation }: Props) => {
   const router = useInternalRouter();
+  const [isInnerLoading, setIsInnerLoading] = useState(true);
 
-  useDidMount(onSubmit);
+  useDidMount(() => {
+    postMutation.mutate(undefined, { onSuccess: () => setIsInnerLoading(false) });
+  });
 
   const onClickCTA: MouseEventHandler<HTMLButtonElement> = () => {
     // TODO: 로그인 확인해서 안했으면, 로그인 화면으로
@@ -36,8 +39,15 @@ const Last = ({ onSubmit, isLoading }: Props) => {
   };
 
   return (
-    <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
-      <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
+    <LoadingHandler isLoading={isInnerLoading} fallback={<FixedSpinner />}>
+      <m.section
+        key="loading-end"
+        css={sectionCss}
+        variants={defaultFadeInVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
         <header css={headerCss}>
           <InternalLink href="/">
             <XIcon />
