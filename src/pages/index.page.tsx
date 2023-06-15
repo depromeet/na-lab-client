@@ -1,4 +1,5 @@
 import { type ReactElement } from 'react';
+import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 
 import Logo from '~/assets/Logo';
@@ -7,7 +8,6 @@ import KakaoLoginButton from '~/components/kakaoLoginButton/KakaoLoginButton';
 import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
 import SEO from '~/components/SEO/SEO';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
-import colors from '~/styles/color';
 import { HEAD_2_BOLD } from '~/styles/typo';
 
 export default function Home() {
@@ -17,13 +17,22 @@ export default function Home() {
     <>
       <SEO />
 
-      <main css={loginPageWrapperCss('/images/login/login.png')}>
-        <div css={titleCss}>나의 커리어 DNA 연구소</div>
-        <Logo css={logoCss} />
+      <main css={wrapperCss}>
+        <picture css={pictureCss}>
+          <source srcSet="/images/home/home_bg.webp" type="image/webp" />
+          <Image src="/images/home/home_bg.png" alt="na-lab" fill priority />
+        </picture>
+
+        <section css={headingWrapperCss}>
+          <h1 css={titleCss}>나의 커리어 DNA 연구소</h1>
+          <Logo css={logoCss} />
+        </section>
+
         <section css={ctaWrapperCss}>
-          <CTAButton background-color={colors.secondary_200} onClick={() => router.push('/survey')}>
+          <CTAButton color="navy" onClick={() => router.push('/survey')}>
             질문 폼 생성으로 시작하기
           </CTAButton>
+
           <KakaoLoginButton />
         </section>
       </main>
@@ -33,27 +42,44 @@ export default function Home() {
 
 Home.getLayout = (page: ReactElement) => <LayoutPaddingTo23>{page}</LayoutPaddingTo23>;
 
-const loginPageWrapperCss = (loginBackgroundImage: string) => css`
+const wrapperCss = css`
   position: relative;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  height: 734px;
+  height: 100dvh;
+`;
 
-  background-image: url(${loginBackgroundImage});
+const headingWrapperCss = css`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
 `;
 
 const titleCss = css`
   ${HEAD_2_BOLD}
 
-  color: #fff;
   margin-top: 80px;
+  color: #fff;
 `;
 
 const logoCss = css`
   margin-top: 16px;
+`;
+
+const pictureCss = (theme: Theme) => css`
+  position: fixed;
+  z-index: ${theme.zIndex.belowDefault};
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100%;
+  max-width: ${theme.size.maxWidth};
+  height: 100%;
 `;
 
 const ctaWrapperCss = (theme: Theme) => css`
@@ -62,8 +88,7 @@ const ctaWrapperCss = (theme: Theme) => css`
   gap: 14px;
   align-items: center;
 
-  width: 343px;
+  width: 100%;
   max-width: ${theme.size.maxWidth};
-  margin-top: 390px;
-  padding: 0 23px;
+  padding-bottom: 36px;
 `;
