@@ -20,9 +20,9 @@ const KakaoLoginButton = () => {
 
   return (
     <div css={KakaoLoginWrapper}>
-      이미 계정이 있다면?
+      이미 질문폼이 있다면?
       <button type="button" css={KakaoLoginButtonCss} onClick={loginHandler}>
-        카카오 로그인하기
+        로그인하고 결과 보기
       </button>
     </div>
   );
@@ -47,7 +47,12 @@ const KakaoLoginWrapper = css`
 
 const KakaoLoginButtonCss = css`
   cursor: pointer;
+
   margin-left: 5px;
+
+  font-weight: 500;
+  color: ${colors.primary};
+
   background: inherit;
 `;
 
