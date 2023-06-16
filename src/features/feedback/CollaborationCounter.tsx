@@ -17,6 +17,7 @@ const CollaborationCounter = ({ count }: Props) => (
 const containerCss = css`
   display: flex;
   gap: 7px;
+  width: 100%;
 `;
 
 const CollaborationCounterCard = ({ count, positive }: { count: number; positive: boolean }) => {
@@ -35,6 +36,8 @@ const CollaborationCounterCard = ({ count, positive }: { count: number; positive
 
 const cardCss = (theme: Theme, positive: boolean) => css`
   ${positive ? HEAD_2_BOLD : HEAD_2_REGULAR}
+
+  width: 100%;
 
   display: flex;
   align-items: center;

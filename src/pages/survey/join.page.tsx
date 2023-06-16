@@ -3,35 +3,20 @@ import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
-import useKakaoLogin from '~/components/kakaoLoginButton/useKakaoLogin';
 import SEO from '~/components/SEO/SEO';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import { CTAVariants, fixedBottomCss, fixedContainerCss } from '~/features/survey/styles';
-import { type QuestionRequest } from '~/features/survey/types';
-import useCreateSurvey from '~/hooks/api/surveys/useCreateSurvey';
+import useCreateSurveyAction from '~/features/survey/useCreateSurvey';
+import useKakaoLogin from '~/hooks/auth/useKakaoLogin';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
-import useInternalRouter from '~/hooks/router/useInternalRouter';
-import useLocalStorage from '~/hooks/storage/useLocalStorage';
 
 const JoinGuidePage = () => {
-  const router = useInternalRouter();
   const { loginHandler, status } = useKakaoLogin();
-  // TODO : storage key 변경
-  const [createSurveyRequest] = useLocalStorage<QuestionRequest[]>('createSurveyRequest', []);
-  const { mutate: createSurvey } = useCreateSurvey();
+  const { onCreate } = useCreateSurveyAction();
 
   useDidUpdate(() => {
     if (status === 'authenticated') {
-      createSurvey(
-        // ! TODO: 여기 데이터 확인 필요
-        { question: createSurveyRequest, question_count: createSurveyRequest.length },
-        {
-          onSuccess: () => {
-            router.push('/survey/link');
-            // TODO: 생성에 쓰인 로컬스토리지 값 비우기
-          },
-        },
-      );
+      onCreate();
     }
   }, [status]);
 

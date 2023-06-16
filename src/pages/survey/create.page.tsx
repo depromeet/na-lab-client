@@ -12,7 +12,7 @@ import CreateDialog from '~/features/survey/CreateDialog';
 import CreateSurvey from '~/features/survey/CreateSurvey';
 import { fixedBottomCss } from '~/features/survey/styles';
 import { type CustomQuestionItem, type QuestionRequest } from '~/features/survey/types';
-import useCreateSurvey from '~/hooks/api/surveys/useCreateSurvey';
+import useCreateSurveyAction from '~/features/survey/useCreateSurvey';
 import useBoolean from '~/hooks/common/useBoolean';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
@@ -23,7 +23,6 @@ import { BODY_1 } from '~/styles/typo';
 
 const CreateSurveyPage = () => {
   const { status } = useSession();
-  const { mutate: createSurvey } = useCreateSurvey();
 
   const router = useInternalRouter();
   const [, setCreateSurveyRequest] = useLocalStorage<QuestionRequest[]>(
@@ -37,6 +36,7 @@ const CreateSurveyPage = () => {
   const [isDialogOpen, , onDialogOpen, onDialogClose] = useBoolean(false);
   const [isDialogShowing, toggleDialogShowing] = useBoolean(false);
 
+  const { onCreate } = useCreateSurveyAction();
   const isCustomItemsEmpty = customItems.length === 0;
 
   const onStop = () => {
@@ -46,21 +46,10 @@ const CreateSurveyPage = () => {
 
   const onSubmit = async () => {
     const data = getCreateSurveyRequestData(customItems);
-    // TODO : 추후 atom을 CreateSurveyRequest 타입으로 변경 예정입니다. 지금도 문제 없음
     setCreateSurveyRequest(data);
 
     if (status === 'authenticated') {
-      await createSurvey(
-        { question: data, question_count: data.length },
-        {
-          onSuccess: ({ survey_id }) => {
-            // TODO: 서베이 아이디 저장해서 /survey/link에서 사용
-            console.warn(survey_id);
-            router.push('/survey/link');
-            // TODO: 생성에 쓰인 로컬스토리지 값 비우기
-          },
-        },
-      );
+      onCreate();
     } else {
       router.push('/survey/join');
     }

@@ -6,7 +6,7 @@ import { BODY_1, HEAD_2_REGULAR } from '~/styles/typo';
 import { bluegreenCss, pinkCss, purpleCss, skyblueCss, yellowgreenCss } from './style';
 
 type Size = 'large' | 'medium';
-type Color = 'default' | 'bluegreen' | 'pink' | 'skyblue' | 'yellowgreen' | 'purple';
+export type Color = 'default' | 'bluegreen' | 'pink' | 'skyblue' | 'yellowgreen' | 'purple';
 
 interface Props extends HTMLAttributes<HTMLSpanElement> {
   /**
