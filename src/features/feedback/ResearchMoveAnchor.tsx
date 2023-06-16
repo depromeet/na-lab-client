@@ -7,14 +7,15 @@ import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
 
 interface Props {
   newFeedbackNumber: number;
+  surveyId: string;
 }
 
-const ResearchMoveAnchor = ({ newFeedbackNumber }: Props) => {
+const ResearchMoveAnchor = ({ newFeedbackNumber, surveyId }: Props) => {
   const theme = useTheme();
 
   // TODO: link 위치 조정 필요
   return (
-    <Link href="/" type="button" css={[HEAD_2_BOLD, containerCss(theme)]}>
+    <Link href={`/feedback?id=${surveyId}`} type="button" css={[HEAD_2_BOLD, containerCss(theme)]}>
       <section css={leftBoxCss}>
         <div css={textWrapperCss(theme)}>
           <span css={HEAD_2_BOLD}>쌓인 연구 일지 보러가기</span>

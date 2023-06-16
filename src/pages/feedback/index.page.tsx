@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { css } from '@emotion/react';
 
 import Header from '~/components/header/Header';
-import LineThreeDotsIcon from '~/components/icons/LineThreeDotsIcon';
 import SEO from '~/components/SEO/SEO';
 import ReceivedFeedbackCard from '~/features/feedback/ReceivedFeedbackCard';
 import useGetAllReviewersBySurveyId from '~/hooks/api/reviewers/useGetAllReviewersBySurveyId';
+import useInternalRouter from '~/hooks/router/useInternalRouter';
 import colors from '~/styles/color';
 import { BODY_1, HEAD_1 } from '~/styles/typo';
 
 interface Feedback {
   feedback_id: string;
   created_at: string;
-  reviwer: Reviewer;
+  reviewer: Reviewer;
   is_read: boolean;
 }
 
@@ -30,11 +29,11 @@ interface FeedbacksByMonth {
 }
 
 export default function FeedbackList() {
-  const router = useRouter();
-  // todo status 활용해서 인증 작업하기
-  // const { status } = useSession();
-  // todo 여기 123 숫자 동적으로 변경 필요
-  const { data } = useGetAllReviewersBySurveyId('123');
+  const router = useInternalRouter();
+
+  const surveyId = router.query.id;
+
+  const { data } = useGetAllReviewersBySurveyId(String(surveyId));
 
   const [feedbacksByYearAndMonth, setFeedbacksByYearAndMonth] = useState<Feedbacks | undefined>(undefined);
   const [feedbackCount, setFeedbackCount] = useState(0);
@@ -61,7 +60,7 @@ export default function FeedbackList() {
   };
 
   const onClickFeedback = (feedbackId: string) => {
-    router.push(`/feedbacklist/${feedbackId}`);
+    router.push(`/feedback/${feedbackId}`);
   };
 
   const renderReceivedFeedbackCards = () => {
@@ -101,20 +100,14 @@ export default function FeedbackList() {
     <>
       <SEO />
 
-      <Header
-        title={'연구결과'}
-        // TODO: bottom sheet
-        rightButton={
-          <button type="button">
-            <LineThreeDotsIcon />
-          </button>
-        }
-      />
+      <Header title={'연구결과'} />
       <main css={containerCss}>
-        <header css={titleCss}>
-          받은 피드백 <span css={titleNumberCss}>{feedbackCount}</span>{' '}
-        </header>
-        <article css={feedbackPerMonthCss}>{renderReceivedFeedbackCards()}</article>
+        <section css={contentCss}>
+          <header css={titleCss}>
+            받은 피드백 <span css={titleNumberCss}>{feedbackCount}</span>
+          </header>
+          <article css={feedbackPerMonthCss}>{renderReceivedFeedbackCards()}</article>
+        </section>
       </main>
     </>
   );
@@ -124,11 +117,17 @@ const containerCss = css`
   display: flex;
   flex-direction: column;
 
-  width: 375px;
+  width: 100%;
   height: 100vh;
+  margin-top: 56px;
   padding: 23px;
 
   background-color: ${colors.gray_50};
+`;
+
+const contentCss = css`
+  width: 329px;
+  margin: 0 auto;
 `;
 
 const titleCss = css`

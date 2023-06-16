@@ -16,7 +16,7 @@ interface Reviewer {
 interface Feedback {
   feedback_id: string;
   created_at: string;
-  reviwer: Reviewer;
+  reviewer: Reviewer;
   is_read: boolean;
 }
 
@@ -31,8 +31,8 @@ const ReceivedFeedbackCard = ({ feedback, onClickFeedback }: Props) => {
   const [role, setRole] = useState('개발자');
   const [roleImage, setRoleImage] = useState('/images/feedback/blue-programmer.png');
 
-  const { feedback_id, reviwer, is_read } = feedback;
-  const { nickname, collaboration_experience, position } = reviwer;
+  const { feedback_id, reviewer, is_read } = feedback;
+  const { nickname, collaboration_experience, position } = reviewer;
 
   const changeImageCardByRole = (roleInput: string) => {
     if (roleInput === ('developer' as Position)) {

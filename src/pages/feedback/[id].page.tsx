@@ -5,7 +5,6 @@ import { css } from '@emotion/react';
 import Softskill from '~/components/graphic/softskills/Softskill';
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
-import LineThreeDotsIcon from '~/components/icons/LineThreeDotsIcon';
 import Pill from '~/components/pill/Pill';
 import SEO from '~/components/SEO/SEO';
 import CollaborationBadge from '~/features/feedback/CollaborationBadge';
@@ -14,14 +13,13 @@ import useInternalRouter from '~/hooks/router/useInternalRouter';
 import colors from '~/styles/color';
 import { BODY_1, HEAD_1, HEAD_2_BOLD, HEAD_2_REGULAR } from '~/styles/typo';
 
-const Feedback = () => {
+function Feedback() {
   const router = useInternalRouter();
   const { id } = router.query;
 
   const { data: session } = useSession();
-  // todo status에 따라 로딩 처리 필요
 
-  const { data } = useGetFeedbackById('1');
+  const { data } = useGetFeedbackById(String(id));
 
   const convertPositionToKorean = (position: string | undefined) => {
     if (position === 'developer') {
@@ -42,7 +40,7 @@ const Feedback = () => {
     const COLOR_ORDER: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'purple'];
 
     // NOTE: 현재 mock 데이터에 tendency 데이터가 없어서 제대로 노출되고 있지 않음.
-    data?.question.forEach((question) => {
+    data?.question.forEach((question: Question) => {
       if (question.type === 'choice' && question.form_type === 'tendency') {
         question.choices?.map((choice: Choice, i: number) => {
           tendencyElementList.push(
@@ -69,15 +67,7 @@ const Feedback = () => {
     <>
       <SEO />
 
-      <Header
-        title={`${convertPositionToKorean(data?.reviewer.position)} ${data?.reviewer.nickname}의 피드백`}
-        // TODO: bottom sheet
-        rightButton={
-          <button type="button">
-            <LineThreeDotsIcon />
-          </button>
-        }
-      />
+      <Header title={`${convertPositionToKorean(data?.reviewer.position)} ${data?.reviewer.nickname}의 피드백`} />
 
       <main css={containerCss}>
         <div css={titleCss}>
@@ -94,7 +84,7 @@ const Feedback = () => {
         </div>
 
         <div css={questionListCss}>
-          {data?.question.map((question: any) => {
+          {data?.question.map((question: Question) => {
             if (question.type === 'short') {
               return (
                 <div key={question.question_id}>
@@ -121,7 +111,7 @@ const Feedback = () => {
       </main>
     </>
   );
-};
+}
 
 export default Feedback;
 
@@ -129,8 +119,9 @@ const containerCss = css`
   display: flex;
   flex-direction: column;
 
-  width: 375px;
+  width: 100%;
   height: 100vh;
+  margin-top: 56px;
 
   background-color: ${colors.gray_50};
 `;
