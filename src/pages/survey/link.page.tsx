@@ -10,14 +10,17 @@ import Toast from '~/components/toast/Toast';
 import useToast from '~/components/toast/useToast';
 import { fixedBottomCss } from '~/features/review/style';
 import { CTAVariants, fixedContainerCss } from '~/features/survey/styles';
+import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { copyToClipBoard } from '~/utils/clipboard';
-import { searchParam } from '~/utils/url';
 
 const SurveyLinkPage = () => {
   const { fireToast } = useToast();
+  const {
+    query: { id },
+  } = useInternalRouter();
 
   const onNext = () => {
-    const surveyId = searchParam('id');
+    const surveyId = id;
     const hostUrl = window.location.host;
     const copyUrl = `${hostUrl}/review?id=${surveyId}`;
 
