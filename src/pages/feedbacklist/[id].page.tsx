@@ -85,7 +85,7 @@ const Feedback = () => {
           <div css={titleTextCss}>
             {convertPositionToKorean(data?.reviewer.position)} {data?.reviewer.nickname}의 피드백
           </div>
-          {data?.reviewer.collaboration_experience ? <CollaborationBadge variant="gray" /> : null}
+          {data?.reviewer.collaboration_experience ? <CollaborationBadge /> : null}
         </div>
 
         <div css={userInfoContainerCss}>

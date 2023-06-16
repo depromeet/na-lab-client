@@ -21,6 +21,8 @@ const config: StorybookConfig = {
   },
   babel: async (options) => {
     options.presets!.push('@emotion/babel-preset-css-prop');
+    options.presets!.push(['@babel/preset-typescript', { allowDeclareFields: true }]);
+
     return options;
   },
   staticDirs: [
