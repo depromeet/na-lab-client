@@ -20,9 +20,11 @@ const SurveyLinkPage = () => {
   } = useInternalRouter();
 
   const onNext = () => {
-    const surveyId = id;
+    if (!id) {
+      throw new Error('잘못된 경로입니다.\nsurveyId가 없습니다.');
+    }
     const hostUrl = window.location.host;
-    const copyUrl = `${hostUrl}/review?id=${surveyId}`;
+    const copyUrl = `${hostUrl}/review?id=${id}`;
 
     copyToClipBoard(copyUrl);
 
