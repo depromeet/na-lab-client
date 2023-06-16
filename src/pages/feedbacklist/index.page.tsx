@@ -58,7 +58,7 @@ export default function FeedbackList() {
   };
 
   const onClickFeedback = (feedbackId: string) => {
-    router.push(`/feedbacklist/${feedbackId}`);
+    router.push(`/feedback/${feedbackId}`);
   };
 
   const renderReceivedFeedbackCards = () => {
