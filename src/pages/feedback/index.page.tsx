@@ -102,7 +102,7 @@ export default function FeedbackList() {
       <main css={containerCss}>
         <section css={contentCss}>
           <header css={titleCss}>
-            받은 피드백 <span css={titleNumberCss}>{feedbackCount}</span>{' '}
+            받은 피드백 <span css={titleNumberCss}>{feedbackCount}</span>
           </header>
           <article css={feedbackPerMonthCss}>{renderReceivedFeedbackCards()}</article>
         </section>
