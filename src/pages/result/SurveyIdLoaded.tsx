@@ -149,7 +149,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                   <span css={(theme) => allFeedbackCountCss(theme)}>{feedbackSummaryData.all_feedback_count}</span>
                 </h2>
                 <div css={ResearchMoveAnchorCss(innerWidth)}>
-                  <ResearchMoveAnchor newFeedbackNumber={feedbackSummaryData.new_feedback_count} />
+                  <ResearchMoveAnchor newFeedbackNumber={feedbackSummaryData.new_feedback_count} surveyId={surveyId} />
                 </div>
               </article>
 

@@ -12,7 +12,7 @@ import { BODY_1, HEAD_1 } from '~/styles/typo';
 interface Feedback {
   feedback_id: string;
   created_at: string;
-  reviwer: Reviewer;
+  reviewer: Reviewer;
   is_read: boolean;
 }
 
@@ -30,8 +30,10 @@ interface FeedbacksByMonth {
 
 export default function FeedbackList() {
   const router = useInternalRouter();
-  // todo 여기 123 숫자 동적으로 변경 필요
-  const { data } = useGetAllReviewersBySurveyId('123');
+
+  const surveyId = router.query.id;
+
+  const { data } = useGetAllReviewersBySurveyId(String(surveyId));
 
   const [feedbacksByYearAndMonth, setFeedbacksByYearAndMonth] = useState<Feedbacks | undefined>(undefined);
   const [feedbackCount, setFeedbackCount] = useState(0);

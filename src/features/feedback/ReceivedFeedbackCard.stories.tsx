@@ -20,7 +20,7 @@ const feedbacks = [
       '안녕',
     ],
     is_read: false,
-    reviwer: {
+    reviewer: {
       nickname: 'A',
       reviewer_id: 1,
       collaboration_experience: true,
