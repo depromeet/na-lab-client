@@ -71,7 +71,7 @@ const ReceivedFeedbackCard = ({ feedback, onClickFeedback }: Props) => {
           피드백
         </div>
       </figure>
-      <footer css={FooterCss}>{collaboration_experience ? <CollaborationBadge variant="gray" /> : null}</footer>
+      <footer css={FooterCss}>{collaboration_experience ? <CollaborationBadge /> : null}</footer>
     </section>
   );
 };

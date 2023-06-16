@@ -1,9 +1,9 @@
 /* eslint-disable unicorn/filename-case */
 import Head from 'next/head';
 
+import { BASE_URL } from '~/constants/url';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 
-const BASE_URL = 'https://www.nalab.me';
 const DEFAULT_OG_IMAGE = '/default-og.png';
 
 interface Props {

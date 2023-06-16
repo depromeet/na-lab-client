@@ -3,11 +3,11 @@ import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
-import useKakaoLogin from '~/components/kakaoLoginButton/useKakaoLogin';
 import SEO from '~/components/SEO/SEO';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import { CTAVariants, fixedBottomCss, fixedContainerCss } from '~/features/survey/styles';
 import useCreateSurveyAction from '~/features/survey/useCreateSurvey';
+import useKakaoLogin from '~/hooks/auth/useKakaoLogin';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 
 const JoinGuidePage = () => {
