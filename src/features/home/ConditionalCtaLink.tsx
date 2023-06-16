@@ -56,6 +56,7 @@ const ResultLink = ({ surveyId }: ResultLinkProps) => {
 const linkCss = css`
   position: relative;
   width: 100%;
+  text-decoration: none;
 `;
 
 const badgeCss = css`

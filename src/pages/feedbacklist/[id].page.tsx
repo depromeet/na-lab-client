@@ -129,8 +129,9 @@ const containerCss = css`
   display: flex;
   flex-direction: column;
 
-  width: 375px;
+  width: 100%;
   height: 100vh;
+  margin-top: 56px;
 
   background-color: ${colors.gray_50};
 `;

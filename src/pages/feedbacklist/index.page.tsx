@@ -111,10 +111,12 @@ export default function FeedbackList() {
         }
       />
       <main css={containerCss}>
-        <header css={titleCss}>
-          받은 피드백 <span css={titleNumberCss}>{feedbackCount}</span>{' '}
-        </header>
-        <article css={feedbackPerMonthCss}>{renderReceivedFeedbackCards()}</article>
+        <section css={contentCss}>
+          <header css={titleCss}>
+            받은 피드백 <span css={titleNumberCss}>{feedbackCount}</span>{' '}
+          </header>
+          <article css={feedbackPerMonthCss}>{renderReceivedFeedbackCards()}</article>
+        </section>
       </main>
     </>
   );
@@ -124,11 +126,17 @@ const containerCss = css`
   display: flex;
   flex-direction: column;
 
-  width: 375px;
+  width: 100%;
   height: 100vh;
+  margin-top: 56px;
   padding: 23px;
 
   background-color: ${colors.gray_50};
+`;
+
+const contentCss = css`
+  width: 329px;
+  margin: 0 auto;
 `;
 
 const titleCss = css`
