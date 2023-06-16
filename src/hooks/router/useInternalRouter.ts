@@ -2,8 +2,9 @@ import { type Url } from 'next/dist/shared/lib/router/router';
 import { useRouter } from 'next/router';
 
 type SurveyPaths = '/survey' | '/survey/intro' | '/survey/create' | '/survey/join' | '/survey/link';
+type ResultPaths = '/result';
 
-export type InternalPaths = '/' | 'test' | 'test2' | SurveyPaths | string;
+export type InternalPaths = '/' | SurveyPaths | ResultPaths;
 
 interface TransitionOptions {
   shallow?: boolean;
