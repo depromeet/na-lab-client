@@ -89,7 +89,7 @@ const Paragraph4 = () => {
         <Image src="/images/survey/intro-image-4.png" alt="나의 질문 폼 생성" fill />
       </picture>
 
-      <StaggerWrapper wrapperOverrideCss={wrapperCss}>
+      <StaggerWrapper>
         <p>지금, 피드백을 받을 수 있는 </p>
         <p>
           <strong>나의 질문 폼</strong>을 생성해보세요!
@@ -113,10 +113,6 @@ const surveySectionCss = (theme: Theme) => css`
     font-weight: bold;
     color: ${theme.colors.primary_300};
   }
-`;
-
-const wrapperCss = css`
-  margin-top: 126px;
 `;
 
 const WatsonContainer = ({ children }: PropsWithChildren) => {

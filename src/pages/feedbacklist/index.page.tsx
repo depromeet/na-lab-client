@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { css } from '@emotion/react';
 
 import Header from '~/components/header/Header';
 import SEO from '~/components/SEO/SEO';
 import ReceivedFeedbackCard from '~/features/feedback/ReceivedFeedbackCard';
 import useGetAllReviewersBySurveyId from '~/hooks/api/reviewers/useGetAllReviewersBySurveyId';
-import useInternalRouter from '~/hooks/router/useInternalRouter';
 import colors from '~/styles/color';
 import { BODY_1, HEAD_1 } from '~/styles/typo';
 

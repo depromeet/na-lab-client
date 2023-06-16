@@ -28,14 +28,14 @@ const ShortQuestion = dynamic(() => import('~/features/review/steps/ShortQuestio
 const ChoiceQuestion = dynamic(() => import('~/features/review/steps/ChoiceQuestion'), { ssr: false });
 const Last = dynamic(() => import('~/features/review/steps/Last'), { ssr: false });
 
-const DEFAULT_STEP_LENGTH = 6;
+const DEFAULT_STEP_LENGTH = 5;
 
 const LoadedSurvey = ({ survey_id, target, question, question_count }: SurveyResponse) => {
   const { isCoworked, setIsCoworked } = useIsCowork();
   const { position, setPosition } = usePosition();
   const { questionAnswers, setEachQuestionAnswer } = useQuestionAnswers({ question });
 
-  const { isLoading, mutate } = usePostMutation({ survey_id, isCoworked, position, questionAnswers });
+  const postMutation = usePostMutation({ survey_id, isCoworked, position, questionAnswers });
 
   useWillUnmount(() => {
     removeStoragedMessages();
@@ -102,7 +102,7 @@ const LoadedSurvey = ({ survey_id, target, question, question_count }: SurveyRes
           />
         );
       }),
-      <Last key="last" onSubmit={mutate} isLoading={isLoading} />,
+      <Last key="last" postMutation={postMutation} />,
     ],
   });
 
