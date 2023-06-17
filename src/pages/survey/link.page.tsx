@@ -18,6 +18,11 @@ const SurveyLinkPage = () => {
   const router = useInternalRouter();
 
   const onNext = () => {
+    if (!router.isReady) {
+      console.error('잠시만 기다려주세요. ');
+
+      return;
+    }
     const id = router.query.id;
     console.error('id: ', id);
 
