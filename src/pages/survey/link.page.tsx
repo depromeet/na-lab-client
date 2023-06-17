@@ -19,21 +19,15 @@ const SurveyLinkPage = () => {
 
   const onNext = () => {
     if (!router.isReady) {
-      console.error('잠시만 기다려주세요. ');
-
-      return;
+      throw new Error('잠시만 기다려주세요. ');
     }
     const id = router.query.id;
-    console.error('id: ', id);
 
     if (!id) {
       throw new Error('잘못된 경로입니다.\nsurveyId가 없습니다.');
     }
     const hostUrl = window.location.host;
     const copyUrl = `${hostUrl}/review?id=${id}`;
-
-    console.error('복사하는 url: ', copyUrl);
-
     copyToClipBoard(copyUrl);
 
     fireToast({
