@@ -15,17 +15,19 @@ import { copyToClipBoard } from '~/utils/clipboard';
 
 const SurveyLinkPage = () => {
   const { fireToast } = useToast();
-  const {
-    query: { id },
-  } = useInternalRouter();
+  const router = useInternalRouter();
 
   const onNext = () => {
+    if (!router.isReady) {
+      throw new Error('잠시만 기다려주세요. ');
+    }
+    const id = router.query.id;
+
     if (!id) {
       throw new Error('잘못된 경로입니다.\nsurveyId가 없습니다.');
     }
     const hostUrl = window.location.host;
     const copyUrl = `${hostUrl}/review?id=${id}`;
-
     copyToClipBoard(copyUrl);
 
     fireToast({
