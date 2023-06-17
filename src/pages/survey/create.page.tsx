@@ -16,7 +16,6 @@ import useCreateSurveyAction from '~/features/survey/useCreateSurvey';
 import useBoolean from '~/hooks/common/useBoolean';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
-import useLocalStorage from '~/hooks/storage/useLocalStorage';
 import { getSurveyCustomQuestionsAtom } from '~/store/surveyCustomQuestions';
 import { surveyDeleteModeAtom } from '~/store/surveyDeleteMode';
 import { BODY_1 } from '~/styles/typo';
@@ -25,11 +24,6 @@ const CreateSurveyPage = () => {
   const { status } = useSession();
 
   const router = useInternalRouter();
-  const [, setCreateSurveyRequest] = useLocalStorage<QuestionRequest[]>(
-    LOCAL_STORAGE_KEY.surveyCreateSurveyRequest,
-    [],
-  );
-
   const [isDeleteMode, setIsDeleteMode] = useAtom(surveyDeleteModeAtom);
   const customItems = useAtomValue(getSurveyCustomQuestionsAtom);
 
@@ -46,7 +40,7 @@ const CreateSurveyPage = () => {
 
   const onSubmit = async () => {
     const data = getCreateSurveyRequestData(customItems);
-    setCreateSurveyRequest(data);
+    localStorage.setItem(LOCAL_STORAGE_KEY.surveyCreateSurveyRequest, JSON.stringify(data));
 
     if (status === 'authenticated') {
       onCreate();
