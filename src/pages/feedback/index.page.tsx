@@ -123,6 +123,10 @@ const containerCss = css`
   padding: 23px;
 
   background-color: ${colors.gray_50};
+
+  @media (width <= 340px) {
+    width: 340px;
+  }
 `;
 
 const contentCss = css`
@@ -155,4 +159,8 @@ const monthFeedbackListCss = css`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+
+  @media (width <= 340px) {
+    flex-direction: column;
+  }
 `;
