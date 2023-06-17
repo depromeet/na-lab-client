@@ -13,6 +13,7 @@ import useStep from '~/hooks/step/useStep';
 import recordEvent from '~/utils/event';
 
 import { fixedBottomCss } from '../style';
+import IntroHeader from './intro/IntroHeader';
 import { type StepProps } from './type';
 
 interface Props extends StepProps {
@@ -33,6 +34,8 @@ const Intro = ({ nickname, next }: Props) => {
         <source srcSet="/images/intro/intro_bg.webp" type="image/webp" />
         <Image src="/images/intro/intro_bg.png" alt="nalab intro" fill />
       </picture>
+
+      <IntroHeader />
 
       <article css={articleCss}>
         <AnimatePresence mode="wait">
