@@ -124,8 +124,8 @@ const containerCss = css`
 
   background-color: ${colors.gray_50};
 
-  @media (width <= 340px) {
-    width: 340px;
+  @media (width <= 390px) {
+    width: 390px;
   }
 `;
 
@@ -160,7 +160,7 @@ const monthFeedbackListCss = css`
   flex-flow: row wrap;
   justify-content: space-between;
 
-  @media (width <= 340px) {
+  @media (width <= 390px) {
     flex-direction: column;
   }
 `;
