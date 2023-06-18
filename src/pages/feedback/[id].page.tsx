@@ -1,6 +1,6 @@
 import React, { type ReactElement, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { css, useTheme } from '@emotion/react';
+import { css, type Theme } from '@emotion/react';
 
 import Softskill from '~/components/graphic/softskills/Softskill';
 import { type Softskills } from '~/components/graphic/softskills/type';
@@ -12,11 +12,9 @@ import CollaborationBadge from '~/features/feedback/CollaborationBadge';
 import useGetFeedbackById from '~/hooks/api/feedbacks/useGetFeedbackById';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import colors from '~/styles/color';
-import GlobalBackgroundColor from '~/styles/GlobalBackgroundColor';
 import { BODY_1, HEAD_1, HEAD_2_BOLD, HEAD_2_REGULAR } from '~/styles/typo';
 
 export default function Feedback() {
-  const theme = useTheme();
   const router = useInternalRouter();
   const { id } = router.query;
 
@@ -69,7 +67,6 @@ export default function Feedback() {
   return (
     <>
       <SEO />
-      <GlobalBackgroundColor globalBackgroundColor={theme.colors.gray_50} />
 
       <Header
         title={`${convertPositionToKorean(data?.reviewer.position)} ${data?.reviewer.nickname}의 피드백`}
@@ -88,6 +85,7 @@ export default function Feedback() {
         <div css={userInfoContainerCss}>
           <div css={userInfoTitleCss}>{session?.user?.name} 님의 성향</div>
           <div css={userInfoBodyCss}>{renderUserInfoTendency()}</div>
+          <hr css={hrCss} />
         </div>
 
         <div css={questionListCss}>
@@ -123,10 +121,10 @@ export default function Feedback() {
 Feedback.getLayout = (page: ReactElement) => <LayoutPaddingTo23>{page}</LayoutPaddingTo23>;
 
 const containerCss = css`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: ${colors.gray_50};
 `;
 
 const titleCss = css`
@@ -151,6 +149,21 @@ const titleTextCss = css`
 const userInfoContainerCss = css`
   margin-bottom: 11px;
   background-color: ${colors.white};
+`;
+
+const hrCss = (theme: Theme) => css`
+  all: unset;
+
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100dvw;
+  max-width: ${theme.size.maxWidth};
+  height: 11px;
+  margin: 0 auto;
+
+  background-color: ${theme.colors.gray_50};
 `;
 
 const userInfoTitleCss = css`
