@@ -6,6 +6,7 @@ import defaultTheme from '../src/styles/theme';
 import { domMax, LazyMotion } from 'framer-motion';
 import GlobalStyle from '../src/styles/GlobalStyle';
 import ToastWrapper from '../src/components/toast/ToastWrapper';
+import SnackBarWrapper from '../src/components/snackBar/SnackBarWrapper';
 
 const previewDecorator = (Story) => {
   useEffect(() => {
@@ -19,6 +20,7 @@ const previewDecorator = (Story) => {
         <div className={pretendard.className} style={{ width: '100%', maxWidth: '480px', margin: '0 auto' }}>
           <Story />
           <ToastWrapper />
+          <SnackBarWrapper />
         </div>
       </LazyMotion>
     </ThemeProvider>
