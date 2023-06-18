@@ -11,6 +11,7 @@ import AuthProvider from '~/components/auth/AuthProvider';
 import ErrorBoundary from '~/components/error/ErrorBoundary';
 import MonitoringInitializer from '~/components/monitoring/MonitoringInitializer';
 import ToastWrapper from '~/components/toast/ToastWrapper';
+import { MAIN_LAYOUT_ID } from '~/constants/name';
 import GlobalStyles from '~/styles/GlobalStyle';
 import defaultTheme from '~/styles/theme';
 
@@ -47,7 +48,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
               <GlobalStyles />
               <ErrorBoundary>
                 <AuthProvider>
-                  <div css={defaultLayoutCss}>
+                  <div id={MAIN_LAYOUT_ID} css={defaultLayoutCss}>
                     {getLayout(<Component {...pageProps} />)}
                     <ToastWrapper />
                   </div>
