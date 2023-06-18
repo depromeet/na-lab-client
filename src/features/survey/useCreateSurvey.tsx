@@ -25,6 +25,7 @@ const useCreateSurveyAction = () => {
     });
     router.push('/survey/create');
   };
+
   const onCreate = () => {
     if (status === 'authenticated') {
       const jsonData = localStorage.getItem(LOCAL_STORAGE_KEY.surveyCreateSurveyRequest);

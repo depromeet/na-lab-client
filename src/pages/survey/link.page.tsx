@@ -58,10 +58,9 @@ const SurveyLinkPage = () => {
           </p>
         </StaggerWrapper>
 
-        {/* TODO : 카카오 회원가입 버튼 스타일 변경  */}
         <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
           <CTAButton color="blue" onClick={onNext}>
-            공유하기
+            질문 폼 공유하기
           </CTAButton>
         </m.div>
       </main>

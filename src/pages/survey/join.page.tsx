@@ -1,30 +1,31 @@
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
-import { m } from 'framer-motion';
+import { useAtomValue } from 'jotai';
 
 import CTAButton from '~/components/button/CTAButton';
+import KakaoIcon from '~/components/icons/KakaoIcon';
 import SEO from '~/components/SEO/SEO';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
-import useToast from '~/components/toast/useToast';
-import { CTAVariants, fixedBottomCss, fixedContainerCss } from '~/features/survey/styles';
+import TooltipButton from '~/components/tooltipButton/TooltipButton';
+import { fixedContainerCss } from '~/features/survey/styles';
 import useCreateSurveyAction from '~/features/survey/useCreateSurvey';
 import useKakaoLogin from '~/hooks/auth/useKakaoLogin';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
+import { isUserTokenValidAtom } from '~/store/auth';
 
 const JoinGuidePage = () => {
   const { loginHandler, status } = useKakaoLogin();
   const { onCreate } = useCreateSurveyAction();
-  const { fireToast } = useToast();
 
-  const isLoginState = status === 'authenticated';
+  const isUserTokenValid = useAtomValue(isUserTokenValidAtom);
 
   useDidUpdate(() => {
     if (status === 'authenticated') {
-      fireToast({
-        content: '로그인되었습니다.',
-      });
+      if (isUserTokenValid) {
+        onCreate();
+      }
     }
-  }, [status]);
+  }, [status, isUserTokenValid]);
 
   return (
     <>
@@ -44,16 +45,12 @@ const JoinGuidePage = () => {
           </p>
         </StaggerWrapper>
 
-        {/* TODO : 카카오 회원가입 버튼 스타일 변경  */}
-        {isLoginState ? (
-          <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
-            <CTAButton onClick={onCreate}>나의 질문 폼 생성하기</CTAButton>
-          </m.div>
-        ) : (
-          <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
-            <CTAButton onClick={loginHandler}>카카오 계정으로 회원가입 하기</CTAButton>
-          </m.div>
-        )}
+        <TooltipButton tooltipLabel="피드백 데이터를 간편하게 모아볼 수 있어요!">
+          <CTAButton css={kakaoButtonCss} onClick={loginHandler}>
+            <KakaoIcon />
+            <span>카카오 계정으로 회원가입 하기</span>
+          </CTAButton>
+        </TooltipButton>
       </main>
     </>
   );
@@ -61,6 +58,20 @@ const JoinGuidePage = () => {
 
 export default JoinGuidePage;
 
+const kakaoButtonCss = css`
+  display: flex;
+  gap: 9px;
+  align-items: center;
+
+  color: #371c1d;
+
+  background-color: #f7e600;
+
+  &:hover {
+    color: #371c1d;
+    background-color: #f7e600;
+  }
+`;
 const mainCss = (theme: Theme) => css`
   width: 100%;
   height: 100vh;
