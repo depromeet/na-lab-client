@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { css } from '@emotion/react';
+import React, { type ReactElement, useEffect, useState } from 'react';
+import { css, useTheme } from '@emotion/react';
 
 import Header from '~/components/header/Header';
+import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
 import SEO from '~/components/SEO/SEO';
 import ReceivedFeedbackCard from '~/features/feedback/ReceivedFeedbackCard';
 import useGetAllReviewersBySurveyId from '~/hooks/api/reviewers/useGetAllReviewersBySurveyId';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import colors from '~/styles/color';
+import GlobalBackgroundColor from '~/styles/GlobalBackgroundColor';
 import { BODY_1, HEAD_1 } from '~/styles/typo';
 
 interface Feedback {
@@ -29,6 +31,7 @@ interface FeedbacksByMonth {
 }
 
 export default function FeedbackList() {
+  const theme = useTheme();
   const router = useInternalRouter();
 
   const surveyId = router.query.id;
@@ -99,8 +102,9 @@ export default function FeedbackList() {
   return (
     <>
       <SEO />
+      <GlobalBackgroundColor globalBackgroundColor={theme.colors.gray_50} />
 
-      <Header title={'연구결과'} />
+      <Header title={'연구결과'} isContainRemainer />
       <main css={containerCss}>
         <section css={contentCss}>
           <header css={titleCss}>
@@ -113,26 +117,23 @@ export default function FeedbackList() {
   );
 }
 
+FeedbackList.getLayout = (page: ReactElement) => <LayoutPaddingTo23>{page}</LayoutPaddingTo23>;
+
 const containerCss = css`
   display: flex;
   flex-direction: column;
-
   width: 100%;
-  height: 100vh;
-  margin-top: 56px;
-  padding: 23px;
-
-  background-color: ${colors.gray_50};
 `;
 
 const contentCss = css`
-  width: 329px;
+  width: 100%;
   margin: 0 auto;
 `;
 
 const titleCss = css`
   ${HEAD_1}
 
+  margin-top: 54px;
   margin-bottom: 31px;
 `;
 
@@ -154,5 +155,6 @@ const monthTitleCss = css`
 const monthFeedbackListCss = css`
   display: flex;
   flex-flow: row wrap;
+  gap: 7px;
   justify-content: space-between;
 `;

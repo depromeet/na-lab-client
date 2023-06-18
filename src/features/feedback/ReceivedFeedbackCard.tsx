@@ -79,13 +79,15 @@ const ReceivedFeedbackCard = ({ feedback, onClickFeedback }: Props) => {
 export default ReceivedFeedbackCard;
 
 const containerCss = css`
+  cursor: pointer;
+
   position: relative;
 
   display: flex;
   flex-direction: column;
 
-  min-width: 161px;
-  max-width: 161px;
+  /* max-width: 161px; */
+  width: calc(50% - 4px);
   height: 215px;
   margin: 3.5px 0;
 

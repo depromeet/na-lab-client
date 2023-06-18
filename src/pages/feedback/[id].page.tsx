@@ -1,10 +1,11 @@
 import React, { type ReactElement, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { css } from '@emotion/react';
+import { css, type Theme } from '@emotion/react';
 
 import Softskill from '~/components/graphic/softskills/Softskill';
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
+import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
 import Pill from '~/components/pill/Pill';
 import SEO from '~/components/SEO/SEO';
 import CollaborationBadge from '~/features/feedback/CollaborationBadge';
@@ -13,7 +14,7 @@ import useInternalRouter from '~/hooks/router/useInternalRouter';
 import colors from '~/styles/color';
 import { BODY_1, HEAD_1, HEAD_2_BOLD, HEAD_2_REGULAR } from '~/styles/typo';
 
-function Feedback() {
+export default function Feedback() {
   const router = useInternalRouter();
   const { id } = router.query;
 
@@ -67,7 +68,10 @@ function Feedback() {
     <>
       <SEO />
 
-      <Header title={`${convertPositionToKorean(data?.reviewer.position)} ${data?.reviewer.nickname}의 피드백`} />
+      <Header
+        title={`${convertPositionToKorean(data?.reviewer.position)} ${data?.reviewer.nickname}의 피드백`}
+        isContainRemainer
+      />
 
       <main css={containerCss}>
         <div css={titleCss}>
@@ -81,6 +85,7 @@ function Feedback() {
         <div css={userInfoContainerCss}>
           <div css={userInfoTitleCss}>{session?.user?.name} 님의 성향</div>
           <div css={userInfoBodyCss}>{renderUserInfoTendency()}</div>
+          <hr css={hrCss} />
         </div>
 
         <div css={questionListCss}>
@@ -113,26 +118,21 @@ function Feedback() {
   );
 }
 
-export default Feedback;
+Feedback.getLayout = (page: ReactElement) => <LayoutPaddingTo23>{page}</LayoutPaddingTo23>;
 
 const containerCss = css`
+  position: relative;
   display: flex;
   flex-direction: column;
-
   width: 100%;
-  height: 100vh;
-  margin-top: 56px;
-
-  background-color: ${colors.gray_50};
 `;
 
 const titleCss = css`
   ${HEAD_1}
 
-  background-color: ${colors.white};
-  padding: 23px;
   display: flex;
   align-items: center;
+  background-color: ${colors.white};
 `;
 
 const titlebarCss = css`
@@ -148,8 +148,22 @@ const titleTextCss = css`
 
 const userInfoContainerCss = css`
   margin-bottom: 11px;
-  padding: 0 23px;
   background-color: ${colors.white};
+`;
+
+const hrCss = (theme: Theme) => css`
+  all: unset;
+
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100dvw;
+  max-width: ${theme.size.maxWidth};
+  height: 11px;
+  margin: 0 auto;
+
+  background-color: ${theme.colors.gray_50};
 `;
 
 const userInfoTitleCss = css`
@@ -174,7 +188,7 @@ const pillCss = css`
 const questionListCss = css`
   display: flex;
   flex-direction: column;
-  padding: 50px 23px;
+  padding: 50px 0;
   background-color: ${colors.white};
 `;
 
