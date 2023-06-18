@@ -10,6 +10,7 @@ import { domMax, LazyMotion } from 'framer-motion';
 import AuthProvider from '~/components/auth/AuthProvider';
 import ErrorBoundary from '~/components/error/ErrorBoundary';
 import MonitoringInitializer from '~/components/monitoring/MonitoringInitializer';
+import SnackBarWrapper from '~/components/snackBar/SnackBarWrapper';
 import ToastWrapper from '~/components/toast/ToastWrapper';
 import GlobalStyles from '~/styles/GlobalStyle';
 import defaultTheme from '~/styles/theme';
@@ -50,6 +51,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                   <div css={defaultLayoutCss}>
                     {getLayout(<Component {...pageProps} />)}
                     <ToastWrapper />
+                    <SnackBarWrapper />
                   </div>
                 </AuthProvider>
               </ErrorBoundary>
