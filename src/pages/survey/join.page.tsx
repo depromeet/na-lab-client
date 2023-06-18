@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
+import { useAtomValue } from 'jotai';
 
 import CTAButton from '~/components/button/CTAButton';
 import SEO from '~/components/SEO/SEO';
@@ -10,21 +11,28 @@ import { CTAVariants, fixedBottomCss, fixedContainerCss } from '~/features/surve
 import useCreateSurveyAction from '~/features/survey/useCreateSurvey';
 import useKakaoLogin from '~/hooks/auth/useKakaoLogin';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
+import { isUserTokenValidAtom } from '~/store/auth';
 
 const JoinGuidePage = () => {
   const { loginHandler, status } = useKakaoLogin();
   const { onCreate } = useCreateSurveyAction();
   const { fireToast } = useToast();
 
+  const isUserTokenValid = useAtomValue(isUserTokenValidAtom);
+
   const isLoginState = status === 'authenticated';
 
   useDidUpdate(() => {
     if (status === 'authenticated') {
+      if (isUserTokenValid) {
+        onCreate();
+      }
+
       fireToast({
         content: '로그인되었습니다.',
       });
     }
-  }, [status]);
+  }, [status, isUserTokenValid]);
 
   return (
     <>
