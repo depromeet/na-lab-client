@@ -5,6 +5,7 @@ import { m } from 'framer-motion';
 import CTAButton from '~/components/button/CTAButton';
 import SEO from '~/components/SEO/SEO';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
+import useToast from '~/components/toast/useToast';
 import { CTAVariants, fixedBottomCss, fixedContainerCss } from '~/features/survey/styles';
 import useCreateSurveyAction from '~/features/survey/useCreateSurvey';
 import useKakaoLogin from '~/hooks/auth/useKakaoLogin';
@@ -13,10 +14,15 @@ import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 const JoinGuidePage = () => {
   const { loginHandler, status } = useKakaoLogin();
   const { onCreate } = useCreateSurveyAction();
+  const { fireToast } = useToast();
+
+  const isLoginState = status === 'authenticated';
 
   useDidUpdate(() => {
     if (status === 'authenticated') {
-      onCreate();
+      fireToast({
+        content: '로그인되었습니다.',
+      });
     }
   }, [status]);
 
@@ -39,9 +45,15 @@ const JoinGuidePage = () => {
         </StaggerWrapper>
 
         {/* TODO : 카카오 회원가입 버튼 스타일 변경  */}
-        <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
-          <CTAButton onClick={loginHandler}>카카오 계정으로 회원가입 하기</CTAButton>
-        </m.div>
+        {isLoginState ? (
+          <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
+            <CTAButton onClick={onCreate}>나의 질문 폼 생성하기</CTAButton>
+          </m.div>
+        ) : (
+          <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
+            <CTAButton onClick={loginHandler}>카카오 계정으로 회원가입 하기</CTAButton>
+          </m.div>
+        )}
       </main>
     </>
   );
