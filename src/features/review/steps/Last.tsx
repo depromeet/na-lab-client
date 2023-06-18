@@ -61,6 +61,7 @@ const Last = ({ postMutation }: Props) => {
           <Image src="/images/review/last.png" alt="응답해주셔서 감사해요" fill />
         </picture>
 
+        {/* TODO : TooltipButton 적용하기 */}
         <m.div css={ctaWrapperCss} variants={ctaVariants}>
           <m.span css={bubbleSpanCss} variants={bubbleVariants}>
             단 3분이면 나의 질문 폼 링크를 만들 수 있어요!

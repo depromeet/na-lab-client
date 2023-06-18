@@ -4,7 +4,6 @@ import { css, keyframes, type Theme } from '@emotion/react';
 import { m, type Variants } from 'framer-motion';
 
 import { defaultEasing } from '~/constants/motions';
-import { fixedBottomCss } from '~/features/survey/styles';
 import { BODY_2_REGULAR } from '~/styles/typo';
 
 interface Props {
@@ -23,6 +22,17 @@ const TooltipButton = ({ tooltipLabel, children }: PropsWithChildren<Props>) => 
 };
 
 export default TooltipButton;
+
+const fixedBottomCss = (theme: Theme) => css`
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100%;
+  max-width: ${theme.size.maxWidth};
+  padding: 0 16px;
+`;
 
 const ctaWrapperCss = (theme: Theme) => css`
   ${fixedBottomCss(theme)}
