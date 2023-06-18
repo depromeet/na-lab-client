@@ -3,6 +3,7 @@ import { css, type Theme } from '@emotion/react';
 import { useAtomValue } from 'jotai';
 
 import CTAButton from '~/components/button/CTAButton';
+import KakaoIcon from '~/components/icons/KakaoIcon';
 import SEO from '~/components/SEO/SEO';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import TooltipButton from '~/components/tooltipCTAButton/TooltipCTAButton';
@@ -45,13 +46,11 @@ const JoinGuidePage = () => {
         </StaggerWrapper>
 
         <TooltipButton tooltipLabel="피드백 데이터를 간편하게 모아볼 수 있어요!">
-          <CTAButton onClick={loginHandler}>카카오 계정으로 회원가입 하기</CTAButton>
+          <CTAButton css={kakaoButtonCss} onClick={loginHandler}>
+            <KakaoIcon />
+            <span>카카오 계정으로 회원가입 하기</span>
+          </CTAButton>
         </TooltipButton>
-
-        {/* TODO : 카카오 회원가입 버튼 스타일 변경  */}
-        {/* <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
-          <CTAButton onClick={loginHandler}>카카오 계정으로 회원가입 하기</CTAButton>
-        </m.div> */}
       </main>
     </>
   );
@@ -59,6 +58,20 @@ const JoinGuidePage = () => {
 
 export default JoinGuidePage;
 
+const kakaoButtonCss = css`
+  display: flex;
+  gap: 9px;
+  align-items: center;
+
+  color: #371c1d;
+
+  background-color: #f7e600;
+
+  &:hover {
+    color: #371c1d;
+    background-color: #f7e600;
+  }
+`;
 const mainCss = (theme: Theme) => css`
   width: 100%;
   height: 100vh;
