@@ -75,6 +75,19 @@ const pictureCss = (theme: Theme) => css`
   max-width: ${theme.size.maxWidth};
   height: 100%;
 
+  &::after {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: calc(80px + 16px + 150px);
+
+    background: linear-gradient(180deg, #d1e3f9 70%, rgb(209 227 249 / 0%) 100%);
+  }
+
   & > img {
     object-fit: cover;
   }
