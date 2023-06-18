@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { AnimatePresence, m } from 'framer-motion';
+import introBgPng from 'public/images/intro/intro_bg.png';
+import introBgWebp from 'public/images/intro/intro_bg.webp';
 
 import CTAButton from '~/components/button/CTAButton';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
@@ -31,8 +33,8 @@ const Intro = ({ nickname, next }: Props) => {
   return (
     <m.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
       <picture css={pictureCss}>
-        <source srcSet="/images/intro/intro_bg.webp" type="image/webp" />
-        <Image src="/images/intro/intro_bg.png" alt="nalab intro" fill />
+        <source srcSet={introBgWebp.src} type="image/webp" />
+        <Image src={introBgPng} alt="nalab intro" fill />
       </picture>
 
       <IntroHeader />
