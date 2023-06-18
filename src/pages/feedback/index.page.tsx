@@ -155,5 +155,6 @@ const monthTitleCss = css`
 const monthFeedbackListCss = css`
   display: flex;
   flex-flow: row wrap;
+  gap: 7px;
   justify-content: space-between;
 `;

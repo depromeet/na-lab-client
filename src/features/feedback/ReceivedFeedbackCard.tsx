@@ -86,8 +86,8 @@ const containerCss = css`
   display: flex;
   flex-direction: column;
 
-  min-width: 161px;
-  max-width: 161px;
+  /* max-width: 161px; */
+  width: calc(50% - 4px);
   height: 215px;
   margin: 3.5px 0;
 
