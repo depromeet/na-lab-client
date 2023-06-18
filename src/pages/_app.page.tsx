@@ -13,6 +13,7 @@ import MonitoringInitializer from '~/components/monitoring/MonitoringInitializer
 import SnackBarWrapper from '~/components/snackBar/SnackBarWrapper';
 import ToastWrapper from '~/components/toast/ToastWrapper';
 import { MAIN_LAYOUT_ID } from '~/constants/name';
+import usePageTrack from '~/hooks/event/usePageTrack';
 import GlobalStyles from '~/styles/GlobalStyle';
 import defaultTheme from '~/styles/theme';
 
@@ -49,6 +50,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
               <GlobalStyles />
               <ErrorBoundary>
                 <AuthProvider>
+                  <PageViewTracker />
                   <div id={MAIN_LAYOUT_ID} css={defaultLayoutCss}>
                     {getLayout(<Component {...pageProps} />)}
                     <ToastWrapper />
@@ -72,3 +74,9 @@ const defaultLayoutCss = (theme: Theme) => css`
   margin: 0 auto;
   padding: 0 16px;
 `;
+
+const PageViewTracker = () => {
+  usePageTrack();
+
+  return null;
+};
