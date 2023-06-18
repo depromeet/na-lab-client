@@ -79,6 +79,8 @@ const ReceivedFeedbackCard = ({ feedback, onClickFeedback }: Props) => {
 export default ReceivedFeedbackCard;
 
 const containerCss = css`
+  cursor: pointer;
+
   position: relative;
 
   display: flex;

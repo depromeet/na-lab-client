@@ -104,7 +104,7 @@ export default function FeedbackList() {
       <SEO />
       <GlobalBackgroundColor globalBackgroundColor={theme.colors.gray_50} />
 
-      <Header title={'연구결과'} />
+      <Header title={'연구결과'} isContainRemainer />
       <main css={containerCss}>
         <section css={contentCss}>
           <header css={titleCss}>
@@ -122,10 +122,7 @@ FeedbackList.getLayout = (page: ReactElement) => <LayoutPaddingTo23>{page}</Layo
 const containerCss = css`
   display: flex;
   flex-direction: column;
-
   width: 100%;
-  height: 100vh;
-  margin-top: 54px;
 `;
 
 const contentCss = css`
@@ -159,8 +156,4 @@ const monthFeedbackListCss = css`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-
-  @media (width <= 390px) {
-    flex-direction: column;
-  }
 `;
