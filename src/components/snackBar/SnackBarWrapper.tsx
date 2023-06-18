@@ -27,7 +27,9 @@ const SnackBarWrapper = () => {
               content={
                 <>
                   {snackBar.content}
-                  <SnackBar.DeleteButton id={snackBar.id} deleteElement={snackBar.deleteElement} />
+                  {snackBar.isRenderDeleteElement && (
+                    <SnackBar.DeleteButton id={snackBar.id} deleteElement={snackBar.deleteElement} />
+                  )}
                 </>
               }
             />

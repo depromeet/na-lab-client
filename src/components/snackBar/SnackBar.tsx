@@ -38,7 +38,7 @@ const DeleteButton = ({ id, deleteElement }: DeleteButtonProps) => {
 const deleteButtonCss = (theme: Theme) => css`
   ${BODY_1};
 
-  width: 40px;
+  min-width: 40px;
   margin-left: 10px;
   color: ${theme.colors.primary_200};
   text-align: right;

@@ -25,7 +25,26 @@ export function Default() {
           fireSnackBar({ content: value });
         }}
       >
-        스낵바 발사
+        기본 스낵바 발사
+      </Button>
+      <br />
+
+      <Button
+        onClick={() => {
+          fireSnackBar({ content: value, isRenderDeleteElement: false, duration: 3000 });
+        }}
+      >
+        삭제 버튼 없는 스낵바
+      </Button>
+
+      <br />
+
+      <Button
+        onClick={() => {
+          fireSnackBar({ content: value, deleteElement: '삭제임' });
+        }}
+      >
+        커스텀 삭제 버튼
       </Button>
     </div>
   );
