@@ -5,6 +5,7 @@ import { useAtom, useAtomValue } from 'jotai';
 import CTAButton from '~/components/button/CTAButton';
 import Header from '~/components/header/Header';
 import SEO from '~/components/SEO/SEO';
+import useToast from '~/components/toast/useToast';
 import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import CreateStopDialog from '~/features/survey/addSurveyForm/CreateStopDialog';
 import { REQUEST_BASIC_QUESTION_LIST } from '~/features/survey/constants';
@@ -30,6 +31,7 @@ const CreateSurveyPage = () => {
   const [isDialogOpen, , onDialogOpen, onDialogClose] = useBoolean(false);
   const [isDialogShowing, toggleDialogShowing] = useBoolean(false);
 
+  const { fireToast } = useToast();
   const { onCreate } = useCreateSurveyAction();
   const isCustomItemsEmpty = customItems.length === 0;
 
@@ -39,6 +41,12 @@ const CreateSurveyPage = () => {
   };
 
   const onSubmit = async () => {
+    if (customItems.length < 2) {
+      fireToast({ content: '질문을 2개 이상 추가해주세요.' });
+
+      return;
+    }
+
     const data = getCreateSurveyRequestData(customItems);
     localStorage.setItem(LOCAL_STORAGE_KEY.surveyCreateSurveyRequest, JSON.stringify(data));
 
