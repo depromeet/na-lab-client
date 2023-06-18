@@ -15,7 +15,7 @@ interface Props {
 const Feedback = ({ reply, is_read, reviewer: { nickname, collaboration_experience, position } }: Props) => {
   return (
     <div css={containerCss}>
-      {is_read && <UnreadBadgeIcon floatingTop="12px" floatingRight="12px" size="small" />}
+      {!is_read && <UnreadBadgeIcon floatingTop="12px" floatingRight="12px" size="small" />}
       <p css={replyCss}>
         {reply.map((item, idx) => {
           return item + (reply.length !== idx && '\n');
