@@ -84,7 +84,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
         <Header title="연구 결과" isContainRemainer />
         <section css={emptyFeedbackPageContainerCss}>
           <m.div css={emptyFeedbackWrapperCss} variants={imageVariant} initial="initial" animate="animate" exit="exit">
-            <Image src="/images/feedback/empty-file.png" width={212} height={162} alt="빈 피드백" />
+            <Image src="/images/result/empty-file.png" width={212} height={162} alt="빈 피드백" />
             <span css={(theme) => emptyTextCss(theme)}>아직 도착한 피드백이 없어요</span>
           </m.div>
         </section>

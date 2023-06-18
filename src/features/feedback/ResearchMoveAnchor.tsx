@@ -13,7 +13,6 @@ interface Props {
 const ResearchMoveAnchor = ({ newFeedbackNumber, surveyId }: Props) => {
   const theme = useTheme();
 
-  // TODO: link 위치 조정 필요
   return (
     <Link href={`/feedback?id=${surveyId}`} type="button" css={[HEAD_2_BOLD, containerCss(theme)]}>
       <section css={leftBoxCss}>
@@ -23,7 +22,7 @@ const ResearchMoveAnchor = ({ newFeedbackNumber, surveyId }: Props) => {
         </div>
         <div css={[BODY_1, unreadMsgCountBadge(theme)]}>+{newFeedbackNumber}</div>
       </section>
-      <Image css={fileImageCss} src="/images/feedback/files.png" alt="파일 이미지" width={93} height={70} />
+      <Image css={fileImageCss} src="/images/result/files.png" alt="파일 이미지" width={93} height={70} />
       <aside css={rightMarkCss(theme)} />
     </Link>
   );
@@ -33,6 +32,8 @@ export default ResearchMoveAnchor;
 
 const containerCss = (theme: Theme) => css`
   all: unset;
+
+  cursor: pointer;
 
   position: relative;
 
