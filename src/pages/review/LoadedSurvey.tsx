@@ -15,7 +15,7 @@ import usePostFeedbackBySurveyId, {
   type QuestionFeedback,
   type ShortQuestionFeedback,
 } from '~/hooks/api/surveys/usePostFeedbackBySurveyId';
-import useWillUnmount from '~/hooks/lifeCycle/useWillUnmount';
+import useBeforeUnload from '~/hooks/common/useBeforeUnload';
 import useInjectedElementStep from '~/hooks/step/useInjectedElementStep';
 import recordEvent from '~/utils/event';
 import { removeLocalStorageItemWithPrefix } from '~/utils/localStorage';
@@ -37,8 +37,10 @@ const LoadedSurvey = ({ survey_id, target, question, question_count }: SurveyRes
 
   const postMutation = usePostMutation({ survey_id, isCoworked, position, questionAnswers });
 
-  useWillUnmount(() => {
+  useBeforeUnload(() => {
     removeStoragedMessages();
+
+    return false;
   });
 
   const { currentElement, currentStep } = useInjectedElementStep({
