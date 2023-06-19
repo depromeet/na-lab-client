@@ -6,7 +6,11 @@
   "eslint.nodePath": ".yarn/sdks",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "stylelint.validate": ["css", "scss", "typescriptreact"],
+  "stylelint.validate": [
+    "css",
+    "scss",
+    "typescriptreact"
+  ],
   "stylelint.configFile": ".stylelintrc.json",
   "stylelint.packageManager": "yarn",
   "editor.codeActionsOnSave": {
@@ -14,7 +18,12 @@
     "source.fixAll.stylelint": true
   },
   "editor.formatOnSave": true,
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.tabSize": 2,
   "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
