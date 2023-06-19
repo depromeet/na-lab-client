@@ -65,7 +65,7 @@ const LoadedSurvey = ({ survey_id, target, question, question_count }: SurveyRes
             <ShortQuestion
               key="strength"
               questionId={eachQuestion.question_id}
-              headerTitle={eachQuestion.title}
+              headerTitle={`협업을 하면서 느꼈던 ${target.nickname}님의 장점이 있나요?`}
               setReplies={setEachQuestionAnswer(eachQuestion.question_id)}
               startMessages={[
                 {
