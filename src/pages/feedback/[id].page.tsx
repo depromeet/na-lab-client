@@ -85,7 +85,6 @@ export default function Feedback() {
         <div css={userInfoContainerCss}>
           <div css={userInfoTitleCss}>{session?.user?.name} 님의 성향</div>
           <div css={userInfoBodyCss}>{renderUserInfoTendency()}</div>
-          <hr css={hrCss} />
         </div>
 
         <div css={questionListCss}>
@@ -146,24 +145,30 @@ const titleTextCss = css`
   margin: 16px 11px;
 `;
 
-const userInfoContainerCss = css`
+const userInfoContainerCss = (theme: Theme) => css`
+  position: relative;
   margin-bottom: 11px;
   background-color: ${colors.white};
-`;
 
-const hrCss = (theme: Theme) => css`
-  all: unset;
+  &::before {
+    content: '';
 
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
+    position: absolute;
 
-  width: 100dvw;
-  max-width: ${theme.size.maxWidth};
-  height: 11px;
-  margin: 0 auto;
+    /* NOTE: height */
+    bottom: -11px;
 
-  background-color: ${theme.colors.gray_50};
+    /* NOTE: layout padding */
+    left: -23px;
+
+    display: block;
+
+    width: 100dvw;
+    max-width: ${theme.size.maxWidth};
+    height: 11px;
+
+    background-color: ${colors.gray_50};
+  }
 `;
 
 const userInfoTitleCss = css`
