@@ -20,7 +20,7 @@ const ResearchMoveAnchor = ({ newFeedbackNumber, surveyId }: Props) => {
           <span css={HEAD_2_BOLD}>쌓인 연구 일지 보러가기</span>
           <ChevronArrowRightIcon width={24} height={24} viewBox="0 0 8 14" css={chevronArrowRightIconCss} />
         </div>
-        <div css={[BODY_1, unreadMsgCountBadge(theme)]}>+{newFeedbackNumber}</div>
+        {newFeedbackNumber > 0 && <div css={[BODY_1, unreadMsgCountBadge(theme)]}>+{newFeedbackNumber}</div>}
       </section>
       <Image css={fileImageCss} src="/images/result/files.png" alt="파일 이미지" width={93} height={70} />
       <aside css={rightMarkCss(theme)} />
