@@ -20,6 +20,7 @@ import { defaultEasing } from '~/constants/motions';
 import { BASE_URL } from '~/constants/url';
 import CollaborationCounter from '~/features/feedback/CollaborationCounter';
 import Feedback from '~/features/feedback/Feedback';
+import NewFeedbackCopyButton from '~/features/feedback/NewFeedbackCopyButton';
 import ParticipatingReviewerChart from '~/features/feedback/ParticipatingReviewerChart';
 import QuestionListRow from '~/features/feedback/QuestionListRow';
 import ResearchMoveAnchor from '~/features/feedback/ResearchMoveAnchor';
@@ -150,6 +151,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                 </h2>
                 <div css={ResearchMoveAnchorCss(innerWidth)}>
                   <ResearchMoveAnchor newFeedbackNumber={feedbackSummaryData.new_feedback_count} surveyId={surveyId} />
+                  <NewFeedbackCopyButton />
                 </div>
               </article>
 
@@ -320,6 +322,11 @@ const chartCss = (innerWidth: number) => css`
 
 const ResearchMoveAnchorCss = (innerWidth: number) => css`
   transform: translateX(-23px);
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
   width: ${innerWidth}px;
 `;
 
