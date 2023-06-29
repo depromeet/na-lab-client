@@ -11,6 +11,7 @@ import Header from '~/components/header/Header';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
 import LineThreeDotsIcon from '~/components/icons/LineThreeDotsIcon';
 import LinkIcon from '~/components/icons/LinkIcon';
+import TopIcon from '~/components/icons/TopIcon';
 import FixedSpinner from '~/components/loading/FixedSpinner';
 import LoadingHandler from '~/components/loading/LoadingHandler';
 import Pill, { type Color } from '~/components/pill/Pill';
@@ -77,6 +78,10 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
       ),
       higherThanCTA: true,
     });
+  };
+
+  const moveToTop = () => {
+    window.scrollTo(0, 0);
   };
 
   if (feedbackSummaryData && feedbackSummaryData.all_feedback_count < 1) {
@@ -249,6 +254,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                   ),
                 )}
             </section>
+            <TopIcon css={topIconCss} onClick={moveToTop} />
           </main>
         </>
       )}
@@ -450,6 +456,12 @@ const bubbleVariants: Variants = {
     transition: { duration: 0.5, ease: defaultEasing },
   },
 };
+
+const topIconCss = css`
+  position: fixed;
+  right: 13px;
+  bottom: 60px;
+`;
 
 const getTendencyCount = (
   data?: Response,
