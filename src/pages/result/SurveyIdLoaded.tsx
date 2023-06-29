@@ -81,7 +81,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
   };
 
   const moveToTop = () => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (feedbackSummaryData && feedbackSummaryData.all_feedback_count < 1) {
