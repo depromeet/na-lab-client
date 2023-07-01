@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { Children, type PropsWithChildren, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
-import { AnimatePresence, m } from 'framer-motion';
+import { AnimatePresence, type AnimationPlaybackControls, m, stagger, useAnimate, type Variants } from 'framer-motion';
 import introBgPng from 'public/images/intro/intro_bg.png';
 import introBgWebp from 'public/images/intro/intro_bg.webp';
 
@@ -12,6 +12,7 @@ import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 import useBoolean from '~/hooks/common/useBoolean';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
 import useStep from '~/hooks/step/useStep';
+import { HEAD_1 } from '~/styles/typo';
 import recordEvent from '~/utils/event';
 
 import { fixedBottomCss } from '../style';
@@ -23,7 +24,7 @@ interface Props extends StepProps {
 }
 
 const Intro = ({ nickname, next }: Props) => {
-  const { currentStep } = useParagraphStep();
+  const { currentStep, paragraphStep } = useParagraphStep();
   const { isCTAButtonVisible } = useCTAButtonVisible();
 
   useDidMount(() => {
@@ -41,8 +42,8 @@ const Intro = ({ nickname, next }: Props) => {
 
       <article css={articleCss}>
         <AnimatePresence mode="wait">
-          {currentStep === 1 && <Paragraph1 key="1" nickname={nickname} />}
-          {currentStep === 2 && <Paragraph2 key="2" />}
+          {currentStep === 1 && <Paragraph1 key="1" nickname={nickname} next={paragraphStep} />}
+          {currentStep === 2 && <Paragraph2 key="2" next={paragraphStep} />}
           {currentStep === 3 && <Paragraph3 key="3" />}
           {currentStep === 4 && <Paragraph4 key="4" nickname={nickname} />}
         </AnimatePresence>
@@ -136,32 +137,33 @@ const useParagraphStep = () => {
 
   return {
     currentStep,
+    paragraphStep,
   };
 };
 
 type NicknameProps = Pick<Props, 'nickname'>;
 
-const Paragraph1 = ({ nickname }: NicknameProps) => {
+const Paragraph1 = ({ nickname, next }: NicknameProps & { next: () => void }) => {
   return (
-    <StaggerWrapper>
+    <StaggerW onSkip={next}>
       <p>안녕하세요!</p>
       <p>
         <strong>{nickname}</strong>님의 커리어 DNA 연구소에
       </p>
       <p>오신 걸 환영해요.</p>
-    </StaggerWrapper>
+    </StaggerW>
   );
 };
 
-const Paragraph2 = () => {
+const Paragraph2 = ({ next }: { next: () => void }) => {
   return (
-    <StaggerWrapper>
+    <StaggerW onSkip={next}>
       <p>와우!</p>
       <p>당신이 우리 연구를 도우러 온</p>
       <p>
         <strong>새로운 연구원</strong>이군요.
       </p>
-    </StaggerWrapper>
+    </StaggerW>
   );
 };
 
@@ -189,6 +191,32 @@ const Paragraph4 = ({ nickname }: NicknameProps) => {
   );
 };
 
+const StaggerW = ({ children, onSkip }: PropsWithChildren<{ onSkip?: () => void }>) => {
+  const [scope, animate] = useAnimate();
+  const animation = useRef<null | AnimationPlaybackControls>(null);
+
+  useEffect(() => {
+    animation.current = animate('div', { opacity: 1, scale: 1, y: [10, 0] }, { duration: 0.5, delay: stagger(0.5) });
+  }, []);
+
+  const onClick = async () => {
+    animation.current = await animate('div', { opacity: 1, scale: 1, y: [1, 0] }, { duration: 0.1 });
+    setTimeout(function () {
+      onSkip && onSkip();
+    }, 500);
+  };
+
+  return (
+    <m.article ref={scope} css={wrapperCss} onClick={onClick}>
+      {Children.toArray(children).map((paragraph, index) => (
+        <m.div key={index} css={HEAD_1} variants={fadeInUpVariants}>
+          {paragraph}
+        </m.div>
+      ))}
+    </m.article>
+  );
+};
+
 const useCTAButtonVisible = () => {
   const [isCTAButtonVisible, _, setTrue] = useBoolean(false);
 
@@ -201,4 +229,30 @@ const useCTAButtonVisible = () => {
   }, [setTrue]);
 
   return { isCTAButtonVisible };
+};
+const wrapperCss = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+`;
+
+const fadeInUpVariants: Variants = {
+  initial: {
+    opacity: 0,
+    y: 10,
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
+  exit: {
+    opacity: 0,
+    y: 10,
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
 };
