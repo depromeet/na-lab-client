@@ -9,8 +9,8 @@ interface Props {
 
 const CollaborationCounter = ({ count }: Props) => (
   <div css={containerCss}>
-    <CollaborationCounterCard count={count.yes} positive={false} />
-    <CollaborationCounterCard count={count.no} positive={true} />
+    <CollaborationCounterCard count={count.yes} positive={true} />
+    <CollaborationCounterCard count={count.no} positive={false} />
   </div>
 );
 
