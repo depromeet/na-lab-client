@@ -33,6 +33,7 @@ const Softskill = ({ prev, next, nickname, choices, selectedChoiceIds, setChoice
     const clickedChoiceId = e.target.value;
 
     if (!e.target.checked) {
+      changePillColor(clickedChoiceId);
       setChoices((prevChoices) => prevChoices.filter((choice) => choice !== clickedChoiceId));
 
       return;
@@ -55,6 +56,7 @@ const Softskill = ({ prev, next, nickname, choices, selectedChoiceIds, setChoice
     }
 
     if (e.target.checked) {
+      changePillColor(clickedChoiceId);
       setChoices((prevSoftskills) => [...prevSoftskills, clickedChoiceId]);
     }
   };
@@ -74,6 +76,7 @@ const Softskill = ({ prev, next, nickname, choices, selectedChoiceIds, setChoice
             onChange={onChange}
             value={softskill.choice_id}
             checked={selectedChoiceIds.includes(softskill.choice_id)}
+            color={getPillColor(softskill.choice_id)}
           />
         ))}
       </section>
@@ -95,13 +98,44 @@ const sectionCss = css`
   padding-top: 20px;
 `;
 
-// TODO: 순서에 따라 색상 부여
-// type Color = 'bluegreen' | 'pink' | 'skyblue' | 'yellowgreen' | 'purple';
-// const COLOR_ORDER: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'purple'];
-// const IS_COLOR_CHECKED: Record<Color, boolean> = {
-//   bluegreen: false,
-//   pink: false,
-//   skyblue: false,
-//   yellowgreen: false,
-//   purple: false,
-// };
+type Color = 'bluegreen' | 'pink' | 'skyblue' | 'yellowgreen' | 'purple';
+
+const IS_COLOR_CHECKED: Record<Color, null | string> = {
+  bluegreen: null,
+  pink: null,
+  skyblue: null,
+  yellowgreen: null,
+  purple: null,
+};
+
+const changePillColor = (id: string) => {
+  const colors = Object.keys(IS_COLOR_CHECKED) as Color[];
+  const coloredIds = Object.values(IS_COLOR_CHECKED);
+  const isColored = colors.find((color) => IS_COLOR_CHECKED[color] === id);
+
+  if (isColored) {
+    IS_COLOR_CHECKED[isColored] = null;
+
+    return;
+  }
+
+  const emptyColorIndex = coloredIds.findIndex((coloredId) => coloredId === null);
+
+  if (emptyColorIndex != null) {
+    IS_COLOR_CHECKED[colors[emptyColorIndex]] = id;
+  }
+};
+
+const getPillColor = (id: string) => {
+  const colors = Object.keys(IS_COLOR_CHECKED) as Color[];
+
+  const isColored = colors.find((color) => {
+    return IS_COLOR_CHECKED[color] === id;
+  });
+
+  if (isColored) {
+    return isColored;
+  }
+
+  return 'default';
+};

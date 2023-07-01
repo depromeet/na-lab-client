@@ -1,19 +1,11 @@
-import { m } from 'framer-motion';
-
-import { defaultFadeInVariants } from '~/constants/motions';
-
 const Spinner = () => {
   return (
-    <m.svg
+    <svg
       xmlns="http://www.w3.org/2000/svg"
       width="80px"
       height="80px"
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid"
-      variants={defaultFadeInVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
     >
       <g transform="translate(80,50)">
         <g transform="rotate(0)">
@@ -199,7 +191,7 @@ const Spinner = () => {
           </circle>
         </g>
       </g>
-    </m.svg>
+    </svg>
   );
 };
 
