@@ -44,15 +44,7 @@ const Intro = ({ nickname, next }: Props) => {
           {currentStep === 1 && <Paragraph1 key="1" nickname={nickname} onSkip={onSkip} />}
           {currentStep === 2 && <Paragraph2 key="2" onSkip={onSkip} />}
           {currentStep === 3 && <Paragraph3 key="3" onSkip={onSkip} />}
-          {currentStep === 4 && (
-            <Paragraph4
-              key="4"
-              nickname={nickname}
-              onSkip={() => {
-                onCTAButtonVisibleSkip();
-              }}
-            />
-          )}
+          {currentStep === 4 && <Paragraph4 key="4" nickname={nickname} onSkip={onCTAButtonVisibleSkip} />}
         </AnimatePresence>
       </article>
 
@@ -233,7 +225,6 @@ const SkipStaggerWrapper = ({
     if (!scope.current) return;
 
     await animate('div', { opacity: 1, scale: 1, y: [1, 0] }, { duration: 0.1 });
-
     setTimeout(onSkip, staggerDelay * 1000);
   };
 
@@ -245,6 +236,12 @@ const SkipStaggerWrapper = ({
     if (document) {
       document.body.addEventListener('click', onClick);
     }
+
+    return () => {
+      if (document) {
+        document.body.removeEventListener('click', onClick);
+      }
+    };
   });
 
   return (
