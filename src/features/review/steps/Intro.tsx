@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
+import { Children, type PropsWithChildren, useEffect } from 'react';
 import Image from 'next/image';
-import { css, type Theme } from '@emotion/react';
-import { AnimatePresence, m } from 'framer-motion';
+import { css, type Interpolation, type Theme } from '@emotion/react';
+import { AnimatePresence, m, stagger, useAnimate, type Variants } from 'framer-motion';
 import introBgPng from 'public/images/intro/intro_bg.png';
 import introBgWebp from 'public/images/intro/intro_bg.webp';
 
 import CTAButton from '~/components/button/CTAButton';
-import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import WatsonCharacter from '~/components/watson/WatsonCharacter';
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 import useBoolean from '~/hooks/common/useBoolean';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
 import useStep from '~/hooks/step/useStep';
+import { HEAD_1 } from '~/styles/typo';
 import recordEvent from '~/utils/event';
 
 import { fixedBottomCss } from '../style';
@@ -23,8 +23,8 @@ interface Props extends StepProps {
 }
 
 const Intro = ({ nickname, next }: Props) => {
-  const { currentStep } = useParagraphStep();
-  const { isCTAButtonVisible } = useCTAButtonVisible();
+  const { currentStep, paragraphStep: onSkip } = useParagraphStep();
+  const { isCTAButtonVisible, skip: onCTAButtonVisibleSkip } = useCTAButtonVisible();
 
   useDidMount(() => {
     recordEvent({ action: '리뷰어 - 인트로' });
@@ -41,10 +41,10 @@ const Intro = ({ nickname, next }: Props) => {
 
       <article css={articleCss}>
         <AnimatePresence mode="wait">
-          {currentStep === 1 && <Paragraph1 key="1" nickname={nickname} />}
-          {currentStep === 2 && <Paragraph2 key="2" />}
-          {currentStep === 3 && <Paragraph3 key="3" />}
-          {currentStep === 4 && <Paragraph4 key="4" nickname={nickname} />}
+          {currentStep === 1 && <Paragraph1 key="1" nickname={nickname} onSkip={onSkip} />}
+          {currentStep === 2 && <Paragraph2 key="2" onSkip={onSkip} />}
+          {currentStep === 3 && <Paragraph3 key="3" onSkip={onSkip} />}
+          {currentStep === 4 && <Paragraph4 key="4" nickname={nickname} onSkip={onCTAButtonVisibleSkip} />}
         </AnimatePresence>
       </article>
 
@@ -136,56 +136,58 @@ const useParagraphStep = () => {
 
   return {
     currentStep,
+    paragraphStep,
   };
 };
 
 type NicknameProps = Pick<Props, 'nickname'>;
+type SkipProps = { onSkip: () => void };
 
-const Paragraph1 = ({ nickname }: NicknameProps) => {
+const Paragraph1 = ({ nickname, onSkip }: NicknameProps & SkipProps) => {
   return (
-    <StaggerWrapper>
+    <SkipStaggerWrapper onSkip={onSkip}>
       <p>안녕하세요!</p>
       <p>
         <strong>{nickname}</strong>님의 커리어 DNA 연구소에
       </p>
       <p>오신 걸 환영해요.</p>
-    </StaggerWrapper>
+    </SkipStaggerWrapper>
   );
 };
 
-const Paragraph2 = () => {
+const Paragraph2 = ({ onSkip }: SkipProps) => {
   return (
-    <StaggerWrapper>
+    <SkipStaggerWrapper onSkip={onSkip}>
       <p>와우!</p>
       <p>당신이 우리 연구를 도우러 온</p>
       <p>
         <strong>새로운 연구원</strong>이군요.
       </p>
-    </StaggerWrapper>
+    </SkipStaggerWrapper>
   );
 };
 
-const Paragraph3 = () => {
+const Paragraph3 = ({ onSkip }: SkipProps) => {
   return (
-    <StaggerWrapper>
+    <SkipStaggerWrapper onSkip={onSkip}>
       <p>저는 당신을 이끌어 줄</p>
       <p>
         <strong>Dr. 왓슨</strong>이라고 해요.
       </p>
       <p>부담없이 따라와주세요!</p>
-    </StaggerWrapper>
+    </SkipStaggerWrapper>
   );
 };
 
-const Paragraph4 = ({ nickname }: NicknameProps) => {
+const Paragraph4 = ({ nickname, onSkip }: NicknameProps & SkipProps) => {
   return (
-    <StaggerWrapper>
+    <SkipStaggerWrapper onSkip={onSkip}>
       <p>아! 모든 연구는 {nickname} 님에게</p>
       <p>
         <strong>익명</strong>으로 비밀리에 전달되니
       </p>
       <p>걱정하지 마세요.</p>
-    </StaggerWrapper>
+    </SkipStaggerWrapper>
   );
 };
 
@@ -200,5 +202,82 @@ const useCTAButtonVisible = () => {
     };
   }, [setTrue]);
 
-  return { isCTAButtonVisible };
+  return { isCTAButtonVisible, skip: setTrue };
+};
+
+interface SkipStaggerWrapperProps extends PropsWithChildren {
+  onSkip: () => void;
+  wrapperOverrideCss?: Interpolation<Theme>;
+  staggerDelay?: number;
+  paragraphVariants?: Variants;
+}
+
+const SkipStaggerWrapper = ({
+  children,
+  onSkip,
+  wrapperOverrideCss,
+  staggerDelay = 0.5,
+  paragraphVariants = fadeInUpVariants,
+}: SkipStaggerWrapperProps) => {
+  const [scope, animate] = useAnimate();
+
+  const onClick = async () => {
+    if (!scope.current) return;
+
+    await animate('div', { opacity: 1, scale: 1, y: [1, 0] }, { duration: 0.1 });
+    setTimeout(onSkip, staggerDelay * 1000);
+  };
+
+  useEffect(() => {
+    animate('div', { opacity: 1, scale: 1, y: [10, 0] }, { duration: staggerDelay, delay: stagger(staggerDelay) });
+  }, [animate, staggerDelay]);
+
+  useDidMount(() => {
+    if (document) {
+      document.body.addEventListener('click', onClick);
+    }
+
+    return () => {
+      if (document) {
+        document.body.removeEventListener('click', onClick);
+      }
+    };
+  });
+
+  return (
+    <m.article ref={scope} css={[wrapperCss, wrapperOverrideCss]}>
+      {Children.toArray(children).map((paragraph, index) => (
+        <m.div key={index} css={HEAD_1} variants={paragraphVariants}>
+          {paragraph}
+        </m.div>
+      ))}
+    </m.article>
+  );
+};
+
+const wrapperCss = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+`;
+
+const fadeInUpVariants: Variants = {
+  initial: {
+    opacity: 0,
+    y: 10,
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
+  exit: {
+    opacity: 0,
+    y: 10,
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
 };
