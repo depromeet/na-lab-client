@@ -24,7 +24,7 @@ interface Props extends StepProps {
 
 const Intro = ({ nickname, next }: Props) => {
   const { currentStep, paragraphStep: onSkip } = useParagraphStep();
-  const { isCTAButtonVisible } = useCTAButtonVisible();
+  const { isCTAButtonVisible, skip: onCTAButtonVisibleSkip } = useCTAButtonVisible();
 
   useDidMount(() => {
     recordEvent({ action: '리뷰어 - 인트로' });
@@ -49,7 +49,7 @@ const Intro = ({ nickname, next }: Props) => {
               key="4"
               nickname={nickname}
               onSkip={() => {
-                // TODO : button 빠르게 나타내기
+                onCTAButtonVisibleSkip();
               }}
             />
           )}
@@ -210,7 +210,7 @@ const useCTAButtonVisible = () => {
     };
   }, [setTrue]);
 
-  return { isCTAButtonVisible };
+  return { isCTAButtonVisible, skip: setTrue };
 };
 
 interface SkipStaggerWrapperProps extends PropsWithChildren {
