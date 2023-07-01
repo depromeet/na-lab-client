@@ -25,16 +25,15 @@ const NewFeedbackCopyButton = ({ surveyId }: Props) => {
           <Toast.Text>나의 질문 폼 링크가 복사되었어요</Toast.Text>,
         </>
       ),
-      higherThanCTA: true,
     });
   };
 
   return (
     <button type="button" css={buttonCss} onClick={onClick}>
-      <span css={titleCss}>새로운 피드백 받기</span>
+      <span css={titleCss}>나의 질문 폼 링크 공유하기</span>
       <span css={spanCss}>
         <LinkIcon fill="#677089" width={14} height={14} viewBox="0 0 24 24" />
-        질문 폼 공유
+        질문 폼 복사
       </span>
     </button>
   );
@@ -53,7 +52,7 @@ const buttonCss = (theme: Theme) => css`
   gap: 12px;
   align-items: flex-start;
 
-  width: calc(100% - 60px);
+  width: calc(100% - 15px);
   height: 120px;
   padding-top: 24px;
   padding-left: 38px;
