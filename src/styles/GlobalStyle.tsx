@@ -163,6 +163,8 @@ const globalStyles = css`
     font-family: inherit;
     word-break: keep-all;
     word-wrap: break-word;
+
+    -webkit-tap-highlight-color: transparent;
   }
 `;
 
