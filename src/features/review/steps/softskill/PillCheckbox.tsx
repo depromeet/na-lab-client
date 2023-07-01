@@ -1,22 +1,22 @@
 import { type ComponentProps, type InputHTMLAttributes } from 'react';
-import { css, type Theme } from '@emotion/react';
+import { css } from '@emotion/react';
 
 import Softskill from '~/components/graphic/softskills/Softskill';
-import Pill from '~/components/pill/Pill';
-import { skyblueCss } from '~/components/pill/style';
+import Pill, { type Color } from '~/components/pill/Pill';
 
 type InputAttributes = InputHTMLAttributes<HTMLInputElement>;
 
 interface Props extends InputAttributes {
   graphicName: ComponentProps<typeof Softskill>['name'];
   name: string;
+  color: Color;
 }
 
-const PillCheckbox = ({ graphicName, name, value, ...rest }: Props) => {
+const PillCheckbox = ({ graphicName, name, value, color, ...rest }: Props) => {
   return (
     <label css={labelCss}>
       <input type="checkbox" value={value} {...rest} />
-      <Pill color="default">
+      <Pill color={color}>
         <Softskill name={graphicName} />
         {name}
       </Pill>
@@ -26,13 +26,9 @@ const PillCheckbox = ({ graphicName, name, value, ...rest }: Props) => {
 
 export default PillCheckbox;
 
-const labelCss = (theme: Theme) => css`
+const labelCss = css`
   & > input {
     display: none;
     appearance: none;
-  }
-
-  & > input:checked + span {
-    ${skyblueCss(theme)}
   }
 `;
