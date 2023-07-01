@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { css, type Theme, useTheme } from '@emotion/react';
 
@@ -22,7 +21,6 @@ const ResearchMoveAnchor = ({ newFeedbackNumber, surveyId }: Props) => {
         </div>
         {newFeedbackNumber > 0 && <div css={[BODY_1, unreadMsgCountBadge(theme)]}>+{newFeedbackNumber}</div>}
       </section>
-      <Image css={fileImageCss} src="/images/result/files.png" alt="파일 이미지" width={93} height={70} />
       <aside css={rightMarkCss(theme)} />
     </Link>
   );
@@ -78,12 +76,6 @@ const unreadMsgCountBadge = (theme: Theme) => css`
 
   background-color: ${theme.colors.red};
   border-radius: 12px;
-`;
-
-const fileImageCss = css`
-  position: absolute;
-  right: 22px;
-  bottom: 0;
 `;
 
 const rightMarkCss = (theme: Theme) => css`
