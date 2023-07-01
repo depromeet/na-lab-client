@@ -1,12 +1,11 @@
-import { Children, type PropsWithChildren, useEffect, useRef } from 'react';
+import { Children, type PropsWithChildren, useEffect } from 'react';
 import Image from 'next/image';
-import { css, type Theme } from '@emotion/react';
-import { AnimatePresence, type AnimationPlaybackControls, m, stagger, useAnimate, type Variants } from 'framer-motion';
+import { css, type Interpolation, type Theme } from '@emotion/react';
+import { AnimatePresence, m, stagger, useAnimate, type Variants } from 'framer-motion';
 import introBgPng from 'public/images/intro/intro_bg.png';
 import introBgWebp from 'public/images/intro/intro_bg.webp';
 
 import CTAButton from '~/components/button/CTAButton';
-import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import WatsonCharacter from '~/components/watson/WatsonCharacter';
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 import useBoolean from '~/hooks/common/useBoolean';
@@ -24,7 +23,7 @@ interface Props extends StepProps {
 }
 
 const Intro = ({ nickname, next }: Props) => {
-  const { currentStep, paragraphStep } = useParagraphStep();
+  const { currentStep, paragraphStep: onSkip } = useParagraphStep();
   const { isCTAButtonVisible } = useCTAButtonVisible();
 
   useDidMount(() => {
@@ -42,10 +41,18 @@ const Intro = ({ nickname, next }: Props) => {
 
       <article css={articleCss}>
         <AnimatePresence mode="wait">
-          {currentStep === 1 && <Paragraph1 key="1" nickname={nickname} next={paragraphStep} />}
-          {currentStep === 2 && <Paragraph2 key="2" next={paragraphStep} />}
-          {currentStep === 3 && <Paragraph3 key="3" />}
-          {currentStep === 4 && <Paragraph4 key="4" nickname={nickname} />}
+          {currentStep === 1 && <Paragraph1 key="1" nickname={nickname} onSkip={onSkip} />}
+          {currentStep === 2 && <Paragraph2 key="2" onSkip={onSkip} />}
+          {currentStep === 3 && <Paragraph3 key="3" onSkip={onSkip} />}
+          {currentStep === 4 && (
+            <Paragraph4
+              key="4"
+              nickname={nickname}
+              onSkip={() => {
+                // TODO : button 빠르게 나타내기
+              }}
+            />
+          )}
         </AnimatePresence>
       </article>
 
@@ -142,78 +149,53 @@ const useParagraphStep = () => {
 };
 
 type NicknameProps = Pick<Props, 'nickname'>;
+type SkipProps = { onSkip: () => void };
 
-const Paragraph1 = ({ nickname, next }: NicknameProps & { next: () => void }) => {
+const Paragraph1 = ({ nickname, onSkip }: NicknameProps & SkipProps) => {
   return (
-    <StaggerW onSkip={next}>
+    <SkipStaggerWrapper onSkip={onSkip}>
       <p>안녕하세요!</p>
       <p>
         <strong>{nickname}</strong>님의 커리어 DNA 연구소에
       </p>
       <p>오신 걸 환영해요.</p>
-    </StaggerW>
+    </SkipStaggerWrapper>
   );
 };
 
-const Paragraph2 = ({ next }: { next: () => void }) => {
+const Paragraph2 = ({ onSkip }: SkipProps) => {
   return (
-    <StaggerW onSkip={next}>
+    <SkipStaggerWrapper onSkip={onSkip}>
       <p>와우!</p>
       <p>당신이 우리 연구를 도우러 온</p>
       <p>
         <strong>새로운 연구원</strong>이군요.
       </p>
-    </StaggerW>
+    </SkipStaggerWrapper>
   );
 };
 
-const Paragraph3 = () => {
+const Paragraph3 = ({ onSkip }: SkipProps) => {
   return (
-    <StaggerWrapper>
+    <SkipStaggerWrapper onSkip={onSkip}>
       <p>저는 당신을 이끌어 줄</p>
       <p>
         <strong>Dr. 왓슨</strong>이라고 해요.
       </p>
       <p>부담없이 따라와주세요!</p>
-    </StaggerWrapper>
+    </SkipStaggerWrapper>
   );
 };
 
-const Paragraph4 = ({ nickname }: NicknameProps) => {
+const Paragraph4 = ({ nickname, onSkip }: NicknameProps & SkipProps) => {
   return (
-    <StaggerWrapper>
+    <SkipStaggerWrapper onSkip={onSkip}>
       <p>아! 모든 연구는 {nickname} 님에게</p>
       <p>
         <strong>익명</strong>으로 비밀리에 전달되니
       </p>
       <p>걱정하지 마세요.</p>
-    </StaggerWrapper>
-  );
-};
-
-const StaggerW = ({ children, onSkip }: PropsWithChildren<{ onSkip?: () => void }>) => {
-  const [scope, animate] = useAnimate();
-  const animation = useRef<null | AnimationPlaybackControls>(null);
-
-  useEffect(() => {
-    animation.current = animate('div', { opacity: 1, scale: 1, y: [10, 0] }, { duration: 0.5, delay: stagger(0.5) });
-  }, []);
-
-  const onClick = async () => {
-    animation.current = await animate('div', { opacity: 1, scale: 1, y: [1, 0] }, { duration: 0.1 });
-    setTimeout(function () {
-      onSkip && onSkip();
-    }, 500);
-  };
-
-  return (
-    <m.article ref={scope} css={wrapperCss} onClick={onClick}>
-      {Children.toArray(children).map((paragraph, index) => (
-        <m.div key={index} css={HEAD_1} variants={fadeInUpVariants}>
-          {paragraph}
-        </m.div>
-      ))}
-    </m.article>
+    </SkipStaggerWrapper>
   );
 };
 
@@ -230,6 +212,52 @@ const useCTAButtonVisible = () => {
 
   return { isCTAButtonVisible };
 };
+
+interface SkipStaggerWrapperProps extends PropsWithChildren {
+  onSkip: () => void;
+  wrapperOverrideCss?: Interpolation<Theme>;
+  staggerDelay?: number;
+  paragraphVariants?: Variants;
+}
+
+const SkipStaggerWrapper = ({
+  children,
+  onSkip,
+  wrapperOverrideCss,
+  staggerDelay = 0.5,
+  paragraphVariants = fadeInUpVariants,
+}: SkipStaggerWrapperProps) => {
+  const [scope, animate] = useAnimate();
+
+  const onClick = async () => {
+    if (!scope.current) return;
+
+    await animate('div', { opacity: 1, scale: 1, y: [1, 0] }, { duration: 0.1 });
+
+    setTimeout(onSkip, staggerDelay * 1000);
+  };
+
+  useEffect(() => {
+    animate('div', { opacity: 1, scale: 1, y: [10, 0] }, { duration: staggerDelay, delay: stagger(staggerDelay) });
+  }, [animate, staggerDelay]);
+
+  useDidMount(() => {
+    if (document) {
+      document.body.addEventListener('click', onClick);
+    }
+  });
+
+  return (
+    <m.article ref={scope} css={[wrapperCss, wrapperOverrideCss]}>
+      {Children.toArray(children).map((paragraph, index) => (
+        <m.div key={index} css={HEAD_1} variants={paragraphVariants}>
+          {paragraph}
+        </m.div>
+      ))}
+    </m.article>
+  );
+};
+
 const wrapperCss = css`
   display: flex;
   flex-direction: column;
