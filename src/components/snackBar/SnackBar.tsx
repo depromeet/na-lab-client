@@ -1,3 +1,4 @@
+import { type MouseEventHandler } from 'react';
 import { css, type Theme } from '@emotion/react';
 
 import { type SnackBarProps } from '~/store/snackBar';
@@ -30,8 +31,13 @@ type DeleteButtonProps = Pick<SnackBarProps, 'deleteElement' | 'id'>;
 const DeleteButton = ({ id, deleteElement }: DeleteButtonProps) => {
   const { removeSnackBarById } = useSnackBar();
 
+  const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
+    removeSnackBarById(id);
+  };
+
   return (
-    <button type="button" onClick={() => removeSnackBarById(id)} css={deleteButtonCss}>
+    <button type="button" onClick={onClick} css={deleteButtonCss}>
       {deleteElement}
     </button>
   );
