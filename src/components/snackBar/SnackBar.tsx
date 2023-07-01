@@ -12,6 +12,8 @@ const Content = ({ content }: Pick<SnackBarProps, 'content'>) => {
 const contentCss = (theme: Theme) => css`
   ${BODY_1};
 
+  cursor: pointer;
+
   z-index: ${theme.zIndex.fixed};
 
   width: fit-content;
