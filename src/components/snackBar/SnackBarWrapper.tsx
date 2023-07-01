@@ -6,9 +6,11 @@ import { defaultFadeInUpVariants } from '~/constants/motions';
 import { snackBarsAtom } from '~/store/snackBar';
 
 import SnackBar from './SnackBar';
+import useSnackBar from './useSnackBar';
 
 const SnackBarWrapper = () => {
   const snackBars = useAtomValue(snackBarsAtom);
+  const { removeSnackBarById } = useSnackBar();
 
   return (
     <m.section css={wrapperCss}>
@@ -21,7 +23,10 @@ const SnackBarWrapper = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            onClick={snackBar.onClick}
+            onClick={(e) => {
+              if (snackBar.onClick) snackBar.onClick(e);
+              removeSnackBarById(snackBar.id);
+            }}
           >
             <SnackBar.Content
               content={
