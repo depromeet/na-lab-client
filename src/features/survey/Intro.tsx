@@ -20,7 +20,7 @@ interface StepProps {
 
 const Intro = ({ next }: StepProps) => {
   const { currentStep, paragraphStep } = useParagraphStep();
-  const { isCTAButtonVisible } = useCTAButtonVisible();
+  const { isCTAButtonVisible, skip: onCTAButtonVisibleSkip } = useCTAButtonVisible();
 
   if (currentStep === 4) {
     return (
@@ -34,7 +34,7 @@ const Intro = ({ next }: StepProps) => {
 
         <article css={articleCss}>
           <AnimatePresence mode="wait">
-            {currentStep === 4 && <Paragraph4 key="4" onSkip={paragraphStep} />}
+            {currentStep === 4 && <Paragraph4 key="4" onSkip={onCTAButtonVisibleSkip} />}
           </AnimatePresence>
         </article>
 
