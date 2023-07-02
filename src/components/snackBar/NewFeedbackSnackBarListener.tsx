@@ -5,6 +5,7 @@ import { css } from '@emotion/react';
 import useGetFeedbackSummaryBySurveyId from '~/hooks/api/feedbacks/useGetFeedbackSummaryBySurveyId';
 import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
+import recordEvent from '~/utils/event';
 
 import useSnackBar from './useSnackBar';
 
@@ -36,6 +37,7 @@ const NewFeedbackSnackBarListener: FC = () => {
             </>
           ),
           onClick: () => {
+            recordEvent({ action: '새로운 피드백 스낵바 클릭', value: `${feedbackSummary.new_feedback_count}개` });
             router.push('/result');
           },
         });
