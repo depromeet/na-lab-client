@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { AnimatePresence, m } from 'framer-motion';
@@ -6,12 +5,11 @@ import introBgPng from 'public/images/intro/intro_bg.png';
 import introBgWebp from 'public/images/intro/intro_bg.webp';
 
 import CTAButton from '~/components/button/CTAButton';
+import { useCTAButtonVisible, useParagraphStep } from '~/components/intro/hooks';
 import SkipStaggerWrapper from '~/components/intro/SkipStaggerWrapper';
 import WatsonCharacter from '~/components/watson/WatsonCharacter';
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
-import useBoolean from '~/hooks/common/useBoolean';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
-import useStep from '~/hooks/step/useStep';
 import recordEvent from '~/utils/event';
 
 import IntroHeader from '../../../components/intro/IntroHeader';
@@ -120,26 +118,6 @@ const CTAVariants = {
   },
 };
 
-const 문구_수 = 4;
-const 매_문구_지속시간 = 3500;
-
-const useParagraphStep = () => {
-  const { currentStep, next: paragraphStep } = useStep({ initial: 1, max: 문구_수 });
-
-  useEffect(() => {
-    const interval = setInterval(paragraphStep, 매_문구_지속시간);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [paragraphStep]);
-
-  return {
-    currentStep,
-    paragraphStep,
-  };
-};
-
 type NicknameProps = Pick<Props, 'nickname'>;
 type SkipProps = { onSkip: () => void };
 
@@ -189,18 +167,4 @@ const Paragraph4 = ({ nickname, onSkip }: NicknameProps & SkipProps) => {
       <p>걱정하지 마세요.</p>
     </SkipStaggerWrapper>
   );
-};
-
-const useCTAButtonVisible = () => {
-  const [isCTAButtonVisible, _, setTrue] = useBoolean(false);
-
-  useEffect(() => {
-    const timeout = setTimeout(setTrue, 매_문구_지속시간 * 문구_수);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [setTrue]);
-
-  return { isCTAButtonVisible, skip: setTrue };
 };
