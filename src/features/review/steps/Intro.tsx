@@ -1,17 +1,17 @@
-import { Children, type PropsWithChildren, useEffect } from 'react';
+import { useEffect } from 'react';
 import Image from 'next/image';
-import { css, type Interpolation, type Theme } from '@emotion/react';
-import { AnimatePresence, m, stagger, useAnimate, type Variants } from 'framer-motion';
+import { css, type Theme } from '@emotion/react';
+import { AnimatePresence, m } from 'framer-motion';
 import introBgPng from 'public/images/intro/intro_bg.png';
 import introBgWebp from 'public/images/intro/intro_bg.webp';
 
 import CTAButton from '~/components/button/CTAButton';
+import SkipStaggerWrapper from '~/components/intro/SkipStaggerWrapper';
 import WatsonCharacter from '~/components/watson/WatsonCharacter';
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 import useBoolean from '~/hooks/common/useBoolean';
 import useDidMount from '~/hooks/lifeCycle/useDidMount';
 import useStep from '~/hooks/step/useStep';
-import { HEAD_1 } from '~/styles/typo';
 import recordEvent from '~/utils/event';
 
 import { fixedBottomCss } from '../style';
@@ -203,81 +203,4 @@ const useCTAButtonVisible = () => {
   }, [setTrue]);
 
   return { isCTAButtonVisible, skip: setTrue };
-};
-
-interface SkipStaggerWrapperProps extends PropsWithChildren {
-  onSkip: () => void;
-  wrapperOverrideCss?: Interpolation<Theme>;
-  staggerDelay?: number;
-  paragraphVariants?: Variants;
-}
-
-const SkipStaggerWrapper = ({
-  children,
-  onSkip,
-  wrapperOverrideCss,
-  staggerDelay = 0.5,
-  paragraphVariants = fadeInUpVariants,
-}: SkipStaggerWrapperProps) => {
-  const [scope, animate] = useAnimate();
-
-  const onClick = async () => {
-    if (!scope.current) return;
-
-    await animate('div', { opacity: 1, scale: 1, y: [1, 0] }, { duration: 0.1 });
-    setTimeout(onSkip, staggerDelay * 1000);
-  };
-
-  useEffect(() => {
-    animate('div', { opacity: 1, scale: 1, y: [10, 0] }, { duration: staggerDelay, delay: stagger(staggerDelay) });
-  }, [animate, staggerDelay]);
-
-  useDidMount(() => {
-    if (document) {
-      document.body.addEventListener('click', onClick);
-    }
-
-    return () => {
-      if (document) {
-        document.body.removeEventListener('click', onClick);
-      }
-    };
-  });
-
-  return (
-    <m.article ref={scope} css={[wrapperCss, wrapperOverrideCss]}>
-      {Children.toArray(children).map((paragraph, index) => (
-        <m.div key={index} css={HEAD_1} variants={paragraphVariants}>
-          {paragraph}
-        </m.div>
-      ))}
-    </m.article>
-  );
-};
-
-const wrapperCss = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-`;
-
-const fadeInUpVariants: Variants = {
-  initial: {
-    opacity: 0,
-    y: 10,
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
-  exit: {
-    opacity: 0,
-    y: 10,
-    transition: { duration: 0.5, ease: defaultEasing },
-  },
 };
