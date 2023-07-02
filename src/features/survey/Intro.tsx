@@ -1,14 +1,16 @@
-import { type PropsWithChildren, useEffect } from 'react';
+import { useEffect } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { AnimatePresence, m } from 'framer-motion';
+import introBgPng from 'public/images/intro/intro_bg.png';
+import introBgWebp from 'public/images/intro/intro_bg.webp';
 
 import CTAButton from '~/components/button/CTAButton';
+import IntroHeader from '~/components/intro/IntroHeader';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import WatsonCharacter from '~/components/watson/WatsonCharacter';
-import { defaultFadeInVariants } from '~/constants/motions';
 import { RESEARCHER_NAME } from '~/constants/name';
-import { centerContainerCss, CTAVariants, imageVariant, paragraphContainerCss } from '~/features/survey/styles';
+import { CTAVariants } from '~/features/survey/styles';
 import useBoolean from '~/hooks/common/useBoolean';
 import useStep from '~/hooks/step/useStep';
 
@@ -21,29 +23,58 @@ const Intro = ({ next }: StepProps) => {
   const { currentStep } = useParagraphStep();
   const { isCTAButtonVisible } = useCTAButtonVisible();
 
+  if (currentStep === 4) {
+    return (
+      <section css={sectionCss}>
+        <picture css={pictureCss}>
+          <source srcSet="/images/survey/intro-image-4.webp" type="image/webp" />
+          <Image src="/images/survey/intro-image-4.png" alt="나의 질문 폼 생성" fill />
+        </picture>
+
+        <IntroHeader />
+        <article css={articleCss}>
+          <AnimatePresence mode="wait">{currentStep === 4 && <Paragraph4 key="4" />}</AnimatePresence>
+        </article>
+        {isCTAButtonVisible && (
+          <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
+            <CTAButton onClick={next}>생성하기</CTAButton>
+          </m.div>
+        )}
+      </section>
+    );
+  }
+
   return (
     <section css={sectionCss}>
-      <AnimatePresence mode="wait">
-        {[1, 2, 3].includes(currentStep) && (
-          <WatsonContainer>
-            {currentStep === 1 && <Paragraph1 key="1" />}
-            {currentStep === 2 && <Paragraph2 key="2" />}
-            {currentStep === 3 && <Paragraph3 key="3" />}
-          </WatsonContainer>
-        )}
-        {currentStep === 4 && <Paragraph4 key="4" />}
-      </AnimatePresence>
+      <picture css={pictureCss}>
+        <source srcSet={introBgWebp.src} type="image/webp" />
+        <Image src={introBgPng} alt="nalab intro" fill />
+      </picture>
 
-      {isCTAButtonVisible && (
-        <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
-          <CTAButton onClick={next}>생성하기</CTAButton>
-        </m.div>
-      )}
+      <IntroHeader />
+      <article css={articleCss}>
+        <AnimatePresence mode="wait">
+          {[1, 2, 3].includes(currentStep) && (
+            <>
+              {currentStep === 1 && <Paragraph1 key="1" />}
+              {currentStep === 2 && <Paragraph2 key="2" />}
+              {currentStep === 3 && <Paragraph3 key="3" />}
+            </>
+          )}
+        </AnimatePresence>
+      </article>
+
+      <WatsonCharacter />
     </section>
   );
 };
 
 export default Intro;
+
+const articleCss = css`
+  margin-bottom: 42px;
+  padding-top: 126px;
+`;
 
 const Paragraph1 = () => {
   return (
@@ -83,53 +114,12 @@ const Paragraph3 = () => {
 
 const Paragraph4 = () => {
   return (
-    <m.section css={surveySectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-      <picture css={pictureCss}>
-        <source srcSet="/images/survey/intro-image-4.webp" type="image/webp" />
-        <Image src="/images/survey/intro-image-4.png" alt="나의 질문 폼 생성" fill />
-      </picture>
-
-      <StaggerWrapper>
-        <p>지금, 피드백을 받을 수 있는 </p>
-        <p>
-          <strong>나의 질문 폼</strong>을 생성해보세요!
-        </p>
-      </StaggerWrapper>
-    </m.section>
-  );
-};
-
-const surveySectionCss = (theme: Theme) => css`
-  position: relative;
-  z-index: ${theme.zIndex.aboveFixed};
-
-  width: 100%;
-  height: 100%;
-  padding-top: 126px;
-
-  background-color: ${theme.colors.white};
-
-  & strong {
-    font-weight: bold;
-    color: ${theme.colors.primary_300};
-  }
-`;
-
-const WatsonContainer = ({ children }: PropsWithChildren) => {
-  return (
-    <article css={[backgroundCss]}>
-      <picture css={pictureCss}>
-        <source srcSet="/images/intro/intro_bg.webp" type="image/webp" />
-        <Image src="/images/intro/intro_bg.png" alt="나의 질문 폼 생성" fill />
-      </picture>
-
-      <section css={paragraphContainerCss}>{children}</section>
-      <section css={centerContainerCss}>
-        <m.div variants={imageVariant} initial="initial" animate="animate" exit="exit">
-          <WatsonCharacter />
-        </m.div>
-      </section>
-    </article>
+    <StaggerWrapper>
+      <p>지금, 피드백을 받을 수 있는 </p>
+      <p>
+        <strong>나의 질문 폼</strong>을 생성해보세요!
+      </p>
+    </StaggerWrapper>
   );
 };
 
@@ -149,17 +139,17 @@ const pictureCss = (theme: Theme) => css`
   }
 `;
 
-const backgroundCss = css`
-  width: 100%;
-  height: 100vh;
-`;
-
 const sectionCss = (theme: Theme) => css`
   position: relative;
+  z-index: ${theme.zIndex.aboveFixed};
+
   width: 100%;
+  height: 100%;
+
+  background-color: ${theme.colors.white};
 
   & strong {
-    font-weight: 500;
+    font-weight: bold;
     color: ${theme.colors.primary_300};
   }
 `;
