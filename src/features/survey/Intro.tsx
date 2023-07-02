@@ -66,7 +66,6 @@ const Intro = ({ next }: StepProps) => {
           )}
         </AnimatePresence>
       </article>
-
       <WatsonCharacter />
     </m.section>
   );

@@ -22,6 +22,7 @@ interface Props extends StepProps {
 
 const Intro = ({ nickname, next }: Props) => {
   const { currentStep, paragraphStep: onSkip } = useParagraphStep();
+  console.log('currentStep: ', currentStep);
   const { isCTAButtonVisible, skip: onCTAButtonVisibleSkip } = useCTAButtonVisible();
 
   useDidMount(() => {

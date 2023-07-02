@@ -15,7 +15,11 @@ const useStep = ({ initial = 0, max }: Props) => {
 
   function next(n?: number) {
     if (currentStep >= (max || Infinity)) return;
-    setCurrentStep((prevStep) => prevStep + (n ? n : 1));
+    setCurrentStep((prevStep) => {
+      if (prevStep === (max || Infinity)) return prevStep;
+
+      return prevStep + (n ? n : 1);
+    });
   }
 
   return { currentStep, setCurrentStep, prev, next };
