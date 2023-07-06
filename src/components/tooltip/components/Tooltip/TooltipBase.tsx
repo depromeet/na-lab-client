@@ -26,7 +26,6 @@ export const TooltipBase = forwardRef(function Tooltip(
         initial="initial"
         animate="animate"
         exit="exit"
-        transition={{ type: 'spring' }}
       >
         <div ref={contentRef} css={(theme) => backgroundCss(theme, anchorHeight, paddingX, paddingY, borderRadius)}>
           <div
@@ -116,8 +115,8 @@ const tooltipVariants: Variants = {
   },
   animate: {
     opacity: 1,
-    scale: 1,
-    transition: { delay: 0.5 },
+    scale: [0, 1.2, 1],
+    transition: { delay: 0.5, duration: 0.4, type: 'spring' },
   },
   exit: {
     opacity: 0,
