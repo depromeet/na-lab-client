@@ -12,13 +12,26 @@ import { type TooltipProps } from '../../types';
 import { mergeRefs } from '../../utils/mergeRefs';
 import { TooltipBase } from './TooltipBase';
 
-export function FloatingTooltip({ isShowing, children, ...props }: Omit<TooltipProps, 'interactive'>) {
+export function FloatingTooltip({ isShowing, children, onChildrenClick, ...props }: Omit<TooltipProps, 'interactive'>) {
   const { targetRef } = useTooltip();
   const childRef = children.ref;
   const isMounted = useIsMounted();
 
+  useEffect(() => {
+    if (targetRef) {
+      const currentTargetRef = targetRef.current;
+
+      if (currentTargetRef && onChildrenClick) {
+        currentTargetRef.addEventListener('click', onChildrenClick);
+
+        return () => {
+          currentTargetRef.removeEventListener('click', onChildrenClick);
+        };
+      }
+    }
+  }, [targetRef, onChildrenClick]);
+
   const child = cloneElement(children, {
-    onClick: props.onChildrenClick,
     ref: childRef ? mergeRefs(targetRef, childRef) : targetRef,
   });
 
