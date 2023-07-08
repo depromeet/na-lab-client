@@ -158,10 +158,10 @@ const getTendencyGroupCount = (
 ) => {
   const groupCount = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
 
-  tendencyCountData.forEach(({ content }) => {
+  tendencyCountData.forEach(({ content, count }) => {
     groupList.forEach((group) => {
       if (tendencyGroupKeyword[group].includes(content)) {
-        groupCount[group] += 1;
+        groupCount[group] += count;
       }
     });
   });
@@ -169,16 +169,15 @@ const getTendencyGroupCount = (
   return groupCount;
 };
 
-const getTendencyMaxGroup = (groupCount: Record<Group, number>) => {
-  // const maxGroupCount = Math.max(...Object.values(groupCount));
+const getTendencyGroupResult = (groupCount: Record<Group, number>) => {
+  const maxGroupCount = Math.max(...Object.values(groupCount));
   // TODo : 4개 => maxGroupCount === 4
-  const maxGroup = groupList.filter((group) => groupCount[group] === 4);
+  const maxGroup = groupList.filter((group) => groupCount[group] === maxGroupCount);
 
   if (maxGroup.length === 1) {
     return maxGroup[0];
   }
-  console.log('maxGroup: ', maxGroup);
 };
 
 const groupCount = getTendencyGroupCount(tendency_choices);
-export const testData = getTendencyMaxGroup(groupCount);
+export const testData = getTendencyGroupResult(groupCount);
