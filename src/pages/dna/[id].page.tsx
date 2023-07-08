@@ -6,11 +6,13 @@ import FixedSpinner from '~/components/loading/FixedSpinner';
 import LoadingHandler from '~/components/loading/LoadingHandler';
 import SEO from '~/components/SEO/SEO';
 import useGetTendencyFeedbackBySurveyId from '~/hooks/api/feedbacks/useGetTendencyFeedbackBySurveyId';
+import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 import useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurveyId';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 
 import LoadedDna from './LoadedDna';
+import { type DnaOwnerStatus } from './type';
 
 const Dna = () => {
   const router = useInternalRouter();
@@ -18,13 +20,14 @@ const Dna = () => {
 
   const { data: userInfo, isLoading } = useGetUserInfoBySurveyId(String(surveyId), { enabled: Boolean(surveyId) });
   const { tendencies } = useSortedTendencies(surveyId);
+  const { dnaOwnerStatus } = useDanOnwerStatus(surveyId);
 
   return (
     <>
       <SEO />
 
-      <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
-        <LoadedDna userInfo={userInfo} topTendencies={tendencies} />
+      <LoadingHandler isLoading={isLoading || dnaOwnerStatus === 'loading'} fallback={<FixedSpinner />}>
+        <LoadedDna dnaOwnerStatus={dnaOwnerStatus} userInfo={userInfo} topTendencies={tendencies} />
       </LoadingHandler>
     </>
   );
@@ -52,4 +55,29 @@ const useSortedTendencies = (surveyId: string | string[] | undefined) => {
   }, [isSuccess]);
 
   return { tendencies };
+};
+
+const useDanOnwerStatus = (surveyId: string | string[] | undefined) => {
+  const [dnaOwnerStatus, setDnaOwnerStatus] = useState<DnaOwnerStatus>('loading');
+
+  const { data, sessionStatus } = useGetSurveyIdByUserStatus();
+
+  useDidUpdate(() => {
+    if (sessionStatus === 'loading') return;
+    if (sessionStatus === 'unauthenticated') {
+      setDnaOwnerStatus('other');
+
+      return;
+    }
+
+    if (!data) return;
+
+    if (data.survey_id === String(surveyId)) {
+      setDnaOwnerStatus('current_user');
+    } else {
+      setDnaOwnerStatus('other');
+    }
+  }, [data, sessionStatus]);
+
+  return { dnaOwnerStatus };
 };

@@ -11,13 +11,16 @@ import DnaBanner from '~/features/dna/DnaBanner';
 import Feedback from '~/features/feedback/Feedback';
 import type useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurveyId';
 
+import { type DnaOwnerStatus } from './type';
+
 interface Props {
+  dnaOwnerStatus: DnaOwnerStatus;
   userInfo: ReturnType<typeof useGetUserInfoBySurveyId>['data'];
   topTendencies: Softskills[];
 }
 
-const LoadedDna: FC<Props> = ({ userInfo, topTendencies }) => {
-  console.warn(userInfo, topTendencies);
+const LoadedDna: FC<Props> = ({ dnaOwnerStatus, userInfo, topTendencies }) => {
+  console.warn(userInfo, topTendencies, dnaOwnerStatus);
 
   return (
     <>
