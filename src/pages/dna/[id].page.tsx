@@ -10,8 +10,12 @@ import Pill from '~/components/pill/Pill';
 import SEO from '~/components/SEO/SEO';
 import DnaBanner from '~/features/dna/DnaBanner';
 import Feedback from '~/features/feedback/Feedback';
+import useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurveyId';
 
 const Dna = () => {
+  const { data: userInfo } = useGetUserInfoBySurveyId('123');
+  console.warn(userInfo);
+
   // TODO semantic tag
   // TODO css 변수명 수정
   // TODO color css 변경
@@ -23,9 +27,14 @@ const Dna = () => {
       {/*
       // TODO 나의 커리어 DNA vs 하유나님의 커리어 DNA
        */}
-      <Header title="나의 커리어 DNA" isContainRemainer />
+      <Header title="나의 커리어 명함" isContainRemainer />
+
       <section css={dnaPageWrapperCss}>
         <Image css={dnaImageCss} src="/images/result/dna.png" alt="DNA 이미지" width={329} height={405} />
+
+        {/* 
+       // TODO 상조갓의 인풋 컴포넌트 + 수미갓의 데이터로 대체
+        */}
         <div css={titleCss}>굴하지 않는 개척자 DNA를 가진 UXUI 디자이너</div>
         <section css={myInfoListWrapperCss}>
           <li css={myInfoListCss}>어딜가서나 자연스럽게 리더의 역할을 맡아요.</li>
