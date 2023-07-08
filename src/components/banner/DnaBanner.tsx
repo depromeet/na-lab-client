@@ -37,7 +37,7 @@ const DnaBanner = ({ title = '독창적인 트렌드세터', desc = '특별함�
 
   return (
     <div css={dnaCss}>
-      <Image css={dnaImageCss} src={dnaImage} alt="dna" width={180} height={155} />
+      <Image quality={100} css={dnaImageCss} src={dnaImage} alt="dna" width={180} height={155} />
 
       <div css={textWrapperCss}>
         <div css={dnaDesc}>{desc}</div>
