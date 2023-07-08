@@ -149,7 +149,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
           </BottomSheet>
 
           <main>
-            <DnaBanner responseCount={feedbackSummaryData.all_feedback_count} />
+            <DnaBanner surveyId={surveyId} responseCount={feedbackSummaryData.all_feedback_count} />
 
             <section css={upperSectionCss}>
               <article>
