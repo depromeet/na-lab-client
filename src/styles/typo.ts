@@ -7,6 +7,13 @@ export const HEAD_1 = css`
   letter-spacing: -0.3px;
 `;
 
+export const HEAD_1_BOLD = css`
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 140%;
+  letter-spacing: -0.3px;
+`;
+
 export const HEAD_2_BOLD = css`
   font-weight: 500;
   font-size: 1.125rem;
