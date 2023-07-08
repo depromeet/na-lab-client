@@ -27,7 +27,7 @@ const Feedback = ({ reply, is_read, reviewer: { nickname, collaboration_experien
         {collaboration_experience && <CollaborationBadge />}
       </div>
       <span css={bookmarkIconCss}>
-        <BookmarkIcon isView={true} isBookmarked={false} />
+        <BookmarkIcon isBookmarked={false} />
       </span>
     </div>
   );

@@ -66,5 +66,5 @@ export function Check() {
 }
 
 export function Bookmark() {
-  return <BookmarkIcon isView={true} isBookmarked={true} />;
+  return <BookmarkIcon isBookmarked={true} />;
 }
