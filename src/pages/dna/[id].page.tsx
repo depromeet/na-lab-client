@@ -16,6 +16,7 @@ import { getResultGroup, type Group } from '~/utils/resultLogic';
 import LoadedDna from './LoadedDna';
 import { type DnaOwnerStatus } from './type';
 
+// TODO: SSR > SEO 타이틀 변경
 const Dna = () => {
   const router = useInternalRouter();
   const surveyId = router.query.id;
@@ -30,8 +31,9 @@ const Dna = () => {
       <SEO />
 
       <LoadingHandler isLoading={isLoading || dnaOwnerStatus === 'loading'} fallback={<FixedSpinner />}>
-        {dnaInfo && group && (
+        {typeof surveyId === 'string' && dnaInfo && group && (
           <LoadedDna
+            surveyId={surveyId}
             group={group}
             dnaInfo={dnaInfo}
             dnaOwnerStatus={dnaOwnerStatus}
