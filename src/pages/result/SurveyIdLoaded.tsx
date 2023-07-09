@@ -51,8 +51,10 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
     useGetReviewersSummaryBySurveyId(surveyId);
   const { isLoading: isAllDataLoading, data: allData } = useGetAllFeedbacksBySurveyId(surveyId);
   const tendencyCountData = getTendencyCount(allData);
-
   const { fireToast } = useToast();
+
+  // 결과 그룹 도출
+  // const resultGroup = getResultGroup(tendencyCountData);
 
   const [isShowing, toggle, _, setFalse] = useBoolean(false);
   useScrollLock({ lock: isShowing });
