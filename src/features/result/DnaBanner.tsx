@@ -5,7 +5,10 @@ import { css, type Theme } from '@emotion/react';
 
 import Button from '~/components/button/Button';
 import HideIcon from '~/components/icons/HideIcon';
+import { DNA_MAP_BY_GROUP } from '~/constants/dna';
+import useGetTendencyFeedbackBySurveyId from '~/hooks/api/feedbacks/useGetTendencyFeedbackBySurveyId';
 import { BODY_1, BODY_2_BOLD, HEAD_1, HEAD_3_SEMIBOLD } from '~/styles/typo';
+import { getResultGroup, type Group } from '~/utils/resultLogic';
 
 interface Props {
   surveyId: string;
@@ -13,23 +16,38 @@ interface Props {
 }
 
 const MINIMUM_RESPONSE_NUMBER = 3;
+const IMAGE_MAP_BY_GROUP: Readonly<Record<Group, string>> = {
+  A: '/images/dna/01_banner.webp',
+  B: '/images/dna/02_banner.webp',
+  C: '/images/dna/03_banner.webp',
+  D: '/images/dna/04_banner.webp',
+  E: '/images/dna/05_banner.webp',
+  F: '/images/dna/06_banner.webp',
+} as const;
 
 const DnaBanner: FC<Props> = ({ surveyId, responseCount }) => {
+  const { data } = useGetTendencyFeedbackBySurveyId(surveyId, {
+    enabled: responseCount >= MINIMUM_RESPONSE_NUMBER,
+  });
+
   if (responseCount < MINIMUM_RESPONSE_NUMBER) {
     return <NotEnoughResponse responseCount={responseCount} />;
   }
 
+  if (!data) return null;
+
+  // TODO: API 개발 이후 data 사용하도록 대응
+  const group = getResultGroup([{ selected_count: 5, choice_id: '1', content: '리더십_있는', order: 1 }]);
+  const DNA = DNA_MAP_BY_GROUP[group];
+
   return (
     <section css={[sectionBaseCss, dnaSectionCss]}>
       <small css={[textBaseCss, BODY_1]}>나의 커리어 DNA는?</small>
-      {/* 
-      // TODO: 결과 알고리즘 대응
-      */}
-      <p css={[textBaseCss, HEAD_1]}>굴하지 않는 개척자</p>
-      <Link href={`/dna/${surveyId}`}>
+      <p css={[textBaseCss, HEAD_1]}>{DNA.title}</p>
+      <Link href={`/dna/${surveyId}`} css={anchorCss}>
         <Button css={buttonCss}>자세히 보기</Button>
       </Link>
-      <Image css={imageCss} src="/images/dna/05_banner.webp" alt="na lab" fill />
+      <Image quality={100} css={imageCss} src={IMAGE_MAP_BY_GROUP[group]} alt="na lab" fill />
     </section>
   );
 };
@@ -43,6 +61,10 @@ const dnaSectionCss = css`
 const textBaseCss = css`
   color: #fff;
   text-shadow: 0 0 4px 0 rgb(132 155 218 / 70%);
+`;
+
+const anchorCss = css`
+  all: unset;
 `;
 
 const buttonCss = css`
@@ -78,11 +100,8 @@ const NotEnoughResponse: FC<NotEnoughResponseProps> = ({ responseCount }) => {
 const sectionBaseCss = css`
   position: relative;
   transform: translateX(-23px);
-
   width: calc(100% + 23px + 23px);
   height: 170px;
-
-  background-color: lightgreen;
 `;
 
 const notEnoughSectionCss = css`
