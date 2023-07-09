@@ -1,4 +1,4 @@
-type Group = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
+export type Group = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
 const groupList: Group[] = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 // NOTE:  : Record<string, Record<Softskills, number>>  이런식으로 하고 싶었는데 실패
