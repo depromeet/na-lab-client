@@ -113,7 +113,6 @@ const getSecondaryFiltering = (groupScore: Record<Group, number>, maxGroup: Grou
 export const getResultGroup = (tendencyCountData: TendencyCountData[]): Group => {
   const { groupCount, groupScore } = getTendencyGroup(tendencyCountData);
   const maxGroupCount = Math.max(...Object.values(groupCount));
-  console.log('groupCount: ', groupCount);
 
   const maxGroup = groupList.filter((group) => groupCount[group] === maxGroupCount);
   // 1차 결과 도출 : 키워드 선택 개수를 합산해서 가장 많이 선택된 그룹
