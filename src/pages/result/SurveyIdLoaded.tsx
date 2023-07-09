@@ -26,6 +26,7 @@ import ParticipatingReviewerChart from '~/features/feedback/ParticipatingReviewe
 import QuestionListRow from '~/features/feedback/QuestionListRow';
 import ResearchMoveAnchor from '~/features/feedback/ResearchMoveAnchor';
 import MultipleChoiceAnswer from '~/features/multipleChoiceAnswer/MultipleChoiceAnswer';
+import DnaBanner from '~/features/result/DnaBanner';
 import { CTAVariants, fixedBottomCss, imageVariant } from '~/features/survey/styles';
 import useGetAllFeedbacksBySurveyId, {
   type ChoiceQuestionFeedback,
@@ -150,6 +151,8 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
           </BottomSheet>
 
           <main>
+            <DnaBanner surveyId={surveyId} responseCount={feedbackSummaryData.all_feedback_count} />
+
             <section css={upperSectionCss}>
               <article>
                 <h2 css={titleCss}>
