@@ -1,6 +1,6 @@
 import { type Group } from '~/utils/resultLogic';
 
-interface DNA {
+export interface DNA {
   title: string;
   descriptions: readonly string[];
   fitDna: {

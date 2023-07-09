@@ -36,8 +36,7 @@ const DnaBanner: FC<Props> = ({ surveyId, responseCount }) => {
 
   if (!data) return null;
 
-  // TODO: API 개발 이후 data 사용하도록 대응
-  const group = getResultGroup([{ selected_count: 5, choice_id: '1', content: '리더십_있는', order: 1 }]);
+  const group = getResultGroup(data.question_feedback[0].choices);
   const DNA = DNA_MAP_BY_GROUP[group];
 
   return (
