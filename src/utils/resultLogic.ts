@@ -68,7 +68,7 @@ const tendencyGroupKeyword = {
 };
 
 interface TendencyCountData {
-  count: number;
+  selected_count: number;
   choice_id: string;
   content: string;
   order: number;
@@ -78,11 +78,11 @@ const getTendencyGroup = (tendencyCountData: TendencyCountData[]) => {
   const groupCount = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
   const groupScore = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
 
-  tendencyCountData.forEach(({ content, count }) => {
+  tendencyCountData.forEach(({ content, selected_count }) => {
     groupList.forEach((group) => {
       if (tendencyGroupKeyword[group].includes(content)) {
-        groupCount[group] += count;
-        groupScore[group] += tendencyGroup[group][content] * count;
+        groupCount[group] += selected_count;
+        groupScore[group] += tendencyGroup[group][content] * selected_count;
       }
     });
   });

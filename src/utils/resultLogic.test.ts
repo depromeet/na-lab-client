@@ -9,43 +9,43 @@ const TENDENCY_GROUP_TEST_DATA = [
     order: 4,
     content: '리더십_있는', // A
     choice_id: '462826061802358396',
-    count: 2,
+    selected_count: 2,
   },
   {
     order: 14,
     content: '책임감_강한', // A
     choice_id: '462826061802358406',
-    count: 2,
+    selected_count: 2,
   },
   {
     order: 3,
     content: '계획적인', // A, B
     choice_id: '462826061802358395',
-    count: 1,
+    selected_count: 1,
   },
   {
     order: 1,
     content: '완벽주의적인', // B
     choice_id: '462826061802358393',
-    count: 1,
+    selected_count: 1,
   },
   {
     order: 2,
     content: '현실적인', // B
     choice_id: '462826061802358394',
-    count: 1,
+    selected_count: 1,
   },
   {
     order: 6,
     content: '성실한', // B, F
     choice_id: '462826061802358394',
-    count: 1,
+    selected_count: 1,
   },
   {
     order: 5,
     content: '긍정적인', // C
     choice_id: '462826061802358397',
-    count: 1,
+    selected_count: 1,
   },
 ];
 
@@ -58,7 +58,7 @@ const TENDENCY_GROUP_TEST_DATA_2 = [
     order: 7,
     content: '논리적인', // B
     choice_id: '462826061802358398',
-    count: 1,
+    selected_count: 1,
   },
 ];
 
@@ -70,7 +70,7 @@ const TENDENCY_GROUP_TEST_DATA_3 = [
     order: 7,
     content: '꼼꼼한', // B
     choice_id: '462826061802358398',
-    count: 1,
+    selected_count: 1,
   },
 ];
 
