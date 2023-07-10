@@ -1,5 +1,6 @@
 import { css, type Theme } from '@emotion/react';
 
+import BookmarkIcon from '~/components/icons/BookmarkIcon';
 import { POSITION } from '~/constants/position';
 import { BODY_1, BODY_2_REGULAR } from '~/styles/typo';
 
@@ -25,6 +26,9 @@ const Feedback = ({ reply, is_read, reviewer: { nickname, collaboration_experien
         <AnonymousPositionBadge position={position} nickname={nickname} />
         {collaboration_experience && <CollaborationBadge />}
       </div>
+      <span css={bookmarkIconCss}>
+        <BookmarkIcon isBookmarked={false} />
+      </span>
     </div>
   );
 };
@@ -83,4 +87,10 @@ const AnonymousPositionBadgeCss = (theme: Theme, position: ReviewerPosition) => 
 
   background-color: ${BACKGROUND_COLOR_BY_POSITION(position, theme)};
   border-radius: 8px;
+`;
+
+const bookmarkIconCss = css`
+  position: absolute;
+  right: 21px;
+  bottom: 16px;
 `;
