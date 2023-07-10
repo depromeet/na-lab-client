@@ -1,5 +1,3 @@
-import * as fs from 'fs/promises';
-import path from 'path';
 import satori from 'satori';
 
 import { type Group } from '~/utils/resultLogic';
@@ -18,12 +16,10 @@ const IMAGE_BY_GROUP: Record<Group, string> = {
 export async function getServerSideProps() {
   // 서버에서 이미지 만듬
   const ogImage = await createOGImage('변수미');
-  const { imgSrc: image } = await getImage();
 
   return {
     props: {
       ogImage,
-      image,
     },
   };
 }
@@ -42,29 +38,12 @@ function TestPage({ ogImage }: { ogImage: string }) {
 
 export default TestPage;
 
-async function getImage() {
-  const imgSrc = `/images/dna/result/A_dna.png`;
-  const filePath = path.join(process.cwd(), 'public', imgSrc);
-  try {
-    await fs.stat(filePath);
-
-    return { imgSrc, filePath };
-  } catch {
-    return {
-      imgSrc: null,
-      filePath: null,
-    };
-  }
-}
 async function createOGImage(title: string) {
   const notoSansScFont = await fetchFont();
 
   // SSR에서 주소 만드는 것은 노드 환경임
-  const { imgSrc: image, filePath } = await getImage();
-  if (!filePath) return;
 
   if (!notoSansScFont) return;
-  if (!image) return;
 
   const svg = await satori(
     <div
