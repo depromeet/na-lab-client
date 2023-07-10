@@ -13,7 +13,13 @@ export async function getServerSideProps() {
 function TestPage({ ogImage }: { ogImage: string }) {
   console.log('results: ', ogImage);
 
-  return <>{ogImage}</>;
+  return (
+    <div
+      dangerouslySetInnerHTML={{
+        __html: ogImage,
+      }}
+    />
+  );
 }
 
 export default TestPage;
@@ -42,14 +48,7 @@ export async function createOGImage(title: string) {
   console.log('svg: ', svg);
 
   return svg;
-  // // Convert the SVG to PNG with "resvg"
-  // const resvg = new Resvg(svg);
-  // const pngData = resvg.render();
-
-  // return pngData.asPng();
 }
-
-//
 
 // Pulled from the OG playground code
 async function fetchFont(text: string): Promise<ArrayBuffer | null> {
