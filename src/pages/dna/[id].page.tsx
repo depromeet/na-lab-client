@@ -6,6 +6,7 @@ import FixedSpinner from '~/components/loading/FixedSpinner';
 import LoadingHandler from '~/components/loading/LoadingHandler';
 import SEO from '~/components/SEO/SEO';
 import { type DNA, DNA_MAP_BY_GROUP } from '~/constants/dna';
+import Test from '~/features/result/Test';
 import useGetTendencyFeedbackBySurveyId from '~/hooks/api/feedbacks/useGetTendencyFeedbackBySurveyId';
 import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 import useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurveyId';
@@ -29,7 +30,7 @@ const Dna = () => {
   return (
     <>
       <SEO />
-
+      <Test />
       <LoadingHandler isLoading={isLoading || dnaOwnerStatus === 'loading'} fallback={<FixedSpinner />}>
         {typeof surveyId === 'string' && dnaInfo && group && (
           <LoadedDna
