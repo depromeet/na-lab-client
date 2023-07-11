@@ -21,7 +21,6 @@ export async function getServerSideProps() {
   const notoSansScFont = await fetchFont();
   if (!notoSansScFont) return { props: {} };
 
-  // 서버에서 이미지 만듬
   const imageOptions: SatoriOptions = {
     width: 329,
     height: 389,
@@ -36,23 +35,22 @@ export async function getServerSideProps() {
   };
 
   // group 계산 필요
-  const ogImage = await createOGImage(<DNAImageView group={'A'} name={'변수미'} />, imageOptions);
+  const ogImage = (await createOGImage(<DNAImageView group={'A'} name={'변수미'} />, imageOptions)) as Buffer;
+  const imageData = JSON.stringify({ base64: ogImage.toString('base64') });
 
   return {
     props: {
-      ogImage,
+      imageData,
     },
   };
 }
+function TestPage({ imageData }: { imageData: string }) {
+  const imageObj = JSON.parse(imageData);
+  const imageBase64 = imageObj.base64 ?? '';
 
-function TestPage({ ogImage }: { ogImage: string }) {
   return (
     <div>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: ogImage,
-        }}
-      />
+      <img src={`data:image/png;base64,${imageBase64}`} alt="dna images" />
     </div>
   );
 }

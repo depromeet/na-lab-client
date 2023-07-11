@@ -1,14 +1,14 @@
 import { type ReactNode } from 'react';
+import { Resvg } from '@resvg/resvg-js';
 import satori, { type SatoriOptions } from 'satori';
 
-export async function createOGImage(element: ReactNode, option: SatoriOptions) {
-  const notoSansScFont = await fetchFont();
-
-  if (!notoSansScFont) return;
-
+export async function createOGImage(element: ReactNode, option: SatoriOptions): Promise<Buffer> {
   const svg = await satori(element, option);
 
-  return svg;
+  const resvg = new Resvg(svg);
+  const pngData = resvg.render();
+
+  return pngData.asPng();
 }
 
 export async function fetchFont(fontFamily = 'Noto+Sans+KR', fontWeight = 700): Promise<ArrayBuffer | null> {
