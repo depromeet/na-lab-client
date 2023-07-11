@@ -1,7 +1,8 @@
-import satori from 'satori';
+import { type SatoriOptions } from 'satori/wasm';
 
 import { BASE_URL as PROD_BASE_URL } from '~/constants/url';
 import { isProd } from '~/utils/common';
+import { createOGImage, fetchFont } from '~/utils/createImage';
 import { type Group } from '~/utils/resultLogic';
 
 const BASE_URL = isProd(process.env.NODE_ENV) ? PROD_BASE_URL : 'http://localhost:3000';
@@ -17,8 +18,25 @@ const IMAGE_BY_GROUP: Record<Group, string> = {
 } as const;
 
 export async function getServerSideProps() {
+  const notoSansScFont = await fetchFont();
+  if (!notoSansScFont) return { props: {} };
+
   // 서버에서 이미지 만듬
-  const ogImage = await createOGImage('변수미');
+  const imageOptions: SatoriOptions = {
+    width: 329,
+    height: 389,
+    fonts: [
+      {
+        name: 'Noto Sans KR',
+        data: notoSansScFont,
+        weight: 700,
+        style: 'normal',
+      },
+    ],
+  };
+
+  // group 계산 필요
+  const ogImage = await createOGImage(<DNAImageView group={'A'} name={'변수미'} />, imageOptions);
 
   return {
     props: {
@@ -41,14 +59,8 @@ function TestPage({ ogImage }: { ogImage: string }) {
 
 export default TestPage;
 
-async function createOGImage(title: string) {
-  const notoSansScFont = await fetchFont();
-
-  // SSR에서 주소 만드는 것은 노드 환경임
-
-  if (!notoSansScFont) return;
-
-  const svg = await satori(
+const DNAImageView = ({ group, name }: { group: Group; name: string }) => {
+  return (
     <div
       style={{
         display: 'flex',
@@ -56,7 +68,7 @@ async function createOGImage(title: string) {
         position: 'relative',
       }}
     >
-      <img src={IMAGE_BY_GROUP.A} alt="dna" width={329} height={389} />
+      <img src={IMAGE_BY_GROUP[group]} alt="dna" width={329} height={389} />
       <span
         style={{
           position: 'absolute',
@@ -68,43 +80,8 @@ async function createOGImage(title: string) {
           zIndex: 1,
         }}
       >
-        {title}
+        {name}
       </span>
-    </div>,
-    {
-      width: 329,
-      height: 389,
-      fonts: [
-        {
-          name: 'Noto Sans KR',
-          data: notoSansScFont,
-          weight: 700,
-          style: 'normal',
-        },
-      ],
-    },
+    </div>
   );
-
-  return svg;
-}
-
-async function fetchFont(): Promise<ArrayBuffer | null> {
-  const API = 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700';
-
-  const css = await (
-    await fetch(API, {
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (BB10; Touch) AppleWebKit/537.1+ (KHTML, like Gecko) Version/10.0.0.1337 Mobile Safari/537.1+',
-      },
-    })
-  ).text();
-
-  const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/);
-
-  if (!resource) return null;
-
-  const res = await fetch(resource[1]);
-
-  return res.arrayBuffer();
-}
+};
