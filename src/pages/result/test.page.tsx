@@ -1,9 +1,12 @@
 import satori from 'satori';
 
+import { BASE_URL as PROD_BASE_URL } from '~/constants/url';
+import { isProd } from '~/utils/common';
 import { type Group } from '~/utils/resultLogic';
 
-const baseUrl = 'http://localhost:3000';
-const IMAGE_BASE_URL = baseUrl + '/images/dna/result';
+const BASE_URL = isProd(process.env.NODE_ENV) ? PROD_BASE_URL : 'http://localhost:3000';
+const IMAGE_BASE_URL = BASE_URL + '/images/dna/result';
+
 const IMAGE_BY_GROUP: Record<Group, string> = {
   A: `${IMAGE_BASE_URL}/A_dna.png`,
   B: `${IMAGE_BASE_URL}/B_dna.png`,
