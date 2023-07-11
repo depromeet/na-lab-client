@@ -1,8 +1,10 @@
 import { type SatoriOptions } from 'satori/wasm';
 
+import Button from '~/components/button/Button';
 import { BASE_URL as PROD_BASE_URL } from '~/constants/url';
 import { isProd } from '~/utils/common';
 import { createOGImage, fetchFont } from '~/utils/createImage';
+import { imageDownloadPC } from '~/utils/image';
 import { type Group } from '~/utils/resultLogic';
 
 const BASE_URL = isProd(process.env.NODE_ENV) ? PROD_BASE_URL : 'http://localhost:3000';
@@ -44,18 +46,24 @@ export async function getServerSideProps() {
     },
   };
 }
-function TestPage({ imageData }: { imageData: string }) {
+
+function ResultDownloadPage({ imageData }: { imageData: string }) {
   const imageObj = JSON.parse(imageData);
-  const imageBase64 = imageObj.base64 ?? '';
+  const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
+
+  const onImageDownload = () => {
+    imageDownloadPC(imageBase64, 'dna.png');
+  };
 
   return (
     <div>
-      <img src={`data:image/png;base64,${imageBase64}`} alt="dna images" />
+      <img src={imageBase64} alt="dna images" />
+      <Button onClick={onImageDownload}>다운로드</Button>
     </div>
   );
 }
 
-export default TestPage;
+export default ResultDownloadPage;
 
 const DNAImageView = ({ group, name }: { group: Group; name: string }) => {
   return (
