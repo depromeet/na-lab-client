@@ -1,9 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import { type SatoriOptions } from 'satori/wasm';
 
 import Button from '~/components/button/Button';
+import useToast from '~/components/toast/useToast';
 import { BASE_URL as PROD_BASE_URL } from '~/constants/url';
 import { isProd } from '~/utils/common';
 import { createOGImage, fetchFont } from '~/utils/createImage';
+import { detectMobileDevice } from '~/utils/device';
 import { imageDownloadPC } from '~/utils/image';
 import { type Group } from '~/utils/resultLogic';
 
@@ -48,10 +51,19 @@ export async function getServerSideProps() {
 }
 
 function ResultDownloadPage({ imageData }: { imageData: string }) {
+  const { fireToast } = useToast();
+
   const imageObj = JSON.parse(imageData);
   const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
 
   const onImageDownload = () => {
+    if (detectMobileDevice(window.navigator.userAgent)) {
+      fireToast({
+        content: '이미지를 꾹 눌러서 저장해주세요. ',
+      });
+
+      return;
+    }
     imageDownloadPC(imageBase64, 'dna.png');
   };
 
