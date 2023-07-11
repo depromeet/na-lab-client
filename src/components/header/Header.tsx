@@ -1,3 +1,4 @@
+import { type ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import { css, type Theme } from '@emotion/react';
 
@@ -6,12 +7,13 @@ import { HEAD_2_BOLD } from '~/styles/typo';
 
 interface Props {
   title?: string;
-  rightButton?: React.ReactNode;
+  rightButton?: ReactNode;
   onBackClick?: () => void;
   isContainRemainer?: boolean;
+  backIcon?: ReactNode;
 }
 
-const Header = ({ title, rightButton, onBackClick, isContainRemainer }: Props) => {
+const Header = ({ title, rightButton, onBackClick, isContainRemainer, backIcon }: Props) => {
   const router = useRouter();
 
   const onBack = () => {
@@ -22,7 +24,7 @@ const Header = ({ title, rightButton, onBackClick, isContainRemainer }: Props) =
     <>
       <header css={[headerCss, fixedTopCss]}>
         <button type="button" onClick={onBack} css={iconButtonCss}>
-          <ArrowIcon />
+          {backIcon ? backIcon : <ArrowIcon />}
         </button>
         {title && <h1 css={[HEAD_2_BOLD, titleCss]}>{title}</h1>}
         {rightButton}

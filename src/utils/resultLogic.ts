@@ -1,4 +1,4 @@
-type Group = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
+export type Group = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
 const groupList: Group[] = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 // NOTE:  : Record<string, Record<Softskills, number>>  이런식으로 하고 싶었는데 실패
@@ -68,7 +68,7 @@ const tendencyGroupKeyword = {
 };
 
 interface TendencyCountData {
-  count: number;
+  selected_count: number;
   choice_id: string;
   content: string;
   order: number;
@@ -78,11 +78,11 @@ const getTendencyGroup = (tendencyCountData: TendencyCountData[]) => {
   const groupCount = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
   const groupScore = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
 
-  tendencyCountData.forEach(({ content, count }) => {
+  tendencyCountData.forEach(({ content, selected_count }) => {
     groupList.forEach((group) => {
       if (tendencyGroupKeyword[group].includes(content)) {
-        groupCount[group] += count;
-        groupScore[group] += tendencyGroup[group][content] * count;
+        groupCount[group] += selected_count;
+        groupScore[group] += tendencyGroup[group][content] * selected_count;
       }
     });
   });
@@ -110,9 +110,7 @@ const getSecondaryFiltering = (groupScore: Record<Group, number>, maxGroup: Grou
   return maxScore.group;
 };
 
-export const getResultGroup = (tendencyCountData: TendencyCountData[]) => {
-  if (!tendencyCountData) return;
-
+export const getResultGroup = (tendencyCountData: TendencyCountData[]): Group => {
   const { groupCount, groupScore } = getTendencyGroup(tendencyCountData);
   const maxGroupCount = Math.max(...Object.values(groupCount));
 

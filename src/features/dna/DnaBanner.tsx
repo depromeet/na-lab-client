@@ -1,76 +1,107 @@
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { css } from '@emotion/react';
+import dna01Png from 'public/images/dna/01_dna.png';
+import dna02Png from 'public/images/dna/02_dna.png';
+import dna03Png from 'public/images/dna/03_dna.png';
+import dna04Png from 'public/images/dna/04_dna.png';
+import dna05Png from 'public/images/dna/05_dna.png';
+import dna06Png from 'public/images/dna/06_dna.png';
 
-const DnaBanner = () => {
+import colors from '~/styles/color';
+import { BODY_1, HEAD_1_BOLD } from '~/styles/typo';
+
+interface DnaProps {
+  title: string;
+  desc: string;
+}
+
+const DnaBanner = ({ title = '독창적인 트렌드세터', desc = '특별함을 추구하는 예술가적 성향' }: DnaProps) => {
+  const [dnaImage, setDnaImage] = useState(dna01Png);
+
+  useEffect(() => {
+    if (title === '카리스마 지휘관') {
+      setDnaImage(dna01Png);
+    } else if (title === '철두철미한 설계자') {
+      setDnaImage(dna02Png);
+    } else if (title === '활동적인 외교관') {
+      setDnaImage(dna03Png);
+    } else if (title === '독창적인 트렌드세터') {
+      setDnaImage(dna04Png);
+    } else if (title === '굴하지 않는 개척자') {
+      setDnaImage(dna05Png);
+    } else if (title === '유연한 중재자') {
+      setDnaImage(dna06Png);
+    }
+  }, []);
+
   return (
-    <section css={containerCss}>
-      <div css={leftBoxCss}></div>
-      <div css={rightBoxCss}>
-        <Image css={dnaImageCss} src="/images/result/dna1.png" alt="DNA 이미지" width={113} height={120} />
-        <div css={textWrapperCss}>
-          <div css={descCss}>배려와 경청으로 소통하는 서포터</div>
-          <div css={titleCss}>유연한 중재자</div>
-        </div>
+    <div css={dnaCss}>
+      <Image quality={100} css={dnaImageCss} src={dnaImage} alt="dna" width={180} height={155} />
+
+      <div css={textWrapperCss}>
+        <div css={dnaDesc}>{desc}</div>
+        <div css={dnaTitle}>{title}</div>
       </div>
-    </section>
+    </div>
   );
 };
 
 export default DnaBanner;
 
-const containerCss = css`
+const dnaCss = css`
+  position: relative;
+
+  overflow: hidden;
   display: flex;
-  flex-direction: row;
+  justify-content: flex-end;
 
-  width: 353px;
+  width: calc(100% + 23px);
   height: 120px;
+  padding-right: 23px;
 
+  background-color: #e6f1fd;
   border-radius: 8px 0 0 8px;
-  box-shadow: 3px 1px 18px -2px rgb(176 183 202 / 35%);
-`;
-
-const leftBoxCss = css`
-  width: 12px;
-  height: 120px;
-  background-color: #d8e3ff;
-  border-radius: 8px 0 0 8px;
-`;
-
-const rightBoxCss = css`
-  display: flex;
-  flex-direction: row;
 `;
 
 const dnaImageCss = css`
-  background-color: aqua;
+  position: absolute;
+  top: 5px;
+  left: -10px;
+  object-fit: cover;
 `;
 
 const textWrapperCss = css`
+  position: relative;
+  z-index: 1;
+
   display: flex;
   flex-direction: column;
-  align-items: start;
+  gap: 4px;
   justify-content: center;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    z-index: -1;
+    left: -30px;
+
+    width: 100px;
+    height: 100%;
+
+    background: linear-gradient(270deg, #e6f1fd 65%, rgb(230 241 253 / 0%) 100%);
+  }
 `;
 
-const descCss = css`
-  /* Body 1 */
-  font-size: 16px;
-  font-weight: 400;
-  font-style: normal;
-  line-height: 150%;
-  color: var(--gray-400-text-tertiary, #677089);
-  text-align: center;
-  letter-spacing: -0.3px;
+const dnaDesc = css`
+  ${BODY_1}
+
+  color: ${colors.gray_400};
 `;
 
-const titleCss = css`
-  margin-top: 4px;
+const dnaTitle = css`
+  ${HEAD_1_BOLD}
 
-  font-size: 20px;
-  font-weight: 600;
-  font-style: normal;
-  line-height: 140%;
-  color: var(--gray-500-text-secondary, #394258);
-  text-align: center;
-  letter-spacing: -0.3px;
+  color: ${colors.gray_500};
 `;
