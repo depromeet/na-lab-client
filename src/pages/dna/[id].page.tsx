@@ -29,7 +29,6 @@ const Dna = () => {
   return (
     <>
       <SEO />
-
       <LoadingHandler isLoading={isLoading || dnaOwnerStatus === 'loading'} fallback={<FixedSpinner />}>
         {typeof surveyId === 'string' && dnaInfo && group && (
           <LoadedDna
