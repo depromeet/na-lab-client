@@ -49,7 +49,7 @@ export default SnackBarWrapper;
 
 const wrapperCss = (theme: Theme) => css`
   position: fixed;
-  z-index: ${theme.zIndex.aboveFixed};
+  z-index: ${theme.zIndex.toast};
   bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
