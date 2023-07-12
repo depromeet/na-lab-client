@@ -214,10 +214,11 @@ const dnaImageCss = css`
 `;
 
 const titleCss = (theme: Theme) => css`
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
-  line-height: 154%;
+  line-height: 145%;
   color: ${theme.colors.black};
+  letter-spacing: -0.3px;
 `;
 
 const ulCss = css`
@@ -231,6 +232,10 @@ const ulCss = css`
 
   & li {
     ${BODY_1};
+
+    padding-left: 30px;
+    text-indent: -22px;
+    list-style-position: inside;
   }
 `;
 

@@ -5,7 +5,6 @@ import { FillEditIcon } from '~/components/icons/EditIcon';
 import useBoolean from '~/hooks/common/useBoolean';
 import useInput from '~/hooks/common/useInput';
 import colors from '~/styles/color';
-import { HEAD_1 } from '~/styles/typo';
 
 interface Props {
   onInputSubmit: (text: string) => void;
@@ -61,9 +60,14 @@ const formCss = css`
 const inputCss = (theme: Theme, inputWidth: number) => css`
   all: unset;
 
-  ${HEAD_1}
-
   width: ${inputWidth}px;
+
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 145%;
+  color: ${theme.colors.black};
+  letter-spacing: -0.3px;
+
   caret-color: ${theme.colors.primary_200};
 
   &::placeholder {
@@ -72,14 +76,16 @@ const inputCss = (theme: Theme, inputWidth: number) => css`
 `;
 
 const hiddenCss = css`
-  ${HEAD_1}
-
   pointer-events: none;
 
   position: absolute;
   top: 0;
   left: 0;
 
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 145%;
+  letter-spacing: -0.3px;
   white-space: pre;
 
   opacity: 0;
