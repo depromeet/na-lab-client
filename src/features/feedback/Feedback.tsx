@@ -2,14 +2,17 @@ import { css, type Theme } from '@emotion/react';
 
 import BookmarkIcon from '~/components/icons/BookmarkIcon';
 import { POSITION } from '~/constants/position';
+import usePatchBookmark from '~/hooks/api/feedbacks/usePatchBookmark';
 import { BODY_1, BODY_2_REGULAR } from '~/styles/typo';
 
 import CollaborationBadge from './CollaborationBadge';
 import UnreadBadgeIcon from './UnreadBadgeIcon';
 
 interface Props {
+  form_question_feedback_id: string;
   reply: string[];
   is_read: boolean;
+  is_bookmarked: boolean;
   reviewer: Reviewer;
   /**
    * @default false
@@ -19,11 +22,15 @@ interface Props {
 }
 
 const Feedback = ({
+  form_question_feedback_id,
   reply,
   is_read,
+  is_bookmarked = false,
   isBookmarkable,
   reviewer: { nickname, collaboration_experience, position },
 }: Props) => {
+  const { mutate } = usePatchBookmark(form_question_feedback_id);
+
   return (
     <div css={containerCss}>
       {!is_read && <UnreadBadgeIcon floatingTop="12px" floatingRight="12px" size="small" />}
@@ -37,9 +44,9 @@ const Feedback = ({
         {collaboration_experience && <CollaborationBadge />}
       </div>
       {isBookmarkable && (
-        <span css={bookmarkIconCss}>
-          <BookmarkIcon isBookmarked={false} />
-        </span>
+        <button type="button" css={bookmarkIconCss} onClick={() => mutate()}>
+          <BookmarkIcon isBookmarked={is_bookmarked} />
+        </button>
       )}
     </div>
   );
