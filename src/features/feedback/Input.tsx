@@ -9,10 +9,11 @@ import { HEAD_1 } from '~/styles/typo';
 
 interface Props {
   onInputSubmit: (text: string) => void;
+  value?: string;
 }
 
-const Input = ({ onInputSubmit }: Props) => {
-  const [text, onTextChange] = useInput();
+const Input = ({ onInputSubmit, value }: Props) => {
+  const [text, onTextChange] = useInput(value);
   const [isBlur, _, setTrue, setFalse] = useBoolean(true);
   const inputRef = useRef<HTMLInputElement>(null);
   const measuringSpanRef = useRef<HTMLSpanElement>(null);
@@ -62,8 +63,8 @@ const inputCss = (theme: Theme, inputWidth: number) => css`
 
   ${HEAD_1}
 
-  caret-color: ${theme.colors.primary_200};
   width: ${inputWidth}px;
+  caret-color: ${theme.colors.primary_200};
 
   &::placeholder {
     color: ${theme.colors.gray_300};
@@ -78,6 +79,8 @@ const hiddenCss = css`
   position: absolute;
   top: 0;
   left: 0;
+
+  white-space: pre;
 
   opacity: 0;
 `;
