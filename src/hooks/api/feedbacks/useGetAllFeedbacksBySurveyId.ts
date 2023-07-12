@@ -42,7 +42,7 @@ export interface Response {
 const useGetAllFeedbacksBySurveyId = (surveyId: string, options?: UseQueryOptions<Response>) => {
   return useQuery<Response>({
     queryKey: ['feedbacks', surveyId],
-    queryFn: () => get<Response>(`/feedbacks?survey-id=${surveyId}`),
+    queryFn: () => get<Response>(`/v1/feedbacks?survey-id=${surveyId}`),
     ...options,
   });
 };
