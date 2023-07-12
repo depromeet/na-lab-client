@@ -7,10 +7,13 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
 import HomeIcon from '~/components/icons/HomeIcon';
 import useToast from '~/components/toast/useToast';
+import { Tooltip } from '~/components/tooltip';
 import { type DNA } from '~/constants/dna';
 import DnaBanner from '~/features/dna/DnaBanner';
 import TendencySection from '~/features/dna/TendencySection';
 import Feedback from '~/features/feedback/Feedback';
+import Input from '~/features/feedback/Input';
+import usePatchPosition from '~/hooks/api/dna/usePatchPosition';
 import type useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurveyId';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
@@ -44,9 +47,19 @@ interface Props {
   bookmarkedFeedbacks: QuestionFeedback[];
 }
 
-const LoadedDna: FC<Props> = ({ surveyId, group, dnaInfo, dnaOwnerStatus, userInfo, topTendencies }) => {
+const LoadedDna: FC<Props> = ({
+  surveyId,
+  group,
+  dnaInfo,
+  dnaOwnerStatus,
+  userInfo,
+  topTendencies,
+  bookmarkedFeedbacks,
+}) => {
   const router = useInternalRouter();
   const { fireToast } = useToast();
+
+  const { mutate } = usePatchPosition();
 
   const onClickCopyCTA = () => {
     recordEvent({ action: 'DNA 페이지 - 커리어 명함 링크 복사 클릭' });
@@ -84,9 +97,6 @@ const LoadedDna: FC<Props> = ({ surveyId, group, dnaInfo, dnaOwnerStatus, userIn
           </picture>
         </section>
 
-        {/* 
-       // TODO 상조갓의 인풋 컴포넌트
-        */}
         <section
           css={css`
             margin-bottom: 40px;
@@ -94,7 +104,7 @@ const LoadedDna: FC<Props> = ({ surveyId, group, dnaInfo, dnaOwnerStatus, userIn
         >
           <div>
             <p css={titleCss}>{dnaInfo.title}를 가진</p>
-            <p css={titleCss}>UXUI 디자이너</p>
+            <Input onInputSubmit={(text) => mutate({ position: text })} value={userInfo?.position} />
           </div>
 
           <ul css={ulCss}>
@@ -135,11 +145,21 @@ const LoadedDna: FC<Props> = ({ surveyId, group, dnaInfo, dnaOwnerStatus, userIn
               margin-top: 16px;
             `}
           >
-            <Feedback
-              reply={['dddd']}
-              is_read={true}
-              reviewer={{ nickname: '오연', collaboration_experience: true, position: 'designer' }}
-            />
+            {bookmarkedFeedbacks.map((feedback) => {
+              if (feedback.type === 'short') {
+                return feedback.feedbacks.map((item) => (
+                  <Feedback
+                    key={item.feedback_id}
+                    form_question_feedback_id={item.form_question_feedback_id}
+                    reply={item.reply}
+                    is_read={item.is_read}
+                    reviewer={item.reviewer}
+                    is_bookmarked={item.bookmark.is_bookmarked}
+                    isBookmarkable={dnaOwnerStatus === 'current_user' ? true : false}
+                  />
+                ));
+              }
+            })}
           </div>
 
           <div
@@ -151,10 +171,11 @@ const LoadedDna: FC<Props> = ({ surveyId, group, dnaInfo, dnaOwnerStatus, userIn
             {dnaOwnerStatus === 'current_user' ? (
               <CTAButton onClick={onClickCopyCTA}>공유하기</CTAButton>
             ) : (
-              // TODO: 툴팁 추가
-              <CTAButton color="blue" onClick={onClickCareerCTA}>
-                나도 커리어 질문 폼 공유하기
-              </CTAButton>
+              <Tooltip message="단 3분이면 나의 질문 폼 링크를 만들 수 있어요!" placement="top" offset={7}>
+                <CTAButton color="blue" onClick={onClickCareerCTA}>
+                  나도 커리어 질문 폼 공유하기
+                </CTAButton>
+              </Tooltip>
             )}
           </div>
         </section>

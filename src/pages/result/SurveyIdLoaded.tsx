@@ -243,9 +243,12 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                         {question.feedbacks?.map((feedback) => (
                           <Feedback
                             key={feedback.feedback_id}
+                            form_question_feedback_id={feedback.form_question_feedback_id}
                             reply={feedback.reply}
                             is_read={feedback.is_read}
                             reviewer={feedback.reviewer}
+                            is_bookmarked={feedback.bookmark.is_bookmarked}
+                            isBookmarkable={true}
                           />
                         ))}
                       </div>
