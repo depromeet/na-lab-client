@@ -28,10 +28,7 @@ import ResearchMoveAnchor from '~/features/feedback/ResearchMoveAnchor';
 import MultipleChoiceAnswer from '~/features/multipleChoiceAnswer/MultipleChoiceAnswer';
 import DnaBanner from '~/features/result/DnaBanner';
 import { CTAVariants, fixedBottomCss, imageVariant } from '~/features/survey/styles';
-import useGetAllFeedbacksBySurveyId, {
-  type ChoiceQuestionFeedback,
-  type Response,
-} from '~/hooks/api/feedbacks/useGetAllFeedbacksBySurveyId';
+import useGetAllFeedbacksBySurveyId, { type Response } from '~/hooks/api/feedbacks/useGetAllFeedbacksBySurveyId';
 import useGetFeedbackSummaryBySurveyId from '~/hooks/api/feedbacks/useGetFeedbackSummaryBySurveyId';
 import useGetReviewersSummaryBySurveyId from '~/hooks/api/reviewers/useGetReviewersSummaryBySurveyId';
 import useBoolean from '~/hooks/common/useBoolean';

@@ -41,6 +41,7 @@ interface Props {
   dnaOwnerStatus: DnaOwnerStatus;
   userInfo: ReturnType<typeof useGetUserInfoBySurveyId>['data'];
   topTendencies: Softskills[];
+  bookmarkedFeedbacks: QuestionFeedback[];
 }
 
 const LoadedDna: FC<Props> = ({ surveyId, group, dnaInfo, dnaOwnerStatus, userInfo, topTendencies }) => {
@@ -84,7 +85,7 @@ const LoadedDna: FC<Props> = ({ surveyId, group, dnaInfo, dnaOwnerStatus, userIn
         </section>
 
         {/* 
-       // TODO 상조갓의 인풋 컴포넌트 + 수미갓의 데이터로 대체
+       // TODO 상조갓의 인풋 컴포넌트
         */}
         <section
           css={css`
@@ -135,12 +136,7 @@ const LoadedDna: FC<Props> = ({ surveyId, group, dnaInfo, dnaOwnerStatus, userIn
             `}
           >
             <Feedback
-              reply={['좋아요 죻아요 좋습니다']}
-              is_read={true}
-              reviewer={{ nickname: '오연', collaboration_experience: true, position: 'designer' }}
-            />
-            <Feedback
-              reply={['좋아요 죻아요 좋습니다']}
+              reply={['dddd']}
               is_read={true}
               reviewer={{ nickname: '오연', collaboration_experience: true, position: 'designer' }}
             />
