@@ -11,9 +11,19 @@ interface Props {
   reply: string[];
   is_read: boolean;
   reviewer: Reviewer;
+  /**
+   * @default false
+   * @description 북마크 가능 여부
+   */
+  isBookmarkable?: boolean;
 }
 
-const Feedback = ({ reply, is_read, reviewer: { nickname, collaboration_experience, position } }: Props) => {
+const Feedback = ({
+  reply,
+  is_read,
+  isBookmarkable,
+  reviewer: { nickname, collaboration_experience, position },
+}: Props) => {
   return (
     <div css={containerCss}>
       {!is_read && <UnreadBadgeIcon floatingTop="12px" floatingRight="12px" size="small" />}
@@ -26,9 +36,11 @@ const Feedback = ({ reply, is_read, reviewer: { nickname, collaboration_experien
         <AnonymousPositionBadge position={position} nickname={nickname} />
         {collaboration_experience && <CollaborationBadge />}
       </div>
-      <span css={bookmarkIconCss}>
-        <BookmarkIcon isBookmarked={false} />
-      </span>
+      {isBookmarkable && (
+        <span css={bookmarkIconCss}>
+          <BookmarkIcon isBookmarked={false} />
+        </span>
+      )}
     </div>
   );
 };
