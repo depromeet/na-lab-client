@@ -11,8 +11,7 @@ interface Response {
 const useGetUserInfoBySurveyId = (surveyId: string, options?: UseQueryOptions<Response>) => {
   return useQuery<Response>({
     queryKey: ['user', surveyId],
-    // TODO: mock 제거
-    queryFn: () => get<Response>(`https://dev.nalab.me/mock/users?survey-id=${surveyId}`),
+    queryFn: () => get<Response>(`https://dev.nalab.me/v1/users?survey-id=${surveyId}`),
     ...options,
   });
 };

@@ -9,7 +9,7 @@ interface Response {
 const useGetBookmarkedFeedbacks = (surveyId: string, options?: UseQueryOptions<Response>) => {
   return useQuery<Response>({
     queryKey: [surveyId, 'bookmarked feedbacks'],
-    queryFn: () => get<Response>(`/mock/feedbacks/bookmarks?survey-id=${surveyId}`),
+    queryFn: () => get<Response>(`/v1/feedbacks/bookmarks?survey-id=${surveyId}`),
     ...options,
   });
 };

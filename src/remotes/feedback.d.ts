@@ -2,7 +2,14 @@ interface DefaultFeedback {
   feedback_id: string;
   created_at: string;
   is_read: boolean;
+  form_question_feedback_id: string;
   reviewer: ReviewerWithId;
+  bookmark: Bookmark;
+}
+
+interface Bookmark {
+  bookmarked_at: string;
+  is_bookmarked: boolean;
 }
 
 interface ChoiceFeedback extends DefaultFeedback {
