@@ -1,11 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
+import { type CSSProperties } from 'react';
 import { css } from '@emotion/react';
 import { type SatoriOptions } from 'satori/wasm';
 
 import Button from '~/components/button/Button';
+import Header from '~/components/header/Header';
 import useToast from '~/components/toast/useToast';
 import { BASE_URL as PROD_BASE_URL } from '~/constants/url';
-import DnaInfoView from '~/features/dna/DnaInfoView';
+import colors from '~/styles/color';
 import { isProd } from '~/utils/common';
 import { createOGImage, fetchFont } from '~/utils/createImage';
 import { detectMobileDevice } from '~/utils/device';
@@ -24,6 +26,7 @@ const IMAGE_BY_GROUP: Record<Group, string> = {
   F: `${IMAGE_BASE_URL}/F_dna.png`,
 } as const;
 
+const IMAGE_WIDTH = 333;
 export async function getServerSideProps() {
   const notoSansScFont700 = await fetchFont('Noto+Sans+KR', 700);
   const notoSansScFont400 = await fetchFont('Noto+Sans+KR', 400);
@@ -32,7 +35,7 @@ export async function getServerSideProps() {
 
   const { group, userInfo, dnaInfo } = MOCK_DATA;
   const imageOptions: SatoriOptions = {
-    width: 333,
+    width: IMAGE_WIDTH,
     height: 700,
     fonts: [
       {
@@ -68,10 +71,15 @@ export async function getServerSideProps() {
       style={{
         display: 'flex',
         flexDirection: 'column',
+        borderRadius: '8px',
+        overflow: 'hidden',
+        width: IMAGE_WIDTH,
+        alignItems: 'center',
+        background: 'linear-gradient(180deg, #DCE9FA 0%, #E5EEFA 34.38%, #D2E2F5 64.06%, #D3E1F3 92.71%)',
       }}
     >
       <DNAImageView group={group as Group} name={userInfo.nickname} />
-      <DnaInfoView dnaInfo={dnaInfo} />
+      <DnaInfoView dnaInfo={dnaInfo} userInfo={userInfo} />
     </div>,
     imageOptions,
   );
@@ -113,10 +121,30 @@ function ResultDownloadPage({
 
   return (
     <div css={containerCss}>
+      <Header
+        overrideCss={css`
+          background-color: transparent;
+          border-color: transparent;
+        `}
+        isContainRemainer
+      />
       <article css={cardCss}>
         <img src={imageBase64} alt="dna images" />
       </article>
-      <DnaInfoView dnaInfo={dnaInfo} />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          borderRadius: '8px',
+          overflow: 'hidden',
+          width: IMAGE_WIDTH,
+          alignItems: 'center',
+          background: 'linear-gradient(180deg, #DCE9FA 0%, #E5EEFA 34.38%, #D2E2F5 64.06%, #D3E1F3 92.71%)',
+        }}
+      >
+        <DNAImageView group={'E' as Group} name={MOCK_DATA.userInfo.nickname} />
+        <DnaInfoView dnaInfo={dnaInfo} userInfo={MOCK_DATA.userInfo} />
+      </div>
       <Button onClick={onImageDownload}>다운로드</Button>
     </div>
   );
@@ -159,7 +187,10 @@ const containerCss = css`
 `;
 
 const cardCss = css`
+  overflow: hidden;
   width: 333px;
+  margin: 7px auto;
+  border-radius: 8px;
 
   img {
     width: 100%;
@@ -185,4 +216,81 @@ const MOCK_DATA = {
     nickname: '수미',
     position: '개발자',
   },
+};
+
+const DnaInfoView = ({
+  dnaInfo,
+  userInfo,
+}: {
+  dnaInfo: {
+    title: string;
+    descriptions: string[];
+  };
+  userInfo: {
+    nickname: string;
+    position: string;
+  };
+}) => {
+  return (
+    <section
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0',
+        padding: '23px 22px',
+        backgroundColor: colors.white,
+      }}
+    >
+      <span style={titleStyle}>{dnaInfo.title}를 가진</span>
+      <span style={titleStyle}>{userInfo.position}</span>
+      <ul
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '4px',
+          marginTop: '12px',
+          listStyle: 'none',
+        }}
+      >
+        {dnaInfo.descriptions.map((desc) => (
+          <div
+            style={{
+              display: 'flex',
+              gap: '4px',
+            }}
+            key={desc}
+          >
+            <div
+              style={{
+                position: 'relative',
+                top: '1px',
+              }}
+            >
+              ▪
+            </div>
+            <li
+              style={{
+                fontSize: '14px',
+                fontWeight: 500,
+                lineHeight: '150%',
+                letterSpacing: '-0.3px',
+                color: colors.gray_500,
+              }}
+            >
+              {desc}
+            </li>
+          </div>
+        ))}
+      </ul>
+    </section>
+  );
+};
+
+const titleStyle: CSSProperties = {
+  fontSize: '22px',
+  fontWeight: 700,
+  color: colors.black,
+  lineHeight: '130%',
+  position: 'relative',
+  left: '4px',
 };
