@@ -26,11 +26,9 @@ import ParticipatingReviewerChart from '~/features/feedback/ParticipatingReviewe
 import QuestionListRow from '~/features/feedback/QuestionListRow';
 import ResearchMoveAnchor from '~/features/feedback/ResearchMoveAnchor';
 import MultipleChoiceAnswer from '~/features/multipleChoiceAnswer/MultipleChoiceAnswer';
+import DnaBanner from '~/features/result/DnaBanner';
 import { CTAVariants, fixedBottomCss, imageVariant } from '~/features/survey/styles';
-import useGetAllFeedbacksBySurveyId, {
-  type ChoiceQuestionFeedback,
-  type Response,
-} from '~/hooks/api/feedbacks/useGetAllFeedbacksBySurveyId';
+import useGetAllFeedbacksBySurveyId, { type Response } from '~/hooks/api/feedbacks/useGetAllFeedbacksBySurveyId';
 import useGetFeedbackSummaryBySurveyId from '~/hooks/api/feedbacks/useGetFeedbackSummaryBySurveyId';
 import useGetReviewersSummaryBySurveyId from '~/hooks/api/reviewers/useGetReviewersSummaryBySurveyId';
 import useBoolean from '~/hooks/common/useBoolean';
@@ -51,7 +49,6 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
     useGetReviewersSummaryBySurveyId(surveyId);
   const { isLoading: isAllDataLoading, data: allData } = useGetAllFeedbacksBySurveyId(surveyId);
   const tendencyCountData = getTendencyCount(allData);
-
   const { fireToast } = useToast();
 
   const [isShowing, toggle, _, setFalse] = useBoolean(false);
@@ -60,6 +57,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
   const ids = allData?.question_feedback.map((question) => question.question_id) ?? [];
   const currentObservedId = useScrollSpy(['participatingReviewerId', ...ids]);
 
+  // TODO: Resize Observer?
   const [innerWidth, setInnerWidth] = useState(0);
   useLayoutEffect(() => {
     const limittedInnerWidth = window.innerWidth > 480 ? 480 : window.innerWidth;
@@ -148,6 +146,8 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
           </BottomSheet>
 
           <main>
+            <DnaBanner surveyId={surveyId} responseCount={feedbackSummaryData.all_feedback_count} />
+
             <section css={upperSectionCss}>
               <article>
                 <h2 css={titleCss}>
@@ -241,12 +241,16 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                         <h2>{question.title}</h2>
                       </div>
                       <div css={shortTypeCss}>
-                        {question.feedbacks?.map((feedback) => (
+                        {question.feedbacks?.map((feedback, index) => (
                           <Feedback
                             key={feedback.feedback_id}
+                            form_question_feedback_id={feedback.form_question_feedback_id}
                             reply={feedback.reply}
                             is_read={feedback.is_read}
                             reviewer={feedback.reviewer}
+                            is_bookmarked={feedback.bookmark.is_bookmarked}
+                            isBookmarkable={true}
+                            withBookmarkTooltip={index === 0 ? true : false}
                           />
                         ))}
                       </div>
