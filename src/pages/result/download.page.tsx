@@ -63,7 +63,7 @@ export async function getServerSideProps() {
   };
 
   // group 계산 필요
-  const ogImage = (await createOGImage(
+  const { image: ogImage } = await createOGImage(
     <div
       style={{
         display: 'flex',
@@ -74,7 +74,7 @@ export async function getServerSideProps() {
       <DnaInfoView dnaInfo={dnaInfo} />
     </div>,
     imageOptions,
-  )) as Buffer;
+  );
   const imageData = JSON.stringify({ base64: ogImage.toString('base64') });
 
   return {
@@ -160,6 +160,10 @@ const containerCss = css`
 
 const cardCss = css`
   width: 333px;
+
+  img {
+    width: 100%;
+  }
 `;
 
 const MOCK_DATA = {
@@ -178,7 +182,7 @@ const MOCK_DATA = {
   },
   userInfo: {
     target_id: 26,
-    nickname: '예진',
+    nickname: '수미',
     position: '개발자',
   },
 };

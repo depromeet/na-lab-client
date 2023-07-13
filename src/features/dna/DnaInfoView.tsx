@@ -24,12 +24,23 @@ const DnaInfoView = ({
       <span style={titleStyle}>UXUI 디자이너</span>
       <ul style={ulStyle}>
         {dnaInfo.descriptions.map((desc) => (
-          <>
-            <div>▪</div>
-            <li style={liStyle} key={desc}>
-              {desc}
-            </li>
-          </>
+          <div
+            style={{
+              display: 'flex',
+              gap: '4px',
+            }}
+            key={desc}
+          >
+            <div
+              style={{
+                position: 'relative',
+                top: '1px',
+              }}
+            >
+              ▪
+            </div>
+            <li style={liStyle}>{desc}</li>
+          </div>
         ))}
       </ul>
     </section>
@@ -42,6 +53,7 @@ const titleStyle: CSSProperties = {
   fontSize: '22px',
   fontWeight: 700,
   color: colors.black,
+  lineHeight: '130%',
 };
 
 const ulStyle: CSSProperties = {
@@ -54,7 +66,7 @@ const ulStyle: CSSProperties = {
 
 const liStyle: CSSProperties = {
   fontSize: '14px',
-  fontWeight: 400,
+  fontWeight: 500,
   lineHeight: '150%',
   letterSpacing: '-0.3px',
   color: colors.gray_500,
