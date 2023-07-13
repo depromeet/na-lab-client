@@ -55,6 +55,11 @@ export interface TooltipProps extends Pick<AnchorProps, 'contentPositionByRatio'
   onClickOutside?: () => void;
   /**
    * @description
+   * 툴팁을 클릭했을 때 호출될 함수
+   */
+  onClickTooltip?: () => void;
+  /**
+   * @description
    * children을 클릭했을 때 호출될 함수
    */
   onChildrenClick?: () => void;

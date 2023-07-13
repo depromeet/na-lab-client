@@ -1,10 +1,12 @@
-export function mergeRefs<T = any>(...refs: Array<React.MutableRefObject<T> | React.LegacyRef<T>>): React.Ref<T> {
+import { type LegacyRef, type MutableRefObject, type Ref } from 'react';
+
+export function mergeRefs<T = any>(...refs: Array<MutableRefObject<T> | LegacyRef<T>>): Ref<T> {
   return (value) => {
     refs.forEach((ref) => {
       if (typeof ref === 'function') {
         ref(value);
       } else if (ref != null) {
-        (ref as React.MutableRefObject<T | null>).current = value;
+        (ref as MutableRefObject<T | null>).current = value;
       }
     });
   };

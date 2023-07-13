@@ -6,6 +6,7 @@ import FixedSpinner from '~/components/loading/FixedSpinner';
 import LoadingHandler from '~/components/loading/LoadingHandler';
 import SEO from '~/components/SEO/SEO';
 import { type DNA, DNA_MAP_BY_GROUP } from '~/constants/dna';
+import useGetBookmarkedFeedbacks from '~/hooks/api/feedbacks/useGetBookmarkedFeedbacksBySurveyId';
 import useGetTendencyFeedbackBySurveyId from '~/hooks/api/feedbacks/useGetTendencyFeedbackBySurveyId';
 import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 import useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurveyId';
@@ -25,6 +26,7 @@ const Dna = () => {
   const { tendencies } = useSortedTop5Tendencies(surveyId);
   const { dnaOwnerStatus } = useDanOnwerStatus(surveyId);
   const { dnaInfo, group } = useDnaInfo(surveyId);
+  const { bookmarkedFeedbacks } = useBookmarkedFeedbacks(surveyId);
 
   return (
     <>
@@ -38,6 +40,7 @@ const Dna = () => {
             dnaOwnerStatus={dnaOwnerStatus}
             userInfo={userInfo}
             topTendencies={tendencies}
+            bookmarkedFeedbacks={bookmarkedFeedbacks}
           />
         )}
       </LoadingHandler>
@@ -108,4 +111,18 @@ const useDanOnwerStatus = (surveyId: string | string[] | undefined) => {
   }, [data, sessionStatus]);
 
   return { dnaOwnerStatus };
+};
+
+const useBookmarkedFeedbacks = (surveyId: string | string[] | undefined) => {
+  const [bookmarkedFeedbacks, setBookmarkedFeedbacks] = useState<QuestionFeedback[]>([]);
+
+  const { data, isSuccess } = useGetBookmarkedFeedbacks(String(surveyId), { enabled: Boolean(surveyId) });
+
+  useDidUpdate(() => {
+    if (!data) return;
+
+    setBookmarkedFeedbacks(data.question_feedback);
+  }, [isSuccess]);
+
+  return { bookmarkedFeedbacks };
 };

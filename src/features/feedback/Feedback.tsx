@@ -1,19 +1,39 @@
 import { css, type Theme } from '@emotion/react';
 
 import BookmarkIcon from '~/components/icons/BookmarkIcon';
+import { Tooltip } from '~/components/tooltip';
 import { POSITION } from '~/constants/position';
+import usePatchBookmark from '~/hooks/api/feedbacks/usePatchBookmark';
 import { BODY_1, BODY_2_REGULAR } from '~/styles/typo';
 
 import CollaborationBadge from './CollaborationBadge';
 import UnreadBadgeIcon from './UnreadBadgeIcon';
 
 interface Props {
+  form_question_feedback_id: string;
   reply: string[];
   is_read: boolean;
+  is_bookmarked: boolean;
   reviewer: Reviewer;
+  /**
+   * @default false
+   * @description 북마크 가능 여부
+   */
+  isBookmarkable?: boolean;
+  withBookmarkTooltip?: boolean;
 }
 
-const Feedback = ({ reply, is_read, reviewer: { nickname, collaboration_experience, position } }: Props) => {
+const Feedback = ({
+  form_question_feedback_id,
+  reply,
+  is_read,
+  is_bookmarked = false,
+  isBookmarkable,
+  withBookmarkTooltip = false,
+  reviewer: { nickname, collaboration_experience, position },
+}: Props) => {
+  const { mutate } = usePatchBookmark(form_question_feedback_id);
+
   return (
     <div css={containerCss}>
       {!is_read && <UnreadBadgeIcon floatingTop="12px" floatingRight="12px" size="small" />}
@@ -22,13 +42,24 @@ const Feedback = ({ reply, is_read, reviewer: { nickname, collaboration_experien
           return item + (reply.length !== idx && '\n');
         })}
       </p>
-      <div css={badgeContainerCss}>
-        <AnonymousPositionBadge position={position} nickname={nickname} />
-        {collaboration_experience && <CollaborationBadge />}
+      <div css={bottomAreaCss}>
+        <div css={badgeContainerCss}>
+          <AnonymousPositionBadge position={position} nickname={nickname} />
+          {collaboration_experience && <CollaborationBadge />}
+        </div>
+        {isBookmarkable &&
+          (withBookmarkTooltip ? (
+            <Tooltip message="북마크하면 피드백이 커리어 명함에 추가돼요!" placement="top" contentPositionByRatio={1}>
+              <button type="button" css={bookmarkIconCss} onClick={() => mutate()}>
+                <BookmarkIcon isBookmarked={is_bookmarked} />
+              </button>
+            </Tooltip>
+          ) : (
+            <button type="button" css={bookmarkIconCss} onClick={() => mutate()}>
+              <BookmarkIcon isBookmarked={is_bookmarked} />
+            </button>
+          ))}
       </div>
-      <span css={bookmarkIconCss}>
-        <BookmarkIcon isBookmarked={false} />
-      </span>
     </div>
   );
 };
@@ -56,7 +87,14 @@ const replyCss = css`
 
 const badgeContainerCss = css`
   display: flex;
+  flex-shrink: 0;
   gap: 7px;
+`;
+
+const bottomAreaCss = css`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const BACKGROUND_COLOR_BY_POSITION = (position: ReviewerPosition, theme: Theme) => {

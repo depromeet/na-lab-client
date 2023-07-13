@@ -58,7 +58,7 @@ const FloatingTooltipContent = ({
 
   const [tooltipWidth, setTooltipWidth] = useState(0);
   const [tooltipHeight, setTooltipHeight] = useState(0);
-  const [initialBoundingClientRect, setInitialBoundingClientRect] = useState<DOMRect | null>(null);
+  const [initialBoundingClientRect, setInitialBoundingClientRect] = useState<DOMRect | null | undefined>(null);
 
   const isMounted = useIsMounted();
 
@@ -108,7 +108,7 @@ const FloatingTooltipContent = ({
                   placement,
                   initialLeft: initialBoundingClientRect.left ?? 0,
                   initialWidth: initialBoundingClientRect.width ?? 0,
-                  offsetTop: targetRef.current?.offsetTop ?? 0,
+                  offsetTop: initialBoundingClientRect.top ?? 0,
                   clientHeight: targetRef.current?.clientHeight ?? 0,
                   anchorWidth,
                   anchorHeight,
@@ -168,7 +168,7 @@ const tooltipBaseCss = ({
   pointer-events: 'auto';
 
   position: absolute;
-  z-index: ${theme.zIndex.toast};
+  z-index: ${theme.zIndex.belowFixed};
   top: ${offsetTop +
   (placement === 'top' ? -tooltipHeight - anchorHeight - offset : clientHeight + anchorHeight + offset)}px;
   left: ${(initialLeft ?? 0) + (initialWidth ?? 0) / 2 - anchorWidth / 2 - anchorMarginLeft}px;
