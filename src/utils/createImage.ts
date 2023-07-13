@@ -2,13 +2,18 @@ import { type ReactNode } from 'react';
 import { Resvg } from '@resvg/resvg-js';
 import satori, { type SatoriOptions } from 'satori';
 
-export async function createOGImage(element: ReactNode, option: SatoriOptions): Promise<Buffer> {
+export async function createOGImage(element: ReactNode, option: SatoriOptions) {
   const svg = await satori(element, option);
 
-  const resvg = new Resvg(svg);
+  const resvg = new Resvg(svg, {
+    fitTo: {
+      mode: 'width',
+      value: 1200,
+    },
+  });
   const pngData = resvg.render();
 
-  return pngData.asPng();
+  return { image: pngData.asPng(), svg: svg };
 }
 
 export async function fetchFont(fontFamily = 'Noto+Sans+KR', fontWeight = 700): Promise<ArrayBuffer | null> {

@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 import { useRouter } from 'next/router';
-import { css, type Theme } from '@emotion/react';
+import { css, type Interpolation, type Theme } from '@emotion/react';
 
 import ArrowIcon from '~/components/icons/ArrowIcon';
 import { HEAD_2_BOLD } from '~/styles/typo';
@@ -11,9 +11,10 @@ interface Props {
   onBackClick?: () => void;
   isContainRemainer?: boolean;
   backIcon?: ReactNode;
+  overrideCss?: Interpolation<Theme>;
 }
 
-const Header = ({ title, rightButton, onBackClick, isContainRemainer, backIcon }: Props) => {
+const Header = ({ title, rightButton, onBackClick, isContainRemainer, backIcon, overrideCss }: Props) => {
   const router = useRouter();
 
   const onBack = () => {
@@ -22,7 +23,7 @@ const Header = ({ title, rightButton, onBackClick, isContainRemainer, backIcon }
 
   return (
     <>
-      <header css={[headerCss, fixedTopCss]}>
+      <header css={[headerCss, fixedTopCss, overrideCss]}>
         <button type="button" onClick={onBack} css={iconButtonCss}>
           {backIcon ? backIcon : <ArrowIcon />}
         </button>
