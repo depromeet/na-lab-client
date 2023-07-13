@@ -24,7 +24,7 @@ import { getResultGroup, type Group } from '~/utils/resultLogic';
 import LoadedDna from './LoadedDna';
 import { type DnaOwnerStatus } from './type';
 
-const Dna: NextPageWithLayout<WithSeoProps<ServerSideProps>> = ({ surveyId, title, description, ogImage }) => {
+const Dna: NextPageWithLayout<WithSeoProps<ServerSideProps>> = ({ surveyId, seo: { title, description, ogImage } }) => {
   const { data: userInfo, isLoading } = useGetUserInfoBySurveyId(String(surveyId), { enabled: Boolean(surveyId) });
   const { tendencies } = useSortedTop5Tendencies(surveyId);
   const { dnaOwnerStatus } = useDanOnwerStatus(surveyId);
