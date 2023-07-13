@@ -14,10 +14,13 @@ interface Response {
   question_feedback: TendencyQuestion[];
 }
 
+export const getTendencyFeedbackResult = (surveyId: string) =>
+  get<Response>(`v2/feedbacks?survey-id=${surveyId}&form-type=tendency`);
+
 const useGetTendencyFeedbackBySurveyId = (surveyId: string, options?: UseQueryOptions<Response>) => {
   return useQuery({
     queryKey: ['tendency feedback', surveyId],
-    queryFn: () => get<Response>(`https://dev.nalab.me/v2/feedbacks?survey-id=${surveyId}&form-type=tendency`),
+    queryFn: () => getTendencyFeedbackResult(surveyId),
     ...options,
   });
 };
