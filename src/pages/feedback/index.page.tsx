@@ -44,7 +44,7 @@ export default function FeedbackList() {
   const getFeedbackList = (feedbackList: Response) => {
     const feedbacksByYearAndMonthList: Feedbacks = {};
 
-    feedbackList.feedbacks.forEach((feedback: Feedback) => {
+    feedbackList.feedbacks.reverse().forEach((feedback: Feedback) => {
       const date = new Date(feedback.created_at);
       const year = date.getFullYear();
       const month = date.getMonth() + 1;
