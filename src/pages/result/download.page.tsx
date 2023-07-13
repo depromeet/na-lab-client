@@ -223,7 +223,7 @@ const DnaInfoView = ({
         display: 'flex',
         flexDirection: 'column',
         gap: '0',
-        padding: '23px 22px',
+        padding: '23px 21px',
         backgroundColor: colors.white,
         width: '100%',
       }}
@@ -243,7 +243,6 @@ const DnaInfoView = ({
           <div
             style={{
               display: 'flex',
-              gap: '4px',
             }}
             key={desc}
           >
@@ -251,6 +250,7 @@ const DnaInfoView = ({
               style={{
                 position: 'relative',
                 top: '1px',
+                left: '-4px',
               }}
             >
               ▪
@@ -283,6 +283,4 @@ const titleStyle: CSSProperties = {
   fontWeight: 700,
   color: colors.black,
   lineHeight: '130%',
-  position: 'relative',
-  left: '4px',
 };
