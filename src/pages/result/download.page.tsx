@@ -7,6 +7,7 @@ import Button from '~/components/button/Button';
 import Header from '~/components/header/Header';
 import useToast from '~/components/toast/useToast';
 import { BASE_URL as PROD_BASE_URL } from '~/constants/url';
+import DnaBannerView from '~/features/dna/DnaBannerView';
 import colors from '~/styles/color';
 import { isProd } from '~/utils/common';
 import { createOGImage, fetchFont } from '~/utils/createImage';
@@ -36,7 +37,7 @@ export async function getServerSideProps() {
   const { group, userInfo, dnaInfo } = MOCK_DATA;
   const imageOptions: SatoriOptions = {
     width: IMAGE_WIDTH,
-    height: 700,
+    height: 740,
     fonts: [
       {
         name: 'Noto Sans KR',
@@ -95,7 +96,6 @@ export async function getServerSideProps() {
 
 function ResultDownloadPage({
   imageData,
-  dnaInfo,
 }: {
   imageData: string;
   dnaInfo: {
@@ -131,20 +131,6 @@ function ResultDownloadPage({
       <article css={cardCss}>
         <img src={imageBase64} alt="dna images" />
       </article>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          borderRadius: '8px',
-          overflow: 'hidden',
-          width: IMAGE_WIDTH,
-          alignItems: 'center',
-          background: 'linear-gradient(180deg, #DCE9FA 0%, #E5EEFA 34.38%, #D2E2F5 64.06%, #D3E1F3 92.71%)',
-        }}
-      >
-        <DNAImageView group={'E' as Group} name={MOCK_DATA.userInfo.nickname} />
-        <DnaInfoView dnaInfo={dnaInfo} userInfo={MOCK_DATA.userInfo} />
-      </div>
       <Button onClick={onImageDownload}>다운로드</Button>
     </div>
   );
@@ -199,12 +185,12 @@ const cardCss = css`
 
 const MOCK_DATA = {
   tendencies: ['도전적인', '꼼꼼한', '사교적인'],
-  group: 'E',
+  group: 'B',
   dnaInfo: {
     title: '굴하지 않는 개척자 DNA',
     descriptions: [
       '남들의 생각을 따라하기보다는 나의 주관을 가지고 새로운 길을 개척하는 모험가에요.',
-      '위기 상황에서도 다재다능하고 융통성 있는 면모로 해결사 역할을 해요.',
+      '강한 책임감과 뛰어난 실행력으로 프로젝트를 관리하며 팀원들의 신뢰를 얻어요.',
     ],
     fitDna: {
       title: '독창적인 트렌드세터',
@@ -239,6 +225,7 @@ const DnaInfoView = ({
         gap: '0',
         padding: '23px 22px',
         backgroundColor: colors.white,
+        width: '100%',
       }}
     >
       <span style={titleStyle}>{dnaInfo.title}를 가진</span>
@@ -282,6 +269,11 @@ const DnaInfoView = ({
           </div>
         ))}
       </ul>
+      <DnaBannerView
+        title={MOCK_DATA.dnaInfo.fitDna.title}
+        desc={MOCK_DATA.dnaInfo.fitDna.subtitle}
+        imageBaseUrl={BASE_URL}
+      />
     </section>
   );
 };
