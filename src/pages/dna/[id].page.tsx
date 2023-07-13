@@ -1,4 +1,5 @@
 import { type ReactElement, useState } from 'react';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 
 import { type Softskills } from '~/components/graphic/softskills/type';
 import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
@@ -7,21 +8,23 @@ import LoadingHandler from '~/components/loading/LoadingHandler';
 import SEO from '~/components/SEO/SEO';
 import { type DNA, DNA_MAP_BY_GROUP } from '~/constants/dna';
 import useGetBookmarkedFeedbacks from '~/hooks/api/feedbacks/useGetBookmarkedFeedbacksBySurveyId';
-import useGetTendencyFeedbackBySurveyId from '~/hooks/api/feedbacks/useGetTendencyFeedbackBySurveyId';
+import useGetTendencyFeedbackBySurveyId, {
+  getTendencyFeedbackResult,
+} from '~/hooks/api/feedbacks/useGetTendencyFeedbackBySurveyId';
 import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
-import useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurveyId';
+import useGetUserInfoBySurveyId, { getUserInfoBySurveyId } from '~/hooks/api/user/useGetUserInfoBySurveyId';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
-import useInternalRouter from '~/hooks/router/useInternalRouter';
+import {
+  type GetServerSidePropsWithDehydratedStateAndSEO,
+  type NextPageWithLayout,
+  type WithSeoProps,
+} from '~/types/page';
 import { getResultGroup, type Group } from '~/utils/resultLogic';
 
 import LoadedDna from './LoadedDna';
 import { type DnaOwnerStatus } from './type';
 
-// TODO: SSR > SEO 타이틀 변경
-const Dna = () => {
-  const router = useInternalRouter();
-  const surveyId = router.query.id;
-
+const Dna: NextPageWithLayout<WithSeoProps<ServerSideProps>> = ({ surveyId, title, description, ogImage }) => {
   const { data: userInfo, isLoading } = useGetUserInfoBySurveyId(String(surveyId), { enabled: Boolean(surveyId) });
   const { tendencies } = useSortedTop5Tendencies(surveyId);
   const { dnaOwnerStatus } = useDanOnwerStatus(surveyId);
@@ -30,7 +33,8 @@ const Dna = () => {
 
   return (
     <>
-      <SEO />
+      <SEO title={title} description={description} ogImage={ogImage} />
+
       <LoadingHandler isLoading={isLoading || dnaOwnerStatus === 'loading'} fallback={<FixedSpinner />}>
         {typeof surveyId === 'string' && dnaInfo && group && (
           <LoadedDna
@@ -51,6 +55,49 @@ const Dna = () => {
 export default Dna;
 
 Dna.getLayout = (page: ReactElement) => <LayoutPaddingTo23>{page}</LayoutPaddingTo23>;
+
+type ServerSideProps = {
+  surveyId: string;
+};
+
+export const getServerSideProps: GetServerSidePropsWithDehydratedStateAndSEO<ServerSideProps> = async (context) => {
+  const { id } = context.query;
+
+  if (!id || Array.isArray(id)) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const queryClient = new QueryClient();
+
+  const userInfo = await queryClient.fetchQuery(['user', id], () => getUserInfoBySurveyId(id));
+  const tendencyFeedbackResult = await queryClient.fetchQuery(['tendency feedback', id], () =>
+    getTendencyFeedbackResult(id),
+  );
+
+  const tendencies = [...tendencyFeedbackResult.question_feedback[0].choices];
+  const group = getResultGroup(tendencies);
+  console.log(group);
+
+  if (!userInfo || !tendencies) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      surveyId: id,
+      dehydratedState: dehydrate(queryClient),
+      seo: {
+        title: userInfo.nickname,
+        description: userInfo.position,
+        ogImage: '',
+      },
+    },
+  };
+};
 
 const TENDENCY_SLICE_NUMBER = 5;
 

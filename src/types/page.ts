@@ -8,6 +8,8 @@ export type NextPageWithLayout<P = unknown> = NextPage<P> & {
   getLayout?: (page: ReactElement) => ReactElement;
 };
 
+export type NextPageWithSEO<P = unknown> = NextPage<P & ComponentProps<typeof SEO>>;
+
 export type GetServerSidePropsWithDehydratedState<P extends { [key: string]: unknown }> = GetServerSideProps<
   { dehydratedState: DehydratedState } & P
 >;
