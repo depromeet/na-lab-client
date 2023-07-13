@@ -10,7 +10,7 @@ interface Response {
 const useGetFeedbackSummaryBySurveyId = (surveyId: string, options?: UseQueryOptions<Response>) => {
   return useQuery<Response>({
     queryKey: ['feedbacks summary', surveyId],
-    queryFn: () => get<Response>(`/feedbacks/summary?survey-id=${surveyId}`),
+    queryFn: () => get<Response>(`/v1/feedbacks/summary?survey-id=${surveyId}`),
     ...options,
   });
 };

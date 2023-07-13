@@ -1,6 +1,7 @@
 import { type Meta } from '@storybook/react';
 
 import ArrowIcon from './ArrowIcon';
+import BookmarkIcon from './BookmarkIcon';
 import BottomSheetHandleIcon from './BottomSheetHandleIcon';
 import CheckIcon from './CheckIcon';
 import ChevronArrowRightIcon from './ChevronArrowRightIcon';
@@ -62,4 +63,8 @@ export function ChevronArrowRight() {
 
 export function Check() {
   return <CheckIcon />;
+}
+
+export function Bookmark() {
+  return <BookmarkIcon isBookmarked={true} />;
 }

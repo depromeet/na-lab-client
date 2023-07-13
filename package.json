@@ -42,6 +42,7 @@
     "@egjs/flicking-plugins": "^4.7.0",
     "@egjs/react-flicking": "^4.10.9",
     "@emotion/react": "^11.10.6",
+    "@resvg/resvg-js": "^2.4.1",
     "@sentry/nextjs": "^7.49.0",
     "@tanstack/react-query": "^4.29.3",
     "axios": "^1.3.5",
@@ -54,6 +55,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hotjar": "^6.1.0",
+    "satori": "^0.10.1",
     "sharp": "^0.32.1"
   },
   "packageManager": "yarn@3.5.0",

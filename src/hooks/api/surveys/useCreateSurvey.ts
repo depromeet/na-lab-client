@@ -14,7 +14,8 @@ interface CreateSurveyRequest {
 
 const useCreateSurvey = (options?: UseMutationOptions<CreateSurveyResponse, unknown, CreateSurveyRequest>) => {
   return useMutation<CreateSurveyResponse, unknown, CreateSurveyRequest>({
-    mutationFn: ({ question_count, question }) => post<CreateSurveyResponse>('/surveys', { question_count, question }),
+    mutationFn: ({ question_count, question }) =>
+      post<CreateSurveyResponse>('/v1/surveys', { question_count, question }),
     ...options,
   });
 };

@@ -6,10 +6,6 @@ import EmpathizingIcon from '~/components/icons/EmpathizingIcon';
 import ListIcon from '~/components/icons/ListIcon';
 import MessageIcon from '~/components/icons/MessageIcon';
 import ProfileIcon from '~/components/icons/ProfileIcon';
-import {
-  type ChoiceQuestionFeedback,
-  type ShortQuestionFeedback,
-} from '~/hooks/api/feedbacks/useGetAllFeedbacksBySurveyId';
 import colors from '~/styles/color';
 import { HEAD_2_REGULAR } from '~/styles/typo';
 

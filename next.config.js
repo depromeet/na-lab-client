@@ -2,7 +2,6 @@ const { version } = require('./package.json');
 const { withSentryConfig } = require('@sentry/nextjs');
 
 const isProd = process.env.NODE_ENV === 'production';
-const isCloudflare = Boolean(process.env.CLOUDFLARE_ENV);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -32,12 +31,6 @@ const nextConfig = {
     hideSourceMaps: true,
   },
   transpilePackages: ['react-hotjar'],
-  images: !isCloudflare
-    ? { loader: 'default' }
-    : {
-        loader: 'akamai',
-        path: '/',
-      },
 };
 
 const sentryWebpackPluginOptions = {

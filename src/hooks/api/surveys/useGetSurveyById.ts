@@ -36,7 +36,7 @@ export interface Response {
 const useGetSurveyById = (id: string, option?: UseQueryOptions<Response>) => {
   return useQuery<Response>({
     queryKey: ['survey', id],
-    queryFn: () => get<Response>(`/surveys/${id}`),
+    queryFn: () => get<Response>(`/v1/surveys/${id}`),
     ...option,
   });
 };

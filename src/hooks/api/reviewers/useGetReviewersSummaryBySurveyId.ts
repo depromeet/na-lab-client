@@ -19,7 +19,7 @@ interface Response {
 const useGetReviewersSummaryBySurveyId = (surveyId: string, options?: UseQueryOptions<Response>) => {
   return useQuery<Response>({
     queryKey: ['reviewers summary', surveyId],
-    queryFn: () => get<Response>(`/reviewers/summary?survey-id=${surveyId}`),
+    queryFn: () => get<Response>(`/v1/reviewers/summary?survey-id=${surveyId}`),
     ...options,
   });
 };

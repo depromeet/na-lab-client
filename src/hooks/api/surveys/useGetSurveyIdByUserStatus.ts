@@ -16,7 +16,7 @@ const useGetSurveyIdByUserStatus = (options?: UseQueryOptions<Response, ApiExcep
 
   const query = useQuery<Response, ApiException>({
     queryKey: ['survey id', data?.user?.email],
-    queryFn: () => get<Response>('/surveys-id'),
+    queryFn: () => get<Response>('/v1/surveys-id'),
     enabled: status === 'authenticated' && isUserTokenValid,
     ...options,
   });
