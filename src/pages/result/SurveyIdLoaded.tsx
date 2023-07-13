@@ -28,10 +28,7 @@ import ResearchMoveAnchor from '~/features/feedback/ResearchMoveAnchor';
 import MultipleChoiceAnswer from '~/features/multipleChoiceAnswer/MultipleChoiceAnswer';
 import DnaBanner from '~/features/result/DnaBanner';
 import { CTAVariants, fixedBottomCss, imageVariant } from '~/features/survey/styles';
-import useGetAllFeedbacksBySurveyId, {
-  type ChoiceQuestionFeedback,
-  type Response,
-} from '~/hooks/api/feedbacks/useGetAllFeedbacksBySurveyId';
+import useGetAllFeedbacksBySurveyId, { type Response } from '~/hooks/api/feedbacks/useGetAllFeedbacksBySurveyId';
 import useGetFeedbackSummaryBySurveyId from '~/hooks/api/feedbacks/useGetFeedbackSummaryBySurveyId';
 import useGetReviewersSummaryBySurveyId from '~/hooks/api/reviewers/useGetReviewersSummaryBySurveyId';
 import useBoolean from '~/hooks/common/useBoolean';
@@ -243,12 +240,16 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                         <h2>{question.title}</h2>
                       </div>
                       <div css={shortTypeCss}>
-                        {question.feedbacks?.map((feedback) => (
+                        {question.feedbacks?.map((feedback, index) => (
                           <Feedback
                             key={feedback.feedback_id}
+                            form_question_feedback_id={feedback.form_question_feedback_id}
                             reply={feedback.reply}
                             is_read={feedback.is_read}
                             reviewer={feedback.reviewer}
+                            is_bookmarked={feedback.bookmark.is_bookmarked}
+                            isBookmarkable={true}
+                            withBookmarkTooltip={index === 0 ? true : false}
                           />
                         ))}
                       </div>

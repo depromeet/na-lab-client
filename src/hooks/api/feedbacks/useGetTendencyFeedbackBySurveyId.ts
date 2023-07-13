@@ -17,8 +17,7 @@ interface Response {
 const useGetTendencyFeedbackBySurveyId = (surveyId: string, options?: UseQueryOptions<Response>) => {
   return useQuery({
     queryKey: ['tendency feedback', surveyId],
-    // TODO MOCK 제거
-    queryFn: () => get<Response>(`https://dev.nalab.me/mock/feedbacks?survey-id=${surveyId}&form-type=tendency`),
+    queryFn: () => get<Response>(`https://dev.nalab.me/v2/feedbacks?survey-id=${surveyId}&form-type=tendency`),
     ...options,
   });
 };
