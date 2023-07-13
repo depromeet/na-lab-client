@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { css } from '@emotion/react';
 import { type SatoriOptions } from 'satori/wasm';
 
 import Button from '~/components/button/Button';
@@ -26,6 +27,7 @@ export async function getServerSideProps() {
   const notoSansScFont = await fetchFont();
   if (!notoSansScFont) return { props: {} };
 
+  const { group, userInfo } = MOCK_DATA;
   const imageOptions: SatoriOptions = {
     width: 329,
     height: 389,
@@ -40,7 +42,10 @@ export async function getServerSideProps() {
   };
 
   // group 계산 필요
-  const ogImage = (await createOGImage(<DNAImageView group={'A'} name={'변수미'} />, imageOptions)) as Buffer;
+  const ogImage = (await createOGImage(
+    <DNAImageView group={group as Group} name={userInfo.nickname} />,
+    imageOptions,
+  )) as Buffer;
   const imageData = JSON.stringify({ base64: ogImage.toString('base64') });
 
   return {
@@ -68,8 +73,11 @@ function ResultDownloadPage({ imageData }: { imageData: string }) {
   };
 
   return (
-    <div>
-      <img src={imageBase64} alt="dna images" />
+    <div css={containerCss}>
+      <article css={cardCss}>
+        <img src={imageBase64} alt="dna images" />
+      </article>
+
       <Button onClick={onImageDownload}>다운로드</Button>
     </div>
   );
@@ -102,4 +110,36 @@ const DNAImageView = ({ group, name }: { group: Group; name: string }) => {
       </span>
     </div>
   );
+};
+
+const containerCss = css`
+  width: 100%;
+  height: 100vh;
+  background: rgb(216 227 255 / 60%);
+  backdrop-filter: blur(12.5px);
+`;
+
+const cardCss = css`
+  width: 333px;
+`;
+
+const MOCK_DATA = {
+  tendencies: ['도전적인', '꼼꼼한', '사교적인'],
+  group: 'E',
+  dnaInfo: {
+    title: '굴하지 않는 개척자 DNA',
+    descriptions: [
+      '남들의 생각을 따라하기보다는 나의 주관을 가지고 새로운 길을 개척하는 모험가에요.',
+      '위기 상황에서도 다재다능하고 융통성 있는 면모로 해결사 역할을 해요.',
+    ],
+    fitDna: {
+      title: '독창적인 트렌드세터',
+      subtitle: '특별함을 추구하는 예술가적 성향',
+    },
+  },
+  userInfo: {
+    target_id: 26,
+    nickname: '예진',
+    position: '개발자',
+  },
 };
