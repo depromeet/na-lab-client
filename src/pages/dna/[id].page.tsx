@@ -60,6 +60,16 @@ type ServerSideProps = {
   surveyId: string;
 };
 
+const OG_IMAGE_BASE = '/images/dna/seo';
+const OG_IMAGE_MAP_BY_GROUP: Record<Group, string> = {
+  A: `${OG_IMAGE_BASE}/A.png`,
+  B: `${OG_IMAGE_BASE}/B.png`,
+  C: `${OG_IMAGE_BASE}/C.png`,
+  D: `${OG_IMAGE_BASE}/D.png`,
+  E: `${OG_IMAGE_BASE}/E.png`,
+  F: `${OG_IMAGE_BASE}/F.png`,
+};
+
 export const getServerSideProps: GetServerSidePropsWithDehydratedStateAndSEO<ServerSideProps> = async (context) => {
   const { id } = context.query;
 
@@ -78,7 +88,6 @@ export const getServerSideProps: GetServerSidePropsWithDehydratedStateAndSEO<Ser
 
   const tendencies = [...tendencyFeedbackResult.question_feedback[0].choices];
   const group = getResultGroup(tendencies);
-  console.log(group);
 
   if (!userInfo || !tendencies) {
     return {
@@ -93,7 +102,7 @@ export const getServerSideProps: GetServerSidePropsWithDehydratedStateAndSEO<Ser
       seo: {
         title: userInfo.nickname,
         description: userInfo.position,
-        ogImage: '',
+        ogImage: OG_IMAGE_MAP_BY_GROUP[group],
       },
     },
   };
