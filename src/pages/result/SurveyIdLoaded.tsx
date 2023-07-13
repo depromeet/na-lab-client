@@ -240,7 +240,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                         <h2>{question.title}</h2>
                       </div>
                       <div css={shortTypeCss}>
-                        {question.feedbacks?.map((feedback) => (
+                        {question.feedbacks?.map((feedback, index) => (
                           <Feedback
                             key={feedback.feedback_id}
                             form_question_feedback_id={feedback.form_question_feedback_id}
@@ -249,6 +249,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                             reviewer={feedback.reviewer}
                             is_bookmarked={feedback.bookmark.is_bookmarked}
                             isBookmarkable={true}
+                            withBookmarkTooltip={index === 0 ? true : false}
                           />
                         ))}
                       </div>

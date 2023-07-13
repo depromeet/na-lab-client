@@ -5,7 +5,7 @@ import { type TooltipProps } from '../types';
 import { FloatingTooltip } from './Tooltip/FloatingTooltip';
 
 export function ControlledTooltip(props: TooltipProps) {
-  const { placement, offset, onClickOutside, interactive, isShowing, onClose } = props;
+  const { placement, offset, onClickOutside, onClickTooltip, interactive, isShowing, onClose } = props;
 
   useEffect(() => {
     if (!isShowing && onClose) {
@@ -17,6 +17,7 @@ export function ControlledTooltip(props: TooltipProps) {
     <TooltipProvider
       placement={placement}
       offsetNumber={offset}
+      onClickTooltip={onClickTooltip}
       onClickOutside={onClickOutside}
       interactive={interactive}
     >
@@ -28,7 +29,14 @@ export function ControlledTooltip(props: TooltipProps) {
 export function UncontrolledTooltip({ ...props }: TooltipProps) {
   const [isShowing, setIsShowing] = useState(true);
 
-  return <ControlledTooltip {...props} isShowing={isShowing} onChildrenClick={() => setIsShowing(!isShowing)} />;
+  return (
+    <ControlledTooltip
+      {...props}
+      isShowing={isShowing}
+      onChildrenClick={() => setIsShowing(!isShowing)}
+      onClickTooltip={() => setIsShowing(false)}
+    />
+  );
 }
 
 /**
