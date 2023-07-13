@@ -1,5 +1,4 @@
-import { type ReactElement, type ReactNode, useState } from 'react';
-import { type NextPage } from 'next';
+import { useState } from 'react';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { css, type Theme, ThemeProvider } from '@emotion/react';
@@ -17,10 +16,7 @@ import { MAIN_LAYOUT_ID } from '~/constants/name';
 import usePageTrack from '~/hooks/event/usePageTrack';
 import GlobalStyles from '~/styles/GlobalStyle';
 import defaultTheme from '~/styles/theme';
-
-export type NextPageWithLayout = NextPage & {
-  getLayout?: (page: ReactElement) => ReactNode;
-};
+import { type NextPageWithLayout } from '~/types/page';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;

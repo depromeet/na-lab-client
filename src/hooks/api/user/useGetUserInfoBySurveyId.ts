@@ -8,10 +8,12 @@ interface Response {
   position: string;
 }
 
+export const getUserInfoBySurveyId = (surveyId: string) => get<Response>(`/v1/users?survey-id=${surveyId}`);
+
 const useGetUserInfoBySurveyId = (surveyId: string, options?: UseQueryOptions<Response>) => {
   return useQuery<Response>({
     queryKey: ['user', surveyId],
-    queryFn: () => get<Response>(`https://dev.nalab.me/v1/users?survey-id=${surveyId}`),
+    queryFn: () => getUserInfoBySurveyId(surveyId),
     ...options,
   });
 };

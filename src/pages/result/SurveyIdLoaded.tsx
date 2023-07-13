@@ -57,6 +57,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
   const ids = allData?.question_feedback.map((question) => question.question_id) ?? [];
   const currentObservedId = useScrollSpy(['participatingReviewerId', ...ids]);
 
+  // TODO: Resize Observer?
   const [innerWidth, setInnerWidth] = useState(0);
   useLayoutEffect(() => {
     const limittedInnerWidth = window.innerWidth > 480 ? 480 : window.innerWidth;
