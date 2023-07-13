@@ -33,7 +33,7 @@ export function UncontrolledTooltip({ ...props }: TooltipProps) {
     <ControlledTooltip
       {...props}
       isShowing={isShowing}
-      onChildrenClick={() => setIsShowing(!isShowing)}
+      onChildrenClick={() => setIsShowing(false)}
       onClickTooltip={() => setIsShowing(false)}
     />
   );
