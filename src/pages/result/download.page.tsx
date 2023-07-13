@@ -5,6 +5,7 @@ import { type SatoriOptions } from 'satori/wasm';
 import Button from '~/components/button/Button';
 import useToast from '~/components/toast/useToast';
 import { BASE_URL as PROD_BASE_URL } from '~/constants/url';
+import DnaInfoView from '~/features/dna/DnaInfoView';
 import { isProd } from '~/utils/common';
 import { createOGImage, fetchFont } from '~/utils/createImage';
 import { detectMobileDevice } from '~/utils/device';
@@ -24,18 +25,38 @@ const IMAGE_BY_GROUP: Record<Group, string> = {
 } as const;
 
 export async function getServerSideProps() {
-  const notoSansScFont = await fetchFont();
-  if (!notoSansScFont) return { props: {} };
+  const notoSansScFont700 = await fetchFont('Noto+Sans+KR', 700);
+  const notoSansScFont400 = await fetchFont('Noto+Sans+KR', 400);
+  const notoSansScFont500 = await fetchFont('Noto+Sans+KR', 500);
+  if (!notoSansScFont700 || !notoSansScFont400 || !notoSansScFont500) return { props: {} };
 
-  const { group, userInfo } = MOCK_DATA;
+  const { group, userInfo, dnaInfo } = MOCK_DATA;
   const imageOptions: SatoriOptions = {
-    width: 329,
-    height: 389,
+    width: 333,
+    height: 700,
     fonts: [
       {
         name: 'Noto Sans KR',
-        data: notoSansScFont,
+        data: notoSansScFont700,
         weight: 700,
+        style: 'normal',
+      },
+      {
+        name: 'Noto Sans KR',
+        data: notoSansScFont500,
+        weight: 600,
+        style: 'normal',
+      },
+      {
+        name: 'Noto Sans KR',
+        data: notoSansScFont500,
+        weight: 500,
+        style: 'normal',
+      },
+      {
+        name: 'Noto Sans KR',
+        data: notoSansScFont400,
+        weight: 400,
         style: 'normal',
       },
     ],
@@ -43,7 +64,15 @@ export async function getServerSideProps() {
 
   // group 계산 필요
   const ogImage = (await createOGImage(
-    <DNAImageView group={group as Group} name={userInfo.nickname} />,
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <DNAImageView group={group as Group} name={userInfo.nickname} />
+      <DnaInfoView dnaInfo={dnaInfo} />
+    </div>,
     imageOptions,
   )) as Buffer;
   const imageData = JSON.stringify({ base64: ogImage.toString('base64') });
@@ -51,11 +80,21 @@ export async function getServerSideProps() {
   return {
     props: {
       imageData,
+      dnaInfo,
     },
   };
 }
 
-function ResultDownloadPage({ imageData }: { imageData: string }) {
+function ResultDownloadPage({
+  imageData,
+  dnaInfo,
+}: {
+  imageData: string;
+  dnaInfo: {
+    title: string;
+    descriptions: string[];
+  };
+}) {
   const { fireToast } = useToast();
 
   const imageObj = JSON.parse(imageData);
@@ -77,7 +116,7 @@ function ResultDownloadPage({ imageData }: { imageData: string }) {
       <article css={cardCss}>
         <img src={imageBase64} alt="dna images" />
       </article>
-
+      <DnaInfoView dnaInfo={dnaInfo} />
       <Button onClick={onImageDownload}>다운로드</Button>
     </div>
   );
