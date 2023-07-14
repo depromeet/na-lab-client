@@ -16,6 +16,8 @@ const instance = axios.create({
 });
 
 const interceptorRequestFulfilled = (config: InternalAxiosRequestConfig) => {
+  if (typeof window === 'undefined') return config;
+
   const accessToken = localStorage.getItem(LOCAL_STORAGE_KEY.accessToken);
   if (!config.headers) return config;
   if (!accessToken) return config;
