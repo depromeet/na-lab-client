@@ -1,7 +1,8 @@
-import { type FormEventHandler, useLayoutEffect, useRef, useState } from 'react';
+import { type ChangeEvent, type FormEventHandler, useLayoutEffect, useRef, useState } from 'react';
 import { css, type Theme } from '@emotion/react';
 
 import { FillEditIcon } from '~/components/icons/EditIcon';
+import useToast from '~/components/toast/useToast';
 import useBoolean from '~/hooks/common/useBoolean';
 import useInput from '~/hooks/common/useInput';
 import colors from '~/styles/color';
@@ -12,17 +13,38 @@ interface Props {
 }
 
 const Input = ({ onInputSubmit, value }: Props) => {
-  const [text, onTextChange] = useInput(value);
+  const [text, onTextChange, resetValue] = useInput(value);
   const [isBlur, _, setTrue, setFalse] = useBoolean(true);
   const inputRef = useRef<HTMLInputElement>(null);
   const measuringSpanRef = useRef<HTMLSpanElement>(null);
   const [inputWidth, setInputWidth] = useState<number>(162);
+  const { fireToast } = useToast();
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     setTrue();
 
-    onInputSubmit(text);
+    if (text.trim() === '' || text === value || text.length > 16) {
+      fireToast({
+        content: '앗! 입력값을 다시 확인해주세요. (공백X, 최대 16자)',
+      });
+      resetValue();
+
+      return;
+    } else {
+      onInputSubmit(text);
+    }
+  };
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length > 16) {
+      fireToast({
+        content: '앗! 입력값은 최대 16자에요.',
+      });
+
+      return;
+    }
+    onTextChange(e);
   };
 
   useLayoutEffect(() => {
@@ -37,7 +59,7 @@ const Input = ({ onInputSubmit, value }: Props) => {
         ref={inputRef}
         css={(theme) => inputCss(theme, inputWidth)}
         value={text}
-        onChange={onTextChange}
+        onChange={onChange}
         onFocus={setFalse}
         placeholder="EX) UX 디자이너"
       />
