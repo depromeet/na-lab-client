@@ -58,6 +58,7 @@ const wrapperCss = (theme: Theme) => css`
   bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
+  padding: 0 23px;
 
   width: 100%;
   max-width: ${theme.size.maxWidth};

@@ -14,5 +14,9 @@
         "value-keyword-case": null
       }
     }
+  ],
+  "ignoreFiles": [
+    ".yarn/**/*",
+    ".next/**/*"
   ]
 }
