@@ -3,33 +3,79 @@ import { css, type Theme } from '@emotion/react';
 import { useAtomValue } from 'jotai';
 
 import CTAButton from '~/components/button/CTAButton';
+import Dialog from '~/components/dialog/Dialog';
 import KakaoIcon from '~/components/icons/KakaoIcon';
 import SEO from '~/components/SEO/SEO';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import TooltipButton from '~/components/tooltipButton/TooltipButton';
 import { fixedContainerCss } from '~/features/survey/styles';
 import useCreateSurveyAction from '~/features/survey/useCreateSurvey';
+import { getSurveyIdByStoragedToken } from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 import useKakaoLogin from '~/hooks/auth/useKakaoLogin';
+import useBoolean from '~/hooks/common/useBoolean';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
+import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { isUserTokenValidAtom } from '~/store/auth';
+import recordEvent from '~/utils/event';
 
 const JoinGuidePage = () => {
+  const router = useInternalRouter();
   const { loginHandler, status } = useKakaoLogin();
   const { onCreate } = useCreateSurveyAction();
+
+  const [이미_질문_존재, , set이미_질문_존재] = useBoolean(false);
 
   const isUserTokenValid = useAtomValue(isUserTokenValidAtom);
 
   useDidUpdate(() => {
-    if (status === 'authenticated') {
-      if (isUserTokenValid) {
-        onCreate();
+    const 존재하는_질문_확인_후_생성_혹은_다이얼로그_띄우기 = async () => {
+      if (status === 'authenticated' && isUserTokenValid) {
+        const { survey_id } = await getSurveyIdByStoragedToken();
+
+        if (Boolean(survey_id)) {
+          recordEvent({ action: '질문 폼이 존재하지만, 질문 폼 생성 시도' });
+          set이미_질문_존재();
+        } else {
+          onCreate();
+        }
       }
-    }
+    };
+
+    존재하는_질문_확인_후_생성_혹은_다이얼로그_띄우기();
   }, [status, isUserTokenValid]);
+
+  const onClickDialogCancel = () => {
+    recordEvent({ action: '질문 폼이 존재하지만, 질문 폼 생성 시도 후 취소' });
+    router.replace('/');
+  };
+
+  const onClickDialogConfirm = () => {
+    recordEvent({ action: '질문 폼이 존재하지만, 질문 폼 생성 시도 후 생성' });
+    onCreate();
+  };
 
   return (
     <>
       <SEO />
+
+      <Dialog
+        isShowing={이미_질문_존재}
+        title={<Dialog.Title>이미 질문 폼이 있어요!</Dialog.Title>}
+        description={<Dialog.Description>새롭게 만들면, 이전 질문 폼은 삭제돼요.</Dialog.Description>}
+        cancelButton={<Dialog.CancelButton onClick={onClickDialogCancel}>돌아가기</Dialog.CancelButton>}
+        confirmButton={
+          <Dialog.ConfirmButton
+            onClick={onClickDialogConfirm}
+            css={css`
+              flex-shrink: 0;
+              padding: 14px;
+              width: 150px;
+            `}
+          >
+            그래도 생성하기
+          </Dialog.ConfirmButton>
+        }
+      />
 
       <main css={mainCss}>
         <picture css={pictureCss}>
