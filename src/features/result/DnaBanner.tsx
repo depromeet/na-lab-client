@@ -50,7 +50,7 @@ const DnaBanner: FC<Props> = ({ surveyId, responseCount }) => {
       <Link href={`/dna/${surveyId}`} css={anchorCss}>
         <Button css={buttonCss}>자세히 보기</Button>
       </Link>
-      <Image quality={100} css={imageCss} src={IMAGE_MAP_BY_GROUP[group]} alt="na lab" fill />
+      <Image priority unoptimized css={imageCss} src={IMAGE_MAP_BY_GROUP[group]} alt="na lab" fill />
     </section>
   );
 };

@@ -30,8 +30,6 @@ const Dna: NextPageWithLayout<WithSeoProps<ServerSideProps>> = ({ surveyId, seo:
   const { dnaInfo, group } = useDnaInfo(surveyId);
   const { bookmarkedFeedbacks } = useBookmarkedFeedbacks(surveyId);
 
-  console.log(dnaOwnerStatus);
-
   return (
     <>
       <SEO title={title} description={description} ogImage={ogImage} />
