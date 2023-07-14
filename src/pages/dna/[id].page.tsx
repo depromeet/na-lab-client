@@ -1,4 +1,4 @@
-import { type ReactElement, useState } from 'react';
+import { type ReactElement, useEffect, useState } from 'react';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 
 import { type Softskills } from '~/components/graphic/softskills/type';
@@ -13,7 +13,6 @@ import useGetTendencyFeedbackBySurveyId, {
 } from '~/hooks/api/feedbacks/useGetTendencyFeedbackBySurveyId';
 import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 import useGetUserInfoBySurveyId, { getUserInfoBySurveyId } from '~/hooks/api/user/useGetUserInfoBySurveyId';
-import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 import {
   type GetServerSidePropsWithDehydratedStateAndSEO,
   type NextPageWithLayout,
@@ -112,9 +111,9 @@ const TENDENCY_SLICE_NUMBER = 5;
 
 const useSortedTop5Tendencies = (surveyId: string | string[] | undefined) => {
   const [tendencies, setTendencies] = useState<Softskills[]>([]);
-  const { data, isSuccess } = useGetTendencyFeedbackBySurveyId(String(surveyId), { enabled: Boolean(surveyId) });
+  const { data } = useGetTendencyFeedbackBySurveyId(String(surveyId), { enabled: Boolean(surveyId) });
 
-  useDidUpdate(() => {
+  useEffect(() => {
     if (!data) return;
     const notSortedTendencies = [...data.question_feedback[0].choices];
     const sortedTendencies = notSortedTendencies
@@ -123,7 +122,7 @@ const useSortedTop5Tendencies = (surveyId: string | string[] | undefined) => {
       .slice(0, TENDENCY_SLICE_NUMBER);
 
     setTendencies(sortedTendencies as Softskills[]);
-  }, [isSuccess]);
+  }, [data]);
 
   return { tendencies };
 };
@@ -131,15 +130,15 @@ const useSortedTop5Tendencies = (surveyId: string | string[] | undefined) => {
 const useDnaInfo = (surveyId: string | string[] | undefined) => {
   const [dnaInfo, setDnaInfo] = useState<DNA | null>(null);
   const [group, setGroup] = useState<Group | null>(null);
-  const { data, isSuccess } = useGetTendencyFeedbackBySurveyId(String(surveyId), { enabled: Boolean(surveyId) });
+  const { data } = useGetTendencyFeedbackBySurveyId(String(surveyId), { enabled: Boolean(surveyId) });
 
-  useDidUpdate(() => {
+  useEffect(() => {
     if (!data) return;
     const notSortedTendencies = [...data.question_feedback[0].choices];
     const nextGroup = getResultGroup(notSortedTendencies);
     setGroup(nextGroup);
     setDnaInfo(DNA_MAP_BY_GROUP[nextGroup]);
-  }, [isSuccess, data]);
+  }, [data]);
 
   return { dnaInfo, group };
 };
@@ -149,7 +148,7 @@ const useDanOnwerStatus = (surveyId: string | string[] | undefined) => {
 
   const { data, sessionStatus } = useGetSurveyIdByUserStatus();
 
-  useDidUpdate(() => {
+  useEffect(() => {
     if (sessionStatus === 'loading') return;
     if (sessionStatus === 'unauthenticated') {
       setDnaOwnerStatus('other');
@@ -164,7 +163,7 @@ const useDanOnwerStatus = (surveyId: string | string[] | undefined) => {
     } else {
       setDnaOwnerStatus('other');
     }
-  }, [data, sessionStatus]);
+  }, [data]);
 
   return { dnaOwnerStatus };
 };
@@ -172,13 +171,13 @@ const useDanOnwerStatus = (surveyId: string | string[] | undefined) => {
 const useBookmarkedFeedbacks = (surveyId: string | string[] | undefined) => {
   const [bookmarkedFeedbacks, setBookmarkedFeedbacks] = useState<QuestionFeedback[]>([]);
 
-  const { data, isSuccess } = useGetBookmarkedFeedbacks(String(surveyId), { enabled: Boolean(surveyId) });
+  const { data } = useGetBookmarkedFeedbacks(String(surveyId), { enabled: Boolean(surveyId) });
 
-  useDidUpdate(() => {
+  useEffect(() => {
     if (!data) return;
 
     setBookmarkedFeedbacks(data.question_feedback);
-  }, [isSuccess]);
+  }, [data]);
 
   return { bookmarkedFeedbacks };
 };
