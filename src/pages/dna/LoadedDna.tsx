@@ -84,7 +84,11 @@ const LoadedDna: FC<Props> = ({
         >
           <div>
             <p css={titleCss}>{dnaInfo.title}를 가진</p>
-            <Input onInputSubmit={(text) => mutate({ position: text })} value={userInfo?.position} />
+            {dnaOwnerStatus === 'current_user' ? (
+              <Input onInputSubmit={(text) => mutate({ position: text })} value={userInfo?.position} />
+            ) : (
+              <p css={titleCss}>{userInfo?.position}</p>
+            )}
           </div>
 
           <ul css={ulCss}>
