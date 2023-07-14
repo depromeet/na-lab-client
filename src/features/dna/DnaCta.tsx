@@ -53,7 +53,7 @@ const DnaCta: FC<Props> = ({ surveyId, dnaOwnerStatus, userInfo }) => {
   if (Boolean(visitedUserSurveyId))
     return (
       <div css={fullGrayBackgroundWrapperCss}>
-        <CTAButton onClick={onClickMyResultCTA}>내 결과 보러 가기</CTAButton>
+        <CTAButton onClick={onClickMyResultCTA}>내 피드백 결과 보러 가기</CTAButton>
       </div>
     );
 
