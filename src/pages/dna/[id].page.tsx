@@ -61,12 +61,12 @@ type ServerSideProps = {
 
 const OG_IMAGE_BASE = '/images/dna/seo';
 const OG_IMAGE_MAP_BY_GROUP: Record<Group, string> = {
-  A: `${OG_IMAGE_BASE}/A.png`,
-  B: `${OG_IMAGE_BASE}/B.png`,
-  C: `${OG_IMAGE_BASE}/C.png`,
-  D: `${OG_IMAGE_BASE}/D.png`,
-  E: `${OG_IMAGE_BASE}/E.png`,
-  F: `${OG_IMAGE_BASE}/F.png`,
+  A: `${OG_IMAGE_BASE}/A.webp`,
+  B: `${OG_IMAGE_BASE}/B.webp`,
+  C: `${OG_IMAGE_BASE}/C.webp`,
+  D: `${OG_IMAGE_BASE}/D.webp`,
+  E: `${OG_IMAGE_BASE}/E.webp`,
+  F: `${OG_IMAGE_BASE}/F.webp`,
 };
 
 export const getServerSideProps: GetServerSidePropsWithDehydratedStateAndSEO<ServerSideProps> = async (context) => {
