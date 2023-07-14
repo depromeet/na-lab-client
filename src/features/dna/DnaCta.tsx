@@ -20,9 +20,7 @@ interface Props {
 const DnaCta: FC<Props> = ({ surveyId, dnaOwnerStatus, userInfo }) => {
   const router = useInternalRouter();
   const { fireToast } = useToast();
-  const { data: visitedUserSurveyId, isInitialLoading } = useGetSurveyIdByUserStatus();
-
-  console.log(visitedUserSurveyId, isInitialLoading);
+  const { data: visitedUserSurveyId } = useGetSurveyIdByUserStatus();
 
   const onClickCopyCTA = () => {
     recordEvent({ action: 'DNA 페이지 - 커리어 명함 링크 복사 클릭' });
