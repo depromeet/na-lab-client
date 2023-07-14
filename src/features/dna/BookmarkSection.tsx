@@ -1,5 +1,5 @@
 import { type FC } from 'react';
-import { css } from '@emotion/react';
+import { css, type Theme } from '@emotion/react';
 
 import { type DnaOwnerStatus } from '~/pages/dna/type';
 import { HEAD_2_BOLD } from '~/styles/typo';
@@ -48,7 +48,7 @@ const BookmarkSection: FC<Props> = ({ bookmarkedFeedbacks, dnaOwnerStatus }) => 
 
 export default BookmarkSection;
 
-const crewFeedbackContainer = css`
+const crewFeedbackContainer = (theme: Theme) => css`
   transform: translateX(-23px);
 
   display: flex;
@@ -57,13 +57,13 @@ const crewFeedbackContainer = css`
   width: calc(100% + 23px + 23px);
   padding: 20px 23px 84px;
 
-  background: var(--gray-50-background-secondary, #f4f5f9);
+  background-color: ${theme.colors.gray_50};
 `;
 
-const subTitleCss = css`
+const subTitleCss = (theme: Theme) => css`
   ${HEAD_2_BOLD};
 
-  color: var(--gray-500-text-secondary, #394258);
+  color: ${theme.colors.gray_500};
 `;
 
 const NothingBookmarked = () => {
