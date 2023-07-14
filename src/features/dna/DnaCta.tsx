@@ -8,7 +8,7 @@ import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUser
 import type useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurveyId';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { type DnaOwnerStatus } from '~/pages/dna/type';
-import { copyToClipBoard } from '~/utils/clipboard';
+import { copyToClipBoardWithHost } from '~/utils/clipboard';
 import recordEvent from '~/utils/event';
 
 interface Props {
@@ -25,9 +25,7 @@ const DnaCta: FC<Props> = ({ surveyId, dnaOwnerStatus, userInfo }) => {
   const onClickCopyCTA = () => {
     recordEvent({ action: 'DNA 페이지 - 커리어 명함 링크 복사 클릭' });
 
-    const hostUrl = window.location.host;
-    const copyUrl = `${hostUrl}/dna/${surveyId}`;
-    copyToClipBoard(copyUrl);
+    copyToClipBoardWithHost(`/dna/${surveyId}`);
     fireToast({ content: `${userInfo?.nickname}님의 커리어 명함 링크가 복사되었어요`, higherThanCTA: true });
   };
 

@@ -4,7 +4,7 @@ import LinkIcon from '~/components/icons/LinkIcon';
 import Toast from '~/components/toast/Toast';
 import useToast from '~/components/toast/useToast';
 import { HEAD_2_BOLD } from '~/styles/typo';
-import { copyToClipBoard } from '~/utils/clipboard';
+import { copyToClipBoardWithHost } from '~/utils/clipboard';
 
 interface Props {
   surveyId: string;
@@ -14,9 +14,7 @@ const NewFeedbackCopyButton = ({ surveyId }: Props) => {
   const { fireToast } = useToast();
 
   const onClick = () => {
-    const hostUrl = window.location.host;
-    const copyUrl = `${hostUrl}/review?id=${surveyId}`;
-    copyToClipBoard(copyUrl);
+    copyToClipBoardWithHost(`/review/${surveyId}`);
 
     fireToast({
       content: (

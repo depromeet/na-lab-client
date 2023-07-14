@@ -33,9 +33,12 @@ export interface Response {
   question: (ShortQuestion | ChoiceQuestion)[];
 }
 
+export const getSurveyByIdQueryKey = (id: string) => ['survey', id];
+export const getSurveyById = (id: string) => get<Response>(`/v1/surveys/${id}`);
+
 const useGetSurveyById = (id: string, option?: UseQueryOptions<Response>) => {
   return useQuery<Response>({
-    queryKey: ['survey', id],
+    queryKey: getSurveyByIdQueryKey(id),
     queryFn: () => get<Response>(`/v1/surveys/${id}`),
     ...option,
   });
