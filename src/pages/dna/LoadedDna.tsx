@@ -2,23 +2,19 @@ import { type FC } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 
-import CTAButton from '~/components/button/CTAButton';
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
 import HomeIcon from '~/components/icons/HomeIcon';
-import useToast from '~/components/toast/useToast';
-import { Tooltip } from '~/components/tooltip';
 import { type DNA } from '~/constants/dna';
+import BookmarkSection from '~/features/dna/BookmarkSection';
 import DnaBanner from '~/features/dna/DnaBanner';
+import DnaCta from '~/features/dna/DnaCta';
 import TendencySection from '~/features/dna/TendencySection';
-import Feedback from '~/features/feedback/Feedback';
 import Input from '~/features/feedback/Input';
 import usePatchPosition from '~/hooks/api/dna/usePatchPosition';
 import type useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurveyId';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
-import { copyToClipBoard } from '~/utils/clipboard';
-import recordEvent from '~/utils/event';
 import { type Group } from '~/utils/resultLogic';
 
 import { type DnaOwnerStatus } from './type';
@@ -57,24 +53,8 @@ const LoadedDna: FC<Props> = ({
   bookmarkedFeedbacks,
 }) => {
   const router = useInternalRouter();
-  const { fireToast } = useToast();
 
   const { mutate } = usePatchPosition();
-
-  const onClickCopyCTA = () => {
-    recordEvent({ action: 'DNA 페이지 - 커리어 명함 링크 복사 클릭' });
-
-    const hostUrl = window.location.host;
-    const copyUrl = `${hostUrl}/dna/${surveyId}`;
-    copyToClipBoard(copyUrl);
-    fireToast({ content: `${userInfo?.nickname}님의 커리어 명함 링크가 복사되었어요`, higherThanCTA: true });
-  };
-
-  const onClickCareerCTA = () => {
-    recordEvent({ action: 'DNA 페이지 - 나도 커리어 질문 폼 생성하기 클릭' });
-
-    router.push('/survey');
-  };
 
   return (
     <>
@@ -134,51 +114,8 @@ const LoadedDna: FC<Props> = ({
           <DnaBanner title={dnaInfo.fitDna.title} desc={dnaInfo.fitDna.subtitle} />
         </section>
 
-        <section css={crewFeedbackContainer}>
-          <p css={subTitleCss}>동료들의 평가</p>
-
-          <div
-            css={css`
-              display: flex;
-              flex-direction: column;
-              gap: 10px;
-              margin-top: 16px;
-            `}
-          >
-            {bookmarkedFeedbacks.map((feedback) => {
-              if (feedback.type === 'short') {
-                return feedback.feedbacks.map((item) => (
-                  <Feedback
-                    key={item.feedback_id}
-                    form_question_feedback_id={item.form_question_feedback_id}
-                    reply={item.reply}
-                    is_read={item.is_read}
-                    reviewer={item.reviewer}
-                    is_bookmarked={item.bookmark.is_bookmarked}
-                    isBookmarkable={dnaOwnerStatus === 'current_user' ? true : false}
-                  />
-                ));
-              }
-            })}
-          </div>
-
-          <div
-            css={css`
-              margin-top: 60px;
-              margin-bottom: 20px;
-            `}
-          >
-            {dnaOwnerStatus === 'current_user' ? (
-              <CTAButton onClick={onClickCopyCTA}>공유하기</CTAButton>
-            ) : (
-              <Tooltip message="단 3분이면 나의 질문 폼 링크를 만들 수 있어요!" placement="top" offset={7}>
-                <CTAButton color="blue" onClick={onClickCareerCTA}>
-                  나도 커리어 질문 폼 공유하기
-                </CTAButton>
-              </Tooltip>
-            )}
-          </div>
-        </section>
+        <BookmarkSection bookmarkedFeedbacks={bookmarkedFeedbacks} dnaOwnerStatus={dnaOwnerStatus} />
+        <DnaCta surveyId={surveyId} dnaOwnerStatus={dnaOwnerStatus} userInfo={userInfo} />
       </main>
     </>
   );
@@ -243,18 +180,4 @@ const subTitleCss = css`
   ${HEAD_2_BOLD};
 
   color: var(--gray-500-text-secondary, #394258);
-`;
-
-const crewFeedbackContainer = css`
-  transform: translateX(-23px);
-
-  display: flex;
-  flex-direction: column;
-
-  width: calc(100% + 23px + 23px);
-  padding-top: 20px;
-  padding-right: 23px;
-  padding-left: 23px;
-
-  background: var(--gray-50-background-secondary, #f4f5f9);
 `;
