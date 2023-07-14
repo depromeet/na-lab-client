@@ -12,10 +12,10 @@ type SeoComponentProps = ComponentProps<typeof SEO>;
 
 export type WithSeoProps<P = unknown> = P & { seo: ComponentProps<typeof SEO> };
 
-export type GetServerSidePropsWithDehydratedState<P extends { [key: string]: unknown }> = GetServerSideProps<
+export type GetServerSidePropsWithDehydratedState<P = unknown> = GetServerSideProps<
   { dehydratedState: DehydratedState } & P
 >;
 
-export type GetServerSidePropsWithDehydratedStateAndSEO<P extends { [key: string]: unknown }> = GetServerSideProps<
+export type GetServerSidePropsWithDehydratedStateAndSEO<P = unknown> = GetServerSideProps<
   { dehydratedState: DehydratedState; seo: SeoComponentProps } & P
 >;
