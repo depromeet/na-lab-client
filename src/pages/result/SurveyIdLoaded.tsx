@@ -18,7 +18,6 @@ import Pill, { type Color } from '~/components/pill/Pill';
 import Toast from '~/components/toast/Toast';
 import useToast from '~/components/toast/useToast';
 import { defaultEasing } from '~/constants/motions';
-import { BASE_URL } from '~/constants/url';
 import CollaborationCounter from '~/features/feedback/CollaborationCounter';
 import Feedback from '~/features/feedback/Feedback';
 import NewFeedbackCopyButton from '~/features/feedback/NewFeedbackCopyButton';
@@ -35,7 +34,7 @@ import useBoolean from '~/hooks/common/useBoolean';
 import useScrollLock from '~/hooks/common/useScrollLock';
 import { useScrollSpy } from '~/hooks/common/useScrollSpy';
 import { BODY_2_REGULAR, HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
-import { copyToClipBoard } from '~/utils/clipboard';
+import { copyToClipBoardWithHost } from '~/utils/clipboard';
 
 interface Props {
   surveyId: string;
@@ -65,7 +64,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
   }, []);
 
   const onClickCTA = () => {
-    copyToClipBoard(`${BASE_URL}/review?id=${surveyId}`);
+    copyToClipBoardWithHost(`/review/${surveyId}`);
 
     fireToast({
       content: (
