@@ -60,10 +60,12 @@ const LoadedDna: FC<Props> = ({
 
   const { mutate } = usePatchPosition();
 
-  const imageObj = JSON.parse(downloadableImageBase64);
-  const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
-
   const onDownloadClick = () => {
+    const imageObj = JSON.parse(downloadableImageBase64);
+    const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
+    // if (detectMobileDevice(window.navigator.userAgent)) {
+    //   return;
+    // }
     imageDownloadPC(imageBase64, 'dna');
   };
 
@@ -86,9 +88,11 @@ const LoadedDna: FC<Props> = ({
             <source srcSet={IMAGE_BY_GROUP[group].webp} type="image/webp" />
             <Image priority unoptimized css={dnaImageCss} src={IMAGE_BY_GROUP[group].png} alt="DNA 이미지" fill />
           </picture>
-          <button type="button" css={downloadIconCss} onClick={onDownloadClick}>
-            <DownloadCircleIcon />
-          </button>
+          {dnaOwnerStatus === 'current_user' && (
+            <button type="button" css={downloadIconCss} onClick={onDownloadClick}>
+              <DownloadCircleIcon />
+            </button>
+          )}
         </section>
 
         <section
