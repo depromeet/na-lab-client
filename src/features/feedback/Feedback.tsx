@@ -60,9 +60,6 @@ const Feedback = ({
             </button>
           ))}
       </div>
-      <span css={bookmarkIconCss}>
-        <BookmarkIcon isBookmarked={false} />
-      </span>
     </div>
   );
 };
