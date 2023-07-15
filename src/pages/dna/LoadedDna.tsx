@@ -4,6 +4,7 @@ import { css, type Theme } from '@emotion/react';
 
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
+import DownloadCircleIcon from '~/components/icons/DownloadCircleIcon';
 import HomeIcon from '~/components/icons/HomeIcon';
 import { type DNA } from '~/constants/dna';
 import BookmarkSection from '~/features/dna/BookmarkSection';
@@ -15,6 +16,7 @@ import usePatchPosition from '~/hooks/api/dna/usePatchPosition';
 import type useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurveyId';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
+import { imageDownloadPC } from '~/utils/image';
 import { type Group } from '~/utils/resultLogic';
 
 import { type DnaOwnerStatus } from './type';
@@ -41,6 +43,7 @@ interface Props {
   userInfo: ReturnType<typeof useGetUserInfoBySurveyId>['data'];
   topTendencies: Softskills[];
   bookmarkedFeedbacks: QuestionFeedback[];
+  downloadableImageBase64: string;
 }
 
 const LoadedDna: FC<Props> = ({
@@ -51,10 +54,18 @@ const LoadedDna: FC<Props> = ({
   userInfo,
   topTendencies,
   bookmarkedFeedbacks,
+  downloadableImageBase64,
 }) => {
   const router = useInternalRouter();
 
   const { mutate } = usePatchPosition();
+
+  const imageObj = JSON.parse(downloadableImageBase64);
+  const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
+
+  const onDownloadClick = () => {
+    imageDownloadPC(imageBase64, 'dna');
+  };
 
   return (
     <>
@@ -75,6 +86,9 @@ const LoadedDna: FC<Props> = ({
             <source srcSet={IMAGE_BY_GROUP[group].webp} type="image/webp" />
             <Image priority unoptimized css={dnaImageCss} src={IMAGE_BY_GROUP[group].png} alt="DNA 이미지" fill />
           </picture>
+          <button type="button" css={downloadIconCss} onClick={onDownloadClick}>
+            <DownloadCircleIcon />
+          </button>
         </section>
 
         <section
@@ -184,4 +198,10 @@ const subTitleCss = css`
   ${HEAD_2_BOLD};
 
   color: var(--gray-500-text-secondary, #394258);
+`;
+
+const downloadIconCss = css`
+  position: absolute;
+  right: -2px;
+  bottom: -5px;
 `;
