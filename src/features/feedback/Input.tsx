@@ -77,12 +77,13 @@ const formCss = css`
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 `;
 
 const inputCss = (theme: Theme, inputWidth: number) => css`
   all: unset;
 
-  width: ${inputWidth}px;
+  width: ${inputWidth + 2}px;
 
   font-size: 1.5rem;
   font-weight: 700;
