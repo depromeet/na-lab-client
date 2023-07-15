@@ -27,9 +27,7 @@ const DOWNLOAD_IMAGE_BY_GROUP: Record<Group, string> = {
 
 export async function getServerSideProps() {
   const notoSansScFont700 = await fetchFont('Noto+Sans+KR', 700);
-  const notoSansScFont400 = await fetchFont('Noto+Sans+KR', 400);
-  const notoSansScFont500 = await fetchFont('Noto+Sans+KR', 500);
-  if (!notoSansScFont700 || !notoSansScFont400 || !notoSansScFont500) return { props: {} };
+  if (!notoSansScFont700) return { props: {} };
 
   const { group, userInfo, dnaInfo } = MOCK_DATA;
   const imageOptions: SatoriOptions = {
@@ -42,24 +40,6 @@ export async function getServerSideProps() {
         weight: 700,
         style: 'normal',
       },
-      {
-        name: 'Noto Sans KR',
-        data: notoSansScFont500,
-        weight: 600,
-        style: 'normal',
-      },
-      {
-        name: 'Noto Sans KR',
-        data: notoSansScFont500,
-        weight: 500,
-        style: 'normal',
-      },
-      {
-        name: 'Noto Sans KR',
-        data: notoSansScFont400,
-        weight: 400,
-        style: 'normal',
-      },
     ],
   };
 
@@ -67,6 +47,7 @@ export async function getServerSideProps() {
   const { image: ogImage } = await createOGImage(
     <div
       style={{
+        position: 'relative',
         display: 'flex',
       }}
     >
@@ -80,7 +61,31 @@ export async function getServerSideProps() {
         width={375}
         height={666}
       />
-      <span>{userInfo.nickname}</span>
+      <span
+        style={{
+          position: 'absolute',
+          top: '112px',
+          fontWeight: 700,
+          fontSize: '20px',
+          color: '#fff',
+          left: '70px',
+          textShadow: '1px 1px 2px #849BDA30',
+        }}
+      >
+        {userInfo.nickname}
+      </span>
+      <span
+        style={{
+          position: 'absolute',
+          top: '407px',
+          left: '72px',
+          color: '#17171B',
+          fontWeight: 700,
+          fontSize: '16.8px',
+        }}
+      >
+        {userInfo.position}
+      </span>
     </div>,
     imageOptions,
   );
@@ -139,8 +144,8 @@ function ResultDownloadPage({
 export default ResultDownloadPage;
 
 const containerCss = css`
-  width: 100%;
-  height: 100vh;
+  transform: translateX(-16px);
+  width: calc(100% + 32px);
   background: rgb(216 227 255 / 60%);
   backdrop-filter: blur(12.5px);
 `;
