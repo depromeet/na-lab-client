@@ -7,8 +7,8 @@ import { errorMessage } from '~/exceptions/messages';
 import { type ApiErrorScheme } from '~/exceptions/type';
 import { isProd } from '~/utils/common';
 
-const DEVELOPMENT_API_URL = 'https://dev.nalab.me/v1';
-const PRODUCTION_API_URL = 'https://api.nalab.me/v1';
+const DEVELOPMENT_API_URL = 'https://dev.nalab.me';
+const PRODUCTION_API_URL = 'https://api.nalab.me';
 
 const instance = axios.create({
   baseURL: isProd(process.env.NODE_ENV) ? PRODUCTION_API_URL : DEVELOPMENT_API_URL,
@@ -16,6 +16,8 @@ const instance = axios.create({
 });
 
 const interceptorRequestFulfilled = (config: InternalAxiosRequestConfig) => {
+  if (typeof window === 'undefined') return config;
+
   const accessToken = localStorage.getItem(LOCAL_STORAGE_KEY.accessToken);
   if (!config.headers) return config;
   if (!accessToken) return config;

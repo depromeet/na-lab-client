@@ -18,7 +18,6 @@ import Pill, { type Color } from '~/components/pill/Pill';
 import Toast from '~/components/toast/Toast';
 import useToast from '~/components/toast/useToast';
 import { defaultEasing } from '~/constants/motions';
-import { BASE_URL } from '~/constants/url';
 import CollaborationCounter from '~/features/feedback/CollaborationCounter';
 import Feedback from '~/features/feedback/Feedback';
 import NewFeedbackCopyButton from '~/features/feedback/NewFeedbackCopyButton';
@@ -28,17 +27,14 @@ import ResearchMoveAnchor from '~/features/feedback/ResearchMoveAnchor';
 import MultipleChoiceAnswer from '~/features/multipleChoiceAnswer/MultipleChoiceAnswer';
 import DnaBanner from '~/features/result/DnaBanner';
 import { CTAVariants, fixedBottomCss, imageVariant } from '~/features/survey/styles';
-import useGetAllFeedbacksBySurveyId, {
-  type ChoiceQuestionFeedback,
-  type Response,
-} from '~/hooks/api/feedbacks/useGetAllFeedbacksBySurveyId';
+import useGetAllFeedbacksBySurveyId, { type Response } from '~/hooks/api/feedbacks/useGetAllFeedbacksBySurveyId';
 import useGetFeedbackSummaryBySurveyId from '~/hooks/api/feedbacks/useGetFeedbackSummaryBySurveyId';
 import useGetReviewersSummaryBySurveyId from '~/hooks/api/reviewers/useGetReviewersSummaryBySurveyId';
 import useBoolean from '~/hooks/common/useBoolean';
 import useScrollLock from '~/hooks/common/useScrollLock';
 import { useScrollSpy } from '~/hooks/common/useScrollSpy';
 import { BODY_2_REGULAR, HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
-import { copyToClipBoard } from '~/utils/clipboard';
+import { copyToClipBoardWithHost } from '~/utils/clipboard';
 
 interface Props {
   surveyId: string;
@@ -60,6 +56,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
   const ids = allData?.question_feedback.map((question) => question.question_id) ?? [];
   const currentObservedId = useScrollSpy(['participatingReviewerId', ...ids]);
 
+  // TODO: Resize Observer?
   const [innerWidth, setInnerWidth] = useState(0);
   useLayoutEffect(() => {
     const limittedInnerWidth = window.innerWidth > 480 ? 480 : window.innerWidth;
@@ -67,7 +64,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
   }, []);
 
   const onClickCTA = () => {
-    copyToClipBoard(`${BASE_URL}/review?id=${surveyId}`);
+    copyToClipBoardWithHost(`/review/${surveyId}`);
 
     fireToast({
       content: (
@@ -243,12 +240,16 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                         <h2>{question.title}</h2>
                       </div>
                       <div css={shortTypeCss}>
-                        {question.feedbacks?.map((feedback) => (
+                        {question.feedbacks?.map((feedback, index) => (
                           <Feedback
                             key={feedback.feedback_id}
+                            form_question_feedback_id={feedback.form_question_feedback_id}
                             reply={feedback.reply}
                             is_read={feedback.is_read}
                             reviewer={feedback.reviewer}
+                            is_bookmarked={feedback.bookmark.is_bookmarked}
+                            isBookmarkable={true}
+                            withBookmarkTooltip={index === 0 ? true : false}
                           />
                         ))}
                       </div>

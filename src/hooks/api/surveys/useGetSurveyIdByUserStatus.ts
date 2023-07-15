@@ -10,13 +10,15 @@ interface Response {
   survey_id: string;
 }
 
+export const getSurveyIdByStoragedToken = () => get<Response>('/v1/surveys-id');
+
 const useGetSurveyIdByUserStatus = (options?: UseQueryOptions<Response, ApiException>) => {
   const { data, status } = useSession();
   const isUserTokenValid = useAtomValue(isUserTokenValidAtom);
 
   const query = useQuery<Response, ApiException>({
     queryKey: ['survey id', data?.user?.email],
-    queryFn: () => get<Response>('/surveys-id'),
+    queryFn: getSurveyIdByStoragedToken,
     enabled: status === 'authenticated' && isUserTokenValid,
     ...options,
   });

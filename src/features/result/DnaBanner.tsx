@@ -26,9 +26,13 @@ const IMAGE_MAP_BY_GROUP: Readonly<Record<Group, string>> = {
 } as const;
 
 const DnaBanner: FC<Props> = ({ surveyId, responseCount }) => {
-  const { data } = useGetTendencyFeedbackBySurveyId(surveyId, {
+  const { data, isFetching } = useGetTendencyFeedbackBySurveyId(surveyId, {
     enabled: responseCount >= MINIMUM_RESPONSE_NUMBER,
   });
+
+  if (isFetching) {
+    return <div css={[sectionBaseCss, dnaSectionCss]}></div>;
+  }
 
   if (responseCount < MINIMUM_RESPONSE_NUMBER) {
     return <NotEnoughResponse responseCount={responseCount} />;
@@ -46,7 +50,7 @@ const DnaBanner: FC<Props> = ({ surveyId, responseCount }) => {
       <Link href={`/dna/${surveyId}`} css={anchorCss}>
         <Button css={buttonCss}>자세히 보기</Button>
       </Link>
-      <Image quality={100} css={imageCss} src={IMAGE_MAP_BY_GROUP[group]} alt="na lab" fill />
+      <Image priority unoptimized css={imageCss} src={IMAGE_MAP_BY_GROUP[group]} alt="na lab" fill />
     </section>
   );
 };

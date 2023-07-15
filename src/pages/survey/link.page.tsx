@@ -11,7 +11,7 @@ import useToast from '~/components/toast/useToast';
 import { fixedBottomCss } from '~/features/review/style';
 import { CTAVariants, fixedContainerCss } from '~/features/survey/styles';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
-import { copyToClipBoard } from '~/utils/clipboard';
+import { copyToClipBoardWithHost } from '~/utils/clipboard';
 
 const SurveyLinkPage = () => {
   const { fireToast } = useToast();
@@ -26,9 +26,8 @@ const SurveyLinkPage = () => {
     if (!id) {
       throw new Error('잘못된 경로입니다.\nsurveyId가 없습니다.');
     }
-    const hostUrl = window.location.host;
-    const copyUrl = `${hostUrl}/review?id=${id}`;
-    copyToClipBoard(copyUrl);
+
+    copyToClipBoardWithHost(`/review/${id}`);
 
     fireToast({
       content: (

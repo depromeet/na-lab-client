@@ -23,7 +23,7 @@ const TendencySection: FC<Props> = ({ userInfo, topTendencies }) => {
       <div css={pillContainer}>
         {topTendencies.map((tendency, index) => (
           <Pill key={tendency} color={COLOR_INDEX[index]}>
-            <Softskill name={tendency} /> {tendency}
+            <Softskill name={tendency} /> {tendency.replaceAll('_', ' ')}
           </Pill>
         ))}
       </div>

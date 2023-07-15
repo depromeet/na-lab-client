@@ -8,11 +8,14 @@ interface Response {
   position: string;
 }
 
+export const getUserInfoBySurveyIdQueryKey = (surveyId: string) => ['user', surveyId];
+
+export const getUserInfoBySurveyId = (surveyId: string) => get<Response>(`/v1/users?survey-id=${surveyId}`);
+
 const useGetUserInfoBySurveyId = (surveyId: string, options?: UseQueryOptions<Response>) => {
   return useQuery<Response>({
-    queryKey: ['user', surveyId],
-    // TODO: mock 제거
-    queryFn: () => get<Response>(`https://dev.nalab.me/mock/users?survey-id=${surveyId}`),
+    queryKey: getUserInfoBySurveyIdQueryKey(surveyId),
+    queryFn: () => getUserInfoBySurveyId(surveyId),
     ...options,
   });
 };

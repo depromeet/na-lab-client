@@ -44,6 +44,7 @@ const useCheckSurveyId = () => {
   const { fireToast } = useToast();
   const router = useInternalRouter();
   const { status } = useSession();
+
   const { isLoading, data } = useGetSurveyIdByUserStatus({
     onError: () => {
       fireToast({ content: '문제가 발생했어요. 다시 시도해 주세요.' });

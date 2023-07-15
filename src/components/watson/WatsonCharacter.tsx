@@ -25,18 +25,14 @@ const transition = { duration: 1.8, ease: defaultEasing, repeat: Infinity, repea
 const imageVariant = {
   initial: {
     y: 0,
-    scale: 1,
   },
   animate: {
     y: [0, -1, -2, -1, 0],
-    scale: [1, 1.01, 1.02, 1.01, 1],
     transition: transition,
   },
 };
 
-const shadowAnimate = {
-  scale: [1, 1.2, 1.3, 1.3, 1.2, 1],
-};
+const shadowAnimate = {};
 
 const containerCss = css`
   position: relative;

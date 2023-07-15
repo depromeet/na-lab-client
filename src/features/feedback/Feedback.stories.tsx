@@ -79,6 +79,8 @@ export function Default() {
             reply={feedback.reply}
             is_read={feedback.is_read}
             reviewer={feedback.reviewer}
+            form_question_feedback_id={''}
+            is_bookmarked={false}
           />
         ))}
       </div>

@@ -12,7 +12,7 @@ interface Response {
 const useGetFeedbackById = (id: string, options?: UseQueryOptions<Response>) => {
   return useQuery<Response>({
     queryKey: ['feedback', id],
-    queryFn: () => get<Response>(`/feedbacks/${id}`),
+    queryFn: () => get<Response>(`/v1/feedbacks/${id}`),
     ...options,
   });
 };

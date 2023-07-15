@@ -19,7 +19,7 @@ const AuthProvider = ({ children }: Props) => {
     if (status !== 'authenticated') return;
 
     const getToken = async () => {
-      const token = await post<Token>('/oauth/kakao', {
+      const token = await post<Token>('/v1/oauth/kakao', {
         nickname: data?.user?.name,
         email: data?.user?.email,
       });
