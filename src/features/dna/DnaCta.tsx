@@ -1,12 +1,10 @@
 import { type FC } from 'react';
+import { useRouter } from 'next/router';
 import { css, type Theme } from '@emotion/react';
 
 import CTAButton from '~/components/button/CTAButton';
 import useToast from '~/components/toast/useToast';
-import { Tooltip } from '~/components/tooltip';
-import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 import type useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurveyId';
-import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { type DnaOwnerStatus } from '~/pages/dna/type';
 import { copyToClipBoardWithHost } from '~/utils/clipboard';
 import recordEvent from '~/utils/event';
@@ -18,9 +16,8 @@ interface Props {
 }
 
 const DnaCta: FC<Props> = ({ surveyId, dnaOwnerStatus, userInfo }) => {
-  const router = useInternalRouter();
+  const router = useRouter();
   const { fireToast } = useToast();
-  const { data: visitedUserSurveyId } = useGetSurveyIdByUserStatus();
 
   const onClickCopyCTA = () => {
     recordEvent({ action: 'DNA 페이지 - 커리어 명함 링크 복사 클릭' });
@@ -29,16 +26,10 @@ const DnaCta: FC<Props> = ({ surveyId, dnaOwnerStatus, userInfo }) => {
     fireToast({ content: `${userInfo?.nickname}님의 커리어 명함 링크가 복사되었어요`, higherThanCTA: true });
   };
 
-  const onClickMyResultCTA = () => {
-    recordEvent({ action: 'DNA 페이지 - 내 결과 보러 가기 클릭' });
+  const onClickFeedbackCTA = () => {
+    recordEvent({ action: 'DNA 페이지 - 나도 피드백 남기기 클릭' });
 
-    router.push('/result');
-  };
-
-  const onClickCareerCTA = () => {
-    recordEvent({ action: 'DNA 페이지 - 나도 커리어 질문 폼 생성하기 클릭' });
-
-    router.push('/survey');
+    router.push(`/review/${surveyId}`);
   };
 
   if (dnaOwnerStatus === 'current_user')
@@ -48,20 +39,11 @@ const DnaCta: FC<Props> = ({ surveyId, dnaOwnerStatus, userInfo }) => {
       </div>
     );
 
-  if (Boolean(visitedUserSurveyId))
-    return (
-      <div css={fullGrayBackgroundWrapperCss}>
-        <CTAButton onClick={onClickMyResultCTA}>내 피드백 결과 보러 가기</CTAButton>
-      </div>
-    );
-
   return (
     <div css={fullGrayBackgroundWrapperCss}>
-      <Tooltip message="단 3분이면 나의 질문 폼 링크를 만들 수 있어요!" placement="top" offset={7}>
-        <CTAButton color="blue" onClick={onClickCareerCTA}>
-          나도 커리어 질문 폼 공유하기
-        </CTAButton>
-      </Tooltip>
+      <CTAButton color="blue" onClick={onClickFeedbackCTA}>
+        나도 피드백 남기기
+      </CTAButton>
     </div>
   );
 };
