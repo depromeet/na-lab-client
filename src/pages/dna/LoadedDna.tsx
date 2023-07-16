@@ -1,6 +1,7 @@
 import { type FC } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
@@ -13,6 +14,7 @@ import TendencySection from '~/features/dna/TendencySection';
 import Input from '~/features/feedback/Input';
 import usePatchPosition from '~/hooks/api/dna/usePatchPosition';
 import type useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurveyId';
+import { getUserInfoBySurveyIdQueryKey } from '~/hooks/api/user/useGetUserInfoBySurveyId';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
 import { type Group } from '~/utils/resultLogic';
@@ -54,7 +56,10 @@ const LoadedDna: FC<Props> = ({
 }) => {
   const router = useInternalRouter();
 
-  const { mutate } = usePatchPosition();
+  const queryClient = useQueryClient();
+  const { mutate } = usePatchPosition({
+    onSuccess: () => queryClient.invalidateQueries(getUserInfoBySurveyIdQueryKey(surveyId)),
+  });
 
   return (
     <>
