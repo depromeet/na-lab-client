@@ -153,6 +153,7 @@ const globalStyles = css`
       'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
       'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
     color: ${theme.colors.black};
+    background-color: ${theme.colors.white};
   }
 
   * {
