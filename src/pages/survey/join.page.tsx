@@ -8,6 +8,7 @@ import KakaoIcon from '~/components/icons/KakaoIcon';
 import SEO from '~/components/SEO/SEO';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import TooltipButton from '~/components/tooltipButton/TooltipButton';
+import ApiException from '~/exceptions/ApiException';
 import { fixedContainerCss } from '~/features/survey/styles';
 import useCreateSurveyAction from '~/features/survey/useCreateSurvey';
 import { getSurveyIdByStoragedToken } from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
@@ -30,14 +31,24 @@ const JoinGuidePage = () => {
   useDidUpdate(() => {
     const 존재하는_질문_확인_후_생성_혹은_다이얼로그_띄우기 = async () => {
       if (status === 'authenticated' && isUserTokenValid) {
-        const { survey_id } = await getSurveyIdByStoragedToken();
+        // NOTE: 질문 폼이 존재하는지 확인
+        try {
+          await getSurveyIdByStoragedToken();
+        } catch (e) {
+          if (e instanceof ApiException) {
+            // NOTE: 질문 폼이 존재하지 않는 경우
+            if (e.code === 404) {
+              onCreate();
 
-        if (Boolean(survey_id)) {
-          recordEvent({ action: '질문 폼이 존재하지만, 질문 폼 생성 시도' });
-          set이미_질문_존재();
-        } else {
-          onCreate();
+              return;
+            }
+          }
+
+          throw e;
         }
+
+        recordEvent({ action: '질문 폼이 존재하지만, 질문 폼 생성 시도' });
+        set이미_질문_존재();
       }
     };
 
@@ -68,8 +79,8 @@ const JoinGuidePage = () => {
             onClick={onClickDialogConfirm}
             css={css`
               flex-shrink: 0;
-              padding: 14px;
               width: 150px;
+              padding: 14px;
             `}
           >
             그래도 생성하기
