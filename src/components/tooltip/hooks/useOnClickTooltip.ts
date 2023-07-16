@@ -15,9 +15,17 @@ export const useOnClickTooltip = ({
         return;
       }
 
-      const isClickTooltipTooltip = ref.current && ref.current.contains(event.target as Node);
+      const rect = ref.current?.getBoundingClientRect();
+      const x = event.clientX;
+      const y = event.clientY;
 
-      if (!interactive || isClickTooltipTooltip) {
+      if (
+        !interactive &&
+        x >= (rect?.left ?? 0) &&
+        x <= (rect?.right ?? 0) &&
+        y >= (rect?.top ?? 0) &&
+        y <= (rect?.bottom ?? 0)
+      ) {
         onClickTooltip();
       }
     },
