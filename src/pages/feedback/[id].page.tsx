@@ -204,31 +204,32 @@ const questionTitleCss = css`
 const questionBodyCss = css`
   ${BODY_1}
 
-  color: ${colors.gray_500};
   margin-top: 10px;
   margin-bottom: 40px;
+  color: ${colors.gray_500};
 `;
 
 const questionChoiceBodyCss = css`
   ${BODY_1}
 
-  color: ${colors.gray_500};
   margin-top: 25px;
   margin-bottom: 40px;
+  color: ${colors.gray_500};
 `;
 
 const questionChoiceCss = css`
+  ${HEAD_2_BOLD}
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 343px;
   height: 56px;
   margin-bottom: 10px;
 
   color: ${colors.gray_500};
-  ${HEAD_2_BOLD}
 
   background-color: rgb(99 143 255 / 20%);
   border-radius: 8px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;

@@ -56,16 +56,18 @@ const wrapperCss = (theme: Theme) => css`
   bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 0 23px;
 
   width: 100%;
   max-width: ${theme.size.maxWidth};
+  padding: 0 23px;
 `;
 
 const fullGrayBackgroundWrapperCss = (theme: Theme) => css`
   transform: translateX(-23px);
+
   width: calc(100% + 23px + 23px);
   padding: 0 23px;
   padding-bottom: 12px;
+
   background-color: ${theme.colors.gray_50};
 `;
