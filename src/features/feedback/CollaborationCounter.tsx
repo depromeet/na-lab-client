@@ -37,12 +37,11 @@ const CollaborationCounterCard = ({ count, positive }: { count: number; positive
 const cardCss = (theme: Theme, positive: boolean) => css`
   ${positive ? HEAD_2_BOLD : HEAD_2_REGULAR}
 
-  width: 100%;
-
   display: flex;
   align-items: center;
   justify-content: center;
 
+  width: 100%;
   padding: 7px 14px;
 
   color: ${positive ? theme.colors.primary_200 : theme.colors.gray_400};

@@ -49,15 +49,14 @@ const QuestionWrapperCss = (isSelected: boolean, theme: Theme) => css`
 const QuestionDescCss = css`
   ${HEAD_2_REGULAR}
 
-  margin-left: 20px;
-
   overflow: hidden;
   display: block;
 
-  white-space: nowrap;
-  text-overflow: ellipsis;
-
   width: 250px;
+  margin-left: 20px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const QuestionWrapperLeftCss = css`
