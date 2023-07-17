@@ -4,6 +4,7 @@ import { SessionProvider } from 'next-auth/react';
 import { css, type Theme, ThemeProvider } from '@emotion/react';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Analytics } from '@vercel/analytics/react';
 import { domMax, LazyMotion } from 'framer-motion';
 
 import AuthProvider from '~/components/auth/AuthProvider';
@@ -53,6 +54,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                     <NewFeedbackSnackBarListener />
                     <ToastWrapper />
                     <SnackBarWrapper />
+                    <Analytics />
                   </div>
                 </AuthProvider>
               </ErrorBoundary>
