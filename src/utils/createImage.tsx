@@ -3,8 +3,6 @@ import { type ReactNode } from 'react';
 import { Resvg } from '@resvg/resvg-js';
 import satori, { type SatoriOptions } from 'satori';
 
-import { BASE_URL as PROD_BASE_URL } from '~/constants/url';
-import { isProd } from '~/utils/common';
 import { type Group } from '~/utils/resultLogic';
 
 export async function createOGImage(element: ReactNode, option: SatoriOptions) {
@@ -42,17 +40,13 @@ export async function fetchFont(fontFamily = 'Noto+Sans+KR', fontWeight = 700): 
   return res.arrayBuffer();
 }
 
-const BASE_URL = isProd(process.env.NODE_ENV) ? PROD_BASE_URL : 'http://localhost:3000';
-
-const imageBaseUrl = BASE_URL + '/images/dna/download';
-
-const DOWNLOAD_IMAGE_BY_GROUP: Record<Group, string> = {
-  A: `${imageBaseUrl}/a_dna.png`,
-  B: `${imageBaseUrl}/b_dna.png`,
-  C: `${imageBaseUrl}/c_dna.png`,
-  D: `${imageBaseUrl}/d_dna.png`,
-  E: `${imageBaseUrl}/e_dna.png`,
-  F: `${imageBaseUrl}/f_dna.png`,
+const HOISTING_IMAGE_BY_GROUP: Record<Group, string> = {
+  A: `https://github.com/depromeet/na-lab-client/assets/49177223/0b224b08-3858-4305-8323-1a6082dbb4f7`,
+  B: `https://github.com/depromeet/na-lab-client/assets/49177223/fec4951a-270f-40e8-8520-43eecb89416f`,
+  C: `https://github.com/depromeet/na-lab-client/assets/49177223/faefd0ee-7048-4578-8ec5-b70713e6efd9`,
+  D: `https://github.com/depromeet/na-lab-client/assets/49177223/4dbecfeb-5492-4c6b-b4a7-cd933cd5621e`,
+  E: `https://github.com/depromeet/na-lab-client/assets/49177223/1eb9e7e4-801d-475a-8037-aa35a2776441`,
+  F: `https://github.com/depromeet/na-lab-client/assets/49177223/8667e31c-9722-490b-9def-3b952d115275`,
 };
 
 export const createImage = async ({
@@ -94,7 +88,7 @@ export const createImage = async ({
           width: '375px',
           height: '666px',
         }}
-        src={DOWNLOAD_IMAGE_BY_GROUP[group as Group]}
+        src={HOISTING_IMAGE_BY_GROUP[group as Group]}
         alt={'dna_' + group}
         width={375}
         height={666}
@@ -116,7 +110,7 @@ export const createImage = async ({
         style={{
           position: 'absolute',
           top: '407px',
-          left: '72px',
+          left: '71px',
           color: '#17171B',
           fontWeight: 700,
           fontSize: '16.8px',
