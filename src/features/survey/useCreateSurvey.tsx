@@ -30,6 +30,7 @@ const useCreateSurveyAction = () => {
     if (status === 'authenticated') {
       const jsonData = localStorage.getItem(LOCAL_STORAGE_KEY.surveyCreateSurveyRequest);
       if (!jsonData) {
+        console.warn('jsondata error');
         handleErrorMessage();
 
         return;
@@ -48,6 +49,7 @@ const useCreateSurveyAction = () => {
             localStorage.removeItem(LOCAL_STORAGE_KEY.surveyCustomQuestions);
           },
           onError: (err) => {
+            console.warn('server error');
             handleErrorMessage();
             console.error(err);
           },

@@ -41,8 +41,10 @@ const CreateSurveyPage = () => {
   const onSubmit = async () => {
     const data = getCreateSurveyRequestData(customItems);
     localStorage.setItem(LOCAL_STORAGE_KEY.surveyCreateSurveyRequest, JSON.stringify(data));
+    console.warn('data from atom', data);
 
     if (status === 'authenticated') {
+      console.warn('submit with auth');
       onCreate();
     } else {
       router.push('/survey/join');
