@@ -173,15 +173,12 @@ const ulCss = css`
   gap: 4px;
 
   margin-top: 15px;
+  padding-left: 1.5rem;
 
-  list-style: disc inside;
+  list-style: disc;
 
   & li {
     ${BODY_1};
-
-    padding-left: 30px;
-    text-indent: -22px;
-    list-style-position: inside;
   }
 `;
 
