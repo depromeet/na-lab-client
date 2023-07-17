@@ -23,7 +23,7 @@ export const DNA_MAP_BY_GROUP: Readonly<Record<Group, DNA>> = {
     title: '철두철미한 설계자 DNA',
     descriptions: [
       '작은 것도 놓치는 법이 없는 당신은 이성적이고 현실적으로 계획을 세우는 편이에요.',
-      '완벽주의적 성향이 있어서 꼼꼼한 장신정신으로 결과물의 완성도를 높여줘요.',
+      '완벽주의적 성향이 있어서 꼼꼼한 장인정신으로 결과물의 완성도를 높여줘요.',
     ],
     fitDna: { title: '굴하지 않는 개척자', subtitle: '벽을 뚫고 새로운 길을 찾는 의지' },
   },
@@ -33,7 +33,7 @@ export const DNA_MAP_BY_GROUP: Readonly<Record<Group, DNA>> = {
       '팀의 분위기 메이커인 당신은 뛰어난 스피치 능력과 긍정적인 에너지로 팀에 사기를 불어넣어요.',
       '뛰어난 사회성으로 의견을 조율하며 팀을 하나로 모아주는 역할을 해요.',
     ],
-    fitDna: { title: '철두철미한 설계자', subtitle: '작은 것도 놓치지 않는 장신정신' },
+    fitDna: { title: '철두철미한 설계자', subtitle: '작은 것도 놓치지 않는 장인정신' },
   },
   D: {
     title: '독창적인 트렌드세터 DNA',
