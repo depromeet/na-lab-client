@@ -68,7 +68,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 const defaultLayoutCss = (theme: Theme) => css`
   width: 100%;
   max-width: ${theme.size.maxWidth};
-  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0 auto;
   padding: 0 16px;
 `;
