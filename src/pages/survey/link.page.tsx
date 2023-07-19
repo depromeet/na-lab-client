@@ -33,7 +33,7 @@ const SurveyLinkPage = () => {
       content: (
         <>
           <LinkIcon />
-          <Toast.Text>나의 질문 폼 링크가 복사되었어요</Toast.Text>,
+          <Toast.Text>나의 질문 폼 링크가 복사되었어요</Toast.Text>
         </>
       ),
       higherThanCTA: true,
