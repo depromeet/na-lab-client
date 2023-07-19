@@ -1,5 +1,6 @@
 import { BASE_URL } from '~/constants/url';
 
+// TODO : 모바일에서 클립보드 복사가 안되므로 제거
 export const copyToClipBoard = (text: string) => {
   navigator.clipboard.writeText(text);
 };
