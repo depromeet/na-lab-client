@@ -11,10 +11,13 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
 import LineThreeDotsIcon from '~/components/icons/LineThreeDotsIcon';
+import LinkIcon from '~/components/icons/LinkIcon';
 import TopIcon from '~/components/icons/TopIcon';
 import FixedSpinner from '~/components/loading/FixedSpinner';
 import LoadingHandler from '~/components/loading/LoadingHandler';
 import Pill, { type Color } from '~/components/pill/Pill';
+import Toast from '~/components/toast/Toast';
+import useToast from '~/components/toast/useToast';
 import { defaultEasing } from '~/constants/motions';
 import CollaborationCounter from '~/features/feedback/CollaborationCounter';
 import Feedback from '~/features/feedback/Feedback';
@@ -40,6 +43,8 @@ interface Props {
 const PILL_COLORS: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'purple'];
 
 const SurveyIdLoaded = ({ surveyId }: Props) => {
+  const { fireToast } = useToast();
+
   const { isLoading: isFeedbackSummaryLoading, data: feedbackSummaryData } = useGetFeedbackSummaryBySurveyId(surveyId);
   const { isLoading: isReviewersSummaryLoading, data: reviewersSummaryData } =
     useGetReviewersSummaryBySurveyId(surveyId);
@@ -63,6 +68,18 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const onCopyLink = () => {
+    fireToast({
+      content: (
+        <>
+          <LinkIcon />
+          <Toast.Text>나의 질문 폼 링크가 복사되었어요</Toast.Text>
+        </>
+      ),
+      higherThanCTA: true,
+    });
+  };
+
   if (feedbackSummaryData && feedbackSummaryData.all_feedback_count < 1) {
     return (
       <>
@@ -77,7 +94,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
           <m.span css={bubbleSpanCss} variants={bubbleVariants}>
             더 많은 동료들에게 질문 폼 링크를 공유해 보세요!
           </m.span>
-          <CopyLink copyText={`/review/${surveyId}`} copyToastText="나의 질문 폼 링크가 복사되었어요">
+          <CopyLink copyText={`/review/${surveyId}`} onCopy={onCopyLink}>
             <CTAButton color="blue">공유하기</CTAButton>
           </CopyLink>
         </m.div>

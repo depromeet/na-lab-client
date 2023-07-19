@@ -1,33 +1,16 @@
 import { type PropsWithChildren } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import LinkIcon from '~/components/icons/LinkIcon';
-import Toast from '~/components/toast/Toast';
-import useToast from '~/components/toast/useToast';
 import { copyToClipBoardWithHostUrl } from '~/utils/clipboard';
 
 interface Props {
   copyText: string;
-  copyToastText: React.ReactNode | string;
+  onCopy: () => void;
 }
 
-const CopyLink = ({ copyText, children, copyToastText }: PropsWithChildren<Props>) => {
-  const { fireToast } = useToast();
-
+const CopyLink = ({ copyText, children, onCopy }: PropsWithChildren<Props>) => {
   return (
-    <CopyToClipboard
-      text={copyToClipBoardWithHostUrl(copyText)}
-      onCopy={() => {
-        fireToast({
-          content: (
-            <>
-              <LinkIcon />
-              <Toast.Text>{copyToastText}</Toast.Text>
-            </>
-          ),
-        });
-      }}
-    >
+    <CopyToClipboard text={copyToClipBoardWithHostUrl(copyText)} onCopy={onCopy}>
       {children}
     </CopyToClipboard>
   );

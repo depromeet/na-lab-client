@@ -2,6 +2,8 @@ import { css, type Theme } from '@emotion/react';
 
 import CopyLink from '~/components/copyLink/CopyLink';
 import LinkIcon from '~/components/icons/LinkIcon';
+import Toast from '~/components/toast/Toast';
+import useToast from '~/components/toast/useToast';
 import { HEAD_2_BOLD } from '~/styles/typo';
 
 interface Props {
@@ -9,8 +11,22 @@ interface Props {
 }
 
 const NewFeedbackCopyButton = ({ surveyId }: Props) => {
+  const { fireToast } = useToast();
+
+  const onCopyLink = () => {
+    fireToast({
+      content: (
+        <>
+          <LinkIcon />
+          <Toast.Text>나의 질문 폼 링크가 복사되었어요</Toast.Text>
+        </>
+      ),
+      higherThanCTA: true,
+    });
+  };
+
   return (
-    <CopyLink copyText={`/review/${surveyId}`} copyToastText="나의 질문 폼 링크가 복사되었어요">
+    <CopyLink copyText={`/review/${surveyId}`} onCopy={onCopyLink}>
       <button type="button" css={buttonCss}>
         <span css={titleCss}>나의 질문 폼 링크 공유하기</span>
 
