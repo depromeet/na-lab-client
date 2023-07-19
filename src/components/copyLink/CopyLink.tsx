@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { copyToClipBoardWithHostUrl } from '~/utils/clipboard';
+import { BASE_URL } from '~/constants/url';
 
 interface Props {
   copyText: string;
@@ -17,3 +17,13 @@ const CopyLink = ({ copyText, children, onCopy }: PropsWithChildren<Props>) => {
 };
 
 export default CopyLink;
+
+const copyToClipBoardWithHostUrl = (path: string) => {
+  if (typeof window === 'undefined') {
+    return `${BASE_URL}${path}`;
+  } else {
+    const { host } = window.location;
+
+    return `${host}${path}`;
+  }
+};
