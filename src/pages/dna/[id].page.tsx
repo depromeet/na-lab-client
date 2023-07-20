@@ -18,12 +18,17 @@ import {
   type NextPageWithLayout,
   type WithSeoProps,
 } from '~/types/page';
+import { createImage } from '~/utils/createImage';
 import { getResultGroup, type Group } from '~/utils/resultLogic';
 
 import LoadedDna from './LoadedDna';
 import { type DnaOwnerStatus } from './type';
 
-const Dna: NextPageWithLayout<WithSeoProps<ServerSideProps>> = ({ surveyId, seo: { title, description, ogImage } }) => {
+const Dna: NextPageWithLayout<WithSeoProps<ServerSideProps>> = ({
+  surveyId,
+  downloadableImageBase64,
+  seo: { title, description, ogImage },
+}) => {
   const { data: userInfo, isLoading } = useGetUserInfoBySurveyId(String(surveyId), { enabled: Boolean(surveyId) });
   const { tendencies } = useSortedTop5Tendencies(surveyId);
   const { dnaOwnerStatus } = useDanOnwerStatus(surveyId);
@@ -44,6 +49,7 @@ const Dna: NextPageWithLayout<WithSeoProps<ServerSideProps>> = ({ surveyId, seo:
             userInfo={userInfo}
             topTendencies={tendencies}
             bookmarkedFeedbacks={bookmarkedFeedbacks}
+            downloadableImageBase64={downloadableImageBase64}
           />
         )}
       </LoadingHandler>
@@ -57,6 +63,7 @@ Dna.getLayout = (page: ReactElement) => <LayoutPaddingTo23>{page}</LayoutPadding
 
 type ServerSideProps = {
   surveyId: string;
+  downloadableImageBase64: string;
 };
 
 const OG_IMAGE_BASE = '/images/dna/seo';
@@ -94,6 +101,17 @@ export const getServerSideProps: GetServerSidePropsWithDehydratedStateAndSEO<Ser
     };
   }
 
+  const imageData = await createImage({
+    group: group,
+    userInfo: userInfo,
+  });
+
+  if (typeof imageData !== 'string') {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       surveyId: id,
@@ -103,6 +121,7 @@ export const getServerSideProps: GetServerSidePropsWithDehydratedStateAndSEO<Ser
         description: userInfo.position,
         ogImage: OG_IMAGE_MAP_BY_GROUP[group],
       },
+      downloadableImageBase64: imageData,
     },
   };
 };

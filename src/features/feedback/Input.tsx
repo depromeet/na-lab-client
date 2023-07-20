@@ -58,7 +58,7 @@ const Input = ({ onInputSubmit, value }: Props) => {
       <input
         ref={inputRef}
         css={(theme) => inputCss(theme, inputWidth)}
-        value={text}
+        value={text ?? ''}
         onChange={onChange}
         onFocus={setFalse}
         placeholder="EX) UX 디자이너"
