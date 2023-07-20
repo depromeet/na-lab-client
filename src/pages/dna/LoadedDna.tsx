@@ -93,7 +93,8 @@ const LoadedDna: FC<Props> = ({
             <source srcSet={IMAGE_BY_GROUP[group].webp} type="image/webp" />
             <Image priority unoptimized css={dnaImageCss} src={IMAGE_BY_GROUP[group].png} alt="DNA 이미지" fill />
           </picture>
-          {dnaOwnerStatus === 'current_user' && (
+          {/* {dnaOwnerStatus === 'current_user'  */}
+          {false && (
             <button type="button" css={downloadIconCss} onClick={onDownloadClick}>
               <DownloadCircleIcon />
             </button>
