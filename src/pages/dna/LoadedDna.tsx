@@ -18,7 +18,8 @@ import type useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurv
 import { getUserInfoBySurveyIdQueryKey } from '~/hooks/api/user/useGetUserInfoBySurveyId';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
-import { imageDownloadPC } from '~/utils/image';
+import { detectMobileDevice, getBrowser } from '~/utils/browser';
+import { imageDownloadPC, imageShare } from '~/utils/image';
 import { type Group } from '~/utils/resultLogic';
 
 import { type DnaOwnerStatus } from './type';
@@ -65,13 +66,23 @@ const LoadedDna: FC<Props> = ({
     onSuccess: () => queryClient.invalidateQueries(getUserInfoBySurveyIdQueryKey(surveyId)),
   });
 
-  const onDownloadClick = () => {
+  const onDownloadClick = async () => {
     const imageObj = JSON.parse(downloadableImageBase64);
     const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
-    // if (detectMobileDevice(window.navigator.userAgent)) {
-    //   return;
-    // }
-    imageDownloadPC(imageBase64, 'dna');
+    const browser = getBrowser();
+    // alert(navigator.canShare);
+    // alert(window.navigator.share);
+
+    // 1. 공유 모드가 가능하다면 공유 모드로 공유
+    if (typeof navigator.share !== 'undefined') {
+      if (await imageShare(imageBase64)) return;
+    }
+
+    // 2. desktop 이거나 safari이면 다운로드
+    if (!detectMobileDevice() || browser === 'Safari') {
+      imageDownloadPC(imageBase64, 'dna');
+    }
+    // 3. mobile이면 꾹 눌러서 다운로드
   };
 
   return (
@@ -93,11 +104,14 @@ const LoadedDna: FC<Props> = ({
             <source srcSet={IMAGE_BY_GROUP[group].webp} type="image/webp" />
             <Image priority unoptimized css={dnaImageCss} src={IMAGE_BY_GROUP[group].png} alt="DNA 이미지" fill />
           </picture>
-          {dnaOwnerStatus === 'current_user' && (
-            <button type="button" css={downloadIconCss} onClick={onDownloadClick}>
-              <DownloadCircleIcon />
-            </button>
-          )}
+          {
+            // dnaOwnerStatus === 'current_user'
+            true && (
+              <button type="button" css={downloadIconCss} onClick={onDownloadClick}>
+                <DownloadCircleIcon />
+              </button>
+            )
+          }
         </section>
 
         <section

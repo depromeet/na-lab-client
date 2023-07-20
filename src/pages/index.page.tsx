@@ -24,6 +24,7 @@ export default function Home() {
           <h1 css={titleCss}>나의 커리어 DNA 연구소</h1>
           <Logo css={logoCss} />
         </section>
+        <a href="/dna/462826061802358390">asdads</a>
 
         <section css={ctaWrapperCss}>
           <ConditionalCtaLink />
