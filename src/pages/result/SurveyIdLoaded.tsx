@@ -5,6 +5,7 @@ import { m, type Variants } from 'framer-motion';
 
 import BottomSheet from '~/components/bottomSheet/BottomSheet';
 import CTAButton from '~/components/button/CTAButton';
+import CopyLink from '~/components/copyLink/CopyLink';
 import Softskill from '~/components/graphic/softskills/Softskill';
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
@@ -34,7 +35,6 @@ import useBoolean from '~/hooks/common/useBoolean';
 import useScrollLock from '~/hooks/common/useScrollLock';
 import { useScrollSpy } from '~/hooks/common/useScrollSpy';
 import { BODY_2_REGULAR, HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
-import { copyToClipBoardWithHost } from '~/utils/clipboard';
 
 interface Props {
   surveyId: string;
@@ -43,12 +43,13 @@ interface Props {
 const PILL_COLORS: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'purple'];
 
 const SurveyIdLoaded = ({ surveyId }: Props) => {
+  const { fireToast } = useToast();
+
   const { isLoading: isFeedbackSummaryLoading, data: feedbackSummaryData } = useGetFeedbackSummaryBySurveyId(surveyId);
   const { isLoading: isReviewersSummaryLoading, data: reviewersSummaryData } =
     useGetReviewersSummaryBySurveyId(surveyId);
   const { isLoading: isAllDataLoading, data: allData } = useGetAllFeedbacksBySurveyId(surveyId);
   const tendencyCountData = getTendencyCount(allData);
-  const { fireToast } = useToast();
 
   const [isShowing, toggle, _, setFalse] = useBoolean(false);
   useScrollLock({ lock: isShowing });
@@ -63,9 +64,11 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
     setInnerWidth(limittedInnerWidth);
   }, []);
 
-  const onClickCTA = () => {
-    copyToClipBoardWithHost(`/review/${surveyId}`);
+  const moveToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
+  const onCopyLink = () => {
     fireToast({
       content: (
         <>
@@ -75,10 +78,6 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
       ),
       higherThanCTA: true,
     });
-  };
-
-  const moveToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (feedbackSummaryData && feedbackSummaryData.all_feedback_count < 1) {
@@ -95,9 +94,9 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
           <m.span css={bubbleSpanCss} variants={bubbleVariants}>
             더 많은 동료들에게 질문 폼 링크를 공유해 보세요!
           </m.span>
-          <CTAButton onClick={onClickCTA} color="blue">
-            공유하기
-          </CTAButton>
+          <CopyLink copyText={`/review/${surveyId}`} onCopy={onCopyLink}>
+            <CTAButton color="blue">공유하기</CTAButton>
+          </CopyLink>
         </m.div>
       </>
     );

@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import CTAButton from '~/components/button/CTAButton';
+import CopyLink from '~/components/copyLink/CopyLink';
 import LinkIcon from '~/components/icons/LinkIcon';
 import SEO from '~/components/SEO/SEO';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
@@ -11,24 +13,23 @@ import useToast from '~/components/toast/useToast';
 import { fixedBottomCss } from '~/features/review/style';
 import { CTAVariants, fixedContainerCss } from '~/features/survey/styles';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
-import { copyToClipBoardWithHost } from '~/utils/clipboard';
 
 const SurveyLinkPage = () => {
   const { fireToast } = useToast();
   const router = useInternalRouter();
+  const id = router.query.id;
 
-  const onNext = () => {
+  useEffect(() => {
     if (!router.isReady) {
-      throw new Error('잠시만 기다려주세요. ');
+      return;
     }
-    const id = router.query.id;
 
     if (!id) {
       throw new Error('잘못된 경로입니다.\nsurveyId가 없습니다.');
     }
+  }, [id, router]);
 
-    copyToClipBoardWithHost(`/review/${id}`);
-
+  const onCopyLink = () => {
     fireToast({
       content: (
         <>
@@ -58,9 +59,11 @@ const SurveyLinkPage = () => {
         </StaggerWrapper>
 
         <m.div css={fixedBottomCss} variants={CTAVariants} initial="initial" animate="animate" exit="exit">
-          <CTAButton color="blue" onClick={onNext}>
-            질문 폼 공유하기
-          </CTAButton>
+          <CopyLink copyText={`/review/${id}`} onCopy={onCopyLink}>
+            <CTAButton color="blue" disabled={!id}>
+              질문 폼 공유하기
+            </CTAButton>
+          </CopyLink>
         </m.div>
       </main>
     </>

@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import { css, type Theme } from '@emotion/react';
 
 import CTAButton from '~/components/button/CTAButton';
+import CopyLink from '~/components/copyLink/CopyLink';
 import useToast from '~/components/toast/useToast';
 import type useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurveyId';
 import { type DnaOwnerStatus } from '~/pages/dna/type';
-import { copyToClipBoardWithHost } from '~/utils/clipboard';
 import recordEvent from '~/utils/event';
 
 interface Props {
@@ -19,10 +19,8 @@ const DnaCta: FC<Props> = ({ surveyId, dnaOwnerStatus, userInfo }) => {
   const router = useRouter();
   const { fireToast } = useToast();
 
-  const onClickCopyCTA = () => {
+  const onClickLink = () => {
     recordEvent({ action: 'DNA 페이지 - 커리어 명함 링크 복사 클릭' });
-
-    copyToClipBoardWithHost(`/dna/${surveyId}`);
     fireToast({ content: `${userInfo?.nickname}님의 커리어 명함 링크가 복사되었어요`, higherThanCTA: true });
   };
 
@@ -35,7 +33,9 @@ const DnaCta: FC<Props> = ({ surveyId, dnaOwnerStatus, userInfo }) => {
   if (dnaOwnerStatus === 'current_user')
     return (
       <div css={wrapperCss}>
-        <CTAButton onClick={onClickCopyCTA}>공유하기</CTAButton>
+        <CopyLink copyText={`/dna/${surveyId}`} onCopy={onClickLink}>
+          <CTAButton>공유하기</CTAButton>
+        </CopyLink>
       </div>
     );
 
