@@ -76,18 +76,18 @@ const LoadedDna: FC<Props> = ({
     const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
     const browser = getBrowser();
 
-    // 1. 공유 모드가 가능하다면 공유 모드로 공유
     if (typeof navigator.share !== 'undefined') {
-      if (await imageShare(imageBase64)) return;
+      const isImageShared = await imageShare(imageBase64);
+
+      if (isImageShared) return;
     }
 
-    // 2. desktop 이거나 safari이면 다운로드
     if (!detectMobileDevice() || browser === 'Safari') {
       imageDownloadPC(imageBase64, 'dna');
 
       return;
     }
-    // 3. mobile이면 꾹 눌러서 다운로드
+
     setIsImageModalShowing(true);
   };
 

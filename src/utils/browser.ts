@@ -1,5 +1,12 @@
-// 사용 방법
-// detectMobileDevice(window.navigator.userAgent)
+/**
+ * @description 모바일 디바이스 환경인지 감지합니다.
+ * @example
+ * ```ts
+ * detectMobileDevice(window.navigator.userAgent)
+ * ```
+ * @returns boolean
+ */
+
 export const detectMobileDevice = (): boolean => {
   if (!window) return false;
 
@@ -9,24 +16,29 @@ export const detectMobileDevice = (): boolean => {
   return mobileRegex.some((mobile) => agent.match(mobile));
 };
 
+const browsers = [
+  'Chrome',
+  'Opera',
+  'WebTV',
+  'Whale',
+  'Beonex',
+  'Chimera',
+  'NetPositive',
+  'Phoenix',
+  'Firefox',
+  'Safari',
+  'SkipStone',
+  'Netscape',
+  'Mozilla',
+];
+
+/**
+ * @description 브라우저 종류를 알아내는 함수입니다.
+ * @returns string - 브라우저 이름 or 'Other'
+ */
+
 export const getBrowser = () => {
   if (!window) return null;
-
-  const browsers = [
-    'Chrome',
-    'Opera',
-    'WebTV',
-    'Whale',
-    'Beonex',
-    'Chimera',
-    'NetPositive',
-    'Phoenix',
-    'Firefox',
-    'Safari',
-    'SkipStone',
-    'Netscape',
-    'Mozilla',
-  ];
 
   const userAgent = window.navigator.userAgent.toLowerCase();
 
