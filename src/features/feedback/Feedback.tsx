@@ -5,6 +5,7 @@ import { Tooltip } from '~/components/tooltip';
 import { POSITION } from '~/constants/position';
 import usePatchBookmark from '~/hooks/api/feedbacks/usePatchBookmark';
 import { BODY_1, BODY_2_REGULAR } from '~/styles/typo';
+import decodeString from '~/utils/decodeString';
 
 import CollaborationBadge from './CollaborationBadge';
 import UnreadBadgeIcon from './UnreadBadgeIcon';
@@ -39,7 +40,7 @@ const Feedback = ({
       {!is_read && <UnreadBadgeIcon floatingTop="12px" floatingRight="12px" size="small" />}
       <p css={replyCss}>
         {reply.map((item, idx) => {
-          return item + (reply.length !== idx && '\n');
+          return decodeString(item) + (reply.length !== idx && '\n');
         })}
       </p>
       <div css={bottomAreaCss}>
