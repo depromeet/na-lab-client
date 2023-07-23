@@ -263,7 +263,7 @@ const DNAImageDownloadModal = ({
         exit="exit"
       >
         <h1>꾹 눌러서 이미지를 저장하세요</h1>
-        <m.img src={imageBase64} alt="dna" />
+        <img src={imageBase64} alt="dna" />
       </m.div>
     </Modal>
   );
