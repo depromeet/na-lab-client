@@ -22,7 +22,7 @@ import { getUserInfoBySurveyIdQueryKey } from '~/hooks/api/user/useGetUserInfoBy
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
 import { detectMobileDevice, getBrowser } from '~/utils/browser';
-import { imageDownloadPC, imageShare } from '~/utils/image';
+import { imageDownloadPC } from '~/utils/image';
 import { type Group } from '~/utils/resultLogic';
 
 import { type DnaOwnerStatus } from './type';
@@ -76,11 +76,12 @@ const LoadedDna: FC<Props> = ({
     const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
     const browser = getBrowser();
 
-    if (typeof navigator.share !== 'undefined') {
-      const isImageShared = await imageShare(imageBase64);
+    // TODO: share 갤러리에 저장 기능 되살리기
+    // if (typeof navigator.share !== 'undefined') {
+    //   const isImageShared = await imageShare(imageBase64);
 
-      if (isImageShared) return;
-    }
+    //   if (isImageShared) return;
+    // }
 
     if (!detectMobileDevice() || browser === 'Safari') {
       imageDownloadPC(imageBase64, 'dna');
@@ -110,7 +111,7 @@ const LoadedDna: FC<Props> = ({
             <source srcSet={IMAGE_BY_GROUP[group].webp} type="image/webp" />
             <Image priority unoptimized css={dnaImageCss} src={IMAGE_BY_GROUP[group].png} alt="DNA 이미지" fill />
           </picture>
-          {dnaOwnerStatus === 'current_user' && (
+          {true && (
             <button type="button" css={downloadIconCss} onClick={onDownloadClick}>
               <DownloadCircleIcon />
             </button>
