@@ -21,7 +21,7 @@ import type useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurv
 import { getUserInfoBySurveyIdQueryKey } from '~/hooks/api/user/useGetUserInfoBySurveyId';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
-import { detectMobileDevice, getBrowser } from '~/utils/browser';
+import { getBrowser, isMobile } from '~/utils/agent';
 import { imageDownloadPC } from '~/utils/image';
 import { type Group } from '~/utils/resultLogic';
 
@@ -75,6 +75,7 @@ const LoadedDna: FC<Props> = ({
     const imageObj = JSON.parse(downloadableImageBase64);
     const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
     const browser = getBrowser();
+    console.log('browser: ', browser);
 
     // TODO: share 갤러리에 저장 기능 되살리기
     // if (typeof navigator.share !== 'undefined') {
@@ -83,7 +84,7 @@ const LoadedDna: FC<Props> = ({
     //   if (isImageShared) return;
     // }
 
-    if (!detectMobileDevice() || browser === 'Safari') {
+    if (!isMobile() || browser === 'Safari') {
       imageDownloadPC(imageBase64, 'dna');
 
       return;
