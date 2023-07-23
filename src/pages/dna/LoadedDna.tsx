@@ -10,6 +10,7 @@ import Header from '~/components/header/Header';
 import DownloadCircleIcon from '~/components/icons/DownloadCircleIcon';
 import HomeIcon from '~/components/icons/HomeIcon';
 import Modal from '~/components/modal/Modal';
+import useToast from '~/components/toast/useToast';
 import { type DNA } from '~/constants/dna';
 import BookmarkSection from '~/features/dna/BookmarkSection';
 import DnaBanner from '~/features/dna/DnaBanner';
@@ -63,6 +64,8 @@ const LoadedDna: FC<Props> = ({
   bookmarkedFeedbacks,
   downloadableImage,
 }) => {
+  const { fireToast } = useToast();
+
   const router = useInternalRouter();
 
   const queryClient = useQueryClient();
@@ -86,6 +89,8 @@ const LoadedDna: FC<Props> = ({
 
     if (isAndroid() && browser === 'Instagram') {
       // 안드로이드, 인스타에서 이미지 다운 불가능
+      fireToast({ content: '다른 브라우저를 이용해주세요.', higherThanCTA: true });
+
       return;
     }
 
@@ -96,6 +101,7 @@ const LoadedDna: FC<Props> = ({
     }
 
     imageDownloadPC(imageBase64, 'dna');
+    fireToast({ content: '이미지 다운로드 되었습니다.', higherThanCTA: true });
   };
 
   return (
@@ -295,7 +301,6 @@ const imageDownloadModalCss = css`
   }
 
   img {
-    touch-action: none;
     user-select: none;
     width: 80%;
   }
