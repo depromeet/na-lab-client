@@ -29,6 +29,7 @@ export const isDesktop = () => {
 };
 
 const browsers = [
+  'Instagram',
   'Chrome',
   'Opera',
   'WebTV',

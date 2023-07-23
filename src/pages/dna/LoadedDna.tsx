@@ -21,7 +21,8 @@ import type useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurv
 import { getUserInfoBySurveyIdQueryKey } from '~/hooks/api/user/useGetUserInfoBySurveyId';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
-import { getBrowser, isMobile } from '~/utils/agent';
+import { getBrowser, isAndroid, isIos } from '~/utils/agent';
+import { type CreateImage } from '~/utils/createImage';
 import { imageDownloadPC } from '~/utils/image';
 import { type Group } from '~/utils/resultLogic';
 
@@ -49,7 +50,7 @@ interface Props {
   userInfo: ReturnType<typeof useGetUserInfoBySurveyId>['data'];
   topTendencies: Softskills[];
   bookmarkedFeedbacks: QuestionFeedback[];
-  downloadableImageBase64: string;
+  downloadableImage: CreateImage;
 }
 
 const LoadedDna: FC<Props> = ({
@@ -60,7 +61,7 @@ const LoadedDna: FC<Props> = ({
   userInfo,
   topTendencies,
   bookmarkedFeedbacks,
-  downloadableImageBase64,
+  downloadableImage,
 }) => {
   const router = useInternalRouter();
 
@@ -72,7 +73,7 @@ const LoadedDna: FC<Props> = ({
   const [isImageModalShowing, setIsImageModalShowing] = useState(false);
 
   const onDownloadClick = async () => {
-    const imageObj = JSON.parse(downloadableImageBase64);
+    const imageObj = JSON.parse(downloadableImage.base64);
     const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
     const browser = getBrowser();
 
@@ -82,13 +83,19 @@ const LoadedDna: FC<Props> = ({
 
     //   if (isImageShared) return;
     // }
-    if (!isMobile() || browser === 'Safari') {
-      imageDownloadPC(imageBase64, 'dna');
+
+    if (isAndroid() && browser === 'Instagram') {
+      // 안드로이드, 인스타에서 이미지 다운 불가능
+      return;
+    }
+
+    if (isIos() && (browser === 'Instagram' || browser === 'Chrome')) {
+      setIsImageModalShowing(true);
 
       return;
     }
 
-    setIsImageModalShowing(true);
+    imageDownloadPC(imageBase64, 'dna');
   };
 
   return (
@@ -163,7 +170,7 @@ const LoadedDna: FC<Props> = ({
       </main>
 
       <DNAImageDownloadModal
-        downloadableImageBase64={downloadableImageBase64}
+        downloadableBase64={downloadableImage.base64}
         isShowing={isImageModalShowing}
         onClose={() => setIsImageModalShowing(false)}
       />
@@ -236,15 +243,15 @@ const downloadIconCss = css`
 `;
 
 const DNAImageDownloadModal = ({
-  downloadableImageBase64,
+  downloadableBase64,
   onClose,
   isShowing,
 }: {
-  downloadableImageBase64: string;
+  downloadableBase64: string;
   onClose: () => void;
   isShowing: boolean;
 }) => {
-  const imageObj = JSON.parse(downloadableImageBase64);
+  const imageObj = JSON.parse(downloadableBase64);
   const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
 
   return (
@@ -262,6 +269,7 @@ const DNAImageDownloadModal = ({
         exit="exit"
       >
         <h1>꾹 눌러서 이미지를 저장하세요</h1>
+
         <img src={imageBase64} alt="dna" />
       </m.div>
     </Modal>
@@ -282,10 +290,13 @@ const imageDownloadModalCss = css`
 
   h1 {
     ${HEAD_2_BOLD};
+
+    user-select: none;
   }
 
   img {
     touch-action: none;
+    user-select: none;
     width: 80%;
   }
 `;
