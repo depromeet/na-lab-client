@@ -1,12 +1,15 @@
-import { type FC } from 'react';
+/* eslint-disable @next/next/no-img-element */
+import { type FC, useState } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { useQueryClient } from '@tanstack/react-query';
+import { m } from 'framer-motion';
 
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
 import DownloadCircleIcon from '~/components/icons/DownloadCircleIcon';
 import HomeIcon from '~/components/icons/HomeIcon';
+import Modal from '~/components/modal/Modal';
 import { type DNA } from '~/constants/dna';
 import BookmarkSection from '~/features/dna/BookmarkSection';
 import DnaBanner from '~/features/dna/DnaBanner';
@@ -18,7 +21,8 @@ import type useGetUserInfoBySurveyId from '~/hooks/api/user/useGetUserInfoBySurv
 import { getUserInfoBySurveyIdQueryKey } from '~/hooks/api/user/useGetUserInfoBySurveyId';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
-import { imageDownloadPC } from '~/utils/image';
+import { detectMobileDevice, getBrowser } from '~/utils/browser';
+import { imageDownloadPC, imageShare } from '~/utils/image';
 import { type Group } from '~/utils/resultLogic';
 
 import { type DnaOwnerStatus } from './type';
@@ -65,13 +69,26 @@ const LoadedDna: FC<Props> = ({
     onSuccess: () => queryClient.invalidateQueries(getUserInfoBySurveyIdQueryKey(surveyId)),
   });
 
-  const onDownloadClick = () => {
+  const [isImageModalShowing, setIsImageModalShowing] = useState(false);
+
+  const onDownloadClick = async () => {
     const imageObj = JSON.parse(downloadableImageBase64);
     const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
-    // if (detectMobileDevice(window.navigator.userAgent)) {
-    //   return;
-    // }
-    imageDownloadPC(imageBase64, 'dna');
+    const browser = getBrowser();
+
+    if (typeof navigator.share !== 'undefined') {
+      const isImageShared = await imageShare(imageBase64);
+
+      if (isImageShared) return;
+    }
+
+    if (!detectMobileDevice() || browser === 'Safari') {
+      imageDownloadPC(imageBase64, 'dna');
+
+      return;
+    }
+
+    setIsImageModalShowing(true);
   };
 
   return (
@@ -93,8 +110,7 @@ const LoadedDna: FC<Props> = ({
             <source srcSet={IMAGE_BY_GROUP[group].webp} type="image/webp" />
             <Image priority unoptimized css={dnaImageCss} src={IMAGE_BY_GROUP[group].png} alt="DNA 이미지" fill />
           </picture>
-          {/* {dnaOwnerStatus === 'current_user'  */}
-          {false && (
+          {dnaOwnerStatus === 'current_user' && (
             <button type="button" css={downloadIconCss} onClick={onDownloadClick}>
               <DownloadCircleIcon />
             </button>
@@ -145,6 +161,12 @@ const LoadedDna: FC<Props> = ({
         <BookmarkSection bookmarkedFeedbacks={bookmarkedFeedbacks} dnaOwnerStatus={dnaOwnerStatus} />
         <DnaCta surveyId={surveyId} dnaOwnerStatus={dnaOwnerStatus} userInfo={userInfo} />
       </main>
+
+      <DNAImageDownloadModal
+        downloadableImageBase64={downloadableImageBase64}
+        isShowing={isImageModalShowing}
+        onClose={() => setIsImageModalShowing(false)}
+      />
     </>
   );
 };
@@ -211,4 +233,59 @@ const downloadIconCss = css`
   position: absolute;
   right: -2px;
   bottom: -5px;
+`;
+
+const DNAImageDownloadModal = ({
+  downloadableImageBase64,
+  onClose,
+  isShowing,
+}: {
+  downloadableImageBase64: string;
+  onClose: () => void;
+  isShowing: boolean;
+}) => {
+  const imageObj = JSON.parse(downloadableImageBase64);
+  const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
+
+  return (
+    <Modal isShowing={isShowing}>
+      <Modal.Header onBackClick={onClose} overrideCss={imageDownloadModalHeaderCss} />
+      <m.div
+        css={imageDownloadModalCss}
+        variants={{
+          initial: { opacity: 0 },
+          animate: { opacity: 1 },
+          exit: { opacity: 0 },
+        }}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        <h1>꾹 눌러서 이미지를 저장하세요</h1>
+        <m.img src={imageBase64} alt="dna" />
+      </m.div>
+    </Modal>
+  );
+};
+
+const imageDownloadModalHeaderCss = css`
+  background-color: transparent;
+  border-bottom: none;
+`;
+
+const imageDownloadModalCss = css`
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+
+  h1 {
+    ${HEAD_2_BOLD};
+  }
+
+  img {
+    touch-action: none;
+    width: 80%;
+  }
 `;
