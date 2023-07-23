@@ -62,7 +62,7 @@ export const getBrowser = () => {
     return 'Internet Explorer';
   }
 
-  if (userAgent.includes('CriOS')) {
+  if (userAgent.includes('crios')) {
     return 'Chrome';
   }
 

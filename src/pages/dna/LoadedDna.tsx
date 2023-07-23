@@ -75,7 +75,6 @@ const LoadedDna: FC<Props> = ({
     const imageObj = JSON.parse(downloadableImageBase64);
     const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
     const browser = getBrowser();
-    console.log('browser: ', browser);
 
     // TODO: share 갤러리에 저장 기능 되살리기
     // if (typeof navigator.share !== 'undefined') {
@@ -83,7 +82,6 @@ const LoadedDna: FC<Props> = ({
 
     //   if (isImageShared) return;
     // }
-
     if (!isMobile() || browser === 'Safari') {
       imageDownloadPC(imageBase64, 'dna');
 
