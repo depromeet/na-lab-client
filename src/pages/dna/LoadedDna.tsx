@@ -88,7 +88,6 @@ const LoadedDna: FC<Props> = ({
     // }
 
     if (isAndroid() && browser === 'Instagram') {
-      // 안드로이드, 인스타에서 이미지 다운 불가능
       fireToast({ content: '다른 브라우저를 이용해주세요.', higherThanCTA: true });
 
       return;
