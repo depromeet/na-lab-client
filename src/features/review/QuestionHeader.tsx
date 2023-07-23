@@ -12,14 +12,16 @@ interface Props {
 const QuestionHeader = ({ title, subTitle }: Props) => {
   return (
     <m.header css={headerCss} variants={stagger(0.5)} initial="initial" animate="animate" exit="exit">
-      <m.h1 css={headingCss} variants={fadeInUpVariants}>
-        {title}
-      </m.h1>
-      {subTitle && (
-        <m.small css={smallCss} variants={defaultFadeInVariants}>
-          {subTitle}
-        </m.small>
-      )}
+      <div css={wrapperCss}>
+        <m.h1 css={headingCss} variants={fadeInUpVariants}>
+          {title}
+        </m.h1>
+        {subTitle && (
+          <m.small css={smallCss} variants={defaultFadeInVariants}>
+            {subTitle}
+          </m.small>
+        )}
+      </div>
     </m.header>
   );
 };
@@ -31,13 +33,17 @@ const headerCss = (theme: Theme) => css`
   z-index: ${theme.zIndex.belowFixed};
   top: 0;
 
-  /* 오른쪽 상단 1/6 같은 status와 겹치게 하지 않기 위함 */
-  width: calc(100% - 50px);
+  width: 100%;
   padding-top: 34px;
   padding-bottom: 14px;
 
   background-color: rgb(255 255 255 / 50%);
   backdrop-filter: blur(5px);
+`;
+
+const wrapperCss = css`
+  /* 오른쪽 상단 1/6 같은 status와 겹치게 하지 않기 위함 */
+  width: calc(100% - 50px);
 `;
 
 const headingCss = css`
