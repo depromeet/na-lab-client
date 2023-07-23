@@ -9,7 +9,9 @@ export const imageDownloadPC = (imgSrc: string, fileName: string) => {
 export const imageShare = async (imageUrl: string): Promise<boolean> => {
   if (navigator.share) {
     const blob = await (await fetch(imageUrl)).blob();
-    const file = new File([blob], `DNA.png`, { type: blob.type });
+    const file = new File([blob], `DNA.png`, {
+      type: 'image/png',
+    });
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
       navigator.share({
         title: '나만의 커리어 명함',
