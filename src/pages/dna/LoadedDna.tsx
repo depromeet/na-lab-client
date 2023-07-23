@@ -111,7 +111,6 @@ const LoadedDna: FC<Props> = ({
             <Image priority unoptimized css={dnaImageCss} src={IMAGE_BY_GROUP[group].png} alt="DNA 이미지" fill />
           </picture>
           {dnaOwnerStatus === 'current_user' && (
-            // true && (
             <button type="button" css={downloadIconCss} onClick={onDownloadClick}>
               <DownloadCircleIcon />
             </button>
