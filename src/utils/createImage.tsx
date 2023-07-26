@@ -49,6 +49,10 @@ const HOISTING_IMAGE_BY_GROUP: Record<Group, string> = {
   F: `https://github.com/depromeet/na-lab-client/assets/49177223/8667e31c-9722-490b-9def-3b952d115275`,
 };
 
+export interface CreateImage {
+  base64: string;
+}
+
 export const createImage = async ({
   group,
   userInfo,
@@ -58,9 +62,12 @@ export const createImage = async ({
     nickname: string;
     position: string;
   };
-}) => {
+}): Promise<CreateImage> => {
   const notoSansScFont700 = await fetchFont('Noto+Sans+KR', 700);
-  if (!notoSansScFont700) return { props: {} };
+  if (!notoSansScFont700)
+    return {
+      base64: '',
+    };
 
   const imageOptions: SatoriOptions = {
     width: 375,
@@ -124,5 +131,5 @@ export const createImage = async ({
 
   const imageData = JSON.stringify({ base64: ogImage.toString('base64') });
 
-  return imageData;
+  return { base64: imageData };
 };
