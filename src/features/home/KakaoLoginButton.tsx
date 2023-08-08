@@ -8,6 +8,8 @@ import { BODY_1 } from '~/styles/typo';
 const KakaoLoginButton = () => {
   const { logOutHandler, loginHandler, status } = useKakaoLogin();
 
+  if (status === 'loading') return null;
+
   if (status === 'authenticated') {
     return (
       <div css={KakaoLoginWrapper}>
