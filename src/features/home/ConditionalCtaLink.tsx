@@ -10,7 +10,7 @@ import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUser
 const ConditionalCtaLink = () => {
   const [isNotFound, setIsNotFound] = useState(false);
 
-  const { data, sessionStatus } = useGetSurveyIdByUserStatus({
+  const { data, sessionStatus, isLoading } = useGetSurveyIdByUserStatus({
     onError: (error) => {
       if (error.code === 404) {
         setIsNotFound(true);
@@ -18,9 +18,13 @@ const ConditionalCtaLink = () => {
     },
   });
 
-  if (data) return <ResultLink surveyId={data.survey_id} />;
+  if (sessionStatus === 'loading') return null;
   if (sessionStatus === 'unauthenticated') return <CreateQuestionFormLink />;
+
+  if (isLoading) return null;
   if (isNotFound) return <CreateQuestionFormLink />;
+
+  if (data) return <ResultLink surveyId={data.survey_id} />;
 
   return <CreateQuestionFormLink />;
 };
