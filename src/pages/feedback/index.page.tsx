@@ -68,26 +68,33 @@ export default function FeedbackList() {
 
   const renderReceivedFeedbackCards = () => {
     const now = new Date();
-    const feedbackList = [];
-    for (const year in feedbacksByYearAndMonth) {
-      for (const month in feedbacksByYearAndMonth[year]) {
-        const feedbacks = feedbacksByYearAndMonth[year][month];
-        const feedbackItems = feedbacks.map((feedback: Feedback) => {
-          return (
-            <ReceivedFeedbackCard key={feedback.feedback_id} feedback={feedback} onClickFeedback={onClickFeedback} />
-          );
-        });
+    const feedbackList: ReactElement[] = [];
+
+    if (!feedbacksByYearAndMonth) return null;
+
+    const reversedYears = Object.keys(feedbacksByYearAndMonth).sort((a, b) => Number(b) - Number(a));
+
+    reversedYears.forEach((year) => {
+      const reversedMonths = Object.keys(feedbacksByYearAndMonth[year]).sort((a, b) => Number(b) - Number(a));
+
+      reversedMonths.forEach((month) => {
+        const reversedFeedbacks = [...feedbacksByYearAndMonth[year][month]].sort(
+          (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+        );
+        const feedbackElements = reversedFeedbacks.map((feedback) => (
+          <ReceivedFeedbackCard key={feedback.feedback_id} feedback={feedback} onClickFeedback={onClickFeedback} />
+        ));
 
         feedbackList.push(
           <div key={`${year}-${month}`}>
             <span css={monthTitleCss}>
               {now.getFullYear() === Number(year) ? `${month}월` : `${year}년 ${month}월`}
             </span>
-            <section css={monthFeedbackListCss}>{feedbackItems}</section>
+            <section css={monthFeedbackListCss}>{feedbackElements}</section>
           </div>,
         );
-      }
-    }
+      });
+    });
 
     return feedbackList;
   };
