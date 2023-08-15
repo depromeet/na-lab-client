@@ -1,3 +1,11 @@
+<h3 align='center'>
+
+ `디프만 13기 대상 수상작 🎉`
+
+</h3>
+
+<br />
+
 ![스크린샷 2023-07-18 오전 1 06 53](https://github.com/depromeet/na-lab-client/assets/26461307/7147c8a5-f48d-48d6-b8bf-d758df64184e)
 
 <br/>
