@@ -87,10 +87,10 @@ export const getServerSideProps: GetServerSidePropsWithDehydratedStateAndSEO<Ser
 
   const queryClient = new QueryClient();
 
-  const userInfo = await queryClient.fetchQuery(['user', id], () => getUserInfoBySurveyId(id));
-  const tendencyFeedbackResult = await queryClient.fetchQuery(['tendency feedback', id], () =>
-    getTendencyFeedbackResult(id),
-  );
+  const [userInfo, tendencyFeedbackResult] = await Promise.all([
+    queryClient.fetchQuery(['user', id], () => getUserInfoBySurveyId(id)),
+    queryClient.fetchQuery(['tendency feedback', id], () => getTendencyFeedbackResult(id)),
+  ]);
 
   const tendencies = [...tendencyFeedbackResult.question_feedback[0].choices];
   const group = getResultGroup(tendencies);
