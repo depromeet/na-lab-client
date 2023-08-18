@@ -31,8 +31,11 @@ export const getServerSideProps: GetServerSidePropsWithDehydratedStateAndSEO<Ser
   }
 
   const queryClient = new QueryClient();
-  const survey = await queryClient.fetchQuery(getSurveyByIdQueryKey(id), () => getSurveyById(id));
-  const userInfo = await queryClient.fetchQuery(getUserInfoBySurveyIdQueryKey(id), () => getUserInfoBySurveyId(id));
+
+  const [survey, userInfo] = await Promise.all([
+    queryClient.fetchQuery(getSurveyByIdQueryKey(id), () => getSurveyById(id)),
+    queryClient.fetchQuery(getUserInfoBySurveyIdQueryKey(id), () => getUserInfoBySurveyId(id)),
+  ]);
 
   if (!survey || !userInfo) {
     return {
