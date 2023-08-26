@@ -11259,15 +11259,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["camelize", [\
-        ["npm:1.0.1", {\
-          "packageLocation": "./.yarn/cache/camelize-npm-1.0.1-d86ebe085a-91d8611d09.zip/node_modules/camelize/",\
-          "packageDependencies": [\
-            ["camelize", "npm:1.0.1"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["caniuse-lite", [\
         ["npm:1.0.30001516", {\
           "packageLocation": "./.yarn/cache/caniuse-lite-npm-1.0.30001516-399d435c2f-044adf3493.zip/node_modules/caniuse-lite/",\
