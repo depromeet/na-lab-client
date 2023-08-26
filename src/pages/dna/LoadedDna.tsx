@@ -106,7 +106,13 @@ const LoadedDna: FC<Props> = ({
   return (
     <>
       {dnaOwnerStatus === 'current_user' ? (
-        <Header title="나의 커리어 명함" isContainRemainer onBackClick={() => router.push('/result')} />
+        <Header
+          title="나의 커리어 명함"
+          isContainRemainer
+          onBackClick={() => {
+            history.length > 1 ? router.back() : router.push('/result');
+          }}
+        />
       ) : (
         <Header
           title={`${userInfo?.nickname} 님의 커리어 명함`}
