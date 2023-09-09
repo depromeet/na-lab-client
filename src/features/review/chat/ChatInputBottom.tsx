@@ -28,7 +28,7 @@ interface Props {
 // NOTE: padding - 32px, button - 56px, margin - 10px
 const INPUT_DEFAULT_WIDTH = 'calc(100% - 32px - 56px - 10px)';
 const INPUT_OPEN_WIDTH = 'calc(100% - 32px)';
-const INPUT_MAX_LENGTH = 20;
+const INPUT_MAX_LENGTH = 2000;
 
 const ChatInputBottom = ({ onBackClick, isBackDisabled, onTextSubmit, onFocus }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
