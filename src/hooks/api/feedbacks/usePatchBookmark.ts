@@ -2,6 +2,8 @@ import { useMutation, type UseMutationOptions, useQueryClient } from '@tanstack/
 
 import { patch } from '~/libs/api';
 
+import { BOOKMAKRED_FEEDBACKS_QUERY_KEY } from './useGetBookmarkedFeedbacksBySurveyId';
+
 const usePatchBookmark = (form_question_feedback_id: string, options?: UseMutationOptions<void, unknown, void>) => {
   const queryClient = useQueryClient();
 
@@ -11,6 +13,7 @@ const usePatchBookmark = (form_question_feedback_id: string, options?: UseMutati
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['feedbacks']);
+        queryClient.invalidateQueries([BOOKMAKRED_FEEDBACKS_QUERY_KEY]);
       },
       ...options,
     },
