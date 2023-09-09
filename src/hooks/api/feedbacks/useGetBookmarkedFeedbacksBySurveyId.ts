@@ -6,9 +6,11 @@ interface Response {
   question_feedback: QuestionFeedback[];
 }
 
+export const getBookmarkedFeedbacksQueryKey = (surveyId: string) => [surveyId, 'bookmarked feedbacks'];
+
 const useGetBookmarkedFeedbacks = (surveyId: string, options?: UseQueryOptions<Response>) => {
   return useQuery<Response>({
-    queryKey: [surveyId, 'bookmarked feedbacks'],
+    queryKey: getBookmarkedFeedbacksQueryKey(surveyId),
     queryFn: () => get<Response>(`/v1/feedbacks/bookmarks?survey-id=${surveyId}`),
     ...options,
   });
