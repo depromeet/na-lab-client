@@ -11,6 +11,7 @@ import { m, type TargetAndTransition } from 'framer-motion';
 
 import { ArrowCircleButton } from '~/components/button/CircleButton';
 import SendIcon from '~/components/icons/SendIcon';
+import useToast from '~/components/toast/useToast';
 import { defaultEasing, defaultFadeInVariants } from '~/constants/motions';
 import useInput from '~/hooks/common/useInput';
 import { BODY_1 } from '~/styles/typo';
@@ -27,11 +28,14 @@ interface Props {
 // NOTE: padding - 32px, button - 56px, margin - 10px
 const INPUT_DEFAULT_WIDTH = 'calc(100% - 32px - 56px - 10px)';
 const INPUT_OPEN_WIDTH = 'calc(100% - 32px)';
+const INPUT_MAX_LENGTH = 2000;
 
 const ChatInputBottom = ({ onBackClick, isBackDisabled, onTextSubmit, onFocus }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [text, onChangeText, resetText] = useInput();
   const [isInputWide, setIsInputWide] = useState(false);
+
+  const { fireToast } = useToast();
 
   const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     const textarea = textareaRef.current;
@@ -40,8 +44,11 @@ const ChatInputBottom = ({ onBackClick, isBackDisabled, onTextSubmit, onFocus }:
     textarea.style.height = '5px';
     textarea.style.height = textarea.scrollHeight + 'px';
 
-    onChangeText(e);
+    if (e.target.value.length >= INPUT_MAX_LENGTH) {
+      fireToast({ content: `최대 ${INPUT_MAX_LENGTH}자까지 입력할 수 있어요.`, higherThanCTA: true });
+    }
 
+    onChangeText(e);
     if (e.target.value) setIsInputWide(true);
   };
 
@@ -82,6 +89,7 @@ const ChatInputBottom = ({ onBackClick, isBackDisabled, onTextSubmit, onFocus }:
       <m.textarea
         ref={textareaRef}
         required
+        maxLength={INPUT_MAX_LENGTH}
         placeholder="메세지 보내기..."
         value={text}
         onChange={onChange}
