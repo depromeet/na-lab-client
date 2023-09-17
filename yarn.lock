@@ -75,6 +75,7 @@ __metadata:
     next-auth: ^4.22.1
     next-router-mock: ^0.9.3
     next-sitemap: ^4.1.3
+    open-external-browser: ^1.0.0
     postcss: ^8.4.21
     postcss-syntax: ^0.36.2
     prettier: ^2.8.7
@@ -13990,6 +13991,16 @@ __metadata:
   dependencies:
     mimic-fn: ^4.0.0
   checksum: 0846ce78e440841335d4e9182ef69d5762e9f38aa7499b19f42ea1c4cd40f0b4446094c455c713f9adac3f4ae86f613bb5e30c99e52652764d06a89f709b3788
+  languageName: node
+  linkType: hard
+
+"open-external-browser@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "open-external-browser@npm:1.0.0"
+  peerDependencies:
+    react: ^16.8.0  || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0  || ^17.0.0 || ^18.0.0
+  checksum: e2c387d0a89b856e3a97daacbb47b38c242208300860c8b34190c19422dd7ec315181658bffb1af4072534853a7a1154631fdf008266dab91c7fc00aa6188836
   languageName: node
   linkType: hard
 
