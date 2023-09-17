@@ -6,6 +6,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Analytics } from '@vercel/analytics/react';
 import { domMax, LazyMotion } from 'framer-motion';
+import { useOpenExternalBrowser } from 'open-external-browser';
 
 import AuthProvider from '~/components/auth/AuthProvider';
 import ErrorBoundary from '~/components/error/ErrorBoundary';
@@ -37,6 +38,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         },
       }),
   );
+
+  useOpenExternalBrowser({ where: 'all' });
 
   return (
     <SessionProvider session={pageProps.session}>
