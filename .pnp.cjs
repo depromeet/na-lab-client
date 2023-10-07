@@ -95,7 +95,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next-router-mock", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.9.7"],\
             ["next-sitemap", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:4.1.8"],\
             ["open-external-browser", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:1.0.0"],\
-            ["postcss", "npm:8.4.26"],\
+            ["postcss", "npm:8.4.31"],\
             ["postcss-syntax", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.36.2"],\
             ["prettier", "npm:2.8.8"],\
             ["react", "npm:18.2.0"],\
@@ -194,7 +194,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next-router-mock", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.9.7"],\
             ["next-sitemap", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:4.1.8"],\
             ["open-external-browser", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:1.0.0"],\
-            ["postcss", "npm:8.4.26"],\
+            ["postcss", "npm:8.4.31"],\
             ["postcss-syntax", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.36.2"],\
             ["prettier", "npm:2.8.8"],\
             ["react", "npm:18.2.0"],\
@@ -8220,7 +8220,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.22.9"],\
             ["@types/postcss", null],\
             ["@types/postcss-syntax", null],\
-            ["postcss", "npm:8.4.26"],\
+            ["postcss", "npm:8.4.31"],\
             ["postcss-syntax", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.36.2"]\
           ],\
           "packagePeers": [\
@@ -19624,6 +19624,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["source-map-js", "npm:1.0.2"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:8.4.31", {\
+          "packageLocation": "./.yarn/cache/postcss-npm-8.4.31-385051a82b-1d8611341b.zip/node_modules/postcss/",\
+          "packageDependencies": [\
+            ["postcss", "npm:8.4.31"],\
+            ["nanoid", "npm:3.3.6"],\
+            ["picocolors", "npm:1.0.0"],\
+            ["source-map-js", "npm:1.0.2"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["postcss-loader", [\
@@ -19830,7 +19840,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/postcss-less", null],\
             ["@types/postcss-markdown", null],\
             ["@types/postcss-scss", null],\
-            ["postcss", "npm:8.4.26"],\
+            ["postcss", "npm:8.4.31"],\
             ["postcss-html", null],\
             ["postcss-jsx", null],\
             ["postcss-less", null],\
