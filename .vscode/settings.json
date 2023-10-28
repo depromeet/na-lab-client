@@ -6,10 +6,11 @@
   "eslint.nodePath": ".yarn/sdks",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "stylelint.validate": ["css", "scss", "typescriptreact"],
-  "stylelint.configFile": ".stylelintrc.json",
 
-  "stylelint.packageManager": "yarn",
+  "stylelint.validate": ["css", "scss", "typescript", "typescriptreact"],
+  "stylelint.configFile": ".stylelintrc.json",
+  "stylelint.customSyntax": "postcss-styled-syntax",
+
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.fixAll.stylelint": true

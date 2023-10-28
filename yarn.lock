@@ -11,6 +11,7 @@ __metadata:
   dependencies:
     "@babel/core": ^7.21.4
     "@babel/preset-typescript": ^7.22.5
+    "@channel.io/channel-web-sdk-loader": ^1.1.1
     "@codechecks/client": ^0.1.12
     "@commitlint/cli": ^17.6.1
     "@commitlint/config-conventional": ^17.6.1
@@ -31,7 +32,6 @@ __metadata:
     "@storybook/nextjs": ^7.0.6
     "@storybook/react": ^7.0.6
     "@storybook/testing-library": ^0.0.14-next.2
-    "@stylelint/postcss-css-in-js": ^0.38.0
     "@tanstack/react-query": ^4.29.3
     "@tanstack/react-query-devtools": ^4.29.3
     "@testing-library/jest-dom": ^5.16.5
@@ -77,7 +77,7 @@ __metadata:
     next-sitemap: ^4.1.3
     open-external-browser: ^1.0.0
     postcss: ^8.4.31
-    postcss-syntax: ^0.36.2
+    postcss-styled-syntax: ^0.5.0
     prettier: ^2.8.7
     react: 18.2.0
     react-copy-to-clipboard: ^5.1.0
@@ -153,7 +153,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.10, @babel/core@npm:^7.12.3, @babel/core@npm:^7.13.16, @babel/core@npm:^7.17.9, @babel/core@npm:^7.20.2, @babel/core@npm:^7.21.4, @babel/core@npm:^7.22.5, @babel/core@npm:^7.7.5":
+"@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.10, @babel/core@npm:^7.12.3, @babel/core@npm:^7.13.16, @babel/core@npm:^7.20.2, @babel/core@npm:^7.21.4, @babel/core@npm:^7.22.5, @babel/core@npm:^7.7.5":
   version: 7.22.9
   resolution: "@babel/core@npm:7.22.9"
   dependencies:
@@ -2041,6 +2041,13 @@ __metadata:
   dependencies:
     "@egjs/component": ^3.0.4
   checksum: 98e09a1788270f7f2c3921d7d099cbfe41ba3601398e60deb433eec3f67ccf692458eeecaa7261c868ff23ec046160e454680781c92155473b9077cdb4c608bc
+  languageName: node
+  linkType: hard
+
+"@channel.io/channel-web-sdk-loader@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@channel.io/channel-web-sdk-loader@npm:1.1.1"
+  checksum: 4800fbd45bd6847c45dfdbe1bf28cd90cfb4c6bdd5a2d6967c11a12b0c2ad972cd18247820e9d738fad6eaf6b3855eb645991d1ed3dbfec5b84d3b2a567d8afe
   languageName: node
   linkType: hard
 
@@ -4930,18 +4937,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylelint/postcss-css-in-js@npm:^0.38.0":
-  version: 0.38.0
-  resolution: "@stylelint/postcss-css-in-js@npm:0.38.0"
-  dependencies:
-    "@babel/core": ^7.17.9
-  peerDependencies:
-    postcss: ">=7.0.0"
-    postcss-syntax: ">=0.36.2"
-  checksum: efb32b4aab38a8fcebc07a26bc49afe92e3d9dea63547fd4bb7e2a4a42c4f7534173e696ba61f5e4030961081f210ae52aea3b4829a2fe67acd3c9dc14c91b0f
-  languageName: node
-  linkType: hard
-
 "@swc/helpers@npm:0.4.14":
   version: 0.4.14
   resolution: "@swc/helpers@npm:0.4.14"
@@ -5758,7 +5753,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:5.62.0":
+"@typescript-eslint/typescript-estree@npm:5.62.0, @typescript-eslint/typescript-estree@npm:^5.62.0":
   version: 5.62.0
   resolution: "@typescript-eslint/typescript-estree@npm:5.62.0"
   dependencies:
@@ -14638,12 +14633,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-syntax@npm:^0.36.2":
-  version: 0.36.2
-  resolution: "postcss-syntax@npm:0.36.2"
+"postcss-styled-syntax@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "postcss-styled-syntax@npm:0.5.0"
+  dependencies:
+    "@typescript-eslint/typescript-estree": ^5.62.0
+    estree-walker: ^2.0.2
+    typescript: ~5.1.6
   peerDependencies:
-    postcss: ">=5.0.0"
-  checksum: 812baee602910903b8b77391583721613951d87dbc8baff140879069ff98423392675c4ddfdf073418f4a699ee5d4dd020914bad07504c62f9f333211bf979b8
+    postcss: ^8.4.21
+  checksum: 1571ea468e9eb9ddf8cd81b298174b310a3ee5ec6b3b1e01a25b4c0e51acb5fc4bb4f76785fe9f9714be29fa6884dd123c7179b475b41c1a108545ca1875af37
   languageName: node
   linkType: hard
 
@@ -17911,7 +17910,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.6.4 || ^5.0.0":
+"typescript@npm:^4.6.4 || ^5.0.0, typescript@npm:~5.1.6":
   version: 5.1.6
   resolution: "typescript@npm:5.1.6"
   bin:
@@ -17931,7 +17930,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.6.4 || ^5.0.0#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.6.4 || ^5.0.0#~builtin<compat/typescript>, typescript@patch:typescript@~5.1.6#~builtin<compat/typescript>":
   version: 5.1.6
   resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=85af82"
   bin:

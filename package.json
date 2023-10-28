@@ -38,6 +38,7 @@
     ]
   },
   "dependencies": {
+    "@channel.io/channel-web-sdk-loader": "^1.1.1",
     "@egjs/flicking": "^4.10.7",
     "@egjs/flicking-plugins": "^4.7.0",
     "@egjs/react-flicking": "^4.10.9",
@@ -78,7 +79,6 @@
     "@storybook/nextjs": "^7.0.6",
     "@storybook/react": "^7.0.6",
     "@storybook/testing-library": "^0.0.14-next.2",
-    "@stylelint/postcss-css-in-js": "^0.38.0",
     "@tanstack/react-query-devtools": "^4.29.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
@@ -114,7 +114,7 @@
     "next-router-mock": "^0.9.3",
     "next-sitemap": "^4.1.3",
     "postcss": "^8.4.31",
-    "postcss-syntax": "^0.36.2",
+    "postcss-styled-syntax": "^0.5.0",
     "prettier": "^2.8.7",
     "react-copy-to-clipboard": "^5.1.0",
     "storybook": "^7.0.6",

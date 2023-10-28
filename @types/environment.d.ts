@@ -10,5 +10,6 @@ namespace NodeJS {
     CLOUDFLARE_ENV: string;
     NEXTAUTH_URL: string;
     NEXTAUTH_SECRET: string;
+    NEXT_PUBLIC_CHANNEL_TALK_PLUGIN_KEY: string;
   }
 }
