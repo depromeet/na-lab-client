@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
+import * as ChannelTalk from '@channel.io/channel-web-sdk-loader';
 import { css, type Theme, ThemeProvider } from '@emotion/react';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -19,6 +20,11 @@ import usePageTrack from '~/hooks/event/usePageTrack';
 import GlobalStyles from '~/styles/GlobalStyle';
 import defaultTheme from '~/styles/theme';
 import { type NextPageWithLayout } from '~/types/page';
+
+ChannelTalk.loadScript();
+ChannelTalk.boot({
+  pluginKey: process.env.NEXT_PUBLIC_CHANNEL_TALK_PLUGIN_KEY,
+});
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
