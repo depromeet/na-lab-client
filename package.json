@@ -58,7 +58,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hotjar": "^6.1.0",
-    "satori": "^0.10.1",
+    "satori": "^0.10.9",
     "sharp": "^0.32.1"
   },
   "packageManager": "yarn@3.5.0",

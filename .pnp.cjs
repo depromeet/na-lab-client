@@ -102,7 +102,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-copy-to-clipboard", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:5.1.0"],\
             ["react-dom", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:18.2.0"],\
             ["react-hotjar", "npm:6.1.0"],\
-            ["satori", "npm:0.10.1"],\
+            ["satori", "npm:0.10.9"],\
             ["sharp", "npm:0.32.3"],\
             ["storybook", "npm:7.0.27"],\
             ["styled-jsx", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:5.1.2"],\
@@ -201,7 +201,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-copy-to-clipboard", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:5.1.0"],\
             ["react-dom", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:18.2.0"],\
             ["react-hotjar", "npm:6.1.0"],\
-            ["satori", "npm:0.10.1"],\
+            ["satori", "npm:0.10.9"],\
             ["sharp", "npm:0.32.3"],\
             ["storybook", "npm:7.0.27"],\
             ["styled-jsx", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:5.1.2"],\
@@ -21448,10 +21448,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["satori", [\
-        ["npm:0.10.1", {\
-          "packageLocation": "./.yarn/cache/satori-npm-0.10.1-182931b85d-fd6df0f800.zip/node_modules/satori/",\
+        ["npm:0.10.9", {\
+          "packageLocation": "./.yarn/cache/satori-npm-0.10.9-57a803828f-56cb35e553.zip/node_modules/satori/",\
           "packageDependencies": [\
-            ["satori", "npm:0.10.1"],\
+            ["satori", "npm:0.10.9"],\
             ["@shuding/opentype.js", "npm:1.4.0-beta.0"],\
             ["css-background-parser", "npm:0.1.0"],\
             ["css-box-shadow", "npm:1.0.0-3"],\
