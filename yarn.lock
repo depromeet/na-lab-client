@@ -83,7 +83,7 @@ __metadata:
     react-copy-to-clipboard: ^5.1.0
     react-dom: 18.2.0
     react-hotjar: ^6.1.0
-    satori: ^0.10.1
+    satori: ^0.10.9
     sharp: ^0.32.1
     storybook: ^7.0.6
     styled-jsx: ^5.1.2
@@ -16036,9 +16036,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"satori@npm:^0.10.1":
-  version: 0.10.1
-  resolution: "satori@npm:0.10.1"
+"satori@npm:^0.10.9":
+  version: 0.10.9
+  resolution: "satori@npm:0.10.9"
   dependencies:
     "@shuding/opentype.js": 1.4.0-beta.0
     css-background-parser: ^0.1.0
@@ -16050,7 +16050,7 @@ __metadata:
     parse-css-color: ^0.2.1
     postcss-value-parser: ^4.2.0
     yoga-wasm-web: ^0.3.3
-  checksum: fd6df0f80002bb1387bbec413f0d07414c1c1d6825abecf79a59f17283ca87db88c6928898ff494230946b9ee4773e389e71e6c4ed8ce5964323ef3baf2ed884
+  checksum: 56cb35e553cf8a65ee08ec29357e441a10adcc7c0cd68977c4e24c613f8999b0862ae05fe3c648498c4bda8dfc5a1c15d883cfbc30c815a9117fd99531ee4355
   languageName: node
   linkType: hard
 
