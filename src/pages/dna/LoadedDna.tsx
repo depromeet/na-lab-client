@@ -23,8 +23,6 @@ import { getUserInfoBySurveyIdQueryKey } from '~/hooks/api/user/useGetUserInfoBy
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
 import { getBrowser, isAndroid, isIos } from '~/utils/agent';
-import { type CreateImage } from '~/utils/createImage';
-import { imageDownloadPC } from '~/utils/image';
 import { type Group } from '~/utils/resultLogic';
 
 import { type DnaOwnerStatus } from './type';
@@ -51,7 +49,6 @@ interface Props {
   userInfo: ReturnType<typeof useGetUserInfoBySurveyId>['data'];
   topTendencies: Softskills[];
   bookmarkedFeedbacks: QuestionFeedback[];
-  downloadableImage: CreateImage;
 }
 
 const LoadedDna: FC<Props> = ({
@@ -62,7 +59,6 @@ const LoadedDna: FC<Props> = ({
   userInfo,
   topTendencies,
   bookmarkedFeedbacks,
-  downloadableImage,
 }) => {
   const { fireToast } = useToast();
 
@@ -73,11 +69,13 @@ const LoadedDna: FC<Props> = ({
     onSuccess: () => queryClient.invalidateQueries(getUserInfoBySurveyIdQueryKey(surveyId)),
   });
 
+  // TODO: 주석 삭제
+  // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
   const [isImageModalShowing, setIsImageModalShowing] = useState(false);
 
   const onDownloadClick = async () => {
-    const imageObj = JSON.parse(downloadableImage.base64);
-    const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
+    fetch('/api/dna-image');
+
     const browser = getBrowser();
 
     // TODO: share 갤러리에 저장 기능 되살리기
@@ -99,7 +97,8 @@ const LoadedDna: FC<Props> = ({
       return;
     }
 
-    imageDownloadPC(imageBase64, 'dna');
+    // TODO: fetch response 이용해서 다운로드
+    // imageDownloadPC(svg, 'dna');
     fireToast({ content: '이미지 다운로드 되었습니다.', higherThanCTA: true });
   };
 
@@ -180,11 +179,11 @@ const LoadedDna: FC<Props> = ({
         <DnaCta surveyId={surveyId} dnaOwnerStatus={dnaOwnerStatus} userInfo={userInfo} />
       </main>
 
-      <DNAImageDownloadModal
+      {/* <DNAImageDownloadModal
         downloadableBase64={downloadableImage.base64}
         isShowing={isImageModalShowing}
         onClose={() => setIsImageModalShowing(false)}
-      />
+      /> */}
     </>
   );
 };
@@ -243,7 +242,6 @@ const ulCss = css`
 
 const subTitleCss = css`
   ${HEAD_2_BOLD};
-
   color: var(--gray-500-text-secondary, #394258);
 `;
 
@@ -253,6 +251,8 @@ const downloadIconCss = css`
   bottom: -5px;
 `;
 
+// TODO: 주석 삭제
+// eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
 const DNAImageDownloadModal = ({
   downloadableBase64,
   onClose,
@@ -301,7 +301,6 @@ const imageDownloadModalCss = css`
 
   h1 {
     ${HEAD_2_BOLD};
-
     user-select: none;
   }
 
