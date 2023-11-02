@@ -21,6 +21,7 @@ export default async function handler(req: NextRequest) {
       throw new Error('Failed to fetch font');
     }
 
+    // TODO: 이미지 크기 및 위치 조절
     const imageOptions: ImageOptions = {
       width: 375,
       height: 666,
