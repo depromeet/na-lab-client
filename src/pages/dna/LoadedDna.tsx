@@ -1,15 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
 import { type FC, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { useQueryClient } from '@tanstack/react-query';
-import { m } from 'framer-motion';
 
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
 import DownloadCircleIcon from '~/components/icons/DownloadCircleIcon';
 import HomeIcon from '~/components/icons/HomeIcon';
-import Modal from '~/components/modal/Modal';
 import useToast from '~/components/toast/useToast';
 import { type DNA } from '~/constants/dna';
 import BookmarkSection from '~/features/dna/BookmarkSection';
@@ -23,9 +21,12 @@ import { getUserInfoBySurveyIdQueryKey } from '~/hooks/api/user/useGetUserInfoBy
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { BODY_1, HEAD_2_BOLD } from '~/styles/typo';
 import { getBrowser, isAndroid, isIos } from '~/utils/agent';
+import { imageDownloadPC } from '~/utils/image';
 import { type Group } from '~/utils/resultLogic';
 
 import { type DnaOwnerStatus } from './type';
+
+const DNAImageDownloadModal = dynamic(() => import('./DNAImageDownloadModal'), { ssr: false });
 
 interface Image {
   webp: string;
@@ -69,13 +70,9 @@ const LoadedDna: FC<Props> = ({
     onSuccess: () => queryClient.invalidateQueries(getUserInfoBySurveyIdQueryKey(surveyId)),
   });
 
-  // TODO: 주석 삭제
-  // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
   const [isImageModalShowing, setIsImageModalShowing] = useState(false);
 
   const onDownloadClick = async () => {
-    fetch('/api/dna-image');
-
     const browser = getBrowser();
 
     // TODO: share 갤러리에 저장 기능 되살리기
@@ -97,8 +94,10 @@ const LoadedDna: FC<Props> = ({
       return;
     }
 
-    // TODO: fetch response 이용해서 다운로드
-    // imageDownloadPC(svg, 'dna');
+    imageDownloadPC(
+      `/api/dna-image?group=${group}&nickname=${userInfo?.nickname}&position=${userInfo?.position}`,
+      'dna',
+    );
     fireToast({ content: '이미지 다운로드 되었습니다.', higherThanCTA: true });
   };
 
@@ -179,11 +178,11 @@ const LoadedDna: FC<Props> = ({
         <DnaCta surveyId={surveyId} dnaOwnerStatus={dnaOwnerStatus} userInfo={userInfo} />
       </main>
 
-      {/* <DNAImageDownloadModal
-        downloadableBase64={downloadableImage.base64}
+      <DNAImageDownloadModal
+        imageSrc={`/api/dna-image?group=${group}&nickname=${userInfo?.nickname}&position=${userInfo?.position}`}
         isShowing={isImageModalShowing}
         onClose={() => setIsImageModalShowing(false)}
-      /> */}
+      />
     </>
   );
 };
@@ -249,63 +248,4 @@ const downloadIconCss = css`
   position: absolute;
   right: -2px;
   bottom: -5px;
-`;
-
-// TODO: 주석 삭제
-// eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
-const DNAImageDownloadModal = ({
-  downloadableBase64,
-  onClose,
-  isShowing,
-}: {
-  downloadableBase64: string;
-  onClose: () => void;
-  isShowing: boolean;
-}) => {
-  const imageObj = JSON.parse(downloadableBase64);
-  const imageBase64 = 'data:image/png;base64,' + imageObj.base64 ?? '';
-
-  return (
-    <Modal isShowing={isShowing}>
-      <Modal.Header onBackClick={onClose} overrideCss={imageDownloadModalHeaderCss} />
-      <m.div
-        css={imageDownloadModalCss}
-        variants={{
-          initial: { opacity: 0 },
-          animate: { opacity: 1 },
-          exit: { opacity: 0 },
-        }}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-      >
-        <h1>꾹 눌러서 이미지를 저장하세요</h1>
-
-        <img src={imageBase64} alt="dna" />
-      </m.div>
-    </Modal>
-  );
-};
-
-const imageDownloadModalHeaderCss = css`
-  background-color: transparent;
-  border-bottom: none;
-`;
-
-const imageDownloadModalCss = css`
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: center;
-
-  h1 {
-    ${HEAD_2_BOLD};
-    user-select: none;
-  }
-
-  img {
-    user-select: none;
-    width: 80%;
-  }
 `;
