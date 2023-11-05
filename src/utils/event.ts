@@ -1,3 +1,4 @@
+import * as ChannelTalk from '@channel.io/channel-web-sdk-loader';
 import mixpanel from 'mixpanel-browser';
 
 import { event } from '~/libs/gtag';
@@ -12,6 +13,7 @@ const recordEvent = ({ action, label, value }: Props) => {
 
   event({ action, category: process.env.WEB_VERSION, label, value });
   mixpanel.track(action, { category: process.env.WEB_VERSION, label, value });
+  ChannelTalk.track(action, { category: process.env.WEB_VERSION, label: label || null, value: value || null });
 };
 
 export default recordEvent;
