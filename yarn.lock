@@ -74,7 +74,7 @@ __metadata:
     next-auth: ^4.22.1
     next-router-mock: ^0.9.3
     next-sitemap: ^4.1.3
-    open-external-browser: ^1.0.0
+    open-external-browser: ^1.1.0
     postcss: ^8.4.31
     postcss-styled-syntax: ^0.5.0
     prettier: ^2.8.7
@@ -13764,13 +13764,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open-external-browser@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "open-external-browser@npm:1.0.0"
+"open-external-browser@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "open-external-browser@npm:1.1.0"
   peerDependencies:
     react: ^16.8.0  || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0  || ^17.0.0 || ^18.0.0
-  checksum: e2c387d0a89b856e3a97daacbb47b38c242208300860c8b34190c19422dd7ec315181658bffb1af4072534853a7a1154631fdf008266dab91c7fc00aa6188836
+  checksum: a7debc62c3d4cb17e99044c9df94ca5c37a6a1d70f1a5bb93d2400629ee8cdee18da4a2729365ea687affafefae03ec60f75e423c4d837f26fff3e0ae7417689
   languageName: node
   linkType: hard
 
