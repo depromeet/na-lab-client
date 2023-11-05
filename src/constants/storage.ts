@@ -3,4 +3,5 @@ export const LOCAL_STORAGE_KEY = {
   reviewShortQuestionMessages: 'nlasq',
   surveyCustomQuestions: 'nlascq',
   surveyCreateSurveyRequest: 'nlascsr',
+  resultRevisit: 'nlarv',
 } as const;

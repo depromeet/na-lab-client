@@ -19,6 +19,7 @@ import Pill, { type Color } from '~/components/pill/Pill';
 import Toast from '~/components/toast/Toast';
 import useToast from '~/components/toast/useToast';
 import { defaultEasing } from '~/constants/motions';
+import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import CollaborationCounter from '~/features/feedback/CollaborationCounter';
 import Feedback from '~/features/feedback/Feedback';
 import NewFeedbackCopyButton from '~/features/feedback/NewFeedbackCopyButton';
@@ -34,6 +35,8 @@ import useGetReviewersSummaryBySurveyId from '~/hooks/api/reviewers/useGetReview
 import useBoolean from '~/hooks/common/useBoolean';
 import useScrollLock from '~/hooks/common/useScrollLock';
 import { useScrollSpy } from '~/hooks/common/useScrollSpy';
+import useWillUnmount from '~/hooks/lifeCycle/useWillUnmount';
+import useLocalStorage from '~/hooks/storage/useLocalStorage';
 import { BODY_2_REGULAR, HEAD_1, HEAD_2_BOLD } from '~/styles/typo';
 
 interface Props {
@@ -44,6 +47,8 @@ const PILL_COLORS: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'pu
 
 const SurveyIdLoaded = ({ surveyId }: Props) => {
   const { fireToast } = useToast();
+  const [isRevisit, setIsRevisit] = useLocalStorage<boolean>(`${LOCAL_STORAGE_KEY.resultRevisit}`, false);
+  useWillUnmount(() => !isRevisit && setIsRevisit(true));
 
   const { isLoading: isFeedbackSummaryLoading, data: feedbackSummaryData } = useGetFeedbackSummaryBySurveyId(surveyId);
   const { isLoading: isReviewersSummaryLoading, data: reviewersSummaryData } =
@@ -248,7 +253,7 @@ const SurveyIdLoaded = ({ surveyId }: Props) => {
                             reviewer={feedback.reviewer}
                             is_bookmarked={feedback.bookmark.is_bookmarked}
                             isBookmarkable={true}
-                            withBookmarkTooltip={index === 0 ? true : false}
+                            withBookmarkTooltip={index === 0 && !isRevisit ? true : false}
                           />
                         ))}
                       </div>
@@ -282,7 +287,6 @@ const emptyFeedbackWrapperCss = css`
 
 const emptyTextCss = (theme: Theme) => css`
   ${HEAD_2_BOLD};
-
   color: ${theme.colors.gray_400};
 `;
 
@@ -340,7 +344,6 @@ const ResearchMoveAnchorCss = (innerWidth: number) => css`
 
 const titleCss = css`
   ${HEAD_1}
-
   margin: 16px 0;
 `;
 
@@ -348,7 +351,6 @@ const choiceQuestionTitleCss = css`
   display: flex;
   gap: 12px;
   ${HEAD_1}
-
   margin: 16px 0;
 `;
 
@@ -356,7 +358,6 @@ const shortQuestionTitleCss = css`
   display: flex;
   gap: 12px;
   ${HEAD_1}
-
   margin: 16px 7px;
 `;
 
@@ -403,7 +404,6 @@ const floatingKeyframes = keyframes`
 
 const bubbleSpanCss = (theme: Theme) => css`
   ${BODY_2_REGULAR};
-
   position: absolute;
   top: -100%;
   left: 50%;
