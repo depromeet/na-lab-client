@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
 import { SessionProvider } from 'next-auth/react';
 import * as ChannelTalk from '@channel.io/channel-web-sdk-loader';
 import { css, type Theme, ThemeProvider } from '@emotion/react';
@@ -45,7 +46,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       }),
   );
 
-  useOpenExternalBrowser({ where: 'all' });
+  const router = useRouter();
+  useOpenExternalBrowser({ where: 'all', onOpen: () => router.push('/') });
 
   return (
     <SessionProvider session={pageProps.session}>
