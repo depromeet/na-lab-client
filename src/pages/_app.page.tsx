@@ -17,6 +17,7 @@ import NewFeedbackSnackBarListener from '~/components/snackBar/NewFeedbackSnackB
 import SnackBarWrapper from '~/components/snackBar/SnackBarWrapper';
 import ToastWrapper from '~/components/toast/ToastWrapper';
 import { MAIN_LAYOUT_ID } from '~/constants/name';
+import useChannelTalkButtonVisiblity from '~/hooks/channelTalk/useChannelTalkButtonVisibility';
 import usePageTrack from '~/hooks/event/usePageTrack';
 import GlobalStyles from '~/styles/GlobalStyle';
 import defaultTheme from '~/styles/theme';
@@ -48,6 +49,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   const router = useRouter();
   useOpenExternalBrowser({ where: 'all', onOpen: () => router.push('/') });
+
+  useChannelTalkButtonVisiblity();
 
   return (
     <SessionProvider session={pageProps.session}>
