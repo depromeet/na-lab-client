@@ -47,7 +47,7 @@ const PILL_COLORS: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'pu
 
 const SurveyIdLoaded = ({ surveyId }: Props) => {
   const { fireToast } = useToast();
-  const [isRevisit, setIsRevisit] = useLocalStorage<boolean>(`${LOCAL_STORAGE_KEY.resultRevisit}`, false);
+  const [isRevisit, setIsRevisit] = useLocalStorage<boolean>(LOCAL_STORAGE_KEY.resultRevisit, false);
   useWillUnmount(() => !isRevisit && setIsRevisit(true));
 
   const { isLoading: isFeedbackSummaryLoading, data: feedbackSummaryData } = useGetFeedbackSummaryBySurveyId(surveyId);
