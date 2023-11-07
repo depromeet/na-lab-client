@@ -1,7 +1,5 @@
 {
-  "*.{js,jsx,ts,tsx}": [
-    "yarn lint:fix"
-  ],
+  "*.{js,jsx,ts,tsx}": [],
   "*.{tsx}": [
     "yarn lint:style"
   ]
