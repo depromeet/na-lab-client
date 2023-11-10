@@ -68,7 +68,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vercel/analytics", "npm:1.0.1"],\
             ["@vitejs/plugin-react", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:4.0.3"],\
             ["@vitest/coverage-istanbul", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.32.4"],\
-            ["axios", "npm:1.4.0"],\
+            ["axios", "npm:1.6.1"],\
             ["chromatic", "npm:6.19.9"],\
             ["css-loader", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:6.8.1"],\
             ["dotenv", "npm:16.3.1"],\
@@ -165,7 +165,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vercel/analytics", "npm:1.0.1"],\
             ["@vitejs/plugin-react", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:4.0.3"],\
             ["@vitest/coverage-istanbul", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:0.32.4"],\
-            ["axios", "npm:1.4.0"],\
+            ["axios", "npm:1.6.1"],\
             ["chromatic", "npm:6.19.9"],\
             ["css-loader", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:6.8.1"],\
             ["dotenv", "npm:16.3.1"],\
@@ -10311,6 +10311,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/axios-npm-1.4.0-4d7ce8ca3e-7fb6a4313b.zip/node_modules/axios/",\
           "packageDependencies": [\
             ["axios", "npm:1.4.0"],\
+            ["follow-redirects", "virtual:4d7ce8ca3e1e44d82523fba2ad95e1be18c4e9f8dec6d551377587540da3ed75bd8bd3e812280309a3b90cfdb0560f076f3552a20839f7f15665207a4fbd588a#npm:1.15.2"],\
+            ["form-data", "npm:4.0.0"],\
+            ["proxy-from-env", "npm:1.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:1.6.1", {\
+          "packageLocation": "./.yarn/cache/axios-npm-1.6.1-ffaff76449-573f03f59b.zip/node_modules/axios/",\
+          "packageDependencies": [\
+            ["axios", "npm:1.6.1"],\
             ["follow-redirects", "virtual:4d7ce8ca3e1e44d82523fba2ad95e1be18c4e9f8dec6d551377587540da3ed75bd8bd3e812280309a3b90cfdb0560f076f3552a20839f7f15665207a4fbd588a#npm:1.15.2"],\
             ["form-data", "npm:4.0.0"],\
             ["proxy-from-env", "npm:1.1.0"]\
