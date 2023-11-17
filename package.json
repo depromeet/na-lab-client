@@ -57,7 +57,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hotjar": "^6.1.0",
-    "sharp": "^0.32.1"
+    "sharp": "^0.32.6"
   },
   "packageManager": "yarn@3.5.0",
   "devDependencies": {
