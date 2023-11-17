@@ -69,7 +69,7 @@
 
 ![스크린샷 2023-07-18 오전 1 08 09](https://github.com/depromeet/na-lab-client/assets/26461307/27586832-3bd7-4cbb-a659-1e446ed996d3)
 
-## 😎 Develoment Description
+## 😎 Development Description
 
 * Hotjar, GA, mixpanel, Vercel analytics를 이용해
 사용자 지표를 수집 및 분석하여 이탈율을 줄이고, 사용자 경험을 개선했어요.
