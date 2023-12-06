@@ -126,7 +126,7 @@
     "typescript": "5.0.4",
     "typescript-coverage-report": "^0.7.0",
     "util": "^0.12.5",
-    "vite": "^4.3.9",
+    "vite": "^4.4.12",
     "vitest": "^0.32.0",
     "webpack": "^5.79.0"
   }
