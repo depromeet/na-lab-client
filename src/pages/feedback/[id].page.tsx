@@ -13,6 +13,7 @@ import useGetFeedbackById from '~/hooks/api/feedbacks/useGetFeedbackById';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 import colors from '~/styles/color';
 import { BODY_1, HEAD_1, HEAD_2_BOLD, HEAD_2_REGULAR } from '~/styles/typo';
+import decodeString from '~/utils/decodeString';
 
 export default function Feedback() {
   const router = useInternalRouter();
@@ -93,7 +94,11 @@ export default function Feedback() {
               return (
                 <div key={question.question_id}>
                   <div css={questionTitleCss}>Q. {question.title}</div>
-                  <div css={questionBodyCss}>{question.reply}</div>
+                  <div css={questionBodyCss}>
+                    {question.reply.map((item, idx) => {
+                      return decodeString(item) + (question.reply.length !== idx && '\n');
+                    })}
+                  </div>
                 </div>
               );
             } else if (question.type === 'choice' && question.form_type !== 'tendency') {
@@ -128,7 +133,6 @@ const containerCss = css`
 
 const titleCss = css`
   ${HEAD_1}
-
   display: flex;
   align-items: center;
   background-color: ${colors.white};
@@ -173,7 +177,6 @@ const userInfoContainerCss = (theme: Theme) => css`
 
 const userInfoTitleCss = css`
   ${HEAD_2_REGULAR};
-
   color: ${colors.gray_400};
 `;
 
@@ -203,7 +206,6 @@ const questionTitleCss = css`
 
 const questionBodyCss = css`
   ${BODY_1}
-
   margin-top: 10px;
   margin-bottom: 40px;
   color: ${colors.gray_500};
@@ -211,7 +213,6 @@ const questionBodyCss = css`
 
 const questionChoiceBodyCss = css`
   ${BODY_1}
-
   margin-top: 25px;
   margin-bottom: 40px;
   color: ${colors.gray_500};
@@ -219,7 +220,6 @@ const questionChoiceBodyCss = css`
 
 const questionChoiceCss = css`
   ${HEAD_2_BOLD}
-
   display: flex;
   align-items: center;
   justify-content: center;
