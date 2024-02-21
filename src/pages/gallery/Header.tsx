@@ -1,13 +1,13 @@
 import { css, type Theme } from '@emotion/react';
 
-import MenuIcon from '~/components/icons/MenuIcon';
+import { MenuBarIcon } from '~/components/icons/MenuIcon';
 
 function GalleryHeader() {
   return (
     <>
       <header css={headerCss}>
         <button type="button" css={menuButtonCss}>
-          <MenuIcon width={24} height={24} />
+          <MenuBarIcon color="#394258" />
         </button>
       </header>
       <div css={blankCss} />

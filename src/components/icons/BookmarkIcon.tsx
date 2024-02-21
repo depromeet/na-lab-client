@@ -10,7 +10,7 @@ interface Props extends ComponentProps<typeof Svg> {
 
 const BookmarkIcon = ({ size = 32, isBookmarked = false, ...rest }: Props) => {
   return (
-    <Svg size={size} {...rest}>
+    <Svg size={size} viewBox="0 0 32 32" {...rest}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
