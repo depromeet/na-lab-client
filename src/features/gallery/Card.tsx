@@ -5,6 +5,7 @@ import { css, type Theme } from '@emotion/react';
 import Softskill from '~/components/graphic/softskills/Softskill';
 import { type Softskills } from '~/components/graphic/softskills/type';
 import BookmarkIcon from '~/components/icons/BookmarkIcon';
+import Pill, { type Color } from '~/components/pill/Pill';
 import { CAREER_CARD_IMAGE_BY_GROUP } from '~/constants/dnaImage';
 import { type GalleryType } from '~/hooks/api/gallery/useGetGalleryList';
 import { BODY_1, BODY_2_REGULAR, HEAD_1_BOLD, HEAD_3_SEMIBOLD } from '~/styles/typo';
@@ -28,11 +29,16 @@ function Card({ gallery }: Props) {
             <p>{gallery.target.job}</p>
           </hgroup>
           <div css={tagWrapperCss}>
-            {viewTendencies.map((tendency) => (
-              <div key={tendency.name} css={tagItemCss}>
+            {viewTendencies.map((tendency, idx) => (
+              <Pill color={COLOR_INDEX[idx]} key={tendency.name} css={tagItemCss}>
                 <Softskill name={tendency.name as Softskills} />
-                <span>{tendency.name.replaceAll('_', ' ')}</span>
-              </div>
+                {tendency.name.replaceAll('_', ' ')}
+              </Pill>
+
+              // <div key={tendency.name} css={(theme) => tagItemCss(theme, COLOR_INDEX[idx])}>
+              //   <Softskill name={tendency.name as Softskills} />
+              //   <span>{tendency.name.replaceAll('_', ' ')}</span>
+              // </div>
             ))}
           </div>
         </div>
@@ -73,11 +79,26 @@ function Card({ gallery }: Props) {
 
 export default Card;
 
-const topBoxCss = css`
+const COLOR_INDEX: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'purple'];
+
+const topBoxCss = (theme: Theme) => css`
   position: relative;
-  width: 334px;
-  height: 228px;
+  z-index: ${theme.zIndex.default};
+
+  overflow: hidden;
+
+  width: 100%;
   padding: 30px 24px 48px;
+
+  background-color: #dce9fb;
+
+  > div {
+    z-index: ${theme.zIndex.above(theme.zIndex.aboveDefault)};
+  }
+
+  img {
+    z-index: ${theme.zIndex.aboveDefault};
+  }
 `;
 
 const feedbackWrapperCss = (theme: Theme) => css`
@@ -159,10 +180,7 @@ const imageCss = (theme: Theme) => css`
   position: absolute;
   z-index: ${theme.zIndex.belowDefault};
   top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 100%;
+  right: 0;
 `;
 
 const sectionCss = css`
@@ -171,7 +189,6 @@ const sectionCss = css`
   overflow: hidden;
 
   width: 100%;
-  max-width: 334px;
   margin: 0 auto;
 
   border-radius: 20px;
