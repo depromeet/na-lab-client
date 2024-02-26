@@ -1,4 +1,5 @@
 // import useDnaInfo from '~/hooks/dna/useDnaInfo';
+import { useState } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 
@@ -34,11 +35,6 @@ function Card({ gallery }: Props) {
                 <Softskill name={tendency.name as Softskills} />
                 {tendency.name.replaceAll('_', ' ')}
               </Pill>
-
-              // <div key={tendency.name} css={(theme) => tagItemCss(theme, COLOR_INDEX[idx])}>
-              //   <Softskill name={tendency.name as Softskills} />
-              //   <span>{tendency.name.replaceAll('_', ' ')}</span>
-              // </div>
             ))}
           </div>
         </div>
@@ -66,18 +62,30 @@ function Card({ gallery }: Props) {
             ))}
           </div>
         </div>
-        <div css={bookmarkWrapperCss}>
-          <div>
-            <span>{gallery.survey.bookmarked_count}</span>
-            <BookmarkIcon isBookmarked={false} size={22} />
-          </div>
-        </div>
+        <BookmarkButton bookmarked_count={gallery.survey.bookmarked_count} initBookmarked={false} />
       </div>
     </section>
   );
 }
 
 export default Card;
+
+function BookmarkButton(props: { bookmarked_count: number; initBookmarked: boolean }) {
+  const [isBookmarked, setIsBookmarked] = useState(props.initBookmarked);
+
+  const onClick = () => {
+    setIsBookmarked((prev) => !prev);
+  };
+
+  return (
+    <button type="button" css={bookmarkWrapperCss} onClick={onClick}>
+      <div>
+        <span>{props.bookmarked_count}</span>
+        <BookmarkIcon isBookmarked={isBookmarked} size={22} />
+      </div>
+    </button>
+  );
+}
 
 const COLOR_INDEX: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'purple'];
 
@@ -135,6 +143,10 @@ const bookmarkWrapperCss = (theme: Theme) => css`
 
     background-color: ${theme.colors.gray_50};
     border-radius: 22px;
+  }
+
+  svg * {
+    transition: all 0.2s ease-in-out;
   }
 `;
 

@@ -24,6 +24,7 @@ const menuButtonCss = css`
 
 const headerCss = (theme: Theme) => css`
   position: fixed;
+  z-index: ${theme.zIndex.aboveDefault};
   top: 0;
   right: 0;
   left: 0;

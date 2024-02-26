@@ -57,13 +57,14 @@ const tabItemCss = (theme: Theme, isActive: boolean) => css`
   padding: 8px;
 
   color: ${isActive ? theme.colors.black : theme.colors.gray_300};
+
+  transition: color 0.2s ease-in-out;
 `;
 
 const filterWrapperCss = (theme: Theme) => css`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
 
   hr {
     display: block;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 import { AnimatePresence, m } from 'framer-motion';
@@ -6,11 +6,22 @@ import { AnimatePresence, m } from 'framer-motion';
 import Button from '~/components/button/Button';
 import XIcon from '~/components/icons/XIcon';
 import { defaultFadeInVariants } from '~/constants/motions';
+import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import { BODY_1, BODY_2_REGULAR, HEAD_1_BOLD } from '~/styles/typo';
 
 function PublishMyCard() {
-  const [isOpen, setIsOpen] = useState(true);
-  const onClose = () => setIsOpen(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const onClose = () => {
+    setIsOpen(false);
+    localStorage.setItem(LOCAL_STORAGE_KEY.galleryCardLead, 'true');
+  };
+
+  useEffect(() => {
+    const isGalleryCardLead = localStorage.getItem(LOCAL_STORAGE_KEY.galleryCardLead);
+    if (!isGalleryCardLead) {
+      setIsOpen(true);
+    }
+  }, []);
 
   return (
     <AnimatePresence>
@@ -40,9 +51,9 @@ function PublishMyCard() {
 export default PublishMyCard;
 
 const buttonCss = css`
-  height: 42px;
   ${BODY_2_REGULAR};
   width: calc(100% - 64px);
+  height: 42px;
   margin: 0 34px;
 `;
 
@@ -50,6 +61,7 @@ const containerCss = (theme: Theme) => css`
   position: relative;
 
   width: 100%;
+  margin-top: 12px;
   padding: 49px 24px 24px;
 
   background-color: ${theme.colors.gray_50};
