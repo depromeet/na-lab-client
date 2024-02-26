@@ -19,15 +19,17 @@ function Gallery() {
     <div>
       <GalleryHeader />
       <Tab activeTab={activeTab} onClick={setActiveTab} />
-      <StaggerWrapper wrapperOverrideCss={listCss}>
-        <div>
-          <FilterTab filterTab={filterTab} setFilterTab={setFilterTab} />
-          <PublishMyCard />
-        </div>
-        {data.gallerys.map((gallery) => (
-          <Card key={gallery.gallery_id} gallery={gallery} />
-        ))}
-      </StaggerWrapper>
+      <div key={activeTab}>
+        <StaggerWrapper wrapperOverrideCss={listCss}>
+          <div>
+            <FilterTab filterTab={filterTab} setFilterTab={setFilterTab} />
+            <PublishMyCard />
+          </div>
+          {data.gallerys.map((gallery) => (
+            <Card key={gallery.gallery_id} gallery={gallery} />
+          ))}
+        </StaggerWrapper>
+      </div>
     </div>
   );
 }

@@ -10,18 +10,7 @@ import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import { BODY_1, BODY_2_REGULAR, HEAD_1_BOLD } from '~/styles/typo';
 
 function PublishMyCard() {
-  const [isOpen, setIsOpen] = useState(false);
-  const onClose = () => {
-    setIsOpen(false);
-    localStorage.setItem(LOCAL_STORAGE_KEY.galleryCardLead, 'true');
-  };
-
-  useEffect(() => {
-    const isGalleryCardLead = localStorage.getItem(LOCAL_STORAGE_KEY.galleryCardLead);
-    if (!isGalleryCardLead) {
-      setIsOpen(true);
-    }
-  }, []);
+  const { isOpen, onClose } = useCardOpenState();
 
   return (
     <AnimatePresence>
@@ -49,6 +38,23 @@ function PublishMyCard() {
 }
 
 export default PublishMyCard;
+
+const useCardOpenState = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const onClose = () => {
+    setIsOpen(false);
+    localStorage.setItem(LOCAL_STORAGE_KEY.galleryCardLead, 'true');
+  };
+
+  useEffect(() => {
+    const isGalleryCardLead = localStorage.getItem(LOCAL_STORAGE_KEY.galleryCardLead);
+    if (!isGalleryCardLead) {
+      setIsOpen(true);
+    }
+  }, []);
+
+  return { isOpen, onClose };
+};
 
 const buttonCss = css`
   ${BODY_2_REGULAR};
