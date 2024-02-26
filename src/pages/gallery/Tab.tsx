@@ -69,4 +69,5 @@ const itemCss = (theme: Theme, isActive: boolean) => css`
   padding: 0 10px 14px;
   color: ${isActive ? theme.colors.gray_500 : theme.colors.gray_300};
   border-bottom: 2px solid ${isActive ? theme.colors.gray_500 : 'transparent'};
+  transition: border-bottom 0.2s ease-in-out, color 0.2s ease-in-out;
 `;

@@ -3,7 +3,7 @@ import { css, type Theme } from '@emotion/react';
 import AlignUpdatedIcon from '~/components/icons/AlignUpdatedIcon';
 import type Svg from '~/components/svg/Svg';
 
-type FilterType = 'updated' | 'saved';
+export type FilterType = 'updated' | 'saved';
 
 const TABS: {
   title: string;
