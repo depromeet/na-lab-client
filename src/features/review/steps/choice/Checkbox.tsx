@@ -1,6 +1,7 @@
 import { type InputHTMLAttributes } from 'react';
 import { css, type Theme } from '@emotion/react';
 
+// TODO : src/components/selection/Selection.tsx 으로 대체
 const Checkbox = ({ children, ...rest }: InputHTMLAttributes<HTMLInputElement>) => {
   return (
     <label css={labelCss}>

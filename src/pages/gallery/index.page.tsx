@@ -3,11 +3,11 @@ import { css } from '@emotion/react';
 
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import Card from '~/features/gallery/Card';
+import FilterTab, { type FilterType } from '~/features/gallery/FilterTab';
+import GalleryHeader from '~/features/gallery/Header';
+import PublishMyCard from '~/features/gallery/PublishMyCard';
+import Tab, { type GalleryTabType } from '~/features/gallery/Tab';
 import useGetGalleryList from '~/hooks/api/gallery/useGetGalleryList';
-import FilterTab, { type FilterType } from '~/pages/gallery/FilterTab';
-import GalleryHeader from '~/pages/gallery/Header';
-import PublishMyCard from '~/pages/gallery/PublishMyCard';
-import Tab, { type GalleryTabType } from '~/pages/gallery/Tab';
 
 function Gallery() {
   const { data } = useGetGalleryList({});
