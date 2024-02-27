@@ -18,9 +18,14 @@ export default Selection;
 const labelCss = (theme: Theme) => css`
   width: 100%;
   height: 56px;
+  background-color: ${theme.colors.gray_50};
 
   & > input:checked + span {
-    ${checkedSpanCss(theme)}
+    background-color: ${theme.colors.primary_100};
+
+    & > span {
+      background-color: ${theme.colors.primary_200};
+    }
   }
 `;
 
@@ -45,7 +50,6 @@ const wrapperSpanCss = (theme: Theme) => css`
   line-height: 140%;
   color: ${theme.colors.gray_500};
 
-  background-color: ${theme.colors.primary_50};
   border-radius: 8px;
 
   transition: background-color 0.3s ${theme.transition.defaultEasing};
@@ -59,7 +63,7 @@ const checkboxSpanCss = (theme: Theme) => css`
   width: 24px;
   height: 24px;
 
-  background-color: ${theme.colors.primary_100};
+  background-color: ${theme.colors.gray_300};
   border-radius: 50%;
 
   transition: background-color 0.3s ${theme.transition.defaultEasing};
@@ -72,13 +76,5 @@ const checkboxSpanCss = (theme: Theme) => css`
 
     background-color: #f7f8f9;
     border-radius: 50%;
-  }
-`;
-
-const checkedSpanCss = (theme: Theme) => css`
-  background-color: rgb(99 143 255 / 20%);
-
-  & > span {
-    background-color: ${theme.colors.primary_200};
   }
 `;
