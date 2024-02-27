@@ -5,6 +5,7 @@ import { AnimatePresence, m } from 'framer-motion';
 
 import Button from '~/components/button/Button';
 import XIcon from '~/components/icons/XIcon';
+import Modal from '~/components/modal/Modal';
 import { defaultFadeInVariants } from '~/constants/motions';
 import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import { BODY_1, BODY_2_REGULAR, HEAD_1_BOLD } from '~/styles/typo';
@@ -33,11 +34,16 @@ function PublishMyCard() {
           </button>
         </m.section>
       ) : null}
+      <JobSelectModal />
     </AnimatePresence>
   );
 }
 
 export default PublishMyCard;
+
+function JobSelectModal() {
+  return <Modal isShowing={true}>modal</Modal>;
+}
 
 const useCardOpenState = () => {
   const [isOpen, setIsOpen] = useState(false);
