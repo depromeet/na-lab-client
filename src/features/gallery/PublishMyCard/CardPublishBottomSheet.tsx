@@ -5,10 +5,10 @@ import Button from '~/components/button/Button';
 import { XCircleButton } from '~/components/button/CircleButton';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
 import Card from '~/features/gallery/Card';
-import { type JobType } from '~/features/gallery/PublishMyCard/JobSelectModal';
 import { fixedBottomCss } from '~/features/survey/styles';
 import useGetGalleryPreview from '~/hooks/api/gallery/useGetGalleryPreview';
 import useScrollLock from '~/hooks/common/useScrollLock';
+import { type JobType } from '~/remotes/gallery';
 import { BODY_1, DETAIL, HEAD_1 } from '~/styles/typo';
 
 interface Props {
@@ -36,7 +36,7 @@ function CardPublishBottomSheet(props: Props) {
         <section>
           <div css={tagCss}>미리보기</div>
           {data ? (
-            <Card survey={data.survey} target={data.target} />
+            <Card survey={data.survey} target={data.target} isMine />
           ) : //  TODO : Skeleton
           null}
         </section>

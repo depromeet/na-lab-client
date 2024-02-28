@@ -9,11 +9,12 @@ import BookmarkIcon from '~/components/icons/BookmarkIcon';
 import Pill, { type Color } from '~/components/pill/Pill';
 import { CAREER_CARD_IMAGE_BY_GROUP } from '~/constants/dnaImage';
 import { type SurveyType, type TargetType } from '~/remotes/gallery';
-import { BODY_1, BODY_2_REGULAR, HEAD_1_BOLD, HEAD_3_SEMIBOLD } from '~/styles/typo';
+import { BODY_1, BODY_2_REGULAR, DETAIL, HEAD_1_BOLD, HEAD_3_SEMIBOLD } from '~/styles/typo';
 
 interface Props {
   survey: SurveyType;
   target: TargetType;
+  isMine?: boolean;
 }
 
 function Card(props: Props) {
@@ -27,7 +28,11 @@ function Card(props: Props) {
       <div css={topBoxCss}>
         <div css={topInnerCss}>
           <hgroup>
-            <h2>{props.target.nickname}</h2>
+            <h2>
+              {props.target.nickname}
+
+              {props.isMine && <span css={isMineCss}>ME</span>}
+            </h2>
             <p>{props.target.job}</p>
           </hgroup>
           <div css={tagWrapperCss}>
@@ -167,6 +172,17 @@ const topInnerCss = (theme: Theme) => css`
   p {
     ${BODY_1};
   }
+`;
+
+const isMineCss = (theme: Theme) => css`
+  ${DETAIL};
+  margin-left: 6px;
+  padding: 3px 10px;
+
+  color: ${theme.colors.primary_100};
+
+  background-color: ${theme.colors.secondary_200};
+  border-radius: 24px;
 `;
 
 const tagWrapperCss = css`

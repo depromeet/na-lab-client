@@ -8,7 +8,8 @@ import XIcon from '~/components/icons/XIcon';
 import { defaultFadeInVariants } from '~/constants/motions';
 import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import CardPublishBottomSheet from '~/features/gallery/PublishMyCard/CardPublishBottomSheet';
-import JobSelectModal, { type JobType } from '~/features/gallery/PublishMyCard/JobSelectModal';
+import JobSelectModal from '~/features/gallery/PublishMyCard/JobSelectModal';
+import { type JobType } from '~/remotes/gallery';
 import { BODY_1, BODY_2_REGULAR, HEAD_1_BOLD } from '~/styles/typo';
 
 type OpenStateType = 'job-select' | 'publish-card' | 'initial';

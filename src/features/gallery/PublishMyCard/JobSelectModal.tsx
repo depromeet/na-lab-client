@@ -8,9 +8,8 @@ import XIcon from '~/components/icons/XIcon';
 import Modal from '~/components/modal/Modal';
 import { defaultFadeInVariants } from '~/constants/motions';
 import Selection from '~/features/gallery/Selection';
+import { type JobType } from '~/remotes/gallery';
 import { BODY_1, HEAD_1 } from '~/styles/typo';
-
-export type JobType = 'PM' | 'DEVELOPER' | 'DESIGNER' | 'OTHER';
 
 const JOB_CHOICES: {
   label: string;

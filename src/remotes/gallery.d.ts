@@ -18,3 +18,5 @@ export interface SurveyType {
   feedbacks: string[];
   tendencies: TendencyType[];
 }
+
+export type JobType = 'PM' | 'DEVELOPER' | 'DESIGNER' | 'OTHER';
