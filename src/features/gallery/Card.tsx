@@ -8,26 +8,27 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 import BookmarkIcon from '~/components/icons/BookmarkIcon';
 import Pill, { type Color } from '~/components/pill/Pill';
 import { CAREER_CARD_IMAGE_BY_GROUP } from '~/constants/dnaImage';
-import { type GalleryType } from '~/hooks/api/gallery/useGetGalleryList';
+import { type SurveyType, type TargetType } from '~/remotes/gallery';
 import { BODY_1, BODY_2_REGULAR, HEAD_1_BOLD, HEAD_3_SEMIBOLD } from '~/styles/typo';
 
 interface Props {
-  gallery: GalleryType;
+  survey: SurveyType;
+  target: TargetType;
 }
 
-function Card({ gallery }: Props) {
-  // const { group = 'C' } = useDnaInfo(gallery.survey.survey_id);
+function Card(props: Props) {
+  // const { group = 'C' } = useDnaInfo(props.survey.survey_id);
 
   const group = 'C';
-  const viewTendencies = gallery.survey.tendencies.slice(0, 3);
+  const viewTendencies = props.survey.tendencies.slice(0, 3);
 
   return (
     <section css={sectionCss}>
       <div css={topBoxCss}>
         <div css={topInnerCss}>
           <hgroup>
-            <h2>{gallery.target.nickname}</h2>
-            <p>{gallery.target.job}</p>
+            <h2>{props.target.nickname}</h2>
+            <p>{props.target.job}</p>
           </hgroup>
           <div css={tagWrapperCss}>
             {viewTendencies.map((tendency, idx) => (
@@ -54,15 +55,15 @@ function Card({ gallery }: Props) {
       <div css={feedbackWrapperCss}>
         <div>
           <h3>
-            받은 피드백 <span>{gallery.survey.feedback_count}</span>
+            받은 피드백 <span>{props.survey.feedback_count}</span>
           </h3>
           <div>
-            {gallery.survey.feedbacks.map((feedback) => (
+            {props.survey.feedbacks.map((feedback) => (
               <p key={feedback}>{feedback}</p>
             ))}
           </div>
         </div>
-        <BookmarkButton bookmarked_count={gallery.survey.bookmarked_count} initBookmarked={false} />
+        <BookmarkButton bookmarked_count={props.survey.bookmarked_count} initBookmarked={false} />
       </div>
     </section>
   );

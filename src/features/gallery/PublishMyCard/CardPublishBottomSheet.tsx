@@ -7,7 +7,7 @@ import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
 import Card from '~/features/gallery/Card';
 import { type JobType } from '~/features/gallery/PublishMyCard/JobSelectModal';
 import { fixedBottomCss } from '~/features/survey/styles';
-import { DUMMY_GALLERY } from '~/hooks/api/gallery/useGetGalleryList';
+import useGetGalleryPreview from '~/hooks/api/gallery/useGetGalleryPreview';
 import useScrollLock from '~/hooks/common/useScrollLock';
 import { BODY_1, DETAIL, HEAD_1 } from '~/styles/typo';
 
@@ -20,6 +20,9 @@ interface Props {
 }
 
 function CardPublishBottomSheet(props: Props) {
+  const { data } = useGetGalleryPreview({
+    // enabled: props.isShowing,
+  });
   useScrollLock({ lock: props.isShowing });
 
   return (
@@ -32,7 +35,10 @@ function CardPublishBottomSheet(props: Props) {
         </hgroup>
         <section>
           <div css={tagCss}>미리보기</div>
-          <Card gallery={DUMMY_GALLERY} />
+          {data ? (
+            <Card survey={data.survey} target={data.target} />
+          ) : //  TODO : Skeleton
+          null}
         </section>
         <article css={[fixedBottomCss, bottomCss]}>
           <XCircleButton onClick={props.onClose} />

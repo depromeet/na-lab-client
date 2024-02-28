@@ -26,7 +26,7 @@ function Gallery() {
             <PublishMyCard />
           </div>
           {data.gallerys.map((gallery) => (
-            <Card key={gallery.gallery_id} gallery={gallery} />
+            <Card key={gallery.gallery_id} survey={gallery.survey} target={gallery.target} />
           ))}
         </StaggerWrapper>
       </div>

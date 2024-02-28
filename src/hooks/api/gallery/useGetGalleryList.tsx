@@ -1,6 +1,7 @@
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 import { get } from '~/libs/api';
+import { type SurveyType, type TargetType } from '~/remotes/gallery';
 
 interface Request {
   gallery_id?: string; //마지막으로 조회된 갤러리의 id를 입력
@@ -11,23 +12,8 @@ interface Request {
 
 export interface GalleryType {
   gallery_id: string;
-  target: {
-    target_id: string;
-    nickname: string;
-    position: string;
-    job: string;
-    image_url: string;
-  };
-  survey: {
-    survey_id: string;
-    feedback_count: number;
-    bookmarked_count: number;
-    feedbacks: string[];
-    tendencies: {
-      name: string;
-      count: number;
-    }[];
-  };
+  target: TargetType;
+  survey: SurveyType;
 }
 
 interface Response {
@@ -50,7 +36,7 @@ const useGetGalleryList = (request: Request, options?: UseQueryOptions<Response>
 
 export default useGetGalleryList;
 
-export const DUMMY_GALLERY = {
+export const DUMMY_GALLERY: GalleryType = {
   gallery_id: '12345',
   target: {
     target_id: '67890',
