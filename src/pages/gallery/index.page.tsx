@@ -19,12 +19,10 @@ function Gallery() {
     <div>
       <GalleryHeader />
       <Tab activeTab={activeTab} onClick={setActiveTab} />
-      <div key={activeTab}>
+      <div key={activeTab} css={contentCss}>
+        <FilterTab filterTab={filterTab} setFilterTab={setFilterTab} />
         <StaggerWrapper wrapperOverrideCss={listCss}>
-          <div>
-            <FilterTab filterTab={filterTab} setFilterTab={setFilterTab} />
-            <PublishMyCard />
-          </div>
+          <PublishMyCard />
           {data.gallerys.map((gallery) => (
             <Card key={gallery.gallery_id} survey={gallery.survey} target={gallery.target} />
           ))}
@@ -36,11 +34,13 @@ function Gallery() {
 
 export default Gallery;
 
+const contentCss = css`
+  padding: 24px 4px 72px;
+`;
+
 const listCss = css`
   display: flex;
   flex-direction: column;
   gap: 18px;
   align-items: stretch;
-
-  padding: 24px 4px 72px;
 `;
