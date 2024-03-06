@@ -21,7 +21,7 @@ interface Props {
 
 function CardPublishBottomSheet(props: Props) {
   const { data } = useGetGalleryPreview({
-    // enabled: props.isShowing,
+    enabled: props.isShowing,
   });
   useScrollLock({ lock: props.isShowing });
 
@@ -55,6 +55,8 @@ export default CardPublishBottomSheet;
 
 const innerCss = css`
   overflow-y: auto;
+
+  width: 100%;
   min-height: fit-content;
   max-height: calc(100vh - 12px);
   padding: 47px 20px 94px;
