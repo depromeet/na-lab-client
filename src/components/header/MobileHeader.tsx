@@ -2,7 +2,8 @@ import { css, type Theme } from '@emotion/react';
 
 import { MenuBarIcon } from '~/components/icons/MenuIcon';
 
-function GalleryHeader() {
+// NOTE: MobileHeader 임시 네이밍, 추후 수정 필요
+function MobileHeader() {
   return (
     <>
       <header css={headerCss}>
@@ -15,7 +16,7 @@ function GalleryHeader() {
   );
 }
 
-export default GalleryHeader;
+export default MobileHeader;
 
 const menuButtonCss = css`
   height: 48px;

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { css } from '@emotion/react';
 
+import Header from '~/components/header/MobileHeader';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import Card from '~/features/gallery/Card';
 import FilterTab, { type FilterType } from '~/features/gallery/FilterTab';
-import GalleryHeader from '~/features/gallery/Header';
 import PublishMyCard from '~/features/gallery/PublishMyCard';
 import Tab, { type GalleryTabType } from '~/features/gallery/Tab';
 import useGetGalleryList from '~/hooks/api/gallery/useGetGalleryList';
@@ -17,7 +17,7 @@ function Gallery() {
 
   return (
     <div>
-      <GalleryHeader />
+      <Header />
       <Tab activeTab={activeTab} onClick={setActiveTab} />
       <div key={activeTab} css={contentCss}>
         <FilterTab filterTab={filterTab} setFilterTab={setFilterTab} />
