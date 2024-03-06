@@ -22,7 +22,7 @@ function Card(props: Props) {
 
   const viewTendencies = props.survey.tendencies.slice(0, 3);
 
-  if (!group) return <div css={[sectionCss, skeletonCardCss]} />;
+  if (!group) return <CardSkeleton />;
 
   return (
     <section css={sectionCss}>
@@ -224,6 +224,10 @@ const sectionCss = css`
   border-radius: 20px;
   box-shadow: 0 4px 16px 0 rgb(0 0 0 / 16%);
 `;
+
+export function CardSkeleton() {
+  return <div css={[sectionCss, skeletonCardCss]} />;
+}
 
 const skeletonCardCss = css`
   height: 100%;

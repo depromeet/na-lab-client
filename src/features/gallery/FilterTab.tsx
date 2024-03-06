@@ -34,7 +34,7 @@ function FilterTab(props: Props) {
           {idx !== 0 && <hr />}
           <button
             type="button"
-            key={tab.id}
+            key={'tab' + tab.id}
             onClick={() => props.setFilterTab(tab.id)}
             css={(theme) => tabItemCss(theme, props.filterTab === tab.id)}
           >
@@ -59,6 +59,20 @@ const tabItemCss = (theme: Theme, isActive: boolean) => css`
   color: ${isActive ? theme.colors.black : theme.colors.gray_300};
 
   transition: color 0.2s ease-in-out;
+
+  &:not(:last-child) {
+    &::after {
+      content: '';
+
+      display: block;
+
+      width: 1px;
+      height: 18px;
+
+      background-color: ${theme.colors.gray_50};
+      border: none;
+    }
+  }
 `;
 
 const filterWrapperCss = (theme: Theme) => css`
