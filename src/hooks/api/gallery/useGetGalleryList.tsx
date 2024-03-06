@@ -1,7 +1,7 @@
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 import { get } from '~/libs/api';
-import { type SurveyType, type TargetType } from '~/remotes/gallery';
+import { type GalleryType } from '~/remotes/gallery';
 
 /**
  * @param gallery_id 마지막으로 조회된 갤러리의 id
@@ -14,12 +14,6 @@ interface Request {
   position?: string;
   order_type?: string;
   count?: number;
-}
-
-export interface GalleryType {
-  gallery_id: string;
-  target: TargetType;
-  survey: SurveyType;
 }
 
 interface Response {

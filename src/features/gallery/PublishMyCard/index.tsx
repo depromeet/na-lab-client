@@ -9,6 +9,7 @@ import { defaultFadeInVariants } from '~/constants/motions';
 import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import CardPublishBottomSheet from '~/features/gallery/PublishMyCard/CardPublishBottomSheet';
 import JobSelectModal from '~/features/gallery/PublishMyCard/JobSelectModal';
+import usePostGallery from '~/hooks/api/gallery/usePostGallery';
 import { type JobType } from '~/remotes/gallery';
 import { BODY_1, BODY_2_REGULAR, HEAD_1_BOLD } from '~/styles/typo';
 
@@ -21,8 +22,20 @@ function PublishMyCard() {
   const [openState, setOpenState] = useState<OpenStateType>('initial');
   const [selectJob, setSelectJob] = useState<JobType>('PM');
 
+  setOpenState('initial');
+  const { mutate } = usePostGallery({
+    onSuccess: () => {
+      setOpenState('initial');
+    },
+    onError: () => {
+      // TODO: 에러 처리
+    },
+  });
+
   const onSubmit = () => {
-    setOpenState('initial');
+    console.log('게시하기', selectJob);
+
+    mutate({ job: selectJob });
   };
 
   return (

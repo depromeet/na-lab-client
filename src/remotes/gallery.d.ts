@@ -20,3 +20,9 @@ export interface SurveyType {
 }
 
 export type JobType = 'PM' | 'DEVELOPER' | 'DESIGNER' | 'OTHER';
+
+export interface GalleryType {
+  gallery_id: string;
+  target: TargetType;
+  survey: SurveyType;
+}
