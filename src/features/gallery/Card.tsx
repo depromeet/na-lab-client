@@ -7,6 +7,7 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 import BookmarkIcon from '~/components/icons/BookmarkIcon';
 import Pill, { type Color } from '~/components/pill/Pill';
 import { CAREER_CARD_IMAGE_BY_GROUP } from '~/constants/dnaImage';
+import { useAddBookmark } from '~/hooks/api/gallery/usePostBookmark';
 import useDnaInfo from '~/hooks/dna/useDnaInfo';
 import { type SurveyType, type TargetType } from '~/remotes/gallery';
 import { BODY_1, BODY_2_REGULAR, DETAIL, HEAD_1_BOLD, HEAD_3_SEMIBOLD } from '~/styles/typo';
@@ -15,6 +16,7 @@ interface Props {
   survey: SurveyType;
   target: TargetType;
   isMine?: boolean;
+  isBookmarked: boolean;
 }
 
 function Card(props: Props) {
@@ -69,7 +71,13 @@ function Card(props: Props) {
             ))}
           </div>
         </div>
-        {!props.isMine && <BookmarkButton bookmarked_count={props.survey.bookmarked_count} initBookmarked={false} />}
+        {!props.isMine && (
+          <BookmarkButton
+            bookmarked_count={props.survey.bookmarked_count}
+            initBookmarked={false}
+            survey_id={props.survey.survey_id}
+          />
+        )}
       </div>
     </section>
   );
@@ -77,11 +85,14 @@ function Card(props: Props) {
 
 export default Card;
 
-function BookmarkButton(props: { bookmarked_count: number; initBookmarked: boolean }) {
+function BookmarkButton(props: { bookmarked_count: number; initBookmarked: boolean; survey_id: string }) {
   const [isBookmarked, setIsBookmarked] = useState(props.initBookmarked);
+
+  const { mutate } = useAddBookmark(props.survey_id);
 
   const onClick = () => {
     setIsBookmarked((prev) => !prev);
+    mutate();
   };
 
   return (
