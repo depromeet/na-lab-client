@@ -4,7 +4,10 @@ import { css, type Theme, useTheme } from '@emotion/react';
 import { AnimatePresence, m } from 'framer-motion';
 
 import Button from '~/components/button/Button';
+import WarningIcon from '~/components/icons/WarningIcon';
 import XIcon from '~/components/icons/XIcon';
+import Toast from '~/components/toast/Toast';
+import useToast from '~/components/toast/useToast';
 import { defaultFadeInVariants } from '~/constants/motions';
 import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import CardPublishBottomSheet from '~/features/gallery/PublishMyCard/CardPublishBottomSheet';
@@ -17,24 +20,31 @@ type OpenStateType = 'job-select' | 'publish-card' | 'initial';
 
 function PublishMyCard() {
   const theme = useTheme();
+  const { fireToast } = useToast();
 
   const { isOpen, onClose } = useCardOpenState();
   const [openState, setOpenState] = useState<OpenStateType>('initial');
   const [selectJob, setSelectJob] = useState<JobType>('PM');
 
-  setOpenState('initial');
   const { mutate } = usePostGallery({
     onSuccess: () => {
       setOpenState('initial');
     },
     onError: () => {
-      // TODO: 에러 처리
+      // TODO: 에러 처리 (지금은 임시)
+      fireToast({
+        content: (
+          <>
+            <WarningIcon />
+            <Toast.Text>오류가 발생했습니다. 다시 시도해주세요.</Toast.Text>
+          </>
+        ),
+        higherThanCTA: true,
+      });
     },
   });
 
   const onSubmit = () => {
-    console.log('게시하기', selectJob);
-
     mutate({ job: selectJob });
   };
 

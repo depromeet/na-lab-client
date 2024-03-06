@@ -103,6 +103,7 @@ const topBoxCss = (theme: Theme) => css`
   overflow: hidden;
 
   width: 100%;
+  height: 228px;
   padding: 30px 24px 48px;
 
   background-color: #dce9fb;
@@ -190,6 +191,7 @@ const tagWrapperCss = css`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  max-width: 200px;
 `;
 
 const tagItemCss = (theme: Theme) => css`
