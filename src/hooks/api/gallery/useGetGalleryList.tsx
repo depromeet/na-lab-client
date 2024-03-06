@@ -4,13 +4,13 @@ import { get } from '~/libs/api';
 import { type GalleryType } from '~/remotes/gallery';
 
 /**
- * @param gallery_id 마지막으로 조회된 갤러리의 id
+ * @param page  조회할 페이지를 입력
  * @param position 조회할 갤러리의 position을 입력 (ex. 'all')
  * @param order_type 정렬 기준을 입력
  * @param count 조회할 갤러리의 개수
  */
 interface Request {
-  gallery_id?: string;
+  page?: number;
   position?: string;
   order_type?: string;
   count?: number;
@@ -25,9 +25,9 @@ const useGetGalleryList = (request: Request, options?: UseQueryOptions<Response>
   return useQuery<Response>({
     queryKey: ['gallerys', request],
     queryFn: () =>
-      get<Response>('/v1/gallerys', {
-        data: request,
-      }),
+      get<Response>(
+        `/v1/gallerys?page=${request.page}&position=${request.position}&order-type=${request.order_type}&count=${request.count}`,
+      ),
     ...options,
   });
 };

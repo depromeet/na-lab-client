@@ -1,33 +1,36 @@
 import { css, type Theme } from '@emotion/react';
 
-export type GalleryTabType = 'all' | 'developer' | 'designer' | 'pm';
+import { type PositionType } from '~/remotes/gallery';
 
 const TABS: {
   title: string;
-  id: GalleryTabType;
+  id: PositionType;
 }[] = [
   {
     title: '전체',
-    id: 'all',
-  },
-
-  {
-    title: '개발자',
-    id: 'developer',
-  },
-  {
-    title: '디자이너',
-    id: 'designer',
+    id: 'ALL',
   },
   {
     title: '기획자',
-    id: 'pm',
+    id: 'PM',
+  },
+  {
+    title: '개발자',
+    id: 'DEVELOPER',
+  },
+  {
+    title: '디자이너',
+    id: 'DESIGNER',
+  },
+  {
+    title: '기타',
+    id: 'OTHER',
   },
 ];
 
 interface Props {
-  activeTab: GalleryTabType;
-  onClick: (id: GalleryTabType) => void;
+  activeTab: PositionType;
+  onClick: (id: PositionType) => void;
 }
 
 function Tab(props: Props) {

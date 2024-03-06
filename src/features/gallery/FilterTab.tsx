@@ -2,8 +2,7 @@ import { css, type Theme } from '@emotion/react';
 
 import AlignUpdatedIcon from '~/components/icons/AlignUpdatedIcon';
 import type Svg from '~/components/svg/Svg';
-
-export type FilterType = 'updated' | 'saved';
+import { type FilterType } from '~/remotes/gallery';
 
 const TABS: {
   title: string;
@@ -12,12 +11,12 @@ const TABS: {
 }[] = [
   {
     title: '업데이트순',
-    id: 'updated',
+    id: 'update',
     Icon: AlignUpdatedIcon,
   },
   {
     title: '저장 많은 순',
-    id: 'saved',
+    id: 'bookmark',
   },
 ];
 

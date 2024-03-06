@@ -4,32 +4,33 @@ import { css } from '@emotion/react';
 import Header from '~/components/header/MobileHeader';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import Card from '~/features/gallery/Card';
-import FilterTab, { type FilterType } from '~/features/gallery/FilterTab';
+import FilterTab from '~/features/gallery/FilterTab';
 import PublishMyCard from '~/features/gallery/PublishMyCard';
-import Tab, { type GalleryTabType } from '~/features/gallery/Tab';
+import Tab from '~/features/gallery/Tab';
 import useGetGalleryList from '~/hooks/api/gallery/useGetGalleryList';
 import useGetMyCard from '~/hooks/api/gallery/useGetMyCard';
-import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
+import { type FilterType, type PositionType } from '~/remotes/gallery';
 
 function Gallery() {
-  const isMyCardExist = useCheckMyCardExist();
+  const { isSuccess: isMyCardExist, refetch: getMyCardRefetch } = useGetMyCard();
 
-  useDidUpdate(() => {
-    if (isMyCardExist) {
-      refetch();
-    }
-  }, [isMyCardExist]);
+  const [page, setPage] = useState(0);
+  const [activeTab, setActiveTab] = useState<PositionType>('ALL');
+  const [filterTab, setFilterTab] = useState<FilterType>('update');
 
-  const [activeTab, setActiveTab] = useState<GalleryTabType>('all');
-  const [filterTab, setFilterTab] = useState<FilterType>('updated');
-
-  const { data, refetch } = useGetGalleryList({});
+  const { data, refetch } = useGetGalleryList({
+    position: activeTab,
+    page,
+    order_type: filterTab,
+    count: 5,
+  });
 
   /*
    * 내 명함 게시 후 처리
    */
   const onSubmitMyCard = () => {
     refetch();
+    getMyCardRefetch();
   };
 
   return (
@@ -52,12 +53,6 @@ function Gallery() {
 }
 
 export default Gallery;
-
-const useCheckMyCardExist = () => {
-  const { isSuccess } = useGetMyCard();
-
-  return isSuccess;
-};
 
 const contentCss = css`
   padding: 24px 4px 72px;
