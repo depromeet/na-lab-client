@@ -3,8 +3,14 @@ import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 import { get } from '~/libs/api';
 import { type SurveyType, type TargetType } from '~/remotes/gallery';
 
+/**
+ * @param gallery_id 마지막으로 조회된 갤러리의 id
+ * @param position 조회할 갤러리의 position을 입력 (ex. 'all')
+ * @param order_type 정렬 기준을 입력
+ * @param count 조회할 갤러리의 개수
+ */
 interface Request {
-  gallery_id?: string; //마지막으로 조회된 갤러리의 id를 입력
+  gallery_id?: string;
   position?: string;
   order_type?: string;
   count?: number;
