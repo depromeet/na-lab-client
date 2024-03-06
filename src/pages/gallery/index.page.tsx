@@ -42,7 +42,7 @@ function Gallery() {
       <div css={contentCss}>
         <FilterTab filterTab={filterTab} setFilterTab={setFilterTab} />
         {data && (
-          <StaggerWrapper wrapperOverrideCss={listCss}>
+          <StaggerWrapper wrapperOverrideCss={listCss} key={activeTab}>
             {!isMyCardExist && <PublishMyCard onSubmit={onSubmitMyCard} />}
             {data.galleries.length === 0 && <span css={BODY_2_BOLD}>등록된 명함이 없습니다.</span>}
             {data.galleries.map((gallery) => (
