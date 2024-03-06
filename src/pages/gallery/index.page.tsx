@@ -10,15 +10,17 @@ import Tab from '~/features/gallery/Tab';
 import useGetGalleryList from '~/hooks/api/gallery/useGetGalleryList';
 import useGetMyCard from '~/hooks/api/gallery/useGetMyCard';
 import { type FilterType, type PositionType } from '~/remotes/gallery';
+import { BODY_2_BOLD } from '~/styles/typo';
 
 function Gallery() {
-  const { isSuccess: isMyCardExist, refetch: getMyCardRefetch } = useGetMyCard();
+  const { isSuccess: isMyCardExist, refetch: myCardInfoRefetch } = useGetMyCard();
 
-  const [page, setPage] = useState(0);
+  // TODO : 무한 스크롤
+  const [page, _] = useState(0);
   const [activeTab, setActiveTab] = useState<PositionType>('ALL');
   const [filterTab, setFilterTab] = useState<FilterType>('update');
 
-  const { data, refetch } = useGetGalleryList({
+  const { data, refetch: galleryListRefetch } = useGetGalleryList({
     position: activeTab,
     page,
     order_type: filterTab,
@@ -29,8 +31,8 @@ function Gallery() {
    * 내 명함 게시 후 처리
    */
   const onSubmitMyCard = () => {
-    refetch();
-    getMyCardRefetch();
+    galleryListRefetch();
+    myCardInfoRefetch();
   };
 
   return (
@@ -42,6 +44,7 @@ function Gallery() {
         {data && (
           <StaggerWrapper wrapperOverrideCss={listCss}>
             {!isMyCardExist && <PublishMyCard onSubmit={onSubmitMyCard} />}
+            {data.galleries.length === 0 && <span css={BODY_2_BOLD}>등록된 명함이 없습니다.</span>}
             {data.galleries.map((gallery) => (
               <Card key={gallery.gallery_id} survey={gallery.survey} target={gallery.target} />
             ))}

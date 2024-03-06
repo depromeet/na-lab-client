@@ -26,7 +26,7 @@ const useGetGalleryList = (request: Request, options?: UseQueryOptions<Response>
     queryKey: ['gallerys', request],
     queryFn: () =>
       get<Response>(
-        `/v1/gallerys?page=${request.page}&position=${request.position}&order-type=${request.order_type}&count=${request.count}`,
+        `/v1/gallerys?page=${request.page}&job=${request.position}&order-type=${request.order_type}&count=${request.count}`,
       ),
     ...options,
   });
