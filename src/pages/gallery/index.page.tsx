@@ -22,7 +22,8 @@ function Gallery() {
   const [filterTab, setFilterTab] = useState<FilterType>('update');
 
   const { data: myBookmarkList } = useGetMyBookmarkList({ order_type: 'latest' });
-  console.log('data: ', myBookmarkList);
+  console.log('myBookmarkList: ', myBookmarkList);
+
   const { data, refetch: galleryListRefetch } = useGetGalleryList({
     position: activeTab,
     page,
@@ -49,7 +50,13 @@ function Gallery() {
             {!isMyCardExist && <PublishMyCard onSubmit={onSubmitMyCard} />}
             {data.galleries.length === 0 && <span css={BODY_2_BOLD}>등록된 명함이 없습니다.</span>}
             {data.galleries.map((gallery) => (
-              <Card key={gallery.gallery_id} survey={gallery.survey} target={gallery.target} isBookmarked={false} />
+              <Card
+                key={gallery.gallery_id}
+                survey={gallery.survey}
+                target={gallery.target}
+                isBookmarked={false}
+                listRefetch={galleryListRefetch}
+              />
             ))}
           </StaggerWrapper>
         )}

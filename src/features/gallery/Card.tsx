@@ -17,12 +17,15 @@ interface Props {
   target: TargetType;
   isMine?: boolean;
   isBookmarked: boolean;
+  listRefetch?: () => void;
 }
 
 function Card(props: Props) {
   const { group } = useDnaInfo(props.survey.survey_id);
 
   const viewTendencies = props.survey.tendencies.slice(0, 3);
+
+  const { isBookmarked, onClick: onBookmarkClick } = useBookmark(props.survey.survey_id, props.listRefetch);
 
   if (!group) return <CardSkeleton />;
 
@@ -74,8 +77,8 @@ function Card(props: Props) {
         {!props.isMine && (
           <BookmarkButton
             bookmarked_count={props.survey.bookmarked_count}
-            initBookmarked={false}
-            survey_id={props.survey.survey_id}
+            isBookmarked={isBookmarked}
+            onClick={onBookmarkClick}
           />
         )}
       </div>
@@ -85,25 +88,32 @@ function Card(props: Props) {
 
 export default Card;
 
-function BookmarkButton(props: { bookmarked_count: number; initBookmarked: boolean; survey_id: string }) {
-  const [isBookmarked, setIsBookmarked] = useState(props.initBookmarked);
-
-  const { mutate } = useAddBookmark(props.survey_id);
-
-  const onClick = () => {
-    setIsBookmarked((prev) => !prev);
-    mutate();
-  };
-
+function BookmarkButton(props: { bookmarked_count: number; isBookmarked: boolean; onClick: () => void }) {
   return (
-    <button type="button" css={bookmarkWrapperCss} onClick={onClick}>
+    <button type="button" css={bookmarkWrapperCss} onClick={props.onClick}>
       <div>
         <span>{props.bookmarked_count}</span>
-        <BookmarkIcon isBookmarked={isBookmarked} size={22} />
+        <BookmarkIcon isBookmarked={props.isBookmarked} size={22} />
       </div>
     </button>
   );
 }
+
+const useBookmark = (surveyId: string, refetch?: () => void) => {
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const { mutate: addMutate } = useAddBookmark(surveyId, {
+    onSuccess: () => {
+      refetch?.();
+      setIsBookmarked(true);
+    },
+  });
+
+  const onClick = () => {
+    isBookmarked ? setIsBookmarked(false) : addMutate();
+  };
+
+  return { isBookmarked, onClick };
+};
 
 const COLOR_INDEX: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'purple'];
 
