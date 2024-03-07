@@ -28,7 +28,11 @@ function Card(props: Props) {
 
   const viewTendencies = props.survey.tendencies.slice(0, 3);
 
-  const { isBookmarked, onClick: onBookmarkClick } = useBookmark(props.survey.survey_id, props.listRefetch);
+  const { isBookmarked, onClick: onBookmarkClick } = useBookmark({
+    surveyId: props.survey.survey_id,
+    initBookmarked: props.isBookmarked,
+    refetch: props.listRefetch,
+  });
 
   if (!group) return <CardSkeleton />;
 
@@ -102,10 +106,18 @@ function BookmarkButton(props: { bookmarked_count: number; isBookmarked: boolean
   );
 }
 
-const useBookmark = (surveyId: string, refetch?: () => void) => {
+const useBookmark = ({
+  surveyId,
+  initBookmarked,
+  refetch,
+}: {
+  surveyId: string;
+  initBookmarked: boolean;
+  refetch?: () => void;
+}) => {
   const { fireToast } = useToast();
 
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(initBookmarked);
 
   const { mutate: addMutate } = useAddBookmark(surveyId, {
     onSuccess: () => {
@@ -205,6 +217,8 @@ const topInnerCss = (theme: Theme) => css`
 
   h2 {
     ${HEAD_1_BOLD};
+    display: flex;
+    align-items: center;
   }
 
   p {
