@@ -5,7 +5,10 @@ import { css, type Theme } from '@emotion/react';
 import Softskill from '~/components/graphic/softskills/Softskill';
 import { type Softskills } from '~/components/graphic/softskills/type';
 import BookmarkIcon from '~/components/icons/BookmarkIcon';
+import CheckCircleIcon from '~/components/icons/CheckCircleIcon';
 import Pill, { type Color } from '~/components/pill/Pill';
+import Toast from '~/components/toast/Toast';
+import useToast from '~/components/toast/useToast';
 import { CAREER_CARD_IMAGE_BY_GROUP } from '~/constants/dnaImage';
 import { useAddBookmark } from '~/hooks/api/gallery/usePostBookmark';
 import useDnaInfo from '~/hooks/dna/useDnaInfo';
@@ -100,9 +103,21 @@ function BookmarkButton(props: { bookmarked_count: number; isBookmarked: boolean
 }
 
 const useBookmark = (surveyId: string, refetch?: () => void) => {
+  const { fireToast } = useToast();
+
   const [isBookmarked, setIsBookmarked] = useState(false);
+
   const { mutate: addMutate } = useAddBookmark(surveyId, {
     onSuccess: () => {
+      fireToast({
+        content: (
+          <>
+            <CheckCircleIcon />
+            <Toast.Text>명함을 저장했어요</Toast.Text>
+          </>
+        ),
+      });
+
       refetch?.();
       setIsBookmarked(true);
     },
