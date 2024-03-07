@@ -16604,10 +16604,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["jose", [\
-        ["npm:4.14.4", {\
-          "packageLocation": "./.yarn/cache/jose-npm-4.14.4-8255fd76fa-2d820a91a8.zip/node_modules/jose/",\
+        ["npm:4.15.5", {\
+          "packageLocation": "./.yarn/cache/jose-npm-4.15.5-15e487a3a1-7dde76447c.zip/node_modules/jose/",\
           "packageDependencies": [\
-            ["jose", "npm:4.14.4"]\
+            ["jose", "npm:4.15.5"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -18216,7 +18216,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:18.0.35"],\
             ["@types/react-dom", "npm:18.0.11"],\
             ["cookie", "npm:0.5.0"],\
-            ["jose", "npm:4.14.4"],\
+            ["jose", "npm:4.15.5"],\
             ["next", "virtual:f05aa4e4719fd537ba4da07d5553d5af64c7f1fdd299ee20cc573ded517ff6989f4f9dcaf607519cf1ea35a7fc8484d64ed69e9ea31b5a59302d59cb203ae9e8#npm:13.5.6"],\
             ["nodemailer", null],\
             ["oauth", "npm:0.9.15"],\
@@ -18843,7 +18843,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/openid-client-npm-5.4.3-23677ddc5b-0e5a126b77.zip/node_modules/openid-client/",\
           "packageDependencies": [\
             ["openid-client", "npm:5.4.3"],\
-            ["jose", "npm:4.14.4"],\
+            ["jose", "npm:4.15.5"],\
             ["lru-cache", "npm:6.0.0"],\
             ["object-hash", "npm:2.2.0"],\
             ["oidc-token-hash", "npm:5.0.3"]\
