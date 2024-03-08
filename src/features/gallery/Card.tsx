@@ -10,7 +10,7 @@ import Pill, { type Color } from '~/components/pill/Pill';
 import Toast from '~/components/toast/Toast';
 import useToast from '~/components/toast/useToast';
 import { CAREER_CARD_IMAGE_BY_GROUP } from '~/constants/dnaImage';
-import { useAddBookmark } from '~/hooks/api/gallery/usePostBookmark';
+import { useAddBookmark, useCancelBookmark } from '~/hooks/api/gallery/usePostBookmark';
 import useDnaInfo from '~/hooks/dna/useDnaInfo';
 import { type SurveyType, type TargetType } from '~/remotes/gallery';
 import { BODY_1, BODY_2_REGULAR, DETAIL, HEAD_1_BOLD, HEAD_3_SEMIBOLD } from '~/styles/typo';
@@ -134,9 +134,15 @@ const useBookmark = ({
       setIsBookmarked(true);
     },
   });
+  const { mutate: cancelBookmark } = useCancelBookmark(surveyId, {
+    onSuccess: () => {
+      refetch?.();
+      setIsBookmarked(false);
+    },
+  });
 
   const onClick = () => {
-    isBookmarked ? setIsBookmarked(false) : addMutate();
+    isBookmarked ? cancelBookmark() : addMutate();
   };
 
   return { isBookmarked, onClick };

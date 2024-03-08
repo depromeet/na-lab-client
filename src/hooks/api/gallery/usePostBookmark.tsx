@@ -17,3 +17,10 @@ export const useAddBookmark = (surveyId: string, options?: UseMutationOptions<Re
     ...options,
   });
 };
+
+export const useCancelBookmark = (surveyId: string, options?: UseMutationOptions<Response>) => {
+  return useMutation<Response>({
+    mutationFn: () => post(`/v1/surveys/${surveyId}/bookmarks/cancels`),
+    ...options,
+  });
+};
