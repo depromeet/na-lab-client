@@ -5,12 +5,13 @@ import { get } from '~/libs/api';
 interface Response {
   id: string;
   nickname: string;
+  email: string;
 }
 
-export const useGetLogined = (options?: UseQueryOptions<Response>) => {
+export const useGetLogin = (options?: UseQueryOptions<Response>) => {
   return useQuery<Response>({
-    queryKey: ['user', 'logined'],
-    queryFn: () => get<Response>('/v1/users/logined'),
+    queryKey: ['user', 'logins'],
+    queryFn: () => get<Response>('/v1/users/logins'),
     ...options,
   });
 };

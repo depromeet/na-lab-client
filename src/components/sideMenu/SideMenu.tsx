@@ -54,14 +54,14 @@ const containerCss = (theme: Theme) => css`
 
   width: 260px;
   height: 100vh;
-  padding-top: 90px;
+  padding-top: 46px;
 
   background-color: ${theme.colors.secondary_200};
 `;
 
 const menuButtonCss = css`
   position: relative;
-  top: -9px;
+  top: -18px;
 
   width: 50px;
   height: 50px;
