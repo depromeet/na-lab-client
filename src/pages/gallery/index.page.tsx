@@ -9,16 +9,9 @@ import PublishMyCard from '~/features/gallery/PublishMyCard';
 import Tab, { type GalleryTabType } from '~/features/gallery/Tab';
 import useGetGalleryList from '~/hooks/api/gallery/useGetGalleryList';
 import useGetMyCard from '~/hooks/api/gallery/useGetMyCard';
-import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 
 function Gallery() {
-  const isMyCardExist = useCheckMyCardExist();
-
-  useDidUpdate(() => {
-    if (isMyCardExist) {
-      refetch();
-    }
-  }, [isMyCardExist]);
+  const { isSuccess: isMyCardExist, refetch: myCardRefetch } = useGetMyCard();
 
   const [activeTab, setActiveTab] = useState<GalleryTabType>('all');
   const [filterTab, setFilterTab] = useState<FilterType>('updated');
@@ -30,6 +23,7 @@ function Gallery() {
    */
   const onSubmitMyCard = () => {
     refetch();
+    myCardRefetch();
   };
 
   return (
@@ -52,12 +46,6 @@ function Gallery() {
 }
 
 export default Gallery;
-
-const useCheckMyCardExist = () => {
-  const { isSuccess } = useGetMyCard();
-
-  return isSuccess;
-};
 
 const contentCss = css`
   padding: 24px 4px 72px;
