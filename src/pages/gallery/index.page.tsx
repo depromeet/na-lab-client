@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import { css } from '@emotion/react';
 
 import Header from '~/components/header/MobileHeader';
@@ -72,14 +73,20 @@ function CardList({ galleries, galleryListRefetch }: { galleries: GalleryType[];
         );
 
         return (
-          <Card
+          <Link
             key={gallery.gallery_id}
-            survey={gallery.survey}
-            target={gallery.target}
-            isMine={gallery.survey.survey_id === myCardSurveyId}
-            isBookmarked={isBookmarked}
-            listRefetch={galleryListRefetch}
-          />
+            href={`/dna/${gallery.survey.survey_id}`}
+            passHref
+            style={{ all: 'unset', cursor: 'pointer' }}
+          >
+            <Card
+              survey={gallery.survey}
+              target={gallery.target}
+              isMine={gallery.survey.survey_id === myCardSurveyId}
+              isBookmarked={isBookmarked}
+              listRefetch={galleryListRefetch}
+            />
+          </Link>
         );
       })}
     </StaggerWrapper>

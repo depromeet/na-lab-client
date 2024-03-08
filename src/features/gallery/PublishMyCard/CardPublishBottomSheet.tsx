@@ -36,7 +36,11 @@ function CardPublishBottomSheet(props: Props) {
         </hgroup>
         <section>
           <div css={tagCss}>미리보기</div>
-          {data ? <Card survey={data.survey} target={data.target} isMine isBookmarked={false} /> : <CardSkeleton />}
+          {data ? (
+            <Card survey={data.survey} target={data.target} isMine isBookmarked={false} isPreview />
+          ) : (
+            <CardSkeleton />
+          )}
         </section>
         <article css={[fixedBottomCss, bottomCss]}>
           <XCircleButton onClick={props.onClose} />

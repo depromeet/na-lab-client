@@ -18,9 +18,11 @@ import { BODY_1, BODY_2_REGULAR, DETAIL, HEAD_1_BOLD, HEAD_3_SEMIBOLD } from '~/
 interface Props {
   survey: SurveyType;
   target: TargetType;
-  isMine?: boolean;
   isBookmarked: boolean;
+
   listRefetch?: () => void;
+  isMine?: boolean;
+  isPreview?: boolean;
 }
 
 function Card(props: Props) {
@@ -81,13 +83,12 @@ function Card(props: Props) {
             ))}
           </div>
         </div>
-        {!props.isMine && (
-          <BookmarkButton
-            bookmarked_count={props.survey.bookmarked_count}
-            isBookmarked={isBookmarked}
-            onClick={onBookmarkClick}
-          />
-        )}
+        <BookmarkButton
+          bookmarked_count={props.survey.bookmarked_count}
+          isBookmarked={isBookmarked}
+          onClick={onBookmarkClick}
+          blocked={props.isPreview}
+        />
       </div>
     </section>
   );
@@ -95,9 +96,14 @@ function Card(props: Props) {
 
 export default Card;
 
-function BookmarkButton(props: { bookmarked_count: number; isBookmarked: boolean; onClick: () => void }) {
+function BookmarkButton(props: {
+  bookmarked_count: number;
+  isBookmarked: boolean;
+  onClick: () => void;
+  blocked?: boolean;
+}) {
   return (
-    <button type="button" css={bookmarkWrapperCss} onClick={props.onClick}>
+    <button type="button" css={bookmarkWrapperCss} onClick={() => !props.blocked && props.onClick()}>
       <div>
         <span>{props.bookmarked_count}</span>
         <BookmarkIcon isBookmarked={props.isBookmarked} size={22} />
@@ -278,6 +284,8 @@ const sectionCss = css`
 
   width: 100%;
   margin: 0 auto;
+
+  text-decoration: none;
 
   border-radius: 20px;
   box-shadow: 0 4px 16px 0 rgb(0 0 0 / 16%);
