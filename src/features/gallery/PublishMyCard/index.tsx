@@ -21,13 +21,14 @@ interface Props {
 function PublishMyCard(props: Props) {
   const { fireToast } = useToast();
 
-  const { isOpen, onClose } = useCardOpenState();
-  const [openState, setOpenState] = useState<OpenStateType>('initial');
+  const { isOpen: isCardOpen, onClose: onCardClose } = useCardOpenState();
+
+  const [step, setStep] = useState<OpenStateType>('initial');
   const [selectJob, setSelectJob] = useState<JobType>('PM');
 
   const { mutate } = usePostGallery({
     onSuccess: () => {
-      setOpenState('initial');
+      setStep('initial');
 
       fireToast({
         content: (
@@ -60,19 +61,19 @@ function PublishMyCard(props: Props) {
 
   return (
     <AnimatePresence>
-      {isOpen ? <InducePublishCard onSubmit={() => setOpenState('job-select')} onClose={onClose} /> : null}
+      {isCardOpen ? <InducePublishCard onSubmit={() => setStep('job-select')} onClose={onCardClose} /> : null}
       <JobSelectModal
-        isShowing={openState === 'job-select'}
-        onClose={() => setOpenState('initial')}
+        isShowing={step === 'job-select'}
+        onClose={() => setStep('initial')}
         onSubmit={(job) => {
           setSelectJob(job);
-          setOpenState('publish-card');
+          setStep('publish-card');
         }}
       />
       {selectJob && (
         <CardPublishBottomSheet
-          isShowing={openState === 'publish-card'}
-          onClose={() => setOpenState('initial')}
+          isShowing={step === 'publish-card'}
+          onClose={() => setStep('initial')}
           job={selectJob}
           onSubmit={onSubmit}
         />
@@ -85,6 +86,7 @@ export default PublishMyCard;
 
 const useCardOpenState = () => {
   const [isOpen, setIsOpen] = useState(false);
+
   const onClose = () => {
     setIsOpen(false);
     localStorage.setItem(LOCAL_STORAGE_KEY.galleryCardLead, 'true');

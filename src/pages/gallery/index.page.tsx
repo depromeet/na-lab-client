@@ -20,8 +20,7 @@ function Gallery() {
   const [activeTab, setActiveTab] = useState<PositionType>('ALL');
   const [filterTab, setFilterTab] = useState<FilterType>('update');
 
-  const { isFetched, isError, refetch: myCardInfoRefetch } = useGetMyCard();
-  const isMyCardAbsence = isFetched && isError; // TODO: 체크 필요
+  const { isSuccess: isMyCardExist, refetch: myCardInfoRefetch } = useGetMyCard();
 
   const { data, refetch: galleryListRefetch } = useGetGalleryList({
     position: activeTab,
@@ -44,7 +43,7 @@ function Gallery() {
       <Tab activeTab={activeTab} onClick={setActiveTab} />
       <div css={contentCss}>
         <FilterTab filterTab={filterTab} setFilterTab={setFilterTab} />
-        {isMyCardAbsence && <PublishMyCard onSubmit={onSubmitMyCard} />}
+        {!isMyCardExist && <PublishMyCard onSubmit={onSubmitMyCard} />}
         {data && <CardList galleries={data.galleries ?? []} galleryListRefetch={galleryListRefetch} />}
       </div>
     </div>
