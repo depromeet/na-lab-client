@@ -23,7 +23,7 @@ function Gallery() {
         <FilterTab filterTab={filterTab} setFilterTab={setFilterTab} />
         <StaggerWrapper wrapperOverrideCss={listCss}>
           <PublishMyCard />
-          {data.gallerys.map((gallery) => (
+          {data?.galleries.map((gallery) => (
             <Card key={gallery.gallery_id} survey={gallery.survey} target={gallery.target} />
           ))}
         </StaggerWrapper>
