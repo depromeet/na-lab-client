@@ -4,26 +4,35 @@ import { css } from '@emotion/react';
 import Header from '~/components/header/MobileHeader';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import Card from '~/features/gallery/Card';
-import FilterTab, { type FilterType } from '~/features/gallery/FilterTab';
+import FilterTab from '~/features/gallery/FilterTab';
 import PublishMyCard from '~/features/gallery/PublishMyCard';
-import Tab, { type GalleryTabType } from '~/features/gallery/Tab';
+import Tab from '~/features/gallery/Tab';
 import useGetGalleryList from '~/hooks/api/gallery/useGetGalleryList';
 import useGetMyCard from '~/hooks/api/gallery/useGetMyCard';
+import { type FilterType, type PositionType } from '~/remotes/gallery';
+import { BODY_2_BOLD } from '~/styles/typo';
 
 function Gallery() {
-  const { isSuccess: isMyCardExist, refetch: myCardRefetch } = useGetMyCard();
+  const { isSuccess: isMyCardExist, refetch: myCardInfoRefetch } = useGetMyCard();
 
-  const [activeTab, setActiveTab] = useState<GalleryTabType>('all');
-  const [filterTab, setFilterTab] = useState<FilterType>('updated');
+  // TODO : 무한 스크롤
+  const [page, _] = useState(0);
+  const [activeTab, setActiveTab] = useState<PositionType>('ALL');
+  const [filterTab, setFilterTab] = useState<FilterType>('update');
 
-  const { data, refetch } = useGetGalleryList({});
+  const { data, refetch: galleryListRefetch } = useGetGalleryList({
+    position: activeTab,
+    page,
+    order_type: filterTab,
+    count: 5,
+  });
 
   /*
    * 내 명함 게시 후 처리
    */
   const onSubmitMyCard = () => {
-    refetch();
-    myCardRefetch();
+    galleryListRefetch();
+    myCardInfoRefetch();
   };
 
   return (
@@ -33,8 +42,9 @@ function Gallery() {
       <div css={contentCss}>
         <FilterTab filterTab={filterTab} setFilterTab={setFilterTab} />
         {data && (
-          <StaggerWrapper wrapperOverrideCss={listCss}>
+          <StaggerWrapper wrapperOverrideCss={listCss} key={activeTab}>
             {!isMyCardExist && <PublishMyCard onSubmit={onSubmitMyCard} />}
+            {data.galleries.length === 0 && <span css={BODY_2_BOLD}>등록된 명함이 없습니다.</span>}
             {data.galleries.map((gallery) => (
               <Card key={gallery.gallery_id} survey={gallery.survey} target={gallery.target} />
             ))}
