@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 
@@ -25,16 +24,19 @@ interface Props {
   isPreview?: boolean;
 }
 
-function Card(props: Props) {
+function Card({ isBookmarked, ...props }: Props) {
   const { group } = useDnaInfo(props.survey.survey_id);
 
   const viewTendencies = props.survey.tendencies.slice(0, 3);
 
-  const { isBookmarked, onClick: onBookmarkClick } = useBookmark({
+  const { cancelBookmark, addBookmark } = useBookmark({
     surveyId: props.survey.survey_id,
-    initBookmarked: props.isBookmarked,
     refetch: props.listRefetch,
   });
+
+  const onBookmarkClick = () => {
+    isBookmarked ? cancelBookmark() : addBookmark();
+  };
 
   if (!group) return <CardSkeleton />;
 
@@ -103,7 +105,15 @@ function BookmarkButton(props: {
   blocked?: boolean;
 }) {
   return (
-    <button type="button" css={bookmarkWrapperCss} onClick={() => !props.blocked && props.onClick()}>
+    <button
+      type="button"
+      css={bookmarkWrapperCss}
+      onClick={(e) => {
+        e.preventDefault();
+
+        !props.blocked && props.onClick();
+      }}
+    >
       <div>
         <span>{props.bookmarked_count}</span>
         <BookmarkIcon isBookmarked={props.isBookmarked} size={22} />
@@ -112,20 +122,10 @@ function BookmarkButton(props: {
   );
 }
 
-const useBookmark = ({
-  surveyId,
-  initBookmarked,
-  refetch,
-}: {
-  surveyId: string;
-  initBookmarked: boolean;
-  refetch?: () => void;
-}) => {
+const useBookmark = ({ surveyId, refetch }: { surveyId: string; refetch?: () => void }) => {
   const { fireToast } = useToast();
 
-  const [isBookmarked, setIsBookmarked] = useState(initBookmarked);
-
-  const { mutate: addMutate } = useAddBookmark(surveyId, {
+  const { mutate: addBookmark } = useAddBookmark(surveyId, {
     onSuccess: () => {
       fireToast({
         content: (
@@ -137,21 +137,19 @@ const useBookmark = ({
       });
 
       refetch?.();
-      setIsBookmarked(true);
     },
   });
+
   const { mutate: cancelBookmark } = useCancelBookmark(surveyId, {
     onSuccess: () => {
       refetch?.();
-      setIsBookmarked(false);
     },
   });
 
-  const onClick = () => {
-    isBookmarked ? cancelBookmark() : addMutate();
+  return {
+    cancelBookmark,
+    addBookmark,
   };
-
-  return { isBookmarked, onClick };
 };
 
 const COLOR_INDEX: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'purple'];

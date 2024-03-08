@@ -54,10 +54,15 @@ function Gallery() {
 export default Gallery;
 
 function CardList({ galleries, galleryListRefetch }: { galleries: GalleryType[]; galleryListRefetch: () => void }) {
-  const { data: myBookmarkList } = useGetMyBookmarkList({ order_type: 'latest' });
+  const { data: myBookmarkList, refetch: myBookmarkListRefetch } = useGetMyBookmarkList({ order_type: 'latest' });
   // NOTE: 쿼리를 두번 부르면 둘다 요청되는가? 네트워크는 한번 가는가? (리렌더를 하지 않는가?)
   const { data: myCardInfo } = useGetMyCard();
   const myCardSurveyId = myCardInfo?.survey.survey_id;
+
+  const refetch = () => {
+    galleryListRefetch();
+    myBookmarkListRefetch();
+  };
 
   if (!myBookmarkList) return null;
 
@@ -84,7 +89,7 @@ function CardList({ galleries, galleryListRefetch }: { galleries: GalleryType[];
               target={gallery.target}
               isMine={gallery.survey.survey_id === myCardSurveyId}
               isBookmarked={isBookmarked}
-              listRefetch={galleryListRefetch}
+              listRefetch={refetch}
             />
           </Link>
         );
