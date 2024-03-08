@@ -38,7 +38,7 @@ const MENU_LIST: {
 function MenuSection() {
   return (
     <section>
-      <ul>
+      <ul css={menuListCss}>
         {MENU_LIST.map((menu) => (
           <Link
             key={menu.id}
@@ -60,6 +60,12 @@ function MenuSection() {
 
 export default MenuSection;
 
+const menuListCss = css`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
 const menuItemCss = css`
   cursor: pointer;
 
@@ -72,6 +78,7 @@ const menuItemCss = css`
   color: #fff;
 
   span {
+    display: inline-block;
     text-decoration: none;
   }
 `;
