@@ -24,7 +24,7 @@ const TABS: {
   },
   {
     title: '기타',
-    id: 'OTHER',
+    id: 'OTHERS',
   },
 ];
 

@@ -16,7 +16,7 @@ function BookmarksPage() {
 
   return (
     <main css={containerCss}>
-      <Header />
+      <Header title="저장한 명함" />
       <ul css={ulCss}>
         {myBookmarkList?.bookmarked_surveys.map((bookmark) => (
           <BookmarkItem key={bookmark.survey_id} {...bookmark} listRefetch={refetch} />
