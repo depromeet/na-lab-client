@@ -1,28 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { css, type Theme } from '@emotion/react';
 
 import Header from '~/components/header/Header';
 import BookmarkIcon from '~/components/icons/BookmarkIcon';
+import MinusCircleIcon from '~/components/icons/MinusCircleIcon';
 import ThreeDotsIcon from '~/components/icons/ThreeDotsIcon';
-import useBookmark from '~/features/gallery/useBookmark';
+import Toast from '~/components/toast/Toast';
+import useToast from '~/components/toast/useToast';
 import useGetMyBookmarkList, { type BookmarkedSurveyType } from '~/hooks/api/gallery/useGetMyBookmarkList';
+import { useCancelBookmark } from '~/hooks/api/gallery/usePostBookmark';
 import { BODY_2_REGULAR, HEAD_2_BOLD } from '~/styles/typo';
 
 function BookmarksPage() {
-  const { data: myBookmarkList } = useGetMyBookmarkList({ order_type: 'latest' });
-  const { addBookmark, cancelBookmark } = useBookmark({ surveyId: props.survey_id });
-
-  const onClick = (isBookmark: boolean) => {
-    isBookmarked ? cancelBookmark() : addBookmark();
-    setIsBookmarked((prev) => !prev);
-  };
+  const { data: myBookmarkList, refetch } = useGetMyBookmarkList({ order_type: 'latest' });
 
   return (
     <main css={containerCss}>
       <Header />
       <ul css={ulCss}>
         {myBookmarkList?.bookmarked_surveys.map((bookmark) => (
-          <BookmarkItem key={bookmark.survey_id} {...bookmark} />
+          <BookmarkItem key={bookmark.survey_id} {...bookmark} listRefetch={refetch} />
         ))}
       </ul>
     </main>
@@ -56,11 +53,31 @@ const ulCss = css`
 `;
 
 interface BookmarkItemProps extends BookmarkedSurveyType {
-  onClick: (isBookmarked: boolean) => void;
+  listRefetch: () => void;
 }
 
 function BookmarkItem(props: BookmarkItemProps) {
-  const [isBookmarked, setIsBookmarked] = useState(true);
+  const { fireToast } = useToast();
+
+  const { mutate: cancelBookmark } = useCancelBookmark(props.survey_id, {
+    onSuccess: () => {
+      fireToast({
+        content: (
+          <>
+            <MinusCircleIcon />
+            <Toast.Text>저장한 명함 목록에서 삭제했어요</Toast.Text>
+          </>
+        ),
+        duration: 2000,
+      });
+
+      props.listRefetch?.();
+    },
+  });
+
+  const onClick = () => {
+    cancelBookmark();
+  };
 
   return (
     <li css={bookmarkItemCss}>
@@ -73,7 +90,7 @@ function BookmarkItem(props: BookmarkItemProps) {
       </div>
       <div css={buttonWrapperCss}>
         <button type="button" onClick={onClick}>
-          <BookmarkIcon isBookmarked={isBookmarked} size={26} />
+          <BookmarkIcon isBookmarked={true} size={26} />
         </button>
         <ThreeDotsIcon color="#677089" />
       </div>
