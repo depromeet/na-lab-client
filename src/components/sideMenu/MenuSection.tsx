@@ -11,7 +11,7 @@ const MENU_LIST: {
   {
     id: 'bookmark-card',
     label: '저장한 명함',
-    href: '#',
+    href: '/gallery/bookmarks',
   },
   {
     id: 'logout',
