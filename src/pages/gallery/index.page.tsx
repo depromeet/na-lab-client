@@ -66,7 +66,7 @@ function CardList({ galleries, galleryListRefetch }: { galleries: GalleryType[];
   if (!myBookmarkList) return null;
 
   if (galleries.length === 0) {
-    return <span css={BODY_2_BOLD}>등록된 명함이 없습니다.</span>;
+    return <span css={[BODY_2_BOLD, emptyCss]}>등록된 명함이 없습니다.</span>;
   }
 
   return (
@@ -106,4 +106,10 @@ const listCss = css`
   flex-direction: column;
   gap: 18px;
   align-items: stretch;
+`;
+
+const emptyCss = css`
+  display: block;
+  width: fit-content;
+  margin: 20px auto;
 `;

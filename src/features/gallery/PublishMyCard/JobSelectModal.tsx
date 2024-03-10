@@ -29,7 +29,7 @@ const JOB_CHOICES: {
   },
   {
     label: '기타',
-    value: 'OTHER',
+    value: 'OTHERS',
   },
 ];
 

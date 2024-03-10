@@ -19,7 +19,7 @@ export interface SurveyType {
   tendencies: TendencyType[];
 }
 
-export type JobType = 'PM' | 'DEVELOPER' | 'DESIGNER' | 'OTHER';
+export type JobType = 'PM' | 'DEVELOPER' | 'DESIGNER' | 'OTHERS';
 export type PositionType = 'ALL' | JobType;
 
 export interface GalleryType {
