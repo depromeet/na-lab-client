@@ -3,7 +3,7 @@ import path from 'path';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [{ name: 'react', ...react() }],
   test: {
     environment: 'jsdom',
     include: ['**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
