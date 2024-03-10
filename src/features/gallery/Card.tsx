@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 
@@ -7,6 +6,7 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 import BookmarkIcon from '~/components/icons/BookmarkIcon';
 import Pill, { type Color } from '~/components/pill/Pill';
 import { CAREER_CARD_IMAGE_BY_GROUP } from '~/constants/dnaImage';
+import useBookmark from '~/features/gallery/useBookmark';
 import useDnaInfo from '~/hooks/dna/useDnaInfo';
 import { type SurveyType, type TargetType } from '~/remotes/gallery';
 import { BODY_1, BODY_2_REGULAR, DETAIL, HEAD_1_BOLD, HEAD_3_SEMIBOLD } from '~/styles/typo';
@@ -14,13 +14,27 @@ import { BODY_1, BODY_2_REGULAR, DETAIL, HEAD_1_BOLD, HEAD_3_SEMIBOLD } from '~/
 interface Props {
   survey: SurveyType;
   target: TargetType;
+  isBookmarked: boolean;
+
+  // TODO: query key를 기반으로 queryClient.invalidateQueries를 사용하여 refetch를 할 수 있음
+  listRefetch?: () => void;
   isMine?: boolean;
+  isPreview?: boolean;
 }
 
-function Card(props: Props) {
+function Card({ isBookmarked, ...props }: Props) {
   const { group } = useDnaInfo(props.survey.survey_id);
 
   const viewTendencies = props.survey.tendencies.slice(0, 3);
+
+  const { cancelBookmark, addBookmark } = useBookmark({
+    surveyId: props.survey.survey_id,
+    refetch: props.listRefetch,
+  });
+
+  const onBookmarkClick = () => {
+    isBookmarked ? cancelBookmark() : addBookmark();
+  };
 
   if (!group) return <CardSkeleton />;
 
@@ -69,7 +83,12 @@ function Card(props: Props) {
             ))}
           </div>
         </div>
-        {!props.isMine && <BookmarkButton bookmarked_count={props.survey.bookmarked_count} initBookmarked={false} />}
+        <BookmarkButton
+          bookmarked_count={props.survey.bookmarked_count}
+          isBookmarked={isBookmarked}
+          onClick={onBookmarkClick}
+          blocked={props.isPreview}
+        />
       </div>
     </section>
   );
@@ -77,18 +96,25 @@ function Card(props: Props) {
 
 export default Card;
 
-function BookmarkButton(props: { bookmarked_count: number; initBookmarked: boolean }) {
-  const [isBookmarked, setIsBookmarked] = useState(props.initBookmarked);
-
-  const onClick = () => {
-    setIsBookmarked((prev) => !prev);
-  };
-
+function BookmarkButton(props: {
+  bookmarked_count: number;
+  isBookmarked: boolean;
+  onClick: () => void;
+  blocked?: boolean;
+}) {
   return (
-    <button type="button" css={bookmarkWrapperCss} onClick={onClick}>
+    <button
+      type="button"
+      css={bookmarkWrapperCss}
+      onClick={(e) => {
+        e.preventDefault();
+
+        !props.blocked && props.onClick();
+      }}
+    >
       <div>
         <span>{props.bookmarked_count}</span>
-        <BookmarkIcon isBookmarked={isBookmarked} size={22} />
+        <BookmarkIcon isBookmarked={props.isBookmarked} size={22} />
       </div>
     </button>
   );
@@ -169,6 +195,8 @@ const topInnerCss = (theme: Theme) => css`
 
   h2 {
     ${HEAD_1_BOLD};
+    display: flex;
+    align-items: center;
   }
 
   p {
@@ -222,6 +250,8 @@ const sectionCss = css`
 
   width: 100%;
   margin: 0 auto;
+
+  text-decoration: none;
 
   border-radius: 20px;
   box-shadow: 0 4px 16px 0 rgb(0 0 0 / 16%);
