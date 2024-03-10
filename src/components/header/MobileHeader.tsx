@@ -1,17 +1,22 @@
 import { css, type Theme } from '@emotion/react';
 
 import { MenuBarIcon } from '~/components/icons/MenuIcon';
+import SideMenu from '~/components/sideMenu/SideMenu';
+import useBoolean from '~/hooks/common/useBoolean';
 
 // NOTE: MobileHeader 임시 네이밍, 추후 수정 필요
 function MobileHeader() {
+  const [isSideMenuOpen, toggleSideMenu] = useBoolean(false);
+
   return (
     <>
       <header css={headerCss}>
-        <button type="button" css={menuButtonCss}>
+        <button type="button" css={menuButtonCss} onClick={toggleSideMenu}>
           <MenuBarIcon color="#394258" />
         </button>
       </header>
       <div css={blankCss} />
+      <SideMenu isOpen={isSideMenuOpen} onClose={toggleSideMenu} />
     </>
   );
 }
@@ -19,6 +24,7 @@ function MobileHeader() {
 export default MobileHeader;
 
 const menuButtonCss = css`
+  float: right;
   height: 48px;
   padding: 12px;
 `;
