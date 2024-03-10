@@ -17,6 +17,7 @@ const MenuIcon = ({ size = 24, color = '#B0B0B0', ...rest }: ComponentProps<type
 
 export default MenuIcon;
 
+// TODO: MenuIcon 이랑 다른지 체크 후 삭제
 export const MenuBarIcon = ({ size = 24, color = '#B0B0B0', ...rest }: ComponentProps<typeof Svg>) => {
   return (
     <Svg viewBox="0 0 24 24" fill="none" size={size} {...rest}>

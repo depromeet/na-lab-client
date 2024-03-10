@@ -59,5 +59,5 @@ const headerCss = (theme: Theme) => css`
 
 const blankCss = css`
   width: 100%;
-  height: 56px;
+  height: 60px;
 `;

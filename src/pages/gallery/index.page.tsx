@@ -58,17 +58,14 @@ function Gallery() {
 
 export default Gallery;
 
-function CardList({
-  galleries,
-  galleryListRefetch,
-  survey_id,
-}: {
+interface CardListProps {
   galleries: GalleryType[];
   galleryListRefetch: () => void;
   survey_id: string;
-}) {
+}
+
+function CardList({ galleries, galleryListRefetch, survey_id: myCardSurveyId }: CardListProps) {
   const { data: myBookmarkList, refetch: myBookmarkListRefetch } = useGetMyBookmarkList({ order_type: 'latest' });
-  const myCardSurveyId = survey_id;
 
   const refetch = () => {
     galleryListRefetch();
