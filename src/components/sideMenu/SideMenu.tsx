@@ -15,7 +15,7 @@ function SideMenu(props: Props) {
     <AnimatePresence>
       {props.isOpen && (
         <>
-          <m.aside
+          <m.nav
             css={containerCss}
             initial={{ x: 260 }}
             animate={{ x: 0 }}
@@ -28,7 +28,7 @@ function SideMenu(props: Props) {
             <ProfileSection />
             <hr css={dividerCss} />
             <MenuSection />
-          </m.aside>
+          </m.nav>
           <m.div
             onClick={props.onClose}
             css={backdropCss}
