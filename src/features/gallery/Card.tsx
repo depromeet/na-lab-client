@@ -1,4 +1,3 @@
-// import useDnaInfo from '~/hooks/dna/useDnaInfo';
 import { useState } from 'react';
 import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
@@ -8,6 +7,7 @@ import { type Softskills } from '~/components/graphic/softskills/type';
 import BookmarkIcon from '~/components/icons/BookmarkIcon';
 import Pill, { type Color } from '~/components/pill/Pill';
 import { CAREER_CARD_IMAGE_BY_GROUP } from '~/constants/dnaImage';
+import useDnaInfo from '~/hooks/dna/useDnaInfo';
 import { type SurveyType, type TargetType } from '~/remotes/gallery';
 import { BODY_1, BODY_2_REGULAR, DETAIL, HEAD_1_BOLD, HEAD_3_SEMIBOLD } from '~/styles/typo';
 
@@ -18,10 +18,11 @@ interface Props {
 }
 
 function Card(props: Props) {
-  // const { group = 'C' } = useDnaInfo(props.survey.survey_id);
+  const { group } = useDnaInfo(props.survey.survey_id);
 
-  const group = 'C';
   const viewTendencies = props.survey.tendencies.slice(0, 3);
+
+  if (!group) return <CardSkeleton />;
 
   return (
     <section css={sectionCss}>
@@ -68,7 +69,7 @@ function Card(props: Props) {
             ))}
           </div>
         </div>
-        <BookmarkButton bookmarked_count={props.survey.bookmarked_count} initBookmarked={false} />
+        {!props.isMine && <BookmarkButton bookmarked_count={props.survey.bookmarked_count} initBookmarked={false} />}
       </div>
     </section>
   );
@@ -102,6 +103,7 @@ const topBoxCss = (theme: Theme) => css`
   overflow: hidden;
 
   width: 100%;
+  height: 228px;
   padding: 30px 24px 48px;
 
   background-color: #dce9fb;
@@ -189,6 +191,7 @@ const tagWrapperCss = css`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  max-width: 200px;
 `;
 
 const tagItemCss = (theme: Theme) => css`
@@ -222,4 +225,32 @@ const sectionCss = css`
 
   border-radius: 20px;
   box-shadow: 0 4px 16px 0 rgb(0 0 0 / 16%);
+`;
+
+export function CardSkeleton() {
+  return <div css={[sectionCss, skeletonCardCss]} />;
+}
+
+const skeletonCardCss = css`
+  height: 100%;
+  min-height: 393px;
+
+  background-color: #dce9fb;
+  border-radius: 20px;
+
+  animation: pulse 1.5s infinite;
+
+  @keyframes pulse {
+    0% {
+      background-color: #dce9fb;
+    }
+
+    50% {
+      background-color: #e3f1fc;
+    }
+
+    100% {
+      background-color: #dce9fb;
+    }
+  }
 `;

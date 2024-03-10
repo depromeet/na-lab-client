@@ -4,7 +4,7 @@ import BottomSheet from '~/components/bottomSheet/BottomSheet';
 import Button from '~/components/button/Button';
 import { XCircleButton } from '~/components/button/CircleButton';
 import BottomSheetHandleIcon from '~/components/icons/BottomSheetHandleIcon';
-import Card from '~/features/gallery/Card';
+import Card, { CardSkeleton } from '~/features/gallery/Card';
 import { fixedBottomCss } from '~/features/survey/styles';
 import useGetGalleryPreview from '~/hooks/api/gallery/useGetGalleryPreview';
 import useScrollLock from '~/hooks/common/useScrollLock';
@@ -21,8 +21,9 @@ interface Props {
 
 function CardPublishBottomSheet(props: Props) {
   const { data } = useGetGalleryPreview({
-    // enabled: props.isShowing,
+    enabled: props.isShowing,
   });
+
   useScrollLock({ lock: props.isShowing });
 
   return (
@@ -35,10 +36,7 @@ function CardPublishBottomSheet(props: Props) {
         </hgroup>
         <section>
           <div css={tagCss}>미리보기</div>
-          {data ? (
-            <Card survey={data.survey} target={data.target} isMine />
-          ) : //  TODO : Skeleton
-          null}
+          {data ? <Card survey={data.survey} target={data.target} isMine /> : <CardSkeleton />}
         </section>
         <article css={[fixedBottomCss, bottomCss]}>
           <XCircleButton onClick={props.onClose} />
@@ -55,6 +53,8 @@ export default CardPublishBottomSheet;
 
 const innerCss = css`
   overflow-y: auto;
+
+  width: 100%;
   min-height: fit-content;
   max-height: calc(100vh - 12px);
   padding: 47px 20px 94px;

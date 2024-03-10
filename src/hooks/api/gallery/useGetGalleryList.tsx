@@ -1,29 +1,23 @@
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 import { get } from '~/libs/api';
-import { type SurveyType, type TargetType } from '~/remotes/gallery';
+import { type GalleryType } from '~/remotes/gallery';
 
 /**
- * @param gallery_id 마지막으로 조회된 갤러리의 id
+ * @param page  조회할 페이지를 입력
  * @param position 조회할 갤러리의 position을 입력 (ex. 'all')
  * @param order_type 정렬 기준을 입력
  * @param count 조회할 갤러리의 개수
  */
 interface Request {
-  gallery_id?: string;
+  page?: number;
   position?: string;
   order_type?: string;
   count?: number;
 }
 
-export interface GalleryType {
-  gallery_id: string;
-  target: TargetType;
-  survey: SurveyType;
-}
-
 interface Response {
-  total_page: string;
+  total_page: number;
   galleries: GalleryType[];
 }
 
@@ -31,8 +25,13 @@ const useGetGalleryList = (request: Request, options?: UseQueryOptions<Response>
   return useQuery<Response>({
     queryKey: ['gallerys', request],
     queryFn: () =>
-      get<Response>('/v1/gallerys', {
-        data: request,
+      get<Response>(`/v1/gallerys`, {
+        params: {
+          page: request.page,
+          position: request.position,
+          order_type: request.order_type,
+          count: request.count,
+        },
       }),
     ...options,
   });
