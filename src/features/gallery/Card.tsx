@@ -96,12 +96,14 @@ function Card({ isBookmarked, ...props }: Props) {
 
 export default Card;
 
-function BookmarkButton(props: {
+interface BookmarkButtonProps {
   bookmarked_count: number;
   isBookmarked: boolean;
   onClick: () => void;
   blocked?: boolean;
-}) {
+}
+
+function BookmarkButton(props: BookmarkButtonProps) {
   return (
     <button
       type="button"
@@ -166,7 +168,6 @@ const bookmarkWrapperCss = (theme: Theme) => css`
   justify-content: flex-end;
 
   > div {
-    ${BODY_1};
     display: flex;
     gap: 4px;
     align-items: center;
@@ -177,6 +178,12 @@ const bookmarkWrapperCss = (theme: Theme) => css`
 
     background-color: ${theme.colors.gray_50};
     border-radius: 22px;
+  }
+
+  span {
+    ${BODY_1};
+    position: relative;
+    top: 1px;
   }
 
   svg * {

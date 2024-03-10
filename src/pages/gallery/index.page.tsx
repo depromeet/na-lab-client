@@ -39,7 +39,7 @@ function Gallery() {
 
   return (
     <div>
-      <Header />
+      <Header title="명함 갤러리" />
       <Tab activeTab={activeTab} onClick={setActiveTab} />
       <div css={contentCss}>
         <FilterTab filterTab={filterTab} setFilterTab={setFilterTab} />
