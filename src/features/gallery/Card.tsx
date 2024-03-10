@@ -4,12 +4,9 @@ import { css, type Theme } from '@emotion/react';
 import Softskill from '~/components/graphic/softskills/Softskill';
 import { type Softskills } from '~/components/graphic/softskills/type';
 import BookmarkIcon from '~/components/icons/BookmarkIcon';
-import CheckCircleIcon from '~/components/icons/CheckCircleIcon';
 import Pill, { type Color } from '~/components/pill/Pill';
-import Toast from '~/components/toast/Toast';
-import useToast from '~/components/toast/useToast';
 import { CAREER_CARD_IMAGE_BY_GROUP } from '~/constants/dnaImage';
-import { useAddBookmark, useCancelBookmark } from '~/hooks/api/gallery/usePostBookmark';
+import useBookmark from '~/features/gallery/useBookmark';
 import useDnaInfo from '~/hooks/dna/useDnaInfo';
 import { type SurveyType, type TargetType } from '~/remotes/gallery';
 import { BODY_1, BODY_2_REGULAR, DETAIL, HEAD_1_BOLD, HEAD_3_SEMIBOLD } from '~/styles/typo';
@@ -122,37 +119,6 @@ function BookmarkButton(props: {
     </button>
   );
 }
-
-// TODO: refactor interface로 분리
-const useBookmark = ({ surveyId, refetch }: { surveyId: string; refetch?: () => void }) => {
-  const { fireToast } = useToast();
-
-  const { mutate: addBookmark } = useAddBookmark(surveyId, {
-    onSuccess: () => {
-      fireToast({
-        content: (
-          <>
-            <CheckCircleIcon />
-            <Toast.Text>명함을 저장했어요</Toast.Text>
-          </>
-        ),
-      });
-
-      refetch?.();
-    },
-  });
-
-  const { mutate: cancelBookmark } = useCancelBookmark(surveyId, {
-    onSuccess: () => {
-      refetch?.();
-    },
-  });
-
-  return {
-    cancelBookmark,
-    addBookmark,
-  };
-};
 
 const COLOR_INDEX: Color[] = ['bluegreen', 'pink', 'skyblue', 'yellowgreen', 'purple'];
 

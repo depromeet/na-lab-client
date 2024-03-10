@@ -23,16 +23,18 @@ interface Request {
   // count?: number;
 }
 
+export interface BookmarkedSurveyType {
+  survey_id: string;
+  target_id: string;
+  nickname: string;
+  position: string;
+  job: string;
+  image_url: string;
+}
+
 interface Response {
   // TODO : 페이징 추가
-  bookmarked_surveys: {
-    survey_id: string;
-    target_id: string;
-    nickname: string;
-    position: string;
-    job: string;
-    image_url: string;
-  }[];
+  bookmarked_surveys: BookmarkedSurveyType[];
 }
 
 const useGetMyBookmarkList = (request: Request, options?: UseQueryOptions<Response>) => {
