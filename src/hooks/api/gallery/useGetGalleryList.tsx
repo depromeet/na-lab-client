@@ -25,9 +25,14 @@ const useGetGalleryList = (request: Request, options?: UseQueryOptions<Response>
   return useQuery<Response>({
     queryKey: ['gallerys', request],
     queryFn: () =>
-      get<Response>(
-        `/v1/gallerys?page=${request.page}&job=${request.position}&order-type=${request.order_type}&count=${request.count}`,
-      ),
+      get<Response>(`/v1/gallerys`, {
+        params: {
+          page: request.page,
+          position: request.position,
+          order_type: request.order_type,
+          count: request.count,
+        },
+      }),
     ...options,
   });
 };
