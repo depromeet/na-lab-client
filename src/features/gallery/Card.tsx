@@ -19,6 +19,7 @@ interface Props {
   target: TargetType;
   isBookmarked: boolean;
 
+  // TODO: query key를 기반으로 queryClient.invalidateQueries를 사용하여 refetch를 할 수 있음
   listRefetch?: () => void;
   isMine?: boolean;
   isPreview?: boolean;
@@ -122,6 +123,7 @@ function BookmarkButton(props: {
   );
 }
 
+// TODO: refactor interface로 분리
 const useBookmark = ({ surveyId, refetch }: { surveyId: string; refetch?: () => void }) => {
   const { fireToast } = useToast();
 

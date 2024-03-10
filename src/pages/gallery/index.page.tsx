@@ -20,7 +20,7 @@ function Gallery() {
   const [activeTab, setActiveTab] = useState<PositionType>('ALL');
   const [filterTab, setFilterTab] = useState<FilterType>('update');
 
-  const { isSuccess: isMyCardExist, refetch: myCardInfoRefetch } = useGetMyCard();
+  const { data: myCardInfo, isSuccess: isMyCardExist, refetch: myCardInfoRefetch } = useGetMyCard();
 
   const { data, refetch: galleryListRefetch } = useGetGalleryList({
     position: activeTab,
@@ -44,7 +44,13 @@ function Gallery() {
       <div css={contentCss}>
         <FilterTab filterTab={filterTab} setFilterTab={setFilterTab} />
         {!isMyCardExist && <PublishMyCard onSubmit={onSubmitMyCard} />}
-        {data && <CardList galleries={data.galleries ?? []} galleryListRefetch={galleryListRefetch} />}
+        {data && (
+          <CardList
+            galleries={data.galleries ?? []}
+            galleryListRefetch={galleryListRefetch}
+            survey_id={myCardInfo?.survey.survey_id ?? ''}
+          />
+        )}
       </div>
     </div>
   );
@@ -52,11 +58,17 @@ function Gallery() {
 
 export default Gallery;
 
-function CardList({ galleries, galleryListRefetch }: { galleries: GalleryType[]; galleryListRefetch: () => void }) {
+function CardList({
+  galleries,
+  galleryListRefetch,
+  survey_id,
+}: {
+  galleries: GalleryType[];
+  galleryListRefetch: () => void;
+  survey_id: string;
+}) {
   const { data: myBookmarkList, refetch: myBookmarkListRefetch } = useGetMyBookmarkList({ order_type: 'latest' });
-  // NOTE: 쿼리를 두번 부르면 둘다 요청되는가? 네트워크는 한번 가는가? (리렌더를 하지 않는가?)
-  const { data: myCardInfo } = useGetMyCard();
-  const myCardSurveyId = myCardInfo?.survey.survey_id;
+  const myCardSurveyId = survey_id;
 
   const refetch = () => {
     galleryListRefetch();
