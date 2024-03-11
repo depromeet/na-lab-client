@@ -59,7 +59,7 @@
     "react-hotjar": "^6.1.0",
     "sharp": "^0.32.6"
   },
-  "packageManager": "yarn@3.5.0",
+  "packageManager": "yarn@4.1.1",
   "devDependencies": {
     "@babel/core": "^7.21.4",
     "@babel/preset-typescript": "^7.22.5",
