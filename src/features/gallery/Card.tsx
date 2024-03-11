@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { css, type Theme } from '@emotion/react';
 
 import Softskill from '~/components/graphic/softskills/Softskill';
-import { type Softskills } from '~/components/graphic/softskills/type';
 import BookmarkIcon from '~/components/icons/BookmarkIcon';
 import Pill, { type Color } from '~/components/pill/Pill';
 import { CAREER_CARD_IMAGE_BY_GROUP } from '~/constants/dnaImage';
@@ -16,20 +15,19 @@ interface Props {
   target: TargetType;
   isBookmarked: boolean;
 
-  // TODO: query key를 기반으로 queryClient.invalidateQueries를 사용하여 refetch를 할 수 있음
   listRefetch?: () => void;
   isMine?: boolean;
   isPreview?: boolean;
 }
 
-function Card({ isBookmarked, ...props }: Props) {
-  const { group } = useDnaInfo(props.survey.survey_id);
+function Card({ isBookmarked, survey, target, isMine, isPreview, listRefetch }: Props) {
+  const { group } = useDnaInfo(survey.survey_id);
 
-  const viewTendencies = props.survey.tendencies.slice(0, 3);
+  const viewTendencies = survey.tendencies.slice(0, 3);
 
   const { cancelBookmark, addBookmark } = useBookmark({
-    surveyId: props.survey.survey_id,
-    refetch: props.listRefetch,
+    surveyId: survey.survey_id,
+    refetch: listRefetch,
   });
 
   const onBookmarkClick = () => {
@@ -44,16 +42,16 @@ function Card({ isBookmarked, ...props }: Props) {
         <div css={topInnerCss}>
           <hgroup>
             <h2>
-              {props.target.nickname}
+              {target.nickname}
 
-              {props.isMine && <span css={isMineCss}>ME</span>}
+              {isMine && <span css={isMineCss}>ME</span>}
             </h2>
-            <p>{props.target.job}</p>
+            <p>{target.job}</p>
           </hgroup>
           <div css={tagWrapperCss}>
             {viewTendencies.map((tendency, idx) => (
               <Pill color={COLOR_INDEX[idx]} key={tendency.name} css={tagItemCss}>
-                <Softskill name={tendency.name as Softskills} />
+                <Softskill name={tendency.name} />
                 {tendency.name.replaceAll('_', ' ')}
               </Pill>
             ))}
@@ -75,19 +73,19 @@ function Card({ isBookmarked, ...props }: Props) {
       <div css={feedbackWrapperCss}>
         <div>
           <h3>
-            받은 피드백 <span>{props.survey.feedback_count}</span>
+            받은 피드백 <span>{survey.feedback_count}</span>
           </h3>
           <div>
-            {props.survey.feedbacks.map((feedback) => (
+            {survey.feedbacks.map((feedback) => (
               <p key={feedback}>{feedback}</p>
             ))}
           </div>
         </div>
         <BookmarkButton
-          bookmarked_count={props.survey.bookmarked_count}
+          bookmarked_count={survey.bookmarked_count}
           isBookmarked={isBookmarked}
           onClick={onBookmarkClick}
-          blocked={props.isPreview}
+          blocked={isPreview}
         />
       </div>
     </section>

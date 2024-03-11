@@ -1,3 +1,5 @@
+import { type Softskills } from '~/components/graphic/softskills/type';
+
 export interface TargetType {
   target_id: string;
   nickname: string;
@@ -7,7 +9,7 @@ export interface TargetType {
 }
 
 interface TendencyType {
-  name: string;
+  name: Softskills;
   count: number;
 }
 
