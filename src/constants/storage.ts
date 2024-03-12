@@ -4,4 +4,5 @@ export const LOCAL_STORAGE_KEY = {
   surveyCustomQuestions: 'nlascq',
   surveyCreateSurveyRequest: 'nlascsr',
   resultRevisit: 'nlarv',
+  galleryCardLead: 'nlagcl',
 } as const;
