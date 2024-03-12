@@ -5,6 +5,7 @@ import { m } from 'framer-motion';
 import Button from '~/components/button/Button';
 import XIcon from '~/components/icons/XIcon';
 import { defaultFadeInVariants } from '~/constants/motions';
+import { useGetLogin } from '~/hooks/api/user/useGetLogined';
 import { BODY_1, BODY_2_REGULAR, HEAD_1_BOLD } from '~/styles/typo';
 
 interface Props {
@@ -13,12 +14,15 @@ interface Props {
 }
 
 function InducePublishCard(props: Props) {
+  const { data: userInfo, isFetching, isError } = useGetLogin();
   const theme = useTheme();
+
+  if (isFetching || isError) return null;
 
   return (
     <m.section css={containerCss} initial="initial" animate="animate" exit="exit" variants={defaultFadeInVariants}>
       <hgroup>
-        <h2>수미 님</h2>
+        <h2>{userInfo?.nickname} 님</h2>
         <p>커리어 명함을 게시해보세요.</p>
       </hgroup>
       <Image css={imageCss} src="/images/gallery/imgUploadCareerCard.png" alt="명함 게시하기" width={56} height={56} />

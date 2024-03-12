@@ -4,7 +4,6 @@ import { css, type Theme } from '@emotion/react';
 import Header from '~/components/header/Header';
 import BookmarkIcon from '~/components/icons/BookmarkIcon';
 import MinusCircleIcon from '~/components/icons/MinusCircleIcon';
-import ThreeDotsIcon from '~/components/icons/ThreeDotsIcon';
 import Toast from '~/components/toast/Toast';
 import useToast from '~/components/toast/useToast';
 import useGetMyBookmarkList, { type BookmarkedSurveyType } from '~/hooks/api/gallery/useGetMyBookmarkList';
@@ -29,17 +28,15 @@ function BookmarksPage() {
 export default BookmarksPage;
 
 const containerCss = (theme: Theme) => css`
+  position: relative;
+  left: -16px;
+
   width: 100vw;
   max-width: ${theme.size.maxWidth};
   height: 100vh;
   padding-top: 56px;
 
   background-color: ${theme.colors.gray_50};
-
-  @media screen and (width >= ${theme.size.maxWidth}) {
-    position: relative;
-    left: -16px;
-  }
 `;
 
 const ulCss = css`
@@ -92,7 +89,9 @@ function BookmarkItem(props: BookmarkItemProps) {
         <button type="button" onClick={onClick}>
           <BookmarkIcon isBookmarked={true} size={26} />
         </button>
+        {/* TODO : three dot 메뉴 추가
         <ThreeDotsIcon color="#677089" />
+      */}
       </div>
     </li>
   );
