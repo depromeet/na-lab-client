@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { css } from '@emotion/react';
 
+import BottomBar from '~/components/bottomBar/BottomBar';
 import Header from '~/components/header/MobileHeader';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
 import Card from '~/features/gallery/Card';
@@ -52,6 +53,7 @@ function Gallery() {
           />
         )}
       </div>
+      <BottomBar />
     </div>
   );
 }
