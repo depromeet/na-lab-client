@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import { css, type Theme, useTheme } from '@emotion/react';
@@ -5,46 +6,41 @@ import { css, type Theme, useTheme } from '@emotion/react';
 import HomeIcon from '~/components/bottomBar/HomeIcon';
 import MypageIcon from '~/components/bottomBar/MypageIcon';
 import QuestionIcon from '~/components/bottomBar/QuestionIcon';
-import useToast from '~/components/toast/useToast';
 import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
-import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
-import useInternalRouter from '~/hooks/router/useInternalRouter';
 
 const BottomBar = () => {
   const theme = useTheme();
   const router = useRouter();
 
   const currentPath = router.pathname;
-  const { data } = useCheckSurveyId();
+  const { data, 생성한_질문폼이_있는가 } = useCheckSurveyId();
 
-  const onHomeClick = () => {
-    router.push('/gallery');
-  };
+  const getIconColor = (path: string | string[]) => {
+    if (Array.isArray(path))
+      return path.includes(currentPath) ? `${theme.colors.primary_300}` : `${theme.colors.gray_300}`;
 
-  const onQuestionClick = () => {
-    router.push('/survey/create');
-  };
-
-  const onMyCardClick = () => {
-    router.push(`/dna/${data?.survey_id}`);
+    return path === currentPath ? `${theme.colors.primary_300}` : `${theme.colors.gray_300}`;
   };
 
   return (
     <footer css={BottomBarCss(theme)}>
-      <button type="button" css={IconBoxCss(theme, '/gallery' === currentPath)} onClick={onHomeClick}>
-        <HomeIcon color={'/gallery' === currentPath ? `${theme.colors.primary_300}` : `${theme.colors.gray_300}`} />
+      <Link href="/gallery" css={IconBoxCss(theme, '/gallery' === currentPath)}>
+        <HomeIcon color={getIconColor('/gallery')} />
         <span className="text">홈</span>
-      </button>
-      <button type="button" css={IconBoxCss(theme, '/survey/create' === currentPath)} onClick={onQuestionClick}>
-        <QuestionIcon
-          color={'/survey/create' === currentPath ? `${theme.colors.primary_300}` : `${theme.colors.gray_300}`}
-        />
+      </Link>
+
+      <Link
+        href={생성한_질문폼이_있는가 ? '/result' : '/survey/create'}
+        css={IconBoxCss(theme, '/survey/create' === currentPath)}
+      >
+        <QuestionIcon color={getIconColor(['/result', '/survey/create'])} />
         <span className="text">질문폼</span>
-      </button>
-      <button type="button" css={IconBoxCss(theme, false)} onClick={onMyCardClick}>
+      </Link>
+
+      <Link href={`/dna/${data?.survey_id}`} css={IconBoxCss(theme, false)}>
         <MypageIcon />
         <span className="text">내 명함</span>
-      </button>
+      </Link>
     </footer>
   );
 };
@@ -75,6 +71,8 @@ const IconBoxCss = (theme: Theme, actived: boolean) => css`
   align-items: center;
   justify-content: center;
 
+  text-decoration: none;
+
   .text {
     font-size: 12px;
     font-weight: 400;
@@ -85,24 +83,10 @@ const IconBoxCss = (theme: Theme, actived: boolean) => css`
 `;
 
 const useCheckSurveyId = () => {
-  const { fireToast } = useToast();
-  const router = useInternalRouter();
   const { status } = useSession();
 
-  const { isLoading, data } = useGetSurveyIdByUserStatus({
-    onError: () => {
-      fireToast({ content: '문제가 발생했어요. 다시 시도해 주세요.' });
-      router.push('/');
-    },
-  });
+  const { isLoading, data } = useGetSurveyIdByUserStatus({ enabled: status === 'authenticated' });
+  const 생성한_질문폼이_있는가 = Boolean(data?.survey_id);
 
-  useDidUpdate(() => {
-    if (status === 'loading') return;
-    if (status === 'unauthenticated') {
-      fireToast({ content: '로그인 후 이용해 주세요.' });
-      router.push('/');
-    }
-  }, [status]);
-
-  return { isLoading, data };
+  return { isLoading, data, 생성한_질문폼이_있는가 };
 };
