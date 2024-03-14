@@ -1,3 +1,4 @@
+import { type ComponentType } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
@@ -8,6 +9,12 @@ import MypageIcon from '~/components/bottomBar/MypageIcon';
 import QuestionIcon from '~/components/bottomBar/QuestionIcon';
 import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 
+interface TabItem {
+  text: string;
+  path: string;
+  icon: ComponentType<{ color?: string }>;
+}
+
 const BottomBar = () => {
   const theme = useTheme();
   const router = useRouter();
@@ -15,32 +22,45 @@ const BottomBar = () => {
   const currentPath = router.pathname;
   const { data, 생성한_질문폼이_있는가 } = useCheckSurveyId();
 
-  const getIconColor = (path: string | string[]) => {
-    if (Array.isArray(path))
-      return path.includes(currentPath) ? `${theme.colors.primary_300}` : `${theme.colors.gray_300}`;
+  const TAB_ITEMS: TabItem[] = [
+    {
+      text: '홈',
+      path: '/gallery',
+      icon: HomeIcon,
+    },
+    {
+      text: '질문폼',
+      path: 생성한_질문폼이_있는가 ? '/result' : '/survey/base',
+      icon: QuestionIcon,
+    },
+    {
+      text: '내 명함',
+      path: `/dna/${data?.survey_id}`,
+      icon: MypageIcon,
+    },
+  ];
 
-    return path === currentPath ? `${theme.colors.primary_300}` : `${theme.colors.gray_300}`;
+  const getIsSelected = (path: string | string[]) => {
+    if (Array.isArray(path)) return path.includes(currentPath);
+
+    return path === currentPath;
+  };
+
+  const getIconColor = (path: string | string[]) => {
+    const isSelected = getIsSelected(path);
+    if (isSelected) return theme.colors.primary_300;
+
+    return theme.colors.gray_300;
   };
 
   return (
     <footer css={BottomBarCss(theme)}>
-      <Link href="/gallery" css={IconBoxCss(theme, '/gallery' === currentPath)}>
-        <HomeIcon color={getIconColor('/gallery')} />
-        <span className="text">홈</span>
-      </Link>
-
-      <Link
-        href={생성한_질문폼이_있는가 ? '/result' : '/survey/create'}
-        css={IconBoxCss(theme, '/survey/create' === currentPath)}
-      >
-        <QuestionIcon color={getIconColor(['/result', '/survey/create'])} />
-        <span className="text">질문폼</span>
-      </Link>
-
-      <Link href={`/dna/${data?.survey_id}`} css={IconBoxCss(theme, false)}>
-        <MypageIcon />
-        <span className="text">내 명함</span>
-      </Link>
+      {TAB_ITEMS.map((item) => (
+        <Link key={item.path} href={item.path} css={[IconBoxCss(theme), getIsSelected(item.path) && selectedCss]}>
+          <item.icon color={getIconColor(item.path)} />
+          <span>{item.text}</span>
+        </Link>
+      ))}
     </footer>
   );
 };
@@ -64,7 +84,7 @@ const BottomBarCss = (theme: Theme) => css`
   background-color: ${theme.colors.white};
 `;
 
-const IconBoxCss = (theme: Theme, actived: boolean) => css`
+const IconBoxCss = (theme: Theme) => css`
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -73,12 +93,18 @@ const IconBoxCss = (theme: Theme, actived: boolean) => css`
 
   text-decoration: none;
 
-  .text {
+  span {
     font-size: 12px;
     font-weight: 400;
     font-style: normal;
-    color: ${actived ? `${theme.colors.primary_300}` : `${theme.colors.gray_300}`};
+    color: ${theme.colors.gray_300};
     text-align: center;
+  }
+`;
+
+const selectedCss = (theme: Theme) => css`
+  span {
+    color: ${theme.colors.primary_300};
   }
 `;
 
