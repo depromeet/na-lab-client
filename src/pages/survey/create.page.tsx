@@ -2,6 +2,7 @@ import { useSession } from 'next-auth/react';
 import { css, type Theme } from '@emotion/react';
 import { useAtom, useAtomValue } from 'jotai';
 
+import BottomBar from '~/components/bottomBar/BottomBar';
 import CTAButton from '~/components/button/CTAButton';
 import Header from '~/components/header/Header';
 import SEO from '~/components/SEO/SEO';
@@ -82,6 +83,7 @@ const CreateSurveyPage = () => {
 
         <CreateDialog isShowing={isDialogShowing} onClose={toggleDialogShowing} onAction={onSubmit} />
         <CreateStopDialog isShowing={isDialogOpen} onClose={onDialogClose} onAction={onStop} />
+        <BottomBar />
       </main>
     </>
   );
@@ -102,10 +104,8 @@ const containerCss = css`
 
 const deleteButtonCss = (isDeleteMode: boolean, theme: Theme) => css`
   ${BODY_1}
-
   color: ${isDeleteMode ? theme.colors.primary_200 : theme.colors.red};
   ${isDeleteMode && 'text-decoration: underline;'}
-
   transition: color 0.2s ease-in-out;
 
   &:disabled {
