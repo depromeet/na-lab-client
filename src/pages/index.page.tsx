@@ -1,6 +1,5 @@
 import { type ReactElement } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { css, type Theme } from '@emotion/react';
 
 import Logo from '~/assets/Logo';
@@ -8,18 +7,9 @@ import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
 import SEO from '~/components/SEO/SEO';
 import ConditionalCtaLink from '~/features/home/ConditionalCtaLink';
 import KakaoLoginButton from '~/features/home/KakaoLoginButton';
-import useKakaoLogin from '~/hooks/auth/useKakaoLogin';
-import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 import { HEAD_2_BOLD } from '~/styles/typo';
 
 export default function Home() {
-  const router = useRouter();
-  const { status } = useKakaoLogin();
-
-  useDidUpdate(() => {
-    status === 'authenticated' && router.push('/gallery');
-  }, [status]);
-
   return (
     <>
       <SEO />
