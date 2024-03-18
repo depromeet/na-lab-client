@@ -25,7 +25,7 @@ function MenuSection() {
       label: '로그아웃',
       action: () => {
         // 실 환경에서 되는지 체크
-        logOutHandler();
+        logOutHandler({ callbackUrl: '/' });
         router.replace('/');
       },
     },

@@ -13,7 +13,7 @@ const KakaoLoginButton = () => {
   if (status === 'authenticated') {
     return (
       <div css={KakaoLoginWrapper}>
-        <button type="button" onClick={logOutHandler}>
+        <button type="button" onClick={() => logOutHandler()}>
           로그아웃
         </button>
       </div>
@@ -23,7 +23,7 @@ const KakaoLoginButton = () => {
   return (
     <div css={KakaoLoginWrapper}>
       이미 질문폼이 있다면?
-      <button type="button" css={KakaoLoginButtonCss} onClick={loginHandler}>
+      <button type="button" css={KakaoLoginButtonCss} onClick={() => loginHandler({ callbackUrl: '/gallery' })}>
         로그인하고 결과 보기
       </button>
     </div>
@@ -32,13 +32,11 @@ const KakaoLoginButton = () => {
 
 const KakaoLoginWrapper = css`
   ${BODY_1};
-
   line-height: 24px;
   color: ${colors.gray_400};
 
   & * {
     ${BODY_1};
-
     color: ${colors.gray_400};
   }
 
