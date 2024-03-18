@@ -34,7 +34,6 @@ export default Message;
 
 const defaultCss = (theme: Theme) => css`
   ${BODY_1}
-
   width: fit-content;
   max-width: 278px;
   padding: 9px 14px;

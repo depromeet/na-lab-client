@@ -90,19 +90,16 @@ const sectionCss = css`
 
 const headingCss = css`
   ${HEAD_1}
-
   margin-bottom: 6px;
 `;
 
 const smallCss = (theme: Theme) => css`
   ${BODY_1};
-
   color: ${theme.colors.gray_300};
 `;
 
 const paragraphCss = (theme: Theme) => css`
   ${BODY_1};
-
   margin-bottom: 14px;
   color: ${theme.colors.gray_500};
 `;

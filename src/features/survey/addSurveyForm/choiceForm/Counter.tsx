@@ -60,7 +60,6 @@ const buttonCss = css`
 
 const valueCss = (theme: Theme) => css`
   ${HEAD_3_SEMIBOLD}
-
   width: 32px;
   color: ${theme.colors.primary_200};
   text-align: center;

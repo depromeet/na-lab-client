@@ -12,7 +12,6 @@ const Content = ({ content }: Pick<SnackBarProps, 'content'>) => {
 
 const contentCss = (theme: Theme) => css`
   ${BODY_1};
-
   cursor: pointer;
 
   z-index: ${theme.zIndex.fixed};
@@ -45,7 +44,6 @@ const DeleteButton = ({ id, deleteElement }: DeleteButtonProps) => {
 
 const deleteButtonCss = (theme: Theme) => css`
   ${BODY_1};
-
   min-width: 40px;
   margin-left: 10px;
   color: ${theme.colors.primary_200};

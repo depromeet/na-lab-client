@@ -109,7 +109,6 @@ export default ChatInputBottom;
 
 const wrapperCss = (theme: Theme) => css`
   ${fixedBottomCss(theme)};
-
   display: flex;
   align-items: center;
 `;
@@ -124,7 +123,6 @@ const backButtonTransition = (isInputWide: boolean): TargetAndTransition => ({
 
 const textareaCss = (theme: Theme) => css`
   ${BODY_1};
-
   resize: none;
 
   position: absolute;

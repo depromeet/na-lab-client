@@ -139,7 +139,6 @@ const contentCss = css`
 
 const titleCss = css`
   ${HEAD_1}
-
   margin-top: 54px;
   margin-bottom: 31px;
 `;
@@ -155,7 +154,6 @@ const feedbackPerMonthCss = css`
 
 const monthTitleCss = css`
   ${BODY_1}
-
   margin-bottom: 16px;
 `;
 

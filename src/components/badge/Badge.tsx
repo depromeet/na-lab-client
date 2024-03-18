@@ -17,7 +17,6 @@ export default Badge;
 
 const badgeCss = (theme: Theme) => css`
   ${BODY_1};
-
   display: inline-flex;
   align-items: center;
   justify-content: center;

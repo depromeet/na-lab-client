@@ -100,7 +100,6 @@ const messageContainerCss = (theme: Theme, anchorWidth: number, paddingX: number
 
 const messageCss = (theme: Theme) => css`
   ${BODY_2_REGULAR}
-
   color: ${theme.colors.white}
 `;
 

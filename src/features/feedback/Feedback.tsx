@@ -82,7 +82,6 @@ const containerCss = ({ colors }: Theme) => css`
 
 const replyCss = css`
   ${BODY_1};
-
   white-space: pre-wrap;
 `;
 
@@ -117,7 +116,6 @@ const AnonymousPositionBadge = ({ position, nickname }: { position: ReviewerPosi
 
 const AnonymousPositionBadgeCss = (theme: Theme, position: ReviewerPosition) => css`
   ${BODY_2_REGULAR};
-
   width: fit-content;
   height: 32px;
   padding: 6px 8px;

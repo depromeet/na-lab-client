@@ -75,6 +75,5 @@ const containerCss = (theme: Theme) => css`
 
 const textCss = (theme: Theme) => css`
   ${HEAD_3_SEMIBOLD};
-
   color: ${theme.colors.primary_300};
 `;

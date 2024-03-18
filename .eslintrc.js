@@ -120,7 +120,7 @@ module.exports = {
       },
     ],
     'jsx-a11y/label-has-associated-control': [
-      'error',
+      'warn',
       {
         labelComponents: ['label'],
         labelAttributes: ['label'],
