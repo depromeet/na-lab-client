@@ -174,7 +174,6 @@ const descriptionColorBadgeAmountWrapperCss = css`
 
 const descriptionTextCss = ({ colors }: Theme) => css`
   ${HEAD_2_REGULAR};
-
   color: ${colors.gray_400};
 `;
 

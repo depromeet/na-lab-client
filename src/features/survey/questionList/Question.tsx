@@ -51,7 +51,6 @@ const textContainerCss = css`
 
 const titleCss = css`
   ${HEAD_3_SEMIBOLD}
-
   margin-bottom: 8px;
 `;
 
@@ -117,7 +116,6 @@ const getType = (type: QuestionType, formType: QuestionFormType) => {
 
 const tagCss = (theme: Theme) => css`
   ${DETAIL}
-
   display: inline-block;
   gap: 10px;
   order: 1;

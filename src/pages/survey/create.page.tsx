@@ -102,10 +102,8 @@ const containerCss = css`
 
 const deleteButtonCss = (isDeleteMode: boolean, theme: Theme) => css`
   ${BODY_1}
-
   color: ${isDeleteMode ? theme.colors.primary_200 : theme.colors.red};
   ${isDeleteMode && 'text-decoration: underline;'}
-
   transition: color 0.2s ease-in-out;
 
   &:disabled {

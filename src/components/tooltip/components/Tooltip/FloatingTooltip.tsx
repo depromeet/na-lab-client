@@ -131,8 +131,7 @@ const wrapperCss = (scrollHeight: number) => css`
   top: 0;
   left: 0;
 
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow: hidden visible;
 
   width: 100dvw;
   height: ${scrollHeight}px;

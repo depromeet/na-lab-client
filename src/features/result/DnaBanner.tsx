@@ -72,7 +72,6 @@ const anchorCss = css`
 
 const buttonCss = css`
   ${BODY_2_BOLD};
-
   margin-top: 16px;
   padding: 8px 16px;
 `;
@@ -116,7 +115,6 @@ const notEnoughSectionCss = css`
 
 const paragraphCss = (theme: Theme) => css`
   ${HEAD_3_SEMIBOLD}
-
   margin-top: 4px;
   margin-bottom: 17px;
   color: ${theme.colors.secondary_200};

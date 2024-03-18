@@ -28,7 +28,6 @@ const Text = ({ children }: { children: ReactNode }) => {
 
 const toastTextCss = ({ colors }: Theme) => css`
   ${BODY_1};
-
   color: ${colors.white};
 `;
 

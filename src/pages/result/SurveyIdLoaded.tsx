@@ -321,8 +321,7 @@ const chartWrapperCss = css`
 const pillContainer = css`
   display: flex;
   flex-wrap: wrap;
-  row-gap: 11px;
-  column-gap: 10px;
+  gap: 11px 10px;
 
   white-space: pre-wrap;
 `;

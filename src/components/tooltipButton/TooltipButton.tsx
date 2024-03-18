@@ -73,7 +73,6 @@ const floatingKeyframes = keyframes`
 
 const bubbleSpanCss = (theme: Theme) => css`
   ${BODY_2_REGULAR};
-
   position: absolute;
   top: -100%;
   left: 50%;

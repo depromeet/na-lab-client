@@ -55,7 +55,6 @@ const headingWrapperCss = css`
 
 const titleCss = css`
   ${HEAD_2_BOLD}
-
   margin-top: 80px;
   color: #fff;
 `;

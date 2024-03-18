@@ -35,15 +35,13 @@ export default TendencySection;
 
 const subTitleCss = (theme: Theme) => css`
   ${HEAD_2_BOLD};
-
   color: ${theme.colors.gray_500};
 `;
 
 const pillContainer = css`
   display: flex;
   flex-wrap: wrap;
-  row-gap: 11px;
-  column-gap: 10px;
+  gap: 11px 10px;
 
   margin-top: 16px;
 

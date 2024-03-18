@@ -48,7 +48,6 @@ const wrapperCss = css`
 
 const headingCss = css`
   ${HEAD_1}
-
   margin-bottom: 0;
 
   @supports (text-wrap: balance) {
@@ -58,7 +57,6 @@ const headingCss = css`
 
 const smallCss = (theme: Theme) => css`
   ${BODY_1}
-
   margin-top: 8px;
   color: ${theme.colors.gray_500};
 `;

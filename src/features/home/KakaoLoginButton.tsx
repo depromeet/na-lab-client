@@ -32,13 +32,11 @@ const KakaoLoginButton = () => {
 
 const KakaoLoginWrapper = css`
   ${BODY_1};
-
   line-height: 24px;
   color: ${colors.gray_400};
 
   & * {
     ${BODY_1};
-
     color: ${colors.gray_400};
   }
 

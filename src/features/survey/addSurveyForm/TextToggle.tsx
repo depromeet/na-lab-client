@@ -44,7 +44,6 @@ const ITEM_SIZE = 105;
 
 const textCss = (theme: Theme, isSelected: boolean) => css`
   ${HEAD_3_SEMIBOLD};
-
   position: relative;
   z-index: ${theme.zIndex.above(theme.zIndex.aboveDefault)};
   color: ${isSelected ? theme.colors.white : theme.colors.gray_400};
@@ -82,7 +81,6 @@ const selectBoxCss = (theme: Theme, isOn: boolean) => css`
     : css`
         right: 5px;
       `}
-
   position: absolute;
   z-index: ${theme.zIndex.above(theme.zIndex.aboveDefault)};
   top: 5px;

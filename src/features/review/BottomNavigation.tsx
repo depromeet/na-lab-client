@@ -45,7 +45,6 @@ export default BottomNavigation;
 
 const wrapperCss = (theme: Theme) => css`
   ${fixedBottomCss(theme)};
-
   bottom: 0%;
 
   display: flex;

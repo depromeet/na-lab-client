@@ -36,7 +36,6 @@ const CollaborationCounterCard = ({ count, positive }: { count: number; positive
 
 const cardCss = (theme: Theme, positive: boolean) => css`
   ${positive ? HEAD_2_BOLD : HEAD_2_REGULAR}
-
   display: flex;
   align-items: center;
   justify-content: center;
