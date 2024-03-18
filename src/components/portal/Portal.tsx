@@ -17,7 +17,7 @@ const Portal = ({ children }: PropsWithChildren) => {
 
   if (!container) return null;
 
-  return createPortal(children, container);
+  return createPortal(<>{children}</>, container);
 };
 
 export default Portal;

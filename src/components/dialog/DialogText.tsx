@@ -16,7 +16,6 @@ export const Description = ({
 
 const titleBaseCss = ({ colors }: Theme) => css`
   ${HEAD_1}
-
   color: ${colors.black};
   text-align: left;
   white-space: pre-wrap;
@@ -24,7 +23,6 @@ const titleBaseCss = ({ colors }: Theme) => css`
 
 const descriptionBaseCss = css`
   ${BODY_1}
-
   color: #6b7180;
   text-align: center;
   white-space: pre-wrap;

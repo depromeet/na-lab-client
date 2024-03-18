@@ -29,7 +29,6 @@ export default SubmitButton;
 
 const buttonCss = (theme: Theme) => css`
   ${HEAD_3_SEMIBOLD};
-
   position: fixed;
   bottom: 72px;
 

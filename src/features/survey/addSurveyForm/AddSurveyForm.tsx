@@ -176,7 +176,6 @@ const topSection = css`
 
 const textAreaCss = (theme: Theme) => css`
   ${HEAD_1}
-
   resize: none;
 
   width: 100%;

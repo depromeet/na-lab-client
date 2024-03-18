@@ -42,7 +42,6 @@ export default BottomSheet;
 
 const mobileScrimCss = (theme: Theme) => css`
   ${scrimCss(theme)}
-
   right: 0;
   left: 0;
   max-width: ${theme.size.maxWidth};

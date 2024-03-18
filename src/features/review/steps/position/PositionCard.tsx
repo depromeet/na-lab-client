@@ -105,6 +105,5 @@ const contentWrapperCss = (theme: Theme, checkedBackgroundColor: string) => css`
 
 const smallCss = (theme: Theme) => css`
   ${HEAD_3_SEMIBOLD}
-
   color: ${theme.colors.gray_400};
 `;

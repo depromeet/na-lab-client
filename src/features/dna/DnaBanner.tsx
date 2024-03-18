@@ -96,12 +96,10 @@ const textWrapperCss = css`
 
 const dnaDesc = css`
   ${BODY_1}
-
   color: ${colors.gray_400};
 `;
 
 const dnaTitle = css`
   ${HEAD_1_BOLD}
-
   color: ${colors.gray_500};
 `;

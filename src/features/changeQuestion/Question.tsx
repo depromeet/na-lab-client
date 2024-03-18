@@ -48,7 +48,6 @@ const QuestionWrapperCss = (isSelected: boolean, theme: Theme) => css`
 
 const QuestionDescCss = css`
   ${HEAD_2_REGULAR}
-
   overflow: hidden;
   display: block;
 

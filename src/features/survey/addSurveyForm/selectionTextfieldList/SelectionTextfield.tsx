@@ -68,7 +68,6 @@ const iconCss = css`
 
 const inputCoreCss = (theme: Theme) => css`
   ${HEAD_2_REGULAR}
-
   box-sizing: border-box;
   width: 100%;
   height: 56px;
@@ -85,7 +84,6 @@ const inputCoreCss = (theme: Theme) => css`
 
 const itemCss = (theme: Theme, isEssential?: boolean) => css`
   ${inputCoreCss(theme)}
-
   padding-right: 48px;
 
   ${isEssential
@@ -107,7 +105,6 @@ const itemCss = (theme: Theme, isEssential?: boolean) => css`
 
 const inputCss = (theme: Theme) => css`
   ${inputCoreCss(theme)}
-
   border: 1px dashed #c9cfdf;
 
   &::placeholder {

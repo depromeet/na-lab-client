@@ -24,7 +24,6 @@ export default MaxSelectableSmall;
 
 const smallCss = (theme: Theme) => css`
   ${BODY_2_BOLD}
-
   color: ${theme.colors.gray_400};
 
   & > strong {

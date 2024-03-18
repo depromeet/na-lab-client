@@ -62,7 +62,6 @@ const crewFeedbackContainer = (theme: Theme) => css`
 
 const subTitleCss = (theme: Theme) => css`
   ${HEAD_2_BOLD};
-
   color: ${theme.colors.gray_500};
 `;
 

@@ -101,7 +101,6 @@ const textCss = (theme: Theme, variant: string) => css`
 
 const countTextCss = (theme: Theme, variant: string) => css`
   ${BODY_2_BOLD}
-
   z-index: ${theme.zIndex.aboveDefault};
   color: ${variant === 'default' ? colors.gray_400 : colors.primary_200};
   background-color: transparent;

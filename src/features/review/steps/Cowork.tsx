@@ -131,7 +131,6 @@ const notCoworkedCss = css`
 
 const inputLabelCss = (theme: Theme) => css`
   ${HEAD_2_REGULAR}
-
   cursor: pointer;
   position: absolute;
 
@@ -158,7 +157,6 @@ const yesLabelCss = (theme: Theme) => css`
 
   & > input:checked + span {
     ${HEAD_2_BOLD}
-
     color: ${theme.colors.white};
     background-color: ${theme.colors.primary_200};
   }
@@ -169,7 +167,6 @@ const noLabelCss = (theme: Theme) => css`
 
   & > input:checked + span {
     ${HEAD_2_BOLD}
-
     color: ${theme.colors.white};
     background-color: ${theme.colors.gray_500};
   }

@@ -90,7 +90,6 @@ const stepBarCss = (theme: Theme, widthPercentage: number) => css`
 
 const statusCss = (theme: Theme) => css`
   ${BODY_2_REGULAR}
-
   position: absolute;
   top: 14px;
   right: 8px;

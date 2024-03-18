@@ -10,7 +10,7 @@ env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/.yarn/unplugged
   CACHED_BUILD_PATHS: ${{ github.workspace }}/.next
   BUILD_CACHE_KEY: ${{ github.sha }}
-  DEFAULT_NODE_VERSION: '16'
+  DEFAULT_NODE_VERSION: '20'
 
 jobs:
   job_install_dependencies:

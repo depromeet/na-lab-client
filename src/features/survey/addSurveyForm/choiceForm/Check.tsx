@@ -58,7 +58,6 @@ const checkBoxCss = (theme: Theme, isSelected: boolean) => css`
 
 const checkboxLabelCss = ({ colors }: Theme) => css`
   ${BODY_2_BOLD}
-
   user-select: none;
   color: ${colors.gray_400};
 `;
