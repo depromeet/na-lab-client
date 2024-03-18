@@ -1,5 +1,5 @@
 import { type ComponentProps, type MouseEvent, type PropsWithChildren } from 'react';
-import { css, type Theme } from '@emotion/react';
+import { css, type Interpolation, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import Header from '~/components/header/Header';
@@ -13,6 +13,7 @@ interface Props {
    * 외부영역 클릭시 호출될 함수
    */
   onClickOutside?: VoidFunction;
+  blurOverrideCss?: Interpolation<Theme>;
 }
 
 /**
@@ -26,13 +27,14 @@ const Modal = ({
   mode,
   onClickOutside,
   children,
+  blurOverrideCss,
 }: PropsWithChildren<Props> & ComponentProps<typeof AnimatePortal>) => {
   useScrollLock({ lock: isShowing });
 
   return (
     <AnimatePortal isShowing={isShowing} mode={mode}>
       <div css={dialogPositionCss}>
-        <ModalBlur onClickOutside={onClickOutside} />
+        <ModalBlur onClickOutside={onClickOutside} blurOverrideCss={blurOverrideCss} />
         <div css={containerCss}>{children}</div>
       </div>
     </AnimatePortal>
@@ -52,7 +54,7 @@ const dialogPositionCss = css`
   height: 100vh;
 `;
 
-const ModalBlur = ({ onClickOutside }: Pick<Props, 'onClickOutside'>) => {
+const ModalBlur = ({ onClickOutside, blurOverrideCss }: Pick<Props, 'onClickOutside' | 'blurOverrideCss'>) => {
   const onClickOutsideDefault = (e: MouseEvent) => {
     if (e.target !== e.currentTarget) return;
     if (onClickOutside) onClickOutside();
@@ -61,7 +63,7 @@ const ModalBlur = ({ onClickOutside }: Pick<Props, 'onClickOutside'>) => {
   return (
     <m.div
       onClick={onClickOutsideDefault}
-      css={blurCss}
+      css={[blurCss, blurOverrideCss]}
       variants={defaultFadeInVariants}
       initial="initial"
       animate="animate"
