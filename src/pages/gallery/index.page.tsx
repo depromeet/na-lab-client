@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { css } from '@emotion/react';
 
 import Header from '~/components/header/MobileHeader';
 import StaggerWrapper from '~/components/stagger/StaggerWrapper';
+import useToast from '~/components/toast/useToast';
 import Card from '~/features/gallery/Card';
 import FilterTab from '~/features/gallery/FilterTab';
 import PublishMyCard from '~/features/gallery/PublishMyCard';
@@ -11,10 +13,15 @@ import Tab from '~/features/gallery/Tab';
 import useGetGalleryList from '~/hooks/api/gallery/useGetGalleryList';
 import useGetMyBookmarkList from '~/hooks/api/gallery/useGetMyBookmarkList';
 import useGetMyCard from '~/hooks/api/gallery/useGetMyCard';
+import useInternalRouter from '~/hooks/router/useInternalRouter';
 import { type FilterType, type GalleryType, type PositionType } from '~/remotes/gallery';
 import { BODY_2_BOLD } from '~/styles/typo';
 
 function Gallery() {
+  const { status } = useSession();
+  const { fireToast } = useToast();
+  const router = useInternalRouter();
+
   // TODO : 무한 스크롤
   const [page, _] = useState(0);
   const [activeTab, setActiveTab] = useState<PositionType>('ALL');
@@ -36,6 +43,21 @@ function Gallery() {
     galleryListRefetch();
     myCardInfoRefetch();
   };
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.replace('/');
+      fireToast({
+        content: '로그인이 필요합니다.',
+        higherThanCTA: true,
+      });
+    }
+    // TODO : 현재는 리로드를 무조건해야 잘 나오는데, 추후 수정 필요
+    if (status === 'authenticated') {
+      myCardInfoRefetch();
+      galleryListRefetch();
+    }
+  }, [status]);
 
   return (
     <div>

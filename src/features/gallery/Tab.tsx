@@ -1,6 +1,7 @@
 import { css, type Theme } from '@emotion/react';
 
 import { type PositionType } from '~/remotes/gallery';
+import { HEAD_2_BOLD } from '~/styles/typo';
 
 const TABS: {
   title: string;
@@ -51,7 +52,8 @@ function Tab(props: Props) {
 export default Tab;
 
 const tabContainerCss = css`
-  padding: 0 7px;
+  margin: 0 7px;
+  border-bottom: 2px solid #e4e7ee;
 `;
 
 interface TabItemProps {
@@ -69,8 +71,15 @@ function TabItem(props: TabItemProps) {
 }
 
 const itemCss = (theme: Theme, isActive: boolean) => css`
+  position: relative;
+  bottom: -2px;
+
   padding: 0 10px 14px;
+
   color: ${isActive ? theme.colors.gray_500 : theme.colors.gray_300};
+
   border-bottom: 2px solid ${isActive ? theme.colors.gray_500 : 'transparent'};
+
   transition: border-bottom 0.2s ease-in-out, color 0.2s ease-in-out;
+  ${HEAD_2_BOLD};
 `;
