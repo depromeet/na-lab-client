@@ -23,7 +23,8 @@ interface Props {
 function Card({ isBookmarked, survey, target, isMine, isPreview, listRefetch }: Props) {
   const { group } = useDnaInfo(survey.survey_id);
 
-  const viewTendencies = survey.tendencies.slice(0, 3);
+  const sortTendencies = survey.tendencies.sort((a, b) => b.count - a.count);
+  const viewTendencies = sortTendencies.slice(0, 3);
 
   const { cancelBookmark, addBookmark } = useBookmark({
     surveyId: survey.survey_id,
@@ -224,7 +225,7 @@ const tagWrapperCss = css`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  max-width: 200px;
+  max-width: 260px;
 `;
 
 const tagItemCss = (theme: Theme) => css`

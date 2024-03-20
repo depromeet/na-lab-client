@@ -115,4 +115,8 @@ const menuItemCss = css`
     display: inline-block;
     text-decoration: none;
   }
+
+  svg {
+    flex-shrink: 0;
+  }
 `;
