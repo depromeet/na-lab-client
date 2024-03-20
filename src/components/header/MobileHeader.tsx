@@ -54,7 +54,6 @@ const headerCss = (theme: Theme) => css`
 
   h1 {
     ${HEAD_1_BOLD};
-    font-size: 24px;
   }
 `;
 
