@@ -103,7 +103,7 @@ const JoinGuidePage = () => {
         </StaggerWrapper>
 
         <TooltipButton tooltipLabel="피드백 데이터를 간편하게 모아볼 수 있어요!">
-          <CTAButton css={kakaoButtonCss} onClick={loginHandler}>
+          <CTAButton css={kakaoButtonCss} onClick={() => loginHandler()}>
             <KakaoIcon />
             <span>카카오 계정으로 회원가입 하기</span>
           </CTAButton>
