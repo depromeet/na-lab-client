@@ -1,4 +1,3 @@
-import { type FC } from 'react';
 import { css, type Theme } from '@emotion/react';
 
 import { type DnaOwnerStatus } from '~/pages/dna/type';
@@ -11,7 +10,7 @@ interface Props {
   bookmarkedFeedbacks: QuestionFeedback[];
 }
 
-const BookmarkSection: FC<Props> = ({ bookmarkedFeedbacks, dnaOwnerStatus }) => {
+const BookmarkSection = ({ bookmarkedFeedbacks, dnaOwnerStatus }: Props) => {
   return (
     <section css={crewFeedbackContainer}>
       <p css={subTitleCss}>동료들의 평가</p>

@@ -7,7 +7,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import { type Softskills } from '~/components/graphic/softskills/type';
 import Header from '~/components/header/Header';
 import DownloadCircleIcon from '~/components/icons/DownloadCircleIcon';
-import HomeIcon from '~/components/icons/HomeIcon';
 import useToast from '~/components/toast/useToast';
 import { type DNA } from '~/constants/dna';
 import BookmarkSection from '~/features/dna/BookmarkSection';
@@ -115,8 +114,8 @@ const LoadedDna: FC<Props> = ({
         <Header
           title={`${userInfo?.nickname} 님의 커리어 명함`}
           isContainRemainer
-          backIcon={<HomeIcon />}
-          onBackClick={() => router.push('/')}
+          // backIcon={<HomeIcon />}
+          onBackClick={() => router.push('/gallery')}
         />
       )}
 
@@ -174,7 +173,7 @@ const LoadedDna: FC<Props> = ({
           <DnaBanner title={dnaInfo.fitDna.title} desc={dnaInfo.fitDna.subtitle} />
         </section>
 
-        <BookmarkSection bookmarkedFeedbacks={bookmarkedFeedbacks} dnaOwnerStatus={dnaOwnerStatus} />
+        <BookmarkSection bookmarkedFeedbacks={bookmarkedFeedbacks} dnaOwnerStatus={dnaOwnerStatus}></BookmarkSection>
         <DnaCta surveyId={surveyId} dnaOwnerStatus={dnaOwnerStatus} userInfo={userInfo} />
       </main>
 

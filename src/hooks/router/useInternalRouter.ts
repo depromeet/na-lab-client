@@ -4,8 +4,9 @@ import { useRouter } from 'next/router';
 type SurveyPaths = '/survey' | '/survey/intro' | '/survey/create' | '/survey/join' | '/survey/link';
 type ResultPaths = '/result';
 type FeedbackPaths = '/feedback' | `/feedback/${string}`;
+type GalleryPaths = '/gallery' | '/gallery/bookmarks';
 
-export type InternalPaths = '/' | SurveyPaths | ResultPaths | FeedbackPaths;
+export type InternalPaths = '/' | SurveyPaths | ResultPaths | FeedbackPaths | GalleryPaths;
 
 interface TransitionOptions {
   shallow?: boolean;

@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 
 import CheckCircleIcon from '~/components/icons/CheckCircleIcon';
 import WarningIcon from '~/components/icons/WarningIcon';
 import Toast from '~/components/toast/Toast';
 import useToast from '~/components/toast/useToast';
-import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 import CardPublishBottomSheet from '~/features/gallery/PublishMyCard/CardPublishBottomSheet';
 import InducePublishCard from '~/features/gallery/PublishMyCard/InducePublishCard';
 import JobSelectModal from '~/features/gallery/PublishMyCard/JobSelectModal';
@@ -20,8 +19,6 @@ interface Props {
 
 function PublishMyCard(props: Props) {
   const { fireToast } = useToast();
-
-  const { isOpen: isCardOpen, onClose: onCardClose } = useCardOpenState();
 
   const [step, setStep] = useState<OpenStateType>('initial');
   const [selectJob, setSelectJob] = useState<JobType>('PM');
@@ -61,7 +58,7 @@ function PublishMyCard(props: Props) {
 
   return (
     <AnimatePresence>
-      {isCardOpen ? <InducePublishCard onSubmit={() => setStep('job-select')} onClose={onCardClose} /> : null}
+      <InducePublishCard onSubmit={() => setStep('job-select')} />
       <JobSelectModal
         isShowing={step === 'job-select'}
         onClose={() => setStep('initial')}
@@ -83,21 +80,3 @@ function PublishMyCard(props: Props) {
 }
 
 export default PublishMyCard;
-
-const useCardOpenState = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const onClose = () => {
-    setIsOpen(false);
-    localStorage.setItem(LOCAL_STORAGE_KEY.galleryCardLead, 'true');
-  };
-
-  useEffect(() => {
-    const isGalleryCardLead = localStorage.getItem(LOCAL_STORAGE_KEY.galleryCardLead);
-    if (!isGalleryCardLead) {
-      setIsOpen(true);
-    }
-  }, []);
-
-  return { isOpen, onClose };
-};

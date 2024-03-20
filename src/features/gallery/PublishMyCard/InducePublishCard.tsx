@@ -1,21 +1,18 @@
 import Image from 'next/image';
-import { css, type Theme, useTheme } from '@emotion/react';
+import { css, type Theme } from '@emotion/react';
 import { m } from 'framer-motion';
 
 import Button from '~/components/button/Button';
-import XIcon from '~/components/icons/XIcon';
 import { defaultFadeInVariants } from '~/constants/motions';
 import { useGetLogin } from '~/hooks/api/user/useGetLogined';
 import { BODY_1, BODY_2_REGULAR, HEAD_1_BOLD } from '~/styles/typo';
 
 interface Props {
-  onClose: () => void;
   onSubmit: () => void;
 }
 
 function InducePublishCard(props: Props) {
   const { data: userInfo, isFetching, isError } = useGetLogin();
-  const theme = useTheme();
 
   if (isFetching || isError) return null;
 
@@ -29,9 +26,6 @@ function InducePublishCard(props: Props) {
       <Button css={buttonCss} onClick={props.onSubmit}>
         내 명함 게시하기
       </Button>
-      <button type="button" css={closeButtonCss} onClick={props.onClose}>
-        <XIcon color={theme.colors.gray_300} />
-      </button>
     </m.section>
   );
 }
@@ -49,6 +43,7 @@ const containerCss = (theme: Theme) => css`
   position: relative;
 
   width: 100%;
+  margin-bottom: 18px;
   padding: 49px 24px 24px;
 
   background-color: ${theme.colors.gray_50};
