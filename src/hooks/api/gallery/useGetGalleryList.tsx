@@ -31,7 +31,7 @@ const useGetGalleryList = (request: Request, options?: UseQueryOptions<Response>
         params: {
           page: request.page,
           job: request.position,
-          order_type: request.order_type,
+          'order-type': request.order_type,
           count: request.count,
         },
       }),
