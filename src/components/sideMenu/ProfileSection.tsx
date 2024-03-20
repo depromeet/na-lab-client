@@ -33,7 +33,7 @@ const profileSectionCss = css`
 
 const profileImageCss = css`
   width: 64px;
-  height: 64px;
+  height: 65px;
   background-color: #fff;
   border-radius: 50%;
 

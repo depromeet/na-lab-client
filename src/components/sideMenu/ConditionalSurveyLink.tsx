@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 
 import NewFeedbackBadge from '~/components/badge/NewFeedbackBadge';
 import InternalLink from '~/components/link/InternalLink';
+import useGetFeedbackSummaryBySurveyId from '~/hooks/api/feedbacks/useGetFeedbackSummaryBySurveyId';
 import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 
 // NOTE: ConditionalCtaLink와 동일, 임시 컴포넌트
@@ -44,10 +45,7 @@ interface ResultLinkProps {
 }
 
 const ResultLink = ({ surveyId }: ResultLinkProps) => {
-  // const { data } = useGetFeedbackSummaryB?ySurveyId(surveyId);
-  const data = {
-    new_feedback_count: 10,
-  };
+  const { data } = useGetFeedbackSummaryBySurveyId(surveyId);
 
   return (
     <InternalLink href="/result" css={linkCss}>
