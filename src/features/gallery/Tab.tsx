@@ -1,6 +1,7 @@
 import { css, type Theme } from '@emotion/react';
 
 import { type PositionType } from '~/remotes/gallery';
+import { HEAD_2_BOLD } from '~/styles/typo';
 
 const TABS: {
   title: string;
@@ -73,4 +74,5 @@ const itemCss = (theme: Theme, isActive: boolean) => css`
   color: ${isActive ? theme.colors.gray_500 : theme.colors.gray_300};
   border-bottom: 2px solid ${isActive ? theme.colors.gray_500 : 'transparent'};
   transition: border-bottom 0.2s ease-in-out, color 0.2s ease-in-out;
+  ${HEAD_2_BOLD};
 `;

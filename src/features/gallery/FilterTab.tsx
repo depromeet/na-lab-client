@@ -3,6 +3,7 @@ import { css, type Theme } from '@emotion/react';
 import AlignUpdatedIcon from '~/components/icons/AlignUpdatedIcon';
 import type Svg from '~/components/svg/Svg';
 import { type FilterType } from '~/remotes/gallery';
+import { BODY_2_BOLD } from '~/styles/typo';
 
 const TABS: {
   title: string;
@@ -74,5 +75,9 @@ const filterWrapperCss = (theme: Theme) => css`
 
     background-color: ${theme.colors.gray_50};
     border: none;
+  }
+
+  button {
+    ${BODY_2_BOLD};
   }
 `;
