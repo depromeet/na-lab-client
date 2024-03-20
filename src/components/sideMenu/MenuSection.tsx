@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { css } from '@emotion/react';
 
 import BookmarkIcon from '~/components/icons/BookmarkIcon';
+import ConditionalSurveyLink from '~/components/sideMenu/ConditionalSurveyLink';
 import useKakaoLogin from '~/hooks/auth/useKakaoLogin';
 
 function MenuSection() {
@@ -79,6 +80,12 @@ function MenuSection() {
 
           return null;
         })}
+        <button type="button">
+          <li css={menuItemCss}>
+            <BookmarkIcon isBookmarked={false} width={20} height={20} color="#fff" />
+            <ConditionalSurveyLink />
+          </li>
+        </button>
       </ul>
     </section>
   );
@@ -101,6 +108,7 @@ const menuItemCss = css`
 
   padding: 8px 20px;
 
+  font-size: 16px;
   color: #fff;
 
   span {
