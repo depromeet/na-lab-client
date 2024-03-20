@@ -1,18 +1,16 @@
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn, type SignInOptions, signOut, type SignOutParams, useSession } from 'next-auth/react';
 
 import { LOCAL_STORAGE_KEY } from '~/constants/storage';
 
 const useKakaoLogin = () => {
   const { status } = useSession();
 
-  const logOutHandler = () => {
-    signOut();
+  const logOutHandler = (options?: SignOutParams) => {
     localStorage.removeItem(LOCAL_STORAGE_KEY.accessToken);
+    signOut(options);
   };
 
-  const loginHandler = () => {
-    signIn('kakao');
-  };
+  const loginHandler = (options?: SignInOptions) => signIn('kakao', options);
 
   return {
     logOutHandler,
