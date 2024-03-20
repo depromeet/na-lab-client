@@ -3,6 +3,7 @@ import { css, type Theme } from '@emotion/react';
 import AlignUpdatedIcon from '~/components/icons/AlignUpdatedIcon';
 import type Svg from '~/components/svg/Svg';
 import { type FilterType } from '~/remotes/gallery';
+import { BODY_2_BOLD, BODY_2_REGULAR } from '~/styles/typo';
 
 const TABS: {
   title: string;
@@ -55,7 +56,9 @@ const tabItemCss = (theme: Theme, isActive: boolean) => css`
 
   padding: 8px;
 
+  font-weight: 700;
   color: ${isActive ? theme.colors.black : theme.colors.gray_300};
+  ${isActive ? BODY_2_BOLD : BODY_2_REGULAR};
 
   transition: color 0.2s ease-in-out;
 `;

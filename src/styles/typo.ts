@@ -8,15 +8,15 @@ export const HEAD_1 = css`
 `;
 
 export const HEAD_1_BOLD = css`
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
   line-height: 140%;
   letter-spacing: -0.3px;
 `;
 
 export const HEAD_2_BOLD = css`
   font-size: 1.125rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 140%;
   letter-spacing: -0.3px;
 `;
@@ -44,7 +44,7 @@ export const BODY_1 = css`
 
 export const BODY_2_BOLD = css`
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 140%;
   letter-spacing: -0.3px;
 `;
