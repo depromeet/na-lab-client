@@ -22,6 +22,7 @@ import usePageTrack from '~/hooks/event/usePageTrack';
 import GlobalStyles from '~/styles/GlobalStyle';
 import defaultTheme from '~/styles/theme';
 import { type NextPageWithLayout } from '~/types/page';
+import { isProd } from '~/utils/common';
 
 ChannelTalk.loadScript();
 ChannelTalk.boot({
@@ -40,7 +41,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            retry: false,
+            retry: isProd(process.env.NODE_ENV) ? 3 : false,
             refetchOnWindowFocus: false,
           },
         },
