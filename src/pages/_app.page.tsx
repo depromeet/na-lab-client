@@ -10,7 +10,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { domMax, LazyMotion } from 'framer-motion';
 import { useOpenExternalBrowser } from 'open-external-browser';
 
-import AuthProvider from '~/components/auth/AuthProvider';
+import AuthSessionLoader from '~/components/auth/AuthSessionLoader';
 import ErrorBoundary from '~/components/error/ErrorBoundary';
 import MonitoringInitializer from '~/components/monitoring/MonitoringInitializer';
 import NewFeedbackSnackBarListener from '~/components/snackBar/NewFeedbackSnackBarListener';
@@ -55,14 +55,14 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <SessionProvider session={pageProps.session}>
-      <MonitoringInitializer />
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <ThemeProvider theme={defaultTheme}>
-            <LazyMotion features={domMax}>
-              <GlobalStyles />
-              <ErrorBoundary>
-                <AuthProvider>
+      <AuthSessionLoader>
+        <MonitoringInitializer />
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <ThemeProvider theme={defaultTheme}>
+              <LazyMotion features={domMax}>
+                <GlobalStyles />
+                <ErrorBoundary>
                   <PageViewTracker />
                   <div id={MAIN_LAYOUT_ID} css={defaultLayoutCss}>
                     {getLayout(<Component {...pageProps} />)}
@@ -71,13 +71,13 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                     <SnackBarWrapper />
                     <Analytics />
                   </div>
-                </AuthProvider>
-              </ErrorBoundary>
-            </LazyMotion>
-          </ThemeProvider>
-          <ReactQueryDevtools />
-        </Hydrate>
-      </QueryClientProvider>
+                </ErrorBoundary>
+              </LazyMotion>
+            </ThemeProvider>
+            <ReactQueryDevtools />
+          </Hydrate>
+        </QueryClientProvider>
+      </AuthSessionLoader>
     </SessionProvider>
   );
 }
