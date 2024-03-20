@@ -1,4 +1,5 @@
 import { type NextPage } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { css, type Theme } from '@emotion/react';
 
@@ -19,6 +20,10 @@ const SurveyBasePage: NextPage = () => {
         <Link href="/survey/create" css={linkCss}>
           <Button color="blue">폼 생성하기</Button>
         </Link>
+
+        <div css={backgroundImageWrapperCss}>
+          <Image quality={100} src="/images/survey/base.webp" alt="배경" fill objectFit="cover" />
+        </div>
       </main>
 
       <BottomBar />
@@ -48,4 +53,14 @@ const h1Css = (theme: Theme) => css`
 
 const linkCss = css`
   text-decoration: none;
+`;
+
+const backgroundImageWrapperCss = (theme: Theme) => css`
+  position: absolute;
+  z-index: ${theme.zIndex.belowDefault};
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
 `;
