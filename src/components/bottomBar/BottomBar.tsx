@@ -54,14 +54,18 @@ const BottomBar = () => {
   };
 
   return (
-    <footer css={BottomBarCss(theme)}>
-      {TAB_ITEMS.map((item) => (
-        <Link key={item.path} href={item.path} css={[IconBoxCss(theme), getIsSelected(item.path) && selectedCss]}>
-          <item.icon color={getIconColor(item.path)} />
-          <span>{item.text}</span>
-        </Link>
-      ))}
-    </footer>
+    <>
+      <footer css={BottomBarCss(theme)}>
+        {TAB_ITEMS.map((item) => (
+          <Link key={item.path} href={item.path} css={[IconBoxCss(theme), getIsSelected(item.path) && selectedCss]}>
+            <item.icon color={getIconColor(item.path)} />
+            <span>{item.text}</span>
+          </Link>
+        ))}
+      </footer>
+      {/* NOTE: height remainer */}
+      <div style={{ height: 73 }}></div>
+    </>
   );
 };
 
@@ -69,6 +73,7 @@ export default BottomBar;
 
 const BottomBarCss = (theme: Theme) => css`
   position: fixed;
+  z-index: ${theme.zIndex.fixed};
   bottom: 0;
   left: 0;
 
