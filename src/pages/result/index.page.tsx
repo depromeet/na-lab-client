@@ -1,6 +1,7 @@
 import { type FC, type ReactElement } from 'react';
 import { useSession } from 'next-auth/react';
 
+import BottomBar from '~/components/bottomBar/BottomBar';
 import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
 import FixedSpinner from '~/components/loading/FixedSpinner';
 import LoadingHandler from '~/components/loading/LoadingHandler';
@@ -24,6 +25,8 @@ const Result = () => {
       <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
         {data && <FeedbackCountHandler surveyId={data.survey_id} />}
       </LoadingHandler>
+
+      <BottomBar />
     </>
   );
 };
@@ -62,7 +65,7 @@ interface FeedbackCountHandlerProps {
 const FeedbackCountHandler: FC<FeedbackCountHandlerProps> = ({ surveyId }) => {
   const { data, isLoading } = useGetFeedbackSummaryBySurveyId(surveyId);
 
-  const isFeedbackEmpty = data && data.all_feedback_count !== 0;
+  const isFeedbackEmpty = data && data.all_feedback_count === 0;
 
   return (
     <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
