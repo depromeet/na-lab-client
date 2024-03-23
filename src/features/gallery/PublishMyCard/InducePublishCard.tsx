@@ -69,12 +69,3 @@ const imageCss = css`
   top: 49px;
   right: 24px;
 `;
-
-const closeButtonCss = css`
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  width: fit-content;
-  padding: 10px;
-`;
