@@ -1,15 +1,32 @@
+import { useEffect } from 'react';
 import { type NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { css, type Theme } from '@emotion/react';
 
 import BottomBar from '~/components/bottomBar/BottomBar';
 import Button from '~/components/button/Button';
+import FixedSpinner from '~/components/loading/FixedSpinner';
+import LoadingHandler from '~/components/loading/LoadingHandler';
+import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 import { HEAD_1 } from '~/styles/typo';
 
 const SurveyBasePage: NextPage = () => {
+  const router = useRouter();
+  const { data, isLoading } = useGetSurveyIdByUserStatus();
+  const hasSurvey = Boolean(data?.survey_id);
+
+  useEffect(
+    function replaceWhenHasSurvey() {
+      if (isLoading) return;
+      if (hasSurvey) router.replace('/result');
+    },
+    [hasSurvey, isLoading, router],
+  );
+
   return (
-    <>
+    <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
       <main css={mainCss}>
         <h1 css={h1Css}>
           질문 폼을 생성하고
@@ -27,7 +44,7 @@ const SurveyBasePage: NextPage = () => {
       </main>
 
       <BottomBar />
-    </>
+    </LoadingHandler>
   );
 };
 
