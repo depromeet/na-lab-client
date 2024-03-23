@@ -8,18 +8,22 @@ import { HEAD_1_BOLD } from '~/styles/typo';
 // NOTE: MobileHeader 임시 네이밍, 추후 수정 필요
 interface Props {
   title: string;
+  hasMenu?: boolean;
 }
 
-function MobileHeader(props: Props) {
+function MobileHeader({ title, hasMenu = true }: Props) {
   const [isSideMenuOpen, toggleSideMenu] = useBoolean(false);
 
   return (
     <>
       <header css={headerCss}>
-        <h1>{props.title}</h1>
-        <button type="button" css={menuButtonCss} onClick={toggleSideMenu}>
-          <MenuBarIcon color="#394258" />
-        </button>
+        <h1>{title}</h1>
+
+        {hasMenu && (
+          <button type="button" css={menuButtonCss} onClick={toggleSideMenu}>
+            <MenuBarIcon color="#394258" />
+          </button>
+        )}
       </header>
       <div css={blankCss} />
       <SideMenu isOpen={isSideMenuOpen} onClose={toggleSideMenu} />
