@@ -1,27 +1,21 @@
-import { type ReactElement } from 'react';
+import { type FC, type ReactElement } from 'react';
 import { useSession } from 'next-auth/react';
 
+import BottomBar from '~/components/bottomBar/BottomBar';
 import LayoutPaddingTo23 from '~/components/layout/LayoutPaddingTo23';
 import FixedSpinner from '~/components/loading/FixedSpinner';
 import LoadingHandler from '~/components/loading/LoadingHandler';
 import SEO from '~/components/SEO/SEO';
 import useToast from '~/components/toast/useToast';
+import useGetFeedbackSummaryBySurveyId from '~/hooks/api/feedbacks/useGetFeedbackSummaryBySurveyId';
 import useGetSurveyIdByUserStatus from '~/hooks/api/surveys/useGetSurveyIdByUserStatus';
 import useDidUpdate from '~/hooks/lifeCycle/useDidUpdate';
 import useInternalRouter from '~/hooks/router/useInternalRouter';
 
 import SurveyIdLoaded from './SurveyIdLoaded';
+import WhenEmptyFeedback from './WhenEmptyFeedback';
 
 const Result = () => {
-  // NOTE: 아래 3개의 훅은 필요한 곳 찾아 사용 필요
-  // const { data } = useGetFeedbackById(1);
-  // const { data: ass } = useGetAllFeedbacksBySurveyId('123');
-  // const { data } = useGetAllReviewersBySurveyId('123');
-
-  // NOTE: 현재 쌓인 데이터가 없어서, 개발할 시 mock에 요청 보내면서 해당 데이터 사용 X
-  // <LoadingHandler isLoading={false} fallback={<FixedSpinner />}>
-  // {data && <SurveyIdLoaded surveyId={'123'} />}
-  // 위처럼 변경해서 개발 필요
   const { isLoading, data } = useCheckSurveyId();
 
   return (
@@ -29,9 +23,10 @@ const Result = () => {
       <SEO />
 
       <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
-        {/* TODO: useCheckSurveyId 의 데이터 넣기 필요 */}
-        {data && <SurveyIdLoaded surveyId={data.survey_id} />}
+        {data && <FeedbackCountHandler surveyId={data.survey_id} />}
       </LoadingHandler>
+
+      <BottomBar />
     </>
   );
 };
@@ -61,4 +56,20 @@ const useCheckSurveyId = () => {
   }, [status]);
 
   return { isLoading, data };
+};
+
+interface FeedbackCountHandlerProps {
+  surveyId: string;
+}
+
+const FeedbackCountHandler: FC<FeedbackCountHandlerProps> = ({ surveyId }) => {
+  const { data, isLoading } = useGetFeedbackSummaryBySurveyId(surveyId);
+
+  const isFeedbackEmpty = data && data.all_feedback_count === 0;
+
+  return (
+    <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
+      {isFeedbackEmpty ? <WhenEmptyFeedback surveyId={surveyId} /> : <SurveyIdLoaded surveyId={surveyId} />}
+    </LoadingHandler>
+  );
 };

@@ -322,7 +322,6 @@ const pillContainer = css`
   display: flex;
   flex-wrap: wrap;
   gap: 11px 10px;
-
   white-space: pre-wrap;
 `;
 
@@ -461,7 +460,7 @@ const bubbleVariants: Variants = {
 const topIconCss = css`
   position: fixed;
   right: 13px;
-  bottom: 60px;
+  bottom: 68px;
 `;
 
 const getTendencyCount = (
